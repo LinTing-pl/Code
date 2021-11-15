@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .shark {
+            width: 509px;
+            height: 270px; /* 盒子的宽高是一帧的宽高 */
+            border: 1px solid #000;
+            margin: 100px auto;
+            background: url(./摆动的鱼.png) left top; /* 让图片一开始位于 0 px的位置 */
+            animation: sharkRun 1s steps(8) infinite; /* 一秒之内，从顶部移动到底部，分八帧 */
+        }
+
+        /* 鱼所在的父盒子 */
+        .sharkBox {
+            width: 509px;
+            height: 270px;
+            animation: sharkBoxRun 20s linear infinite;
+        }
+
+        @keyframes sharkRun {
+            0% {
+            }
+
+            /* 270 * 8 = 2160 */
+            100% {
+                background-position: left -2160px; /* 动画结束时，让图片位于最底部 */
+            }
+        }
+
+        @keyframes sharkBoxRun {
+            0% {
+                transform: translateX(-600px);
+            }
+
+            100% {
+                transform: translateX(3000px);
+            }
+        }
+
+    </style>
+</head>
+<body>
+<div class="sharkBox">
+    <div class="shark"></div>
+</div>
+
+</div>
+</body>
+</html>

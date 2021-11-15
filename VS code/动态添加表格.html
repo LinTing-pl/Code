@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            border: 1px solid #c0c0c0;
+        }
+
+        th,
+        td {
+            border: 1px solid #d0d0d0;
+            color: #404060;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #09c;
+            font: bold 16px "微软雅黑";
+            color: #fff;
+        }
+
+        td {
+            font: 14px "微软雅黑";
+        }
+
+        tbody tr {
+            background-color: #f0f0f0;
+        }
+
+        tbody tr:hover {
+            cursor: pointer;
+            background-color: #fafafa;
+        }
+    </style>
+    <script src="./jquery.js"></script>
+    <script>
+        $(function () {
+            // 模拟从后台拿到的数据
+            var data = [{
+                name: "博客园",
+                url: "http://www.cnblogs.com/smyhvae/",
+                type: "程序员的精神家园"
+            }, {
+                name: "简书",
+                url: "https://www.jianshu.com/u/4d2e6b4bf117",
+                type: "写作平台"
+            }, {
+                name: "百度",
+                url: "https://www.baidu.com/",
+                type: "你就知道"
+            }];
+
+            //需求:点击按钮，然后生成tr里面生成三个td.数组元素个数个tr。然后放入tbody中
+            //步骤：
+            //1.绑定事件
+            //2.利用for循环,把数组中的所有数据组合成一个字符串。
+            //3.把生成的字符串设置为html内容添加进tbody中。
+
+
+            //1.绑定事件
+            $("input").click(function () {
+                //写入到click事件中，每次点击以后把之前的str清空【重要】
+                var str = "";
+                //2.利用for循环,把数组中的所有数据组合成一个字符串。
+                for(var i=0;i<data.length;i++){
+                    //如何生成3组？？？
+//                    str += "<tr><td>1</td><td>2</td><td>3</td></tr>";
+                    //data[i] = 数组中的每一个json
+                    //data[i].name = 数组中的每一个json的name属性值
+                    str += "<tr><td>"+data[i].name+"</td><td>"+data[i].url+"</td><td>"+data[i].type+"</td></tr>";
+                }
+
+                //3.把生成的字符串设置为html内容添加进tbody中。
+                $("#j_tbData").html(str);
+            })
+        })
+    </script>
+</head>
+
+<body>
+<input type="button" value="获取数据" id="j_btnGetData"/>
+<table>
+    <thead>
+    <tr>
+        <th>标题</th>
+        <th>地址</th>
+        <th>说明</th>
+    </tr>
+    </thead>
+    <tbody id="j_tbData">
+    <!--<tr>-->
+    <!--<td>1</td>-->
+    <!--<td>2</td>-->
+    <!--<td>3</td>-->
+    <!--</tr>-->
+    </tbody>
+</table>
+</body>
+
+</html>
