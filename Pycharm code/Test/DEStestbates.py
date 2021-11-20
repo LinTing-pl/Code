@@ -32,13 +32,14 @@ def cipher(message, key, mode='encrypt'):
 def fill(string):  # 如果二进制串的位数不是8的倍数，则用补满空缺位数
     mod = len(string) % 8
     space = 8 - mod
-    return string + bytes(space).decode('utf-8')
+    return [string + bytes(space).decode('utf-8'), space]
 
 
 class DES(object):
     def __init__(self, message, key):
         self.message = message
         self.key = key
+        self.space = 0
 
     @property
     def ciphertext(self):  # 密文
@@ -54,14 +55,14 @@ class DES(object):
         # 按64bit为一组(8bytes)进行切分
         times, mod = length // 8, length % 8
         if mod:  # 补位
-            self.message = fill(self.message)
+            self.message, self.space = fill(self.message)
             times += 1
         # 对明文对每一组进行操作
         for i in range(times):
             result = cipher(self.message[i * 8:i * 8 + 8], self.key, 'encrypt')
-            output.append(result)
+            output.extend(result)
 
-        return ''.join(output)
+        return repr(''.join(output))
 
     def __decrypt(self):  # 解密
         output = []
@@ -72,14 +73,14 @@ class DES(object):
             return None
 
         if mod:
-            self.message = fill(self.message)
+            self.message, self.space = fill(self.message)
             times += 1
 
         for i in range(times):
             result = cipher(self.message[i * 8:i * 8 + 8], self.key, 'decrypt')
             output.append(result)
 
-        return ''.join(output).rstrip(b'\x00'.decode('utf-8'))
+        return repr(''.join(output))
 
 
 while True:
@@ -91,14 +92,12 @@ while True:
     if opt == '0':
         key = input("请输入加密密钥:")
         while len(key) != 8:
-            print("请输入八字节字符的密钥，请重新输入:")
-            key = input()
+            key = input("请输入八字节字符的密钥，请重新输入:")
         cipher1 = DES(mess, key)
-        print("加密后的密文:", cipher1.ciphertext, sep='')
+        print("加密后的密文:"+cipher1.ciphertext)
     if opt == '1':
         key = input("请输入解密密钥:")
         while len(key) != 8:
-            print("请输入八字节字符的密钥，请重新输入:")
-            key = input()
+            key = input("请输入八字节字符的密钥，请重新输入:")
         cipher2 = DES(mess, key)
-        print("解密后的明文:", cipher2.plaintext, sep='')
+        print("解密后的明文:"+cipher2.plaintext)

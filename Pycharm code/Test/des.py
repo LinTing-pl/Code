@@ -115,6 +115,7 @@ extend_table = [32, 1, 2, 3, 4, 5,
                 ]
 
 
+# str->ASCll->unicode  ord()->bin()
 # 将字符转换为对应的Unicode码，中文用2个字节表示
 def char2unicode_ascii(intext, length):
     outtext = []
@@ -378,12 +379,12 @@ def DES(text, key, optionType):
 
 
 def main():
-    text = input("请输入要操作的文本:  ")
-    print(" ".join(["输入的文本是:", text]))
-    optionType = input("请选择是进行加密还是解密，加密输入0，解密输入1:  ")
+    text = input("请输入要操作的文本:")
+    print("".join(["输入的文本是:", text]))
+    optionType = input("请选择是进行加密还是解密，加密输入0，解密输入1:")
     while not (optionType == '0' or optionType == '1'):
         print("Wrong!!!选择的操作类型只能是0或者是1")
-        optionType = input("请选择是进行加密还是解密，加密输入0，解密输入1:  ")
+        optionType = input("请选择是进行加密还是解密，加密输入0，解密输入1:")
     length = len(text)
 
     Result = ""
@@ -392,33 +393,31 @@ def main():
         # ----------若输入文本的长度不是4的整数倍，即不是64字节的整数倍，用空格补全（此处为了加密中文，用的是unicode编码，即用16字节表示一个字符）-------
         text = text + (length % 4) * " "
         length = len(text)
-        key = input("请输入8位加密密码: ")
+        key = input("请输入8位加密密码:")
 
         while len(key) != 8:
             print("wrong!!请输入8位密码")
-            key = input("请输入8位加密密码: ")
+            key = input("请输入8位加密密码:")
 
-        print("加密后的文本:", end="")
         for i in range(int(length / 4)):
             tempText = [text[j] for j in range(i * 4, i * 4 + 4)]
             Result = "".join([Result, DES(tempText, key, int(optionType))])
         #            f.write(Result)
-        print(Result)
+        print("加密后的文本:", Result, sep='')
 
     if optionType == '1':
         # ----------若输入文本的长度不是8的整数倍，即不是64字节的整数倍，用空格补全（此处解密出来的密文用的是每8bit转换为一个ascii码，所以生成的八位表示的字符）-------
         #        text=text+(length%8)*" "
         length = len(text)
-        key = input("请输入8位解密密码: ")
+        key = input("请输入8位解密密码:")
         while len(key) != 8:
             print("wrong!!请输入8位密码")
-            key = input("请输入8位解密密码: ")
+            key = input("请输入8位解密密码:")
 
-        print("解密后的文本:", end="")
         for i in range(int(length / 8)):
             tempText = [text[j] for j in range(i * 8, i * 8 + 8)]
             Result = "".join([Result, DES(tempText, key, int(optionType))])
-        print(Result)
+        print("解密后的文本:", Result, sep='')
 
 
 if __name__ == '__main__':

@@ -1,13 +1,13 @@
 #!/Users/env python
 # -*- coding:utf-8 -*-
 # @author：麟听 WeChat:15019763969
-__all__ = ['IpTable', 'InvereIpTable', 'createSubKey',
+__all__ = ['IpTable', 'InverseIpTable', 'createSubKey',
            'E_extend', 's_box_change', 'p_box_change',
            'xor', 'string2bin', 'bin2string']
 
 
-# 初始IP置换表
 def IpTable(text):
+    """初始IP置换表"""
     IP = [58, 50, 42, 34, 26, 18, 10, 2,
           60, 52, 44, 36, 28, 20, 12, 4,
           62, 54, 46, 38, 30, 22, 14, 6,
@@ -19,8 +19,8 @@ def IpTable(text):
     return [text[IP[i] - 1] for i in range(64)]
 
 
-# 逆初始IP置换表
-def InvereIpTable(text):
+def InverseIpTable(text):
+    """逆初始IP置换表"""
     INVERSE_IP = [40, 8, 48, 16, 56, 24, 64, 32,
                   39, 7, 47, 15, 55, 23, 63, 31,
                   38, 6, 46, 14, 54, 22, 62, 30,
@@ -33,8 +33,8 @@ def InvereIpTable(text):
     return [text[INVERSE_IP[i] - 1] for i in range(64)]
 
 
-# E扩展置换
 def E_extend(text):
+    """# E扩展置换"""
     E = [32, 1, 2, 3, 4, 5,
          4, 5, 6, 7, 8, 9,
          8, 9, 10, 11, 12, 13,
@@ -46,7 +46,7 @@ def E_extend(text):
     return [text[E[i] - 1] for i in range(48)]
 
 
-# PC_1变换和PC_2变换
+# 置换PC_1和置换PC_2
 PC_1 = [57, 49, 41, 33, 25, 17, 9,
         1, 58, 50, 42, 34, 26, 18,
         10, 2, 59, 51, 43, 35, 27,
@@ -167,8 +167,19 @@ def xor(m, n):
 def char2bin(char):
     """返回一个（ASCII）字符的8位二进制表示"""
     b = bin(ord(char)).replace('0b', '')
-    space = 8 - len(b)
-    return '0' * space + b
+    length = len(b)
+    if length <= 8:
+        space = 8 - length
+        return '0' * space + b
+    elif length <= 16:
+        space = 16 - length
+        return '0' * space + b
+    elif length <= 24:
+        space = 24 - length
+        return '0' * space + b
+    elif length <= 32:
+        space = 32 - length
+        return '0' * space + b
 
 
 def string2bin(text):
