@@ -174,8 +174,8 @@ class DES(object):
         return self.__decrypt()
 
     def __encrypt(self):
-        self.message = str2bin(self.message)
-        self.key = str2bin(self.key)
+        self.message = string2bit(self.message)
+        self.key = string2bit(self.key)
         self.result = cipher(self.message, self.key, self.opt)
         return self.result
 
