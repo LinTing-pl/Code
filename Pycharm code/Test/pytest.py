@@ -1,27 +1,17 @@
-def string2bit(m):
-    output = []
-    result = []
-    a = [ord(i) for i in m]
-    num = 0
-    for i in range(len(a)):
-        b = bin(a[i]).replace('0b', '')
-        lenth = len(b)
-        space = 8 - lenth % 8
-        c = f'{0:0{space}}{b}'
-        for j in range(len(c)):
-            num += 1
-            result.append(int(c[j]))
-            while i == len(a) - 1 and j == len(c) - 1 and num < 64:
-                num += 8
-                result.extend([0, 0, 1, 1, 0, 0, 0, 0])
-            if num >= 64:
-                output.append(result)
-                num = 0
-                result = []
-    return output
-
-
-a='123456789'
-print(string2bit(a))
-print(len(string2bit(a)[1]))
-print(bin(ord(' ')))
+print(int('1111111111111111', 2))
+# 55296 55297 55298
+# listerror = []
+# for i in range(55296, 65536):
+#     try:
+#         print(chr(i), '  ', i)
+#     except UnicodeEncodeError:
+#         listerror.append(i)
+#         i += 1
+# print(listerror)
+# '\ud800' '\udfff'
+# print(57344 - 55296)
+# print(ord('\udbed'))
+# print(ord('\ud8f1'))
+# print(int('\udfff',16)-int('\ud800',16))
+import sys
+print(sys.stdout.encoding)
