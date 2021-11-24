@@ -168,18 +168,8 @@ def char2bin(char):
     """返回一个（ASCII）字符的8位二进制表示"""
     b = bin(ord(char)).replace('0b', '')
     length = len(b)
-    if length <= 8:
-        space = 8 - length
-        return '0' * space + b
-    elif length <= 16:
-        space = 16 - length
-        return '0' * space + b
-    elif length <= 24:
-        space = 24 - length
-        return '0' * space + b
-    elif length <= 32:
-        space = 32 - length
-        return '0' * space + b
+    space = 8 - length
+    return '0' * space + b
 
 
 def string2bin(text):
