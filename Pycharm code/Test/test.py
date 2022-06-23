@@ -123,6 +123,3 @@
 #         date_list.append(begin_date)
 #         begin_date = begin_date + day
 #     return date_list
-
-# if __name__ == '__main__':
-#     print(daterange("2020-9-8", "2020-9-12"))

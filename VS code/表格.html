@@ -1,58 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-        form{
-            width: 255px;
-        }
+      form {
+        width: 255px;
+      }
+      table {
+        border: black solid 1px;
+        border-collapse: collapse;
+      }
+      td {
+        border: black solid 1px;
+        padding: 10px;
+        text-align: center;
+      }
+      span#pp {
+        border: dashed red 2px;
+      }
+      a {
+        text-decoration: underline red;
+      }
+      a:hover {
+        color: #ababab;
+      }
+      .div1 {
+        display: flex;
+        flex-direction: column;
+        border: dashed 3px black;
+        height: 200px;
+        width: 400px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: lightgreen;
+      }
+      .div1:hover {
+        background: lightyellow;
+      }
+      .div1:active {
+        background: #000;
+        cursor: grabbing;
+      }
+      .span3 {
+        border: solid 2px red;
+        font-size: 40px;
+        font-weight: 900;
+        color: rgba(255, 234, 10,0.6);
+      }
+      .span3:active{
+        background: white;
+      }
+      ul{
+        list-style: none;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <span id="pp">111</span>
+    <span>222</span>
     <form action="">
-        <fieldset>
-            <legend>用户登录</legend>
-            <span>用户名:</span>
-            <input type="text" name="username" placeholder="请输入用户名">
-            <hr/>
-            <span>密码:</span>
-            <input type="text" name="password" placeholder="请输入密码">
-            <hr/>
-            <span>头像:</span>
-            <input type="file" name="" id="">
-            <hr/>
-            <span>生日:</span>
-            <input type="datetime-local" name="" id="">
-            <hr/>
-            <span>喜欢的颜色:</span>
-            <input type="color" name="" id="">
-            <hr>
-            <span>幸运数字:</span>
-            <input type="text"><br/>
-            <input type="radio" name="sex" value="man" id="">男
-            <input type="radio" name="sex" value="woman" id="">女
-            <input type="radio" name="sex" value="s" id="">保密
-            <hr/>
-            <span>爱好:</span>
-            <input type="checkbox" name="chouyan" id="">抽烟
-            <input type="checkbox" name="hejiu" id="">喝酒
-            <input type="checkbox" name="tangtou" id="">烫头
-            <hr/>
-            <span>籍贯:</span>
-            <select name="" id="">
-                <option value="">北京</option>
-                <option value="">上海</option>
-                <option value="">南京</option>
-                <option value="">广州</option>
-                <option value="">重庆</option>
-            </select><br>
-            <textarea name="" id="" cols="30" rows="10" placeholder="个人简介"></textarea><br>
-            <input type="reset" value="重置">
-            <input type="submit" value="提交">
-        </fieldset>
+      <fieldset>
+        <legend>用户登录</legend>
+        <span>用户名:</span>
+        <input type="text" name="username" placeholder="请输入用户名" />
+        <hr />
+        <span>密码:</span>
+        <input type="text" name="password" placeholder="请输入密码" />
+        <hr />
+        <span>头像:</span>
+        <input type="file" name="" id="" />
+        <hr />
+        <span>生日:</span>
+        <input type="datetime-local" name="" id="" />
+        <hr />
+        <span>喜欢的颜色:</span>
+        <input type="color" name="" id="" />
+        <hr />
+        <span>幸运数字:</span>
+        <input type="number" /><br />
+        <input type="radio" name="sex" value="man" id="" />男
+        <input type="radio" name="sex" value="woman" id="" />女
+        <input type="radio" name="sex" value="s" id="" />保密
+        <hr />
+        <span>爱好:</span>
+        <input type="checkbox" name="chouyan" id="" />抽烟
+        <input type="checkbox" name="hejiu" id="" />喝酒
+        <input type="checkbox" name="tangtou" id="" />烫头
+        <hr />
+        <span>邮箱:</span>
+        <input type="email" name="" id="" />
+        <hr />
+        <span>籍贯:</span>
+        <select name="" id="">
+          <option value="">北京</option>
+          <option value="">上海</option>
+          <option value="">南京</option>
+          <option value="">广州</option>
+          <option value="">重庆</option></select
+        ><br />
+        <textarea
+          name=""
+          id=""
+          cols="30"
+          rows="10"
+          placeholder="个人简介"
+        ></textarea
+        ><br />
+        <input type="reset" value="重置" />
+        <input type="submit" value="提交" />
+      </fieldset>
     </form>
-</body>
+    <br />
+    <a href="https://www.baidu.com" target="_blank">百度</a>
+    <ul>
+      <li>第一</li>
+      <li>第二</li>
+      <li>第三</li>
+    </ul>
+    <ol>
+      <li>第四</li>
+      <li>第五</li>
+      <li>第六</li>
+    </ol>
+    <br />
+    <img src="./摆动的鱼/摆动的鱼.png" alt="这是一张鱼图" />
+    <h1>这是h1标签</h1>
+    <h2>这是h2标签</h2>
+    <h3>这是h3标签</h3>
+    <h4>这是h4标签</h4>
+    <h5>这是h5标签</h5>
+    <h6>这是h6标签</h6>
+    <p><b>你好</b>世界！</p>
+    <table>
+      <thead>
+        <tr>
+          <th>头</th>
+          <th>toDADu</th>
+          <th>too</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>5</td>
+          <td>6</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>8</td>
+          <td>9</td>
+        </tr>
+      </tbody>
+    </table>
+    <br />
+    <div class="div1">
+      <span class="span1">SPAN1</span><br />
+      <span class="span2">SPAN2</span>
+      <span class="span3">SPAN3 </span>
+    </div>
+  </body>
 </html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-image: url("./摆动的鱼/摆动的鱼.png");
+        height: 2000px;
+      }
+      .rt {
+        position: fixed;
+        right: 0;
+        top: 38%;
+      }
+      .rt ul {
+        background: rgb(153, 152, 152);
+        padding-inline-start: 0;
+        border-radius: 20px 0 0 20px;
+      }
+      .rt ul li {
+        border: solid 1px white;
+        list-style: none;
+        font-size: 30px;
+      }
+      .rt ul li:hover {
+        color: white;
+      }
+      .lt{
+        height: 600px;
+        width: 600px;
+        background: rgb(184, 184, 27);
+        border-radius: 18px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+      }
+      li{
+        list-style: none;
+      }
+      .lt ul{
+        padding-inline-start: 0;
+        display: flex;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+      }
+      .lt ul li{
+        height: 100px;
+        width: 100px;
+        line-height: 100px;
+        margin: 20px;
+        border-radius: 18px;
+        font-size: 40px;
+      }
+      .v2{
+        background: pink;
+      }
+      .v4{
+        background: rgb(67, 228, 53);
+      }
+      .v8{
+        background: rgb(238, 117, 238);
+      }
+      .v16{
+        background-color: rgb(230, 159, 27);
+      }
+      .v32{
+        background: rgb(248, 71, 71);
+      }
+      .v64{
+        background-color: rgb(107, 98, 240);
+      }
+      .v128{
+        background-color: rgb(103, 200, 238);
+      }
+      .v256{
+        background-color: rgb(235, 121, 101);
+      }
+      .v512{
+        background-color: rgb(217, 72, 247);
+      }
+      .v1024{
+        background-color: rgb(247, 195, 23);
+      }
+      .vnone{
+        background-color: rgb(238, 238, 94);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="rt">
+      <ul>
+        <li id="li1">yiyiyiyiyi</li>
+        <li id="li2">ererererer</li>
+        <li id="li3">sansansansan</li>
+        <li>sisisisisi</li>
+      </ul>
+    </div>
+    <div class="lt">
+      <ul>
+        <li class="v2">2</li>
+        <li class="v4">4</li>
+        <li class="v8">8</li>
+        <li class="v16">16</li>
+      </ul>
+      <ul>
+        <li class="v32">32</li>
+        <li class="v64">64</li>
+        <li class="v128">128</li>
+        <li class="v256">256</li>
+      </ul>
+      <ul>
+        <li class="v2">2</li>
+        <li class="v512">512</li>
+        <li class="v1024">1024</li>
+        <li class="vnone"></li>
+      </ul>
+      <ul>
+        <li class="v2">2</li>
+        <li class="v2">2</li>
+        <li class="v2">2</li>
+        <li class="v2">2</li>
+      </ul>
+    </div>
+  </body>
+  <script>
+    document.querySelector("#li1").onclick = function () {
+      alert("小心点！");
+    };
+    document.querySelector("#li2").onclick = function () {
+      alert("叫爸爸！");
+    };
+    document.querySelector("#li3").onclick = function () {
+      alert("你好啊美女！");
+    };
+  </script>
+</html>

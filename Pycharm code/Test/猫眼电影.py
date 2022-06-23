@@ -7,8 +7,8 @@ import requests
 
 
 class MaoYan(object):
-    def __init__(self,offset):
-        self.url = 'https://maoyan.com/board/4?offset='+str(offset)
+    def __init__(self, offset):
+        self.url = 'https://maoyan.com/board/4?offset=' + str(offset)
         self.headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36 Edg/90.0.818.62"}
 
@@ -36,11 +36,11 @@ class MaoYan(object):
     def run(self):
         movies_html = self.get_html()
         movies_content = self.find(movies_html)
-        for i in movies_content :
+        for i in movies_content:
             print(i)
 
 
 if __name__ == '__main__':
     for num in range(10):
-        movies = MaoYan(num*10)
+        movies = MaoYan(num * 10)
         movies.run()

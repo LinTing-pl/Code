@@ -1,6 +1,3 @@
-#!/Users/env python
-# -*- coding:utf-8 -*-
-# @author：麟听 WeChat:15019763969
 import tkinter as tk
 from tkinter.ttk import *
 
@@ -180,6 +177,7 @@ def string2bit(m):
 def key2bit(m):
     """将字符串转换位二进制，自动补64bit"""
     result = []
+    num = 0
     a = [ord(i) for i in m]
     for i in range(len(a)):
         b = bin(a[i]).replace('0b', '')
@@ -187,7 +185,11 @@ def key2bit(m):
         space = 8 - length
         c = '0' * space + b
         for j in range(len(c)):
+            num += 1
             result.append(int(c[j]))
+        while i == len(a) - 1 and num < 64:
+            num += 8
+            result.extend([0, 0, 1, 0, 0, 0, 0, 0])
     return result
 
 
@@ -288,14 +290,14 @@ class Gui(object):
 
     def display(self):
         """显示组件，并设置组件大小"""
-        self.lb1.place(relx=0.02, rely=0.01, relheight=0.04)
-        self.lb2.place(relx=0.02, rely=0.57, relheight=0.04)
-        self.lb3.place(relx=0.02, rely=0.45, relheight=0.04, relwidth=0.1)
-        self.text1.place(relheight=0.35, relwidth=0.95, relx=0.02, rely=0.05)
-        self.text2.place(relheight=0.35, relwidth=0.95, relx=0.02, rely=0.61)
-        self.button1.place(relx=0.50, rely=0.42, relwidth=0.10, relheight=0.10)
-        self.button2.place(relx=0.62, rely=0.42, relwidth=0.10, relheight=0.10)
-        self.entry1.place(relx=0.12, rely=0.43, relwidth=0.35, relheight=0.09)
+        self.lb1.place(relx=0.12, rely=0.01, relheight=0.04)
+        self.lb2.place(relx=0.12, rely=0.57, relheight=0.04)
+        self.lb3.place(relx=0.12, rely=0.45, relheight=0.04, relwidth=0.1)
+        self.text1.place(relheight=0.35, relwidth=0.80, relx=0.15, rely=0.05)
+        self.text2.place(relheight=0.35, relwidth=0.80, relx=0.15, rely=0.61)
+        self.button1.place(relx=0.02, rely=0.40, relwidth=0.10, relheight=0.10)
+        self.button2.place(relx=0.02, rely=0.50, relwidth=0.10, relheight=0.10)
+        self.entry1.place(relx=0.22, rely=0.43, relwidth=0.35, relheight=0.09)
 
     def normal_text(self, text):
         """Text：state NORMAL"""
