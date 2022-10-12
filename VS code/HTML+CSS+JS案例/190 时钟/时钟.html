@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>时钟</title>
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .clock {
+        background: url(./img/clock.png) no-repeat;
+        width: 294px;
+        height: 300px;
+        background-size: cover;
+        position: relative;
+      }
+      .hour,
+      .minute,
+      .second {
+        transform-origin: bottom;
+      }
+      .hour {
+        background-color: #000;
+        width: 8px;
+        height: 70px;
+        position: absolute;
+        left: 143px;
+        top: 77px;
+      }
+      .minute {
+        background-color: #666;
+        width: 4px;
+        height: 90px;
+        position: absolute;
+        left: 145px;
+        top: 57px;
+      }
+      .second {
+        background-color: #999;
+        width: 2px;
+        height: 110px;
+        position: absolute;
+        left: 146px;
+        top: 37px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="clock">
+      <div class="hour"></div>
+      <div class="minute"></div>
+      <div class="second"></div>
+    </div>
+  </body>
+  <script>
+    const run = () => {
+      const date = new Date();
+      const seconds = date.getSeconds();
+      const minutes = date.getMinutes();
+      const hours = date.getHours() % 12;
+      const hourEl = document.querySelector(".hour");
+      const minuteEl = document.querySelector(".minute");
+      const secondEl = document.querySelector(".second");
+
+      hourEl.style.transform = `rotate(${hours * 30}deg)`;
+      minuteEl.style.transform = `rotate(${minutes * 6}deg)`;
+      secondEl.style.transform = `rotate(${seconds * 6}deg)`;
+    };
+    setInterval(run, 1000);
+  </script>
+</html>

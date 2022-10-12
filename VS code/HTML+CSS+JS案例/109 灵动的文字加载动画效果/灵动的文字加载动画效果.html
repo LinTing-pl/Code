@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>灵动的文字加载动画效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #444;
+      }
+      .loading {
+        position: relative;
+        width: 100%;
+        height: 60px;
+      }
+      .loading span {
+        position: absolute;
+        width: 30px;
+        height: 60px;
+        line-height: 60px;
+        margin: 0 10px;
+        color: #fff;
+        text-align: center;
+        font-size: 40px;
+        transform: rotate(180deg);
+        opacity: 0;
+        animation: move 2s linear infinite;
+        animation-delay: calc((var(--i) - 1) * 0.2s);
+      }
+      .loading span::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -20px;
+        width: 30px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.15);
+        filter: blur(1.5px);
+      }
+      .loading span:nth-child(8)::before,
+      .loading span:nth-child(9)::before,
+      .loading span:nth-child(10)::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 13px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: red;
+      }
+      .loading span:nth-child(8)::before {
+        background-color: #eccc68;
+      }
+      .loading span:nth-child(9)::before {
+        background-color: #7bed9f;
+      }
+      .loading span:nth-child(10)::before {
+        background-color: #ff6b81;
+      }
+
+      @keyframes move {
+        0% {
+          right: 0;
+          opacity: 0;
+        }
+        35% {
+          right: 41%;
+          transform: rotate(0);
+          opacity: 1;
+        }
+        65% {
+          right: 59%;
+          transform: rotate(0);
+          opacity: 1;
+        }
+        100% {
+          right: 100%;
+          transform: rotate(-180deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading">
+      <span style="--i: 1">L</span>
+      <span style="--i: 2">O</span>
+      <span style="--i: 3">A</span>
+      <span style="--i: 4">D</span>
+      <span style="--i: 5">I</span>
+      <span style="--i: 6">N</span>
+      <span style="--i: 7">G</span>
+      <span style="--i: 8"></span>
+      <span style="--i: 9"></span>
+      <span style="--i: 10"></span>
+    </div>
+  </body>
+</html>

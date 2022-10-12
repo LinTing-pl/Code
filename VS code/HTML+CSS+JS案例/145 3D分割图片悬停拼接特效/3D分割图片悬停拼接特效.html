@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D分割图片悬停拼接特效</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(200deg, #f5f7fa, #c3cfe2);
+      }
+      .container {
+        position: relative;
+        perspective: 50px;
+      }
+      .text {
+        display: inline-block;
+        position: relative;
+        z-index: 1;
+        padding: 50px 70px;
+        background-color: rgba(124, 189, 174, 0.65);
+        color: rgba(0, 0, 0, 0.85);
+        text-align: center;
+        letter-spacing: 6px;
+        font-weight: 100;
+        cursor: pointer;
+        backdrop-filter: blur(6px);
+        transition: 0.25s ease-in-out;
+      }
+      .text h2 {
+        font-size: 30px;
+        font-weight: 100;
+        margin-bottom: 10px;
+      }
+      .image {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        perspective: 50px;
+        animation: rotate 10s linear infinite;
+      }
+      .image .part {
+        width: 250px;
+        height: 150px;
+        background-image: url(./img/感官先生.jfif);
+        background-repeat: no-repeat;
+        background-size: 200% 200%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -125px;
+        margin-top: -75px;
+        transition: 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+      }
+      .image .part-1 {
+        transform: translate(-63%, -68%) rotate3d(1, -1, -1, 3deg);
+        background-position: top left;
+      }
+      .image .part-2 {
+        transform: translate(71%, -68%) rotate3d(1, 1, -1, 3deg);
+        background-position: top right;
+      }
+      .image .part-3 {
+        transform: translate(-65%, 71%) rotate3d(-1, -1, -1, 3deg);
+        background-position: bottom left;
+      }
+      .image .part-4 {
+        transform: translate(70%, 73%) rotate3d(-1, 1, -1, 3deg);
+        background-position: bottom right;
+      }
+      .text:hover {
+        opacity: 0;
+        transform: translateY(-16px);
+      }
+      .text:hover + .image {
+        animation: none;
+      }
+      .text:hover + .image .part-1 {
+        transform: translate(-50%, -50%);
+        transition-delay: 0.2s;
+      }
+      .text:hover + .image .part-2 {
+        transform: translate(50%, -50%);
+        transition-delay: 0.15s;
+      }
+      .text:hover + .image .part-3 {
+        transform: translate(-50%, 50%);
+        transition-delay: 0.3s;
+      }
+      .text:hover + .image .part-4 {
+        transform: translate(50%, 50%);
+        transition-delay: 0.25s;
+      }
+      @keyframes rotate {
+        0% {
+          transform: rotate3d(1.9, 0.2, 0, 1deg);
+        }
+        25% {
+          transform: rotate3d(1.5, -1.1, 0, 1deg);
+        }
+        50% {
+          transform: rotate3d(1.3, -1.7, 0, 1deg);
+        }
+        75% {
+          transform: rotate3d(-1.5, -1.2, 0, 1deg);
+        }
+        100% {
+          transform: rotate3d(1.9, 0.2, 0, 1deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="text">
+        <h2>悬停看效果</h2>
+        (hover me)
+      </div>
+      <div class="image">
+        <div class="part part-1"></div>
+        <div class="part part-2"></div>
+        <div class="part part-3"></div>
+        <div class="part part-4"></div>
+      </div>
+    </div>
+  </body>
+</html>

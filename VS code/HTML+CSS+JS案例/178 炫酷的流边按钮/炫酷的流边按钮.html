@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>炫酷的流边按钮</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #2c3e50;
+      }
+      .container {
+        display: flex;
+      }
+      .button {
+        position: relative;
+        width: 160px;
+        height: 50px;
+        margin: 0 15px;
+        cursor: pointer;
+      }
+      .shape {
+        fill: none;
+        stroke: #009ffd;
+        stroke-width: 6;
+        stroke-dasharray: 100 400;
+        stroke-dashoffset: -240;
+        transition: all 1s ease;
+      }
+      .text {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        letter-spacing: 2px;
+      }
+      .button:hover .shape {
+        stroke: #06e6a0;
+        stroke-width: 3;
+        stroke-dasharray: 50 0;
+        stroke-dashoffset: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="button">
+        <svg width="160" height="50">
+          <rect class="shape" width="160" height="50"></rect>
+          <div class="text">点赞</div>
+        </svg>
+      </div>
+      <div class="button">
+        <svg width="160" height="50">
+          <rect class="shape" width="160" height="50"></rect>
+          <div class="text">关注</div>
+        </svg>
+      </div>
+      <div class="button">
+        <svg width="160" height="50">
+          <rect class="shape" width="160" height="50"></rect>
+          <div class="text">分享</div>
+        </svg>
+      </div>
+    </div>
+  </body>
+</html>

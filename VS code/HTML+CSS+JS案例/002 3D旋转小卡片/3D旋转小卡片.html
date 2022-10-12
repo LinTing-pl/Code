@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>3D旋转小卡片</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: linear-gradient(200deg, #5ee7df, #b490ca);
+            perspective: 800px;
+        }
+
+        .card {
+            position: relative;
+            width: 300px;
+            height: 450px;
+            border-radius: 30px;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.1);
+            animation: rotate-reverse 1.2s cubic-bezier(0.66, -0.47, 0.33, 1.5) forwards;
+        }
+
+        .card:hover {
+            animation: rotate 1.2s cubic-bezier(0.66, -0.47, 0.33, 1.5) forwards;
+        }
+
+        .card .front,
+        .card .back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            font-size: 20px;
+            border-radius: 30px;
+        }
+
+        .card .front {
+            z-index: 1;
+            backface-visibility: hidden;
+            background-color: pink;
+        }
+
+        .card .back {
+            background-color: #fff;
+            transform: rotateY(180deg);
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotateY(0deg);
+            }
+            100% {
+                transform: rotateY(180deg);
+            }
+        }
+
+        @keyframes rotate-reverse {
+            0% {
+                transform: rotateY(180deg);
+            }
+            100% {
+                transform: rotateY(0deg);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="front">
+        <p>缘分让我们相遇!</p>
+    </div>
+    <div class="back">
+        <p>南南</p>
+        <p>↓</p>
+        <p style="color: pink; font-size: 60px">❤</p>
+        <p>↑</p>
+        <p>沛沛</p>
+    </div>
+</div>
+</body>
+<script></script>
+</html>

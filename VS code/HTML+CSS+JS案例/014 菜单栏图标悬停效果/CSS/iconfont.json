@@ -1,0 +1,44 @@
+{
+  "id": "3576918",
+  "name": "aaaaa",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "160002",
+      "name": "home2",
+      "font_class": "home2",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "1433651",
+      "name": "bell",
+      "font_class": "bell",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "4503699",
+      "name": "plus-circle",
+      "font_class": "plus-circle",
+      "unicode": "e6da",
+      "unicode_decimal": 59098
+    },
+    {
+      "icon_id": "7683853",
+      "name": "user",
+      "font_class": "user",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "14553236",
+      "name": "heart-active",
+      "font_class": "heart-active",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    }
+  ]
+}

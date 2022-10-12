@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>浪漫的心形文字动画特效</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(#ff9a9e, #fad0c4);
+        overflow: hidden;
+        user-select: none;
+      }
+      .love {
+        position: absolute;
+        margin: -250px 0 0 -250px;
+      }
+      .love-hor {
+        animation: hor 10s ease-in-out infinite alternate;
+        animation-delay: calc(var(--d) * 1s);
+      }
+      .love-ver {
+        animation: ver 20s linear infinite;
+        animation-delay: calc(var(--d) * 1s);
+      }
+      .love-text {
+        color: #fff;
+        text-shadow: 0 0 10px #ebeb6d;
+        letter-spacing: 2px;
+        font-size: 22px;
+        transform: translateY(-100%) rotateZ(-30deg);
+      }
+      @keyframes hor {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(500px);
+        }
+      }
+      @keyframes ver {
+        0% {
+          transform: translateY(180px);
+        }
+        10% {
+          transform: translateY(45px);
+        }
+        15% {
+          transform: translateY(4.5px);
+        }
+        18% {
+          transform: translateY(0px);
+        }
+        20% {
+          transform: translateY(4.5px);
+        }
+        22% {
+          transform: translateY(34px);
+        }
+        24% {
+          transform: translateY(64px);
+        }
+        25% {
+          transform: translateY(112.5px);
+        }
+        26% {
+          transform: translateY(64px);
+        }
+        28% {
+          transform: translateY(34px);
+        }
+        30% {
+          transform: translateY(3.4px);
+        }
+        32% {
+          transform: translateY(0px);
+        }
+        35% {
+          transform: translateY(4.5px);
+        }
+        40% {
+          transform: translateY(45px);
+        }
+        50% {
+          transform: translateY(180px);
+        }
+        71% {
+          transform: translateY(428px);
+        }
+        72% {
+          transform: translateY(441px);
+        }
+        75% {
+          transform: translateY(450px);
+        }
+        77% {
+          transform: translateY(441px);
+        }
+        79% {
+          transform: translateY(428px);
+        }
+        100% {
+          transform: translateY(180px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div
+        class="love"
+        v-for="(item, index) in 67"
+        :key="index"
+        :style="{'--d':(item*-1)*0.3}">
+        <div class="love-hor">
+          <div class="love-ver">
+            <div class="love-text">hello world {{item}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="./JS/vue2.js"></script>
+  <script>
+    new Vue({
+      el: ".container",
+      data() {
+        return {};
+      },
+    });
+  </script>
+</html>

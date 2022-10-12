@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>蜂巢里的小蜜蜂光标特效</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        cursor: none;
+      }
+      body {
+        background: url(./img/bg.jfif);
+        overflow: hidden;
+      }
+      .bee {
+        width: 50px;
+        height: 50px;
+        border-radius: 50% 75% 0 75%;
+        background: linear-gradient(
+          -50deg,
+          #000 15px,
+          #daa520 15px,
+          #daa520 25px,
+          #000 25px,
+          #000 40px,
+          #daa520 50px,
+          #000 50px
+        );
+        box-shadow: inset 0 0 0 #000,
+          inset 5px -5px 5px 5px rgba(139, 69, 19, 0.5),
+          -10px 20px 35px saddlebrown;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: rotate(-20deg);
+        transition: all 0.15s;
+      }
+      .bee::before {
+        content: "";
+        width: 35px;
+        height: 35px;
+        background: #000;
+        border-radius: 75% 50% 75% 25%;
+        position: absolute;
+        left: -22px;
+        top: -15px;
+        background: radial-gradient(
+          circle at 10px 15px,
+          #000 3px,
+          #daa520 3px,
+          #daa520 20px,
+          #000
+        );
+        box-shadow: 0 0 0 2px #000;
+        transform: rotate(30deg);
+      }
+      .bee::after {
+        content: "";
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        position: absolute;
+        left: -33px;
+        top: -28px;
+        box-shadow: inset -2px 1px 0 #000, 1px -2px 0 #fb1, 3px -3px 0 #000;
+        z-index: -1;
+        animation: feeler 0.35s linear infinite;
+      }
+      .bee.flip {
+        transform: rotate(20deg) scaleX(-1);
+      }
+      .wings {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(
+          225deg,
+          rgba(0, 0, 0, 0.5),
+          transparent 50px
+        );
+        border-radius: 50% 50% 50% 25%;
+        position: absolute;
+        left: 25px;
+        top: -25px;
+        transform-origin: left bottom;
+        animation: buzz 0.35s linear infinite;
+      }
+      .limbs {
+        width: 10px;
+        height: 10px;
+        border-left: 2px solid #000;
+        border-right: 2px solid #000;
+        position: absolute;
+        left: 25px;
+        top: 100%;
+      }
+      .limbs::before {
+        content: "";
+        width: 100%;
+        height: 100%;
+        border-left: 2px solid #000;
+        border-right: 2px solid #000;
+        position: absolute;
+        left: -33px;
+        top: -20px;
+        transform: rotate(60deg);
+      }
+      @keyframes feeler {
+        50% {
+          transform: translateY(2px);
+        }
+      }
+      @keyframes buzz {
+        50% {
+          transform: scale(0.9) rotateX(90deg) rotateY(90deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bee">
+      <div class="wings"></div>
+      <div class="limbs"></div>
+    </div>
+  </body>
+  <script>
+    const bee = document.querySelector(".bee");
+
+    let last_x = 0;
+    window.addEventListener("mousemove", function (e) {
+      let x = e.clientX - 15;
+      let y = e.clientY - 15;
+      bee.style.left = x + "px";
+      bee.style.top = y + "px";
+      if (last_x < x) {
+        bee.classList.add("flip");
+      } else {
+        bee.classList.remove("flip");
+      }
+      last_x = x;
+    });
+  </script>
+</html>

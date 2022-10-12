@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>饮料瓶文字旋转特效</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #ce363e;
+        overflow: hidden;
+        color: #fff;
+        font-family: monospace;
+        text-transform: uppercase;
+        font-size: 50px;
+      }
+      .bottle {
+        position: relative;
+        width: 11em;
+        height: 11em;
+        perspective: 25em;
+      }
+      .bottle-sides,
+      .bottle-side {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform-style: preserve-3d;
+      }
+
+      .bottle-sides {
+        width: 100%;
+        height: 100%;
+        top: 10%;
+        transform: rotateZ(90deg) rotateX(-90deg);
+        animation: spin 1s linear infinite;
+      }
+      .bottle-side {
+        transform: translateY(-50%) rotateX(var(--rx));
+      }
+      .bottle-side span {
+        display: inline-block;
+        width: 1ch;
+        backface-visibility: hidden;
+      }
+      .bottle-side span:nth-child(1) {
+        transform: translateZ(2ch) rotateY(0deg) scaleY(1);
+      }
+      .bottle-side span:nth-child(2) {
+        transform: translateZ(2ch) rotateY(0deg) scaleY(1);
+      }
+      .bottle-side span:nth-child(3) {
+        transform: translateZ(2.25ch) rotateY(-30deg) scaleY(1);
+      }
+      .bottle-side span:nth-child(4) {
+        transform: translateZ(2.75ch) rotateY(-30deg) scaleY(1.3);
+      }
+      .bottle-side span:nth-child(5) {
+        transform: translateZ(3.25ch) rotateY(-30deg) scaleY(1.5);
+      }
+      .bottle-side span:nth-child(6) {
+        transform: translateZ(3.5ch) rotateY(0deg) scaleY(1.75);
+      }
+      .bottle-side span:nth-child(7) {
+        transform: translateZ(3.5ch) rotateY(0deg) scaleY(1.75);
+      }
+      .bottle-side span:nth-child(8) {
+        transform: translateZ(3.5ch) rotateY(0deg) scaleY(1.75);
+      }
+      .bottle-side span:nth-child(9) {
+        transform: translateZ(3.3ch) rotateY(15deg) scaleY(1.5);
+      }
+      .bottle-side span:nth-child(10) {
+        transform: translateZ(3ch) rotateY(15deg) scaleY(1.4);
+      }
+      .bottle-side span:nth-child(11) {
+        transform: translateZ(2.8ch) rotateY(0deg) scaleY(1.3);
+      }
+      .bottle-side span:nth-child(12) {
+        transform: translateZ(2.8ch) rotateY(0deg) scaleY(1.3);
+      }
+      .bottle-side span:nth-child(13) {
+        transform: translateZ(3ch) rotateY(15deg) scaleY(1.4);
+      }
+      .bottle-side span:nth-child(14) {
+        transform: translateZ(3.3ch) rotateY(-15deg) scaleY(1.5);
+      }
+      .bottle-side span:nth-child(15) {
+        transform: translateZ(3.5ch) rotateY(0deg) scaleY(1.75);
+      }
+      .bottle-side span:nth-child(16) {
+        transform: translateZ(3.5ch) rotateY(0deg) scaleY(1.75);
+      }
+      .bottle-side span:nth-child(17) {
+        transform: translateZ(3.25ch) rotateY(15deg) scaleY(1.5);
+      }
+      @keyframes spin {
+        0% {
+          transform: rotateZ(90deg) rotateX(-90deg);
+        }
+        100% {
+          transform: rotateZ(90deg) rotateX(-54deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bottle">
+      <div class="bottle-sides">
+        <div
+          class="bottle-side"
+          v-for="(n, i) in 6"
+          :key="i"
+          :style="{'--rx':(i*36)+'deg'}">
+          <span v-for="(t, index) in arr" :key="index">{{t}}</span>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="./JS/vue2.js"></script>
+  <script>
+    new Vue({
+      el: ".bottle",
+      data() {
+        return {
+          text: "drink more water!",
+          arr: [],
+        };
+      },
+      mounted() {
+        this.arr = this.text.split("");
+      },
+    });
+  </script>
+</html>

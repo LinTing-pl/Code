@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>聚光灯文字效果</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            background: #222;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            color: #333;
+            text-transform: uppercase;
+            font-size: 112px;
+            position: relative;
+        }
+
+        h1::after {
+            content: "helloworld";
+            color: transparent;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: linear-gradient(
+                    90deg,
+                    #ff69b3,
+                    #fe0000,
+                    #ffa401,
+                    #ffff01,
+                    #40e1d2,
+                    #410098,
+                    #9400d4
+            );
+            background-clip: text;
+            -webkit-background-clip: text;
+            clip-path: circle(100px at 0% 50%);
+            animation: light 5s infinite;
+        }
+
+        @keyframes light {
+            0% {
+                clip-path: circle(100px at 0% 50%);
+            }
+            50% {
+                clip-path: circle(100px at 100% 50%);
+            }
+            100% {
+                clip-path: circle(100px at 0% 50%);
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>HelloWorld</h1>
+</body>
+</html>

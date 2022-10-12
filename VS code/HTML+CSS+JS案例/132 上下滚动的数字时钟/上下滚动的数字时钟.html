@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>上下滚动的数字时钟</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background-color: #0e141b;
+        color: #e0e6eb;
+        font-weight: 300;
+        text-align: center;
+        letter-spacing: 8px;
+        overflow: hidden;
+      }
+      .column,
+      .colon {
+        display: inline-block;
+        font-size: 86px;
+        line-height: 86px;
+        vertical-align: top;
+      }
+      .colon {
+        transform: translateY(calc(50vh - 50px));
+        transition: all 0.3s;
+      }
+      .colon::after {
+        content: ":";
+      }
+      .num {
+        opacity: 0.25;
+        transition: all 0.5s;
+      }
+      .num.visible {
+        opacity: 1;
+        text-shadow: 1px 1px 0 #2c6299;
+      }
+      .num.near {
+        opacity: 0.35;
+      }
+      .num.far {
+        opacity: 0.15;
+      }
+      .num.distant {
+        opacity: 0.1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="column">
+      <div class="num">0</div>
+      <div class="num">1</div>
+      <div class="num">2</div>
+    </div>
+    <div class="column">
+      <div class="num">0</div>
+      <div class="num">1</div>
+      <div class="num">2</div>
+      <div class="num">3</div>
+      <div class="num">4</div>
+      <div class="num">5</div>
+      <div class="num">6</div>
+      <div class="num">7</div>
+      <div class="num">8</div>
+      <div class="num">9</div>
+    </div>
+    <div class="colon"></div>
+    <div class="column">
+      <div class="num">0</div>
+      <div class="num">1</div>
+      <div class="num">2</div>
+      <div class="num">3</div>
+      <div class="num">4</div>
+      <div class="num">5</div>
+    </div>
+    <div class="column">
+      <div class="num">0</div>
+      <div class="num">1</div>
+      <div class="num">2</div>
+      <div class="num">3</div>
+      <div class="num">4</div>
+      <div class="num">5</div>
+      <div class="num">6</div>
+      <div class="num">7</div>
+      <div class="num">8</div>
+      <div class="num">9</div>
+    </div>
+    <div class="colon"></div>
+
+    <div class="column">
+      <div class="num">0</div>
+      <div class="num">1</div>
+      <div class="num">2</div>
+      <div class="num">3</div>
+      <div class="num">4</div>
+      <div class="num">5</div>
+    </div>
+    <div class="column">
+      <div class="num">0</div>
+      <div class="num">1</div>
+      <div class="num">2</div>
+      <div class="num">3</div>
+      <div class="num">4</div>
+      <div class="num">5</div>
+      <div class="num">6</div>
+      <div class="num">7</div>
+      <div class="num">8</div>
+      <div class="num">9</div>
+    </div>
+  </body>
+  <script>
+    let size = 86;
+    let columns = Array.from(document.getElementsByClassName("column"));
+    let class_list = ["visible", "near", "far", "far", "distant", "distant"];
+    let is_24_hour_clock = true;
+
+    function getClock() {
+      let d = new Date();
+      let hour = is_24_hour_clock ? d.getHours() : d.getHours() % 12 || 12;
+      hour = hour < 10 ? "0" + hour : hour;
+      let minute = d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes();
+      let second = d.getSeconds() < 10 ? "0" + d.getSeconds() : d.getSeconds();
+      return hour + "" + minute + "" + second;
+    }
+    function getClass(n, i) {
+      return (
+        class_list.find(function (_class, class_index) {
+          return i - class_index === n || i + class_index === n;
+        }) || ""
+      );
+    }
+    setInterval(() => {
+      let c = getClock();
+      columns.forEach(function (ele, i) {
+        let n = parseInt(c[i]);
+        let offset = -n * size;
+        ele.style.transform =
+          "translateY(calc(50vh + " + offset + "px - " + size / 2 + "px))";
+        Array.from(ele.children).forEach(function (ele2, i2) {
+          ele2.className = "num " + getClass(n, i2);
+        });
+      });
+    }, 1000);
+  </script>
+</html>

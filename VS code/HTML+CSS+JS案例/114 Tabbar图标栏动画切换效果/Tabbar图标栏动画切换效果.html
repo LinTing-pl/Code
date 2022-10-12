@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tabbar图标栏动画切换效果</title>
+    <link rel="stylesheet" href="./CSS/iconfont.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --bg-color: #2962ff60;
+        --blue: #2962ff;
+        --blue30: #2962ff30;
+        --blue60: #2962ff60;
+        --red: #ff6776;
+        --red30: #ff677630;
+        --red60: #ff677660;
+        --green: #00c853;
+        --green30: #00c85330;
+        --green60: #00c85360;
+        --purple: #bf3eff;
+        --purple30: #bf3eff30;
+        --purple60: #bf3eff60;
+        --orange: #ff6d00;
+        --orange30: #ff6d0030;
+        --orange60: #ff6d0060;
+      }
+      body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--bg-color);
+        transition: background-color 1s;
+      }
+      .tabbar {
+        position: relative;
+        background-color: #fff;
+        border-radius: 25px;
+        padding: 12px 15px;
+      }
+      .tabbar ul {
+        list-style: none;
+        display: flex;
+      }
+      .tabbar ul li {
+        position: relative;
+        z-index: 1;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 15px;
+        cursor: pointer;
+        transition: all 1s;
+      }
+      .tabbar ul li img {
+        width: 80%;
+        height: 80%;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 50%;
+      }
+      .tabbar ul li .iconfont {
+        font-size: 28px;
+        transition: all 0.5s;
+      }
+      .tabbar ul li:nth-child(2).active .iconfont {
+        color: var(--red);
+      }
+      .tabbar ul li:nth-child(3).active .iconfont {
+        color: var(--green);
+      }
+      .tabbar ul li:nth-child(4).active .iconfont {
+        color: var(--purple);
+      }
+      .tabbar ul li:nth-child(5).active .iconfont {
+        color: var(--orange);
+      }
+      .active-circle {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background-color: red;
+        position: absolute;
+        z-index: 0;
+        top: 27px;
+        left: 30px;
+        transition: all 0.4s ease-in-out;
+      }
+      .tabbar ul li:nth-child(1).active ~ .active-circle {
+        left: 30px;
+        background-color: var(--blue30);
+      }
+      .tabbar ul li:nth-child(2).active ~ .active-circle {
+        left: 108px;
+        background-color: var(--red30);
+      }
+      .tabbar ul li:nth-child(3).active ~ .active-circle {
+        left: 186px;
+        background-color: var(--green30);
+      }
+      .tabbar ul li:nth-child(4).active ~ .active-circle {
+        left: 264px;
+        background-color: var(--purple30);
+      }
+      .tabbar ul li:nth-child(5).active ~ .active-circle {
+        left: 342px;
+        background-color: var(--orange30);
+      }
+      .jello {
+        animation: jello 0.8s linear infinite;
+      }
+      @keyframes jello {
+        0% {
+          transform: scale(1, 1);
+        }
+        30% {
+          transform: scale(1.25, 0.75);
+        }
+        40% {
+          transform: scale(0.75, 1/25);
+        }
+        50% {
+          transform: scale(1.15, 0.85);
+        }
+        65% {
+          transform: scale(0.95, 1.05);
+        }
+        75% {
+          transform: scale(1.05, 0.95);
+        }
+        100% {
+          transform: scale(1, 1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="tabbar">
+      <ul>
+        <li class="item active" onclick="setActive(this,'--blue60')">
+          <img src="./img/img1.jfif" alt="" />
+        </li>
+        <li class="item" onclick="setActive(this,'--red60')">
+          <span class="iconfont icon-tubiaozhizuomoban-"></span>
+        </li>
+        <li class="item" onclick="setActive(this,'--green60')">
+          <span class="iconfont icon-zhankaijiahao"></span>
+        </li>
+        <li class="item" onclick="setActive(this,'--purple60')">
+          <span class="iconfont icon-xiaoxi"></span>
+        </li>
+        <li class="item" onclick="setActive(this,'--orange60')">
+          <span class="iconfont icon-user"></span>
+        </li>
+        <div class="active-circle"></div>
+      </ul>
+    </div>
+  </body>
+  <script>
+    let items = document.querySelectorAll(".item");
+    let active_circle = document.querySelector(".active-circle");
+    function setActive(_t, bg_color) {
+      items.forEach((item) => {
+        item.classList.remove("active");
+      });
+      _t.classList.add("active");
+      active_circle.classList.add("jello");
+      // setTimeout(() => {
+      //   active_circle.classList.remove("jello");
+      // }, 500);
+      document.documentElement.style.setProperty(
+        "--bg-color",
+        "var(" + bg_color + ")"
+      );
+    }
+  </script>
+</html>

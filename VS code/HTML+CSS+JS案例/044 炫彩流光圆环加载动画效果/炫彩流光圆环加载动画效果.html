@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>炫彩流光圆环加载动画效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        background: #000;
+      }
+      .circle {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background-image: linear-gradient(
+          0deg,
+          #2f66ff,
+          #9940ff 30%,
+          #ee37ff 60%,
+          #ff004c 100%
+        );
+        animation: circleRotate 1s linear infinite;
+      }
+      .circle::before {
+        content: "";
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background-image: linear-gradient(
+          0deg,
+          #2f66ff,
+          #9940ff 30%,
+          #ee37ff 60%,
+          #ff004c 100%
+        );
+        filter: blur(35px);
+      }
+      .circle::after {
+        content: "";
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: #000;
+      }
+      span {
+        color: #fff;
+        position: absolute;
+      }
+      @keyframes circleRotate {
+        0% {
+          transform: rotate(0);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="circle"></div>
+      <span>加载中</span>
+    </div>
+  </body>
+</html>

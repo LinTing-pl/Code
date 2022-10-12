@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数字滑动选择控件</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #222237;
+        overflow: hidden;
+        user-select: none;
+      }
+      ul {
+        width: 100%;
+      }
+      ul li {
+        list-style: none;
+        font-size: 40px;
+        text-align: center;
+        height: 60px;
+        line-height: 60px;
+      }
+      .container {
+        width: 90vw;
+        max-width: 400px;
+        height: 300px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        cursor: grab;
+        border-radius: 8px;
+        box-shadow: inset 0 0 50px 0 rgba(0, 0, 0, 0.5);
+        -webkit-mask: linear-gradient(180deg, transparent, #000, transparent);
+      }
+      .container.grabbing {
+        cursor: grabbing;
+      }
+      .picker {
+        color: #3b3b60;
+        width: 100%;
+        display: flex;
+        transform: translateY(calc(var(--top) * 1px));
+      }
+      .clip {
+        position: absolute;
+        color: blue;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 60px;
+        top: 120px;
+        overflow: hidden;
+      }
+      .clip::before {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-left: 16px solid blue;
+        border-top: 8px solid transparent;
+        border-right: none;
+        border-bottom: 8px solid transparent;
+        top: 50%;
+        transform: translateY(-50%);
+        left: calc(50% - 80px);
+      }
+      .clip::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-left: none;
+        border-right: 16px solid blue;
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        top: 50%;
+        transform: translateY(-50%);
+        right: calc(50% - 80px);
+      }
+      .clip .wrapper {
+        --num: 0;
+        margin-top: -120px;
+        transform: translateY(calc(var(--num) * -60px));
+      }
+      .transtion {
+        transition: transform 0.35s;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="picker" style="--top: 0">
+        <ul>
+          <li>00</li>
+          <li>01</li>
+          <li>02</li>
+          <li>03</li>
+          <li>04</li>
+          <li>05</li>
+          <li>06</li>
+          <li>07</li>
+          <li>08</li>
+          <li>09</li>
+          <li>10</li>
+        </ul>
+      </div>
+      <div class="clip">
+        <div class="wrapper">
+          <ul>
+            <li>00</li>
+            <li>01</li>
+            <li>02</li>
+            <li>03</li>
+            <li>04</li>
+            <li>05</li>
+            <li>06</li>
+            <li>07</li>
+            <li>08</li>
+            <li>09</li>
+            <li>10</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const picker = document.querySelector(".picker"),
+      wrapper = document.querySelector(".wrapper");
+    function eventHandler(e) {
+      e.bubbles = false;
+      let event = null,
+        tmp = null;
+      switch (e.type) {
+        case "mousedown":
+          event = new CustomEvent("slidestart");
+          tmp = "screenY" in e ? e : e.touches[0];
+          break;
+        case "mousemove":
+          event = new CustomEvent("sliding");
+          tmp = "screenY" in e ? e : e.touches[0];
+          break;
+        case "mouseup":
+          event = new CustomEvent("slideend");
+          tmp = "screenY" in e ? e : e.touches[0];
+          break;
+      }
+      event.y = tmp.screenY;
+      event.original = e;
+      this.dispatchEvent(event);
+    }
+    let startY = 0,
+      moveY = 0,
+      disY = 0,
+      draggable = false,
+      times = 0;
+    let length = picker.querySelectorAll("li").length;
+    picker.parentElement.addEventListener("slidestart", function ({ y }) {
+      draggable = true;
+      startY = y;
+      picker.classList.remove("transition");
+      wrapper.classList.remove("transition");
+      this.classList.add("grabbing");
+    });
+    document.addEventListener("sliding", function ({ y }) {
+      if (!draggable) return;
+      moveY = y;
+      disY = moveY - startY;
+      let value = picker.style.getPropertyValue("--top") * 1;
+      value += disY + (Math.abs(disY) >= 0.5 ? times : 1);
+      let num = -value / 60;
+      picker.style.setProperty("--top", value);
+      wrapper.style.setProperty("--num", num);
+      startY = moveY;
+    });
+    document.addEventListener("slideend", function ({ y }) {
+      if (!draggable) return;
+      moveY = y;
+      const maxTop = (length - 3) * 60;
+      disY = moveY - startY;
+      let value = picker.style.getPropertyValue("--top") * 1;
+      value += disY;
+      picker.classList.add("transtion");
+      wrapper.classList.add("transtion");
+      value = Math.min(120, Math.max(-maxTop, Math.round(value / 60) * 60));
+      picker.style.setProperty("--top", value);
+      wrapper.style.setProperty("--num", Math.round(-value / 60));
+      picker.parentElement.classList.remove("grabbing");
+      startY = moveY;
+      draggable = false;
+    });
+    picker.parentElement.addEventListener("mousedown", eventHandler);
+    document.addEventListener("mousemove", eventHandler);
+    document.addEventListener("mouseup", eventHandler);
+  </script>
+</html>

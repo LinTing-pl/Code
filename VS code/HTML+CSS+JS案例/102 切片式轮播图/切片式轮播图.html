@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>切片式轮播图</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: radial-gradient(circle at top, #444, #000);
+      }
+      .container {
+        width: 650px;
+        display: flex;
+        justify-content: space-evenly;
+        overflow: hidden;
+        -webkit-box-reflect: below 13px
+          linear-gradient(transparent 70%, rgba(0, 0, 0, 0.2));
+      }
+      .big-box {
+        width: 400px;
+        height: 500px;
+        background-size: cover;
+        transition: all 0.4s;
+      }
+      .small-box {
+        width: 200px;
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .small-box .img {
+        position: relative;
+        width: 200px;
+        height: 90px;
+        right: 0;
+        transition: all 0.5s;
+      }
+      .small-box .img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        right: 0;
+        transition: all 0.5s;
+        position: absolute;
+      }
+      .small-box .img.active {
+        opacity: 0;
+        right: 250px;
+      }
+      .small-box .img:hover img {
+        opacity: 0;
+        right: 250px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="big-box"></div>
+      <div class="small-box">
+        <div class="img"><img src="./img/img1.jfif" alt="" /></div>
+        <div class="img"><img src="./img/img2.jfif" alt="" /></div>
+        <div class="img"><img src="./img/img3.jfif" alt="" /></div>
+        <div class="img"><img src="./img/img4.jfif" alt="" /></div>
+        <div class="img"><img src="./img/img5.jfif" alt="" /></div>
+      </div>
+    </div>
+  </body>
+  <script>
+    let big_box = document.querySelector(".big-box");
+    let imgs = document.getElementsByClassName("img");
+    let timer = null;
+    let index = 0;
+    function reset() {
+      for (let i = 0; i < imgs.length; i++) {
+        imgs[i].className = "img";
+      }
+    }
+    function selected() {
+      reset();
+      imgs[index].className = "img active";
+    }
+    function play() {
+      timer = setInterval(function () {
+        selected();
+        index++;
+        big_box.style.backgroundImage = "url(./img/img" + index + ".jfif)";
+        if (index == 5) {
+          index = 0;
+        }
+      }, 1500);
+    }
+    for (let i = 0; i < imgs.length; i++) {
+      imgs[i].onmousemove = function () {
+        big_box.style.backgroundImage = "url(./img/img" + (i + 1) + ".jfif)";
+        reset();
+        clearInterval(timer);
+        index = i + 1;
+        if (index == 5) {
+          index = 0;
+        }
+        play();
+      };
+    }
+    play();
+  </script>
+</html>

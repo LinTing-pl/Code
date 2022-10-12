@@ -1,0 +1,44 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "30415",
+      "name": "comment_fill",
+      "font_class": "commentfill",
+      "unicode": "e666",
+      "unicode_decimal": 58982
+    },
+    {
+      "icon_id": "836233",
+      "name": "bars",
+      "font_class": "bars",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "1899074",
+      "name": "th-large",
+      "font_class": "th-large",
+      "unicode": "e735",
+      "unicode_decimal": 59189
+    },
+    {
+      "icon_id": "4936685",
+      "name": "tags-fill",
+      "font_class": "tags-fill",
+      "unicode": "e86e",
+      "unicode_decimal": 59502
+    },
+    {
+      "icon_id": "11903692",
+      "name": "checkbox-checked",
+      "font_class": "checkbox-checked",
+      "unicode": "e658",
+      "unicode_decimal": 58968
+    }
+  ]
+}

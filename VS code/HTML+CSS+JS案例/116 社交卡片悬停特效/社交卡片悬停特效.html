@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>社交卡片悬停特效</title>
+    <link rel="stylesheet" href="./CSS/iconfont.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: linear-gradient(0deg, #d3e7ff, #f3f8ff);
+        overflow: hidden;
+      }
+      .container {
+        display: flex;
+      }
+      .card {
+        width: 300px;
+        height: 380px;
+        background-color: #999;
+        border-radius: 10px;
+        margin: 0 15px;
+        box-shadow: 0 80px 60px -60px #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.8s;
+      }
+      .card .border {
+        width: 290px;
+        height: 370px;
+        border-radius: 10px;
+        transition: boder 1s;
+      }
+      .card .border:hover {
+        border: 1px solid #fff;
+      }
+      .card h2 {
+        color: #fff;
+        font-size: 30px;
+        margin: 20px;
+        letter-spacing: 8px;
+        opacity: 0;
+        transition: opacity 1s;
+      }
+      .card .icons {
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        width: 50px;
+        height: 150px;
+        position: absolute;
+        bottom: 20px;
+      }
+      .card .iconfont {
+        font-size: 18px;
+        opacity: 0;
+        transition: opacity 1s;
+      }
+      .card:nth-child(1) {
+        background: url(./img/img1.jfif) no-repeat;
+        background-position: center;
+        background-size: 600px;
+      }
+      .card:nth-child(1):hover {
+        background-size: 500px;
+      }
+      .card:nth-child(1):hover h2,
+      .card:nth-child(1):hover .iconfont {
+        opacity: 1;
+      }
+      .card:nth-child(2) {
+        background: url(./img/img2.jfif) no-repeat;
+        background-position: center;
+        background-size: 600px;
+      }
+      .card:nth-child(2):hover {
+        background-size: 500px;
+      }
+      .card:nth-child(2):hover h2,
+      .card:nth-child(2):hover .iconfont {
+        opacity: 1;
+      }
+      .card:nth-child(3) {
+        background: url(./img/img3.jfif) no-repeat;
+        background-position: center;
+        background-size: 600px;
+      }
+      .card:nth-child(3):hover {
+        background-size: 500px;
+      }
+      .card:nth-child(3):hover h2,
+      .card:nth-child(3):hover .iconfont {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="border">
+          <h2>艾斯</h2>
+          <div class="icons">
+            <span class="iconfont icon-QQ"></span>
+            <span class="iconfont icon-weixin"></span>
+            <span class="iconfont icon-weibo"></span>
+            <span class="iconfont icon-twitter"></span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="border">
+          <h2>萨博</h2>
+          <div class="icons">
+            <span class="iconfont icon-QQ"></span>
+            <span class="iconfont icon-weixin"></span>
+            <span class="iconfont icon-weibo"></span>
+            <span class="iconfont icon-twitter"></span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="border">
+          <h2>路飞</h2>
+          <div class="icons">
+            <span class="iconfont icon-QQ"></span>
+            <span class="iconfont icon-weixin"></span>
+            <span class="iconfont icon-weibo"></span>
+            <span class="iconfont icon-twitter"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

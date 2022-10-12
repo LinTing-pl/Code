@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>转动变色加载动画效果</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+        }
+
+        .loading {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            --percent: 20;
+            --h: calc(var(--percent) / 100 * 360);
+            color: hsl(var(--h), 100%, 75%);
+            animation: changecolor 5s linear infinite;
+        }
+
+        .loading span {
+            --diameter: calc(50px + (var(--n) - 1) * 30px);
+            position: absolute;
+            width: var(--diameter);
+            height: var(--diameter);
+            border-style: solid;
+            border-color: currentColor transparent;
+            border-radius: 50%;
+            border-width: 10px 10px 0 0;
+            animation: rotating 5s linear infinite;
+            animation-duration: calc(5s / (9 - var(--n) + 1));
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.4));
+        }
+
+        .loading span:nth-child(1) {
+            --n: 1;
+        }
+
+        .loading span:nth-child(2) {
+            --n: 2;
+        }
+
+        .loading span:nth-child(3) {
+            --n: 3;
+        }
+
+        .loading span:nth-child(4) {
+            --n: 4;
+        }
+
+        .loading span:nth-child(5) {
+            --n: 5;
+        }
+
+        .loading span:nth-child(6) {
+            --n: 6;
+        }
+
+        .loading span:nth-child(7) {
+            --n: 7;
+        }
+
+        .loading span:nth-child(8) {
+            --n: 8;
+        }
+
+        .loading span:nth-child(9) {
+            --n: 9;
+        }
+
+        @keyframes rotating {
+            to {
+                transform: rotate(1turn);
+            }
+        }
+
+        @keyframes changecolor {
+            0%,
+            100% {
+                --percent: 0;
+            }
+            10% {
+                --percent: 10;
+            }
+            20% {
+                --percent: 20;
+            }
+            30% {
+                --percent: 30;
+            }
+            40% {
+                --percent: 40;
+            }
+            50% {
+                --percent: 50;
+            }
+            60% {
+                --percent: 60;
+            }
+            70% {
+                --percent: 70;
+            }
+            80% {
+                --percent: 80;
+            }
+            90% {
+                --percent: 90;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="loading">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+</body>
+</html>

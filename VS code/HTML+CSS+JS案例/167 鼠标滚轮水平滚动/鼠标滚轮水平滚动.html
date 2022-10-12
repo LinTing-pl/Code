@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>鼠标滚轮水平滚动</title>
+    <script src="./JS/horwheel.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        overflow: auto;
+        position: absolute;
+        inset: 0;
+      }
+      .content {
+        width: max-content;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        overflow-y: hidden;
+      }
+      .content img {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="content">
+        <img src="./img/img2.jpg" alt="" />
+      </div>
+    </div>
+  </body>
+  <script>
+    const view = document.querySelector(".container");
+    horwheel(view);
+  </script>
+</html>

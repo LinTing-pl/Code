@@ -1,0 +1,46 @@
+{
+  "easycom": {
+    "autoscan": true,
+    "custom": {
+      // uni-ui 规则如下配置
+      "^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+    }
+  },
+  "pages": [
+    //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+    {
+      "path": "pages/index",
+      "name": "index",
+      "style": {
+        "navigationBarTitleText": "明日兼职"
+      }
+    },
+    {
+      "path": "pages/fatie",
+      "name": "fatie",
+      "style": {
+        "navigationBarTitleText": "明日兼职"
+      }
+    },
+    {
+      "path": "pages/me",
+      "name": "me",
+      "style": {
+        "navigationBarTitleText": "明日兼职"
+      }
+    },
+    {
+      "path": "pages/addform",
+      "name": "addform",
+      "style": {
+        "navigationBarTitleText": "明日兼职"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  }
+}

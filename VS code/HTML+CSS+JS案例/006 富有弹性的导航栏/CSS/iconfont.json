@@ -1,0 +1,44 @@
+{
+  "id": "3572829",
+  "name": "aaa",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "10343167",
+      "name": "Create User",
+      "font_class": "CreateUser",
+      "unicode": "e755",
+      "unicode_decimal": 59221
+    },
+    {
+      "icon_id": "12193162",
+      "name": "envelope",
+      "font_class": "envelope",
+      "unicode": "eb9c",
+      "unicode_decimal": 60316
+    },
+    {
+      "icon_id": "16660664",
+      "name": "Comment",
+      "font_class": "Comment",
+      "unicode": "e770",
+      "unicode_decimal": 59248
+    },
+    {
+      "icon_id": "16660675",
+      "name": "Home",
+      "font_class": "Home",
+      "unicode": "e771",
+      "unicode_decimal": 59249
+    },
+    {
+      "icon_id": "18051180",
+      "name": "heart",
+      "font_class": "Heart",
+      "unicode": "e6a8",
+      "unicode_decimal": 59048
+    }
+  ]
+}

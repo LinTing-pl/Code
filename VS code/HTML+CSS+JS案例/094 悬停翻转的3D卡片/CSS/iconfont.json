@@ -1,0 +1,30 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "376320",
+      "name": "apple",
+      "font_class": "apple",
+      "unicode": "e633",
+      "unicode_decimal": 58931
+    },
+    {
+      "icon_id": "4936983",
+      "name": "windows-fill",
+      "font_class": "windows-fill",
+      "unicode": "e882",
+      "unicode_decimal": 59522
+    },
+    {
+      "icon_id": "12310833",
+      "name": "logo_google",
+      "font_class": "logo_google",
+      "unicode": "e8f0",
+      "unicode_decimal": 59632
+    }
+  ]
+}

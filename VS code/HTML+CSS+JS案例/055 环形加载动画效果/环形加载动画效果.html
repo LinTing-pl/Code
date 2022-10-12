@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>环形加载动画效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #000;
+      }
+      .container {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container .circle {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 5px solid transparent;
+        margin: -30px;
+        border-top: 5px solid var(--c);
+        animation: var(--a) 3s linear infinite;
+      }
+      .container .circle:nth-child(3) {
+        position: absolute;
+        top: -66.66px;
+        --c: lightgreen;
+        --a: animate2;
+        border-top: 5px solid transparent;
+        border-left: 5px solid var(--c);
+        animation-delay: -2s;
+      }
+      .container .circle::before {
+        content: "";
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 15px;
+        height: 15px;
+        background-color: var(--c);
+        border-radius: 50%;
+        box-shadow: 0 0 5px var(--c), 0 0 10px var(--c), 0 0 20px var(--c),
+          0 0 40px var(--c), 0 0 80px var(--c);
+      }
+      .container .circle:nth-child(1) {
+        --c: lightsalmon;
+        --a: animate1;
+      }
+      .container .circle:nth-child(2) {
+        --c: lightskyblue;
+        --a: animate2;
+        border-top: 5px solid transparent;
+        border-left: 5px solid var(--c);
+        animation-delay: -0.5s;
+      }
+      .container .circle:nth-child(2)::before,
+      .container .circle:nth-child(3)::before {
+        top: initial;
+        left: 12px;
+        bottom: 12px;
+      }
+      @keyframes animate1 {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes animate2 {
+        0% {
+          transform: rotate(360deg);
+        }
+        100% {
+          transform: rotate(0deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+    </div>
+  </body>
+</html>

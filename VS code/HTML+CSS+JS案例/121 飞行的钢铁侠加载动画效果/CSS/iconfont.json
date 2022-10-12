@@ -1,0 +1,16 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "3895883",
+      "name": "钢铁侠",
+      "font_class": "gangtiexia",
+      "unicode": "e619",
+      "unicode_decimal": 58905
+    }
+  ]
+}

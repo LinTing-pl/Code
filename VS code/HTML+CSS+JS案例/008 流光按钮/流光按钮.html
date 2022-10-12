@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>流光按钮</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #000;
+        }
+
+        a {
+            position: relative;
+            width: 400px;
+            height: 100px;
+            text-decoration: none;
+            text-align: center;
+            line-height: 100px;
+            text-transform: uppercase;
+            font-size: 24px;
+            color: #fff;
+            background-image: linear-gradient(
+                    90deg,
+                    #03a9f4,
+                    #f441a5,
+                    #ffeb3b,
+                    #09a8f4
+            );
+            border-radius: 50px;
+            background-size: 400%;
+            z-index: 1;
+        }
+
+        a::before {
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            bottom: -5px;
+            right: -5px;
+            background-image: linear-gradient(
+                    90deg,
+                    #03a9f4,
+                    #f441a5,
+                    #ffeb3b,
+                    #09a8f4
+            );
+            border-radius: 50px;
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(20px);
+        }
+
+        a:hover {
+            animation: streamer 8s infinite;
+        }
+
+        a:hover::before {
+            animation: streamer 8s infinite;
+        }
+
+        @keyframes streamer {
+            100% {
+                background-position: -400% 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<a href="#">button</a>
+</body>
+</html>

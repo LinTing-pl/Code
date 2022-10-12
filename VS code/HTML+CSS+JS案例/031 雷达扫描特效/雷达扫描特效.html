@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>雷达扫描特效</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: radial-gradient(circle at center, #6b98bb, #000);
+        }
+
+        .radar {
+            width: calc(256px + 48px);
+            height: calc(256px + 48px);
+            border: 1px solid;
+            background: repeating-radial-gradient(
+                    transparent 0,
+                    transparent 30px,
+                    darkcyan 30px,
+                    darkcyan 32px
+            ),
+            linear-gradient(
+                    transparent 49.75%,
+                    darkcyan 49.75%,
+                    darkcyan 50.25%,
+                    transparent 50.25%
+            ),
+            linear-gradient(
+                    90deg,
+                    transparent 49.75%,
+                    darkcyan 49.75%,
+                    darkcyan 50.25%,
+                    transparent 50.25%
+            ),
+            linear-gradient(#000, #000);
+            position: relative;
+            border-radius: 50%;
+        }
+
+        .radar::before {
+            content: "";
+            position: absolute;
+            width: calc(256px / 2);
+            height: calc(256px / 2);
+            background: linear-gradient(
+                    45deg,
+                    rgba(0, 0, 0, 0) 50%,
+                    rgba(0, 255, 255, 1) 100%
+            );
+            border-radius: 100% 0 0 0;
+            top: calc(48px / 2);
+            left: calc(48px / 2);
+            animation: scanning 5s linear infinite;
+            transform-origin: 100% 100%;
+        }
+
+        @keyframes scanning {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="radar"></div>
+</body>
+</html>

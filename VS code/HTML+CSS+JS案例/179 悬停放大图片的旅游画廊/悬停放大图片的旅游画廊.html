@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>悬停放大图片的旅游画廊</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #1f1f1f;
+        overflow: hidden;
+      }
+      .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+      }
+      .slide {
+        position: relative;
+        flex: 1;
+        height: 100%;
+        overflow: hidden;
+        transition: all 1s;
+      }
+      .slide .image {
+        width: 140%;
+        height: 140%;
+        position: absolute;
+        left: -140%;
+        top: -20%;
+        background-size: cover;
+        background-position: center;
+        transition: all 1s;
+        animation: imhIn 1.2s linear forwards;
+      }
+      .overlay {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-image: linear-gradient(
+          180deg,
+          rgba(20, 20, 20, 0.7),
+          transparent
+        );
+        background-size: 100% 200%;
+        background-position: 0 0;
+        opacity: 1;
+        transition: all 0.5s;
+      }
+      .slide .content {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      .slide .content h1 {
+        color: #3f3f3f;
+        font-size: 48px;
+        text-align: center;
+        text-shadow: 0 2px 2px #2f2f2f;
+        letter-spacing: 5px;
+        text-indent: 5px;
+        width: 100%;
+        height: 65px;
+        opacity: 0;
+        transition: all 0.5s;
+      }
+      .slide .content h1::after {
+        content: attr(data-title);
+        width: 100%;
+        height: 100%;
+        color: #fff59d;
+        position: absolute;
+        left: 0;
+        top: 0;
+        overflow: hidden;
+        transition: all 0.85s;
+      }
+      .slide:hover .image {
+        transform: scale(1.1);
+      }
+      .slide:hover .overlay {
+        opacity: 0.4;
+      }
+      .slide:hover .content h1 {
+        opacity: 1;
+        transform: translateY(60px);
+      }
+      .slide:hover .content h1::after {
+        height: 200%;
+      }
+      @keyframes imhIn {
+        to {
+          width: 100%;
+          height: 100%;
+          left: 0;
+          top: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="slide">
+        <div class="image" style="background-image: url(./img/img2.jpg)"></div>
+        <div class="overlay"></div>
+        <div class="content">
+          <h1 data-title="龙脊梯田">龙脊梯田</h1>
+        </div>
+      </div>
+      <div class="slide">
+        <div class="image" style="background-image: url(./img/img3.jpg)"></div>
+        <div class="overlay"></div>
+        <div class="content">
+          <h1 data-title="洱海">洱海</h1>
+        </div>
+      </div>
+      <div class="slide">
+        <div class="image" style="background-image: url(./img/img4.jpg)"></div>
+        <div class="overlay"></div>
+        <div class="content">
+          <h1 data-title="青海湖">青海湖</h1>
+        </div>
+      </div>
+      <div class="slide">
+        <div class="image" style="background-image: url(./img/img5.jpg)"></div>
+        <div class="overlay"></div>
+        <div class="content">
+          <h1 data-title="呼伦贝尔">呼伦贝尔</h1>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

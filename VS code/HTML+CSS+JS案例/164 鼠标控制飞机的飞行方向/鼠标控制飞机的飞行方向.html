@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>鼠标控制飞机的飞行方向</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        background: url(./img/sky.jfif);
+        background-size: cover;
+      }
+      #fly {
+        width: 60px;
+        height: 60px;
+        background: url(./img/feiji.png) no-repeat;
+        background-size: cover;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="fly"></div>
+  </body>
+  <script>
+    let fly = document.querySelector("#fly");
+
+    let skyX = 0,
+      skyY = 0,
+      c,
+      timer;
+
+    document.addEventListener("mouseover", function (e) {
+      let contentX = fly.offsetLeft + fly.offsetWidth / 2,
+        contentY = fly.offsetTop + fly.offsetHeight / 2,
+        dX = e.clientX - contentX,
+        dY = e.clientY - contentY;
+      c = Math.atan(dX, dY);
+      c = (180 * c) / Math.PI;
+      // c = c * -1;
+
+      function to() {
+        clearTimeout(timer);
+        fly.style.transform = "rotate(" + c + "deg)";
+        if (c > -15 && c < 15) {
+          skyY -= 5;
+          document.body.style.backgroundPositionY = skyY + "px";
+        }
+        if (c > 15 && c < 75) {
+          skyX += 5;
+          skyY -= 5;
+          document.body.style.backgroundPositionX = skyX + "px";
+          document.body.style.backgroundPositionY = skyY + "px";
+        }
+        if (c > 75 && c < 105) {
+          skyX += 5;
+          document.body.style.backgroundPositionX = skyX + "px";
+        }
+        if (c > 105 && c < 165) {
+          skyX += 5;
+          skyY += 5;
+          document.body.style.backgroundPositionX = skyX + "px";
+          document.body.style.backgroundPositionY = skyY + "px";
+        }
+        if (c > 165 || c < -165) {
+          skyY += 5;
+          document.body.style.backgroundPositionY = skyY + "px";
+        }
+        if (c > -75 && c < -15) {
+          skyX -= 5;
+          skyY -= 5;
+          document.body.style.backgroundPositionX = skyX + "px";
+          document.body.style.backgroundPositionY = skyY + "px";
+        }
+        if (c > -105 && c < -75) {
+          skyX -= 5;
+          document.body.style.backgroundPositionX = skyX + "px";
+        }
+        if (c > -165 && c < -105) {
+          skyX -= 5;
+          skyY += 5;
+          document.body.style.backgroundPositionX = skyX + "px";
+          document.body.style.backgroundPositionY = skyY + "px";
+        }
+        timer = setTimeout(to, 10);
+      }
+      to();
+    });
+  </script>
+</html>

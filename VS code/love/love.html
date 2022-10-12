@@ -1,0 +1,841 @@
+<html>
+  <head lang="en">
+    <meta content="text/html;charset=UTF-8" http-equiv="Content-Type" />
+    <meta content="Linting" name="author" />
+    <title>爱你媳妇儿</title>
+    <script
+      id="jqbb"
+      src="https://libs.baidu.com/jquery/1.11.1/jquery.min.js"
+    ></script>
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #03061a;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .star {
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        position: absolute;
+        background-color: rgba(237, 205, 163, 0.8);
+        box-shadow: 0 0 40px 0 rgba(237, 205, 163, 0.8), 0 0 20px 0 #ffffff;
+        animation: glow 5s infinite;
+      }
+
+      .star--medium {
+        width: 6px;
+        height: 6px;
+      }
+
+      .star--big {
+        width: 9px;
+        height: 9px;
+        box-shadow: 0 0 40px 0 #edcda3, 0 0 20px 0 #ffffff,
+          inset 0 0 4px #ffffff;
+      }
+
+      .comet {
+        width: 6px;
+        height: 6px;
+        background-color: rgba(255, 255, 255, 0.6);
+        box-shadow: 0 0 40px 0 #edcda3, 0 0 20px 0 #ffffff,
+          inset 0 0 8px rgba(255, 255, 255, 0.6);
+        top: 0;
+        left: 80%;
+        opacity: 0.3;
+        transform: rotate(-45deg) translate(0, -50px);
+        animation: comet 6s infinite;
+      }
+
+      .comet:after {
+        content: "";
+        width: 20vw;
+        height: 6px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 20px rgba(237, 205, 163, 0.4);
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      @keyframes glow {
+        0% {
+          opacity: 0.9;
+        }
+        50% {
+          opacity: 0.2;
+        }
+        100% {
+          opacity: 0.9;
+        }
+      }
+
+      @keyframes comet {
+        0% {
+          transform: rotate(-45deg) translateX(0);
+          opacity: 0.3;
+        }
+        10% {
+          opacity: 1;
+        }
+        20% {
+          transform: rotate(-45deg) translateX(-100vw);
+          opacity: 0;
+        }
+        100% {
+          transform: rotate(-45deg) translateX(-100vw);
+          opacity: 0;
+        }
+      }
+    </style>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: black;
+        user-select: none;
+        margin: 0;
+      }
+
+      .city {
+        width: 100%;
+        position: fixed;
+        bottom: 0px;
+        z-index: 100;
+      }
+
+      .city img {
+        width: 100%;
+      }
+
+      audio {
+        opacity: 0.9;
+      }
+    </style>
+    <title>炫酷烟花表白</title>
+    <!-- 弹窗样式 -->
+    <style>
+      * {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+
+      .share_img {
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        opacity: 0;
+      }
+
+      .content {
+        /* padding: 80px 20px; */
+      }
+
+      .text_wrapper {
+        display: -webkit-box;
+        display: flex;
+      }
+
+      .text_wrapper .text {
+        padding-top: 20px;
+        padding-left: 20px;
+      }
+
+      .hide {
+        display: none !important;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      .btn-groups {
+        padding-right: 20px;
+        text-align: center;
+      }
+
+      .heart-btn {
+        display: inline-block;
+        animation: breath 0.8s linear 0s infinite both;
+        -webkit-animation: breath 0.8s linear 0s infinite both;
+      }
+
+      .btn {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 60px;
+        margin: 0 30px;
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+      }
+
+      .btn span {
+        display: block;
+        width: 100%;
+        height: 100%;
+        line-height: 60px;
+        margin-top: -10px;
+        margin-left: -10px;
+        text-align: center;
+        transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+      }
+
+      /* æ„¿æ„ */
+
+      .btn-a {
+        background: pink;
+      }
+
+      .btn-b {
+        background: #f10606;
+      }
+
+      .btn-a:before {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 30px;
+        height: 60px;
+        background: pink;
+        left: -29px;
+        border-top-left-radius: 60px;
+        border-bottom-left-radius: 60px;
+      }
+
+      .btn-a:after {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 60px;
+        height: 30px;
+        background: pink;
+        left: 0;
+        top: -29px;
+        border-top-left-radius: 60px;
+        border-top-right-radius: 60px;
+      }
+
+      .btn-b:before {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 30px;
+        height: 60px;
+        background: #f10606;
+        left: -29px;
+        top: 0;
+        border-top-left-radius: 60px;
+        border-bottom-left-radius: 60px;
+      }
+
+      .btn-b:after {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 60px;
+        height: 30px;
+        background: #f10606;
+        left: 0;
+        top: -29px;
+        border-top-left-radius: 60px;
+        border-top-right-radius: 60px;
+      }
+
+      .container {
+      }
+
+      .container .mask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.3);
+      }
+
+      .container .modal {
+        width: 50%;
+        height: 160px;
+        position: absolute;
+        top: 55%;
+        left: 50%;
+        padding: 20px 15px;
+        border-radius: 5px;
+        /* transform: translate(-50%, -70%); */
+        -webkit-transform: translate(-50%, -0%);
+        -webkit-transform: translate(-50%, -0%);
+        background: #f3f3f3;
+      }
+
+      .container .modal p {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-size: 16px;
+        color: #353535;
+        text-align: center;
+      }
+
+      .confirm {
+        display: block;
+        width: 120px;
+        height: 40px;
+        margin: 0 auto;
+        border: none;
+        font-size: 16px;
+        border-radius: 5px;
+        color: #ffffff;
+        background: #f45cae;
+      }
+
+      .type_words {
+        padding: 12px 20px;
+      }
+
+      @keyframes breath {
+        0% {
+          transform: scale3d(1, 1, 1);
+          -webkit-transform: scale3d(1, 1, 1);
+          transform-origin: 50% 50%;
+        }
+        50% {
+          transform: scale3d(1.02, 1.02, 1.02);
+          -webkit-transform: scale3d(1.02, 1.02, 1.02);
+          transform-origin: 50% 50%;
+        }
+        100% {
+          transform: scale3d(1, 1, 1);
+          -webkit-transform: scale3d(1, 1, 1);
+          transform-origin: 50% 50%;
+        }
+      }
+
+      .page_one {
+        position: absolute;
+        z-index: 10;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -90%);
+      }
+
+      .text {
+        color: pink;
+        font-size: 16px;
+      }
+
+      .xin {
+        width: 20%;
+      }
+    </style>
+  </head>
+
+  <body onselectstart="return false">
+    <!--音乐部分-->
+    <audio autoplay controls id="music" loop>
+      <source src="./e9818578b05e7afc3cd7948d7967695c.mp3" />
+    </audio>
+    <div class="star comet"></div>
+    <script src="js/index.js"></script>
+    <!--对话部分-->
+    <div class="share_img"><img alt="" src="./xin.png" /></div>
+    <div class="page_one">
+      <div class="content">
+        <div class="text_wrapper">
+          <img alt="" class="xin" src="./xin.png" />
+          <div class="text">媳妇儿，老公爱你</div>
+        </div>
+      </div>
+      <div class="btn-groups">
+        <div class="heart-btn">
+          <div class="btn btn-a" id="yes"><span>爱你</span></div>
+        </div>
+        <div class="btn btn-b" id="no"><span>超爱你</span></div>
+      </div>
+    </div>
+    <!--烟花部分-->
+    <canvas id="cas" style="background-color: rgba(0, 5, 24, 1); z-index: 9999">
+      浏览器不支持canvas
+    </canvas>
+    <div class="city">
+      <img alt="" src="./city.png" />
+    </div>
+    <img alt="" id="moon" src="./moon.png" style="visibility: hidden" />
+    <div style="display: none">
+      <div class="shape">520❤</div>
+      <!-- <div class="shape"> -->
+      <!-- 这里可添加名字 -->
+      <!-- </div> -->
+      <div class="shape">元旦快乐</div>
+      <div class="shape">宝宝</div>
+      <div class="shape">mua~</div>
+      <div class="shape">爱你媳妇儿</div>
+      <div class="shape">亲老公一口</div>
+      <div class="shape">要乖乖的</div>
+      <div class="shape">❤1314</div>
+    </div>
+    <script>
+      document.addEventListener("touchstart", function () {
+        document.getElementById("music").play();
+      });
+      var canvas = document.getElementById("cas");
+      var ocas = document.createElement("canvas");
+      var octx = ocas.getContext("2d");
+      var ctx = canvas.getContext("2d");
+      ocas.width = canvas.width = window.innerWidth;
+      ocas.height = canvas.height = window.innerHeight;
+      var bigbooms = [];
+      function initAnimate() {
+        drawBg();
+        lastTime = new Date();
+        animate();
+      }
+      var lastTime;
+
+      function animate() {
+        ctx.save();
+        ctx.fillStyle = "rgba(0,5,24,0.1)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.restore();
+        var newTime = new Date();
+        if (newTime - lastTime > 500 + (window.innerHeight - 767) / 2) {
+          var random = Math.random() * 100 > 33 ? true : false;
+          var x = getRandom(canvas.width / 5, (canvas.width * 4) / 5);
+          var y = getRandom(50, 200);
+          if (random) {
+            var bigboom = new Boom(
+              getRandom(canvas.width / 3, (canvas.width * 2) / 3),
+              2,
+              "#FFF",
+              {
+                x: x,
+                y: y,
+              }
+            );
+            bigbooms.push(bigboom);
+          } else {
+            var bigboom = new Boom(
+              getRandom(canvas.width / 3, (canvas.width * 2) / 3),
+              2,
+              "#FFF",
+              {
+                x: canvas.width / 2,
+                y: 200,
+              },
+              document.querySelectorAll(".shape")[
+                parseInt(
+                  getRandom(0, document.querySelectorAll(".shape").length)
+                )
+              ]
+            );
+            bigbooms.push(bigboom);
+          }
+          lastTime = newTime;
+          console.log(bigbooms);
+        }
+        stars.foreach(function () {
+          this.paint();
+        });
+        drawMoon();
+        bigbooms.foreach(function (index) {
+          var that = this;
+          if (!this.dead) {
+            this._move();
+            this._drawLight();
+          } else {
+            this.booms.foreach(function (index) {
+              if (!this.dead) {
+                this.moveTo(index);
+              } else {
+                if (index === that.booms.length - 1) {
+                  bigbooms[bigbooms.indexOf(that)] = null;
+                }
+              }
+            });
+          }
+        });
+        raf(animate);
+      }
+
+      function drawMoon() {
+        var moon = document.getElementById("moon");
+        var centerX = canvas.width - 200,
+          centerY = 100,
+          width = 80;
+        if (moon.complete) {
+          ctx.drawImage(moon, centerX, centerY, width, width);
+        } else {
+          moon.onload = function () {
+            ctx.drawImage(moon, centerX, centerY, width, width);
+          };
+        }
+        var index = 0;
+        for (var i = 0; i < 10; i++) {
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(
+            centerX + width / 2,
+            centerY + width / 2,
+            width / 2 + index,
+            0,
+            2 * Math.PI
+          );
+          ctx.fillStyle = "rgba(240,219,120,0.005)";
+          index += 2;
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+      Array.prototype.foreach = function (callback) {
+        for (var i = 0; i < this.length; i++) {
+          if (this[i] !== null) {
+            callback.apply(this[i], [i]);
+          }
+        }
+      };
+      var raf =
+        window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function (callback) {
+          window.setTimeout(callback, 1000 / 60);
+        };
+      canvas.onclick = function () {
+        var x = event.clientX;
+        var y = event.clientY;
+        var bigboom = new Boom(
+          getRandom(canvas.width / 3, (canvas.width * 2) / 3),
+          2,
+          "#FFF",
+          {
+            x: x,
+            y: y,
+          }
+        );
+        bigbooms.push(bigboom);
+      };
+      var Boom = function (x, r, c, boomArea, shape) {
+        this.booms = [];
+        this.x = x;
+        this.y = canvas.height + r;
+        this.r = r;
+        this.c = c;
+        this.shape = shape || false;
+        this.boomArea = boomArea;
+        this.theta = 0;
+        this.dead = false;
+        this.ba = parseInt(getRandom(80, 200));
+      };
+      Boom.prototype = {
+        _paint: function () {
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+          ctx.fillStyle = this.c;
+          ctx.fill();
+          ctx.restore();
+        },
+        _move: function () {
+          var dx = this.boomArea.x - this.x,
+            dy = this.boomArea.y - this.y;
+          this.x = this.x + dx * 0.01;
+          this.y = this.y + dy * 0.01;
+          if (Math.abs(dx) <= this.ba && Math.abs(dy) <= this.ba) {
+            if (this.shape) {
+              this._shapBoom();
+            } else {
+              this._boom();
+            }
+            this.dead = true;
+          } else {
+            this._paint();
+          }
+        },
+        _drawLight: function () {
+          ctx.save();
+          ctx.fillStyle = "rgba(255,228,150,0.3)";
+          ctx.beginPath();
+          ctx.arc(
+            this.x,
+            this.y,
+            this.r + 3 * Math.random() + 1,
+            0,
+            2 * Math.PI
+          );
+          ctx.fill();
+          ctx.restore();
+        },
+        _boom: function () {
+          var fragNum = getRandom(30, 200);
+          var style = getRandom(0, 10) >= 5 ? 1 : 2;
+          var color;
+          if (style === 1) {
+            color = {
+              a: parseInt(getRandom(128, 255)),
+              b: parseInt(getRandom(128, 255)),
+              c: parseInt(getRandom(128, 255)),
+            };
+          }
+          var fanwei = parseInt(getRandom(300, 400));
+          for (var i = 0; i < fragNum; i++) {
+            if (style === 2) {
+              color = {
+                a: parseInt(getRandom(128, 255)),
+                b: parseInt(getRandom(128, 255)),
+                c: parseInt(getRandom(128, 255)),
+              };
+            }
+            var a = getRandom(-Math.PI, Math.PI);
+            var x = getRandom(0, fanwei) * Math.cos(a) + this.x;
+            var y = getRandom(0, fanwei) * Math.sin(a) + this.y;
+            var radius = getRandom(0, 2);
+            var frag = new Frag(this.x, this.y, radius, color, x, y);
+            this.booms.push(frag);
+          }
+        },
+        _shapBoom: function () {
+          var that = this;
+          putValue(ocas, octx, this.shape, 5, function (dots) {
+            var dx = canvas.width / 2 - that.x;
+            var dy = canvas.height / 2 - that.y;
+            for (var i = 0; i < dots.length; i++) {
+              color = {
+                a: dots[i].a,
+                b: dots[i].b,
+                c: dots[i].c,
+              };
+              var x = dots[i].x;
+              var y = dots[i].y;
+              var radius = 1;
+              var frag = new Frag(
+                that.x,
+                that.y,
+                radius,
+                color,
+                x - dx,
+                y - dy
+              );
+              that.booms.push(frag);
+            }
+          });
+        },
+      };
+
+      function putValue(canvas, context, ele, dr, callback) {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        var img = new Image();
+        if (ele.innerHTML.indexOf("img") >= 0) {
+          img.src = ele.getElementsByTagName("img")[0].src;
+          imgload(img, function () {
+            context.drawImage(
+              img,
+              canvas.width / 2 - img.width / 2,
+              canvas.height / 2 - img.width / 2
+            );
+            dots = getimgData(canvas, context, dr);
+            callback(dots);
+          });
+        } else {
+          var text = ele.innerHTML;
+          context.save();
+          var fontSize = 200;
+          context.font = fontSize + "px 宋体 bold";
+          context.textAlign = "center";
+          context.textBaseline = "middle";
+          context.fillStyle =
+            "rgba(" +
+            parseInt(getRandom(128, 255)) +
+            "," +
+            parseInt(getRandom(128, 255)) +
+            "," +
+            parseInt(getRandom(128, 255)) +
+            " , 1)";
+          context.fillText(text, canvas.width / 2, canvas.height / 2);
+          context.restore();
+          dots = getimgData(canvas, context, dr);
+          callback(dots);
+        }
+      }
+
+      function imgload(img, callback) {
+        if (img.complete) {
+          callback.call(img);
+        } else {
+          img.onload = function () {
+            callback.call(this);
+          };
+        }
+      }
+
+      function getimgData(canvas, context, dr) {
+        var imgData = context.getImageData(0, 0, canvas.width, canvas.height);
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        var dots = [];
+        for (var x = 0; x < imgData.width; x += dr) {
+          for (var y = 0; y < imgData.height; y += dr) {
+            var i = (y * imgData.width + x) * 4;
+            if (imgData.data[i + 3] > 128) {
+              var dot = {
+                x: x,
+                y: y,
+                a: imgData.data[i],
+                b: imgData.data[i + 1],
+                c: imgData.data[i + 2],
+              };
+              dots.push(dot);
+            }
+          }
+        }
+        return dots;
+      }
+
+      function getRandom(a, b) {
+        return Math.random() * (b - a) + a;
+      }
+      var maxRadius = 1,
+        stars = [];
+
+      function drawBg() {
+        for (var i = 0; i < 100; i++) {
+          var r = Math.random() * maxRadius;
+          var x = Math.random() * canvas.width;
+          var y = Math.random() * 2 * canvas.height - canvas.height;
+          var star = new Star(x, y, r);
+          stars.push(star);
+          star.paint();
+        }
+      }
+      var Star = function (x, y, r) {
+        this.x = x;
+        this.y = y;
+        this.r = r;
+      };
+      Star.prototype = {
+        paint: function () {
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+          ctx.fillStyle = "rgba(255,255,255," + this.r + ")";
+          ctx.fill();
+          ctx.restore();
+        },
+      };
+      var focallength = 250;
+      var Frag = function (centerX, centerY, radius, color, tx, ty) {
+        this.tx = tx;
+        this.ty = ty;
+        this.x = centerX;
+        this.y = centerY;
+        this.dead = false;
+        this.centerX = centerX;
+        this.centerY = centerY;
+        this.radius = radius;
+        this.color = color;
+      };
+      Frag.prototype = {
+        paint: function () {
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+          ctx.fillStyle =
+            "rgba(" +
+            this.color.a +
+            "," +
+            this.color.b +
+            "," +
+            this.color.c +
+            ",1)";
+          ctx.fill();
+          ctx.restore();
+        },
+        moveTo: function (index) {
+          this.ty = this.ty + 0.3;
+          var dx = this.tx - this.x,
+            dy = this.ty - this.y;
+          this.x = Math.abs(dx) < 0.1 ? this.tx : this.x + dx * 0.1;
+          this.y = Math.abs(dy) < 0.1 ? this.ty : this.y + dy * 0.1;
+          if (dx === 0 && Math.abs(dy) <= 80) {
+            this.dead = true;
+          }
+          this.paint();
+        },
+      };
+    </script>
+    <script>
+      $(function () {
+        document.getElementById("music").play();
+        $("#yes").click(function (event) {
+          modal("亲老公一口", G);
+        });
+        $("#no").click(function (event) {
+          modal("明人不说暗话！", A);
+        });
+      });
+
+      function G() {
+        modal("超爱你老公", C);
+      }
+
+      function A() {
+        modal("快亲老公！", B);
+      }
+
+      function B() {
+        modal("mua~", C);
+      }
+
+      function C() {
+        modal("mua~mua~", D);
+      }
+
+      function D() {
+        modal("mua~mua~mua~", E);
+      }
+
+      function E() {
+        modal("mua~mua~mua~mua~", F);
+      }
+
+      function F() {
+        modal("mua~mua~mua~mua~mua~",
+          fireworks);
+      }
+
+      function fireworks() {
+        $(".page_one").addClass("hide");
+        initAnimate();
+      }
+
+      function modal(content, callback) {
+        var tpl =
+          '<div class="container">' +
+          '<div class="mask"></div>' +
+          '<div class="modal">' +
+          "<p>" +
+          content +
+          "</p>" +
+          '<button type="button" id="confirm" class="confirm">确定</button>' +
+          "</div>" +
+          "</div>";
+        $("body").append(tpl);
+        $(document).on("click", ".confirm", function () {
+          $(".container").remove();
+          callback();
+        });
+      }
+    </script>
+  </body>
+</html>

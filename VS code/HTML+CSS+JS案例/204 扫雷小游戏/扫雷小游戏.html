@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>扫雷小游戏</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .box {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .item {
+        border: 1px solid #ddd;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+      }
+      .circle {
+        border: 10px solid #a33939;
+        border-radius: 50%;
+      }
+      .hide {
+        background-color: #b3b1b1;
+      }
+      .hide > * {
+        display: none;
+      }
+      .info::after {
+        content: "雷";
+        color: #a86868;
+      }
+      .message {
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="message"></div>
+    <div class="box"></div>
+  </body>
+  <script>
+    const rows = 20;
+    const cols = 20;
+    const size = 30;
+    const res = [];
+    let minesCount = 0;
+    const mines = [];
+    for (let i = 0; i < rows; i++) {
+      for (let j = 0; j < cols; j++) {
+        mines[i + "-" + j] = Math.random() > 0.9;
+        minesCount += mines[i + "-" + j];
+      }
+    }
+    const box = document.querySelector(".box");
+    const message = document.querySelector(".message");
+    message.innerHTML = `地雷: ${minesCount}`;
+    for (let i = 0; i < rows; i++) {
+      for (let j = 0; j < cols; j++) {
+        const isMines = mines[i + "-" + j];
+        const number = Object.values({
+          0: mines[`${i - 1}-${j - 1}`],
+          1: mines[`${i - 1}-${j}`],
+          2: mines[`${i - 1}-${j + 1}`],
+          3: mines[`${i}-${j - 1}`],
+          4: mines[`${i}-${j + 1}`],
+          5: mines[`${i + 1}-${j - 1}`],
+          6: mines[`${i + 1}-${j}`],
+          7: mines[`${i + 1}-${j + 1}`],
+        }).filter((v) => v).length;
+        res.push(
+          `<div class='item hide' data-v='${i}-${j}' style='width:${size}px;height:${size}px'>
+                ${
+                  isMines
+                    ? `<div class='circle'></div>`
+                    : `<div class='number'>${number ? number : ""}</div>`
+                }
+            </div>`
+        );
+      }
+    }
+    box.style.width = `${size * cols}px`;
+    box.style.height = `${size * rows}px`;
+    box.innerHTML = res.join("");
+    box.querySelectorAll(".item").forEach((v) => {
+      v.addEventListener("click", (e) => {
+        v.classList.remove("hide");
+        if (minesCount === box.querySelectorAll(".hide").length) {
+          alert("恭喜您成功了");
+        } else if (v.querySelector(".circle")) {
+          setTimeout(() => {
+            alert("游戏失败，猜中地雷了");
+          }, 100);
+        } else if (v.innerText.trim() === "") {
+          const indexs = v
+            .getAttribute("data-v")
+            .split("-")
+            .map((v) => Number(v));
+          const loop = (indexs) => {
+            [
+              [indexs[0] - 1, indexs[1] - 1],
+              [indexs[0] - 1, indexs[1]],
+              [indexs[0] - 1, indexs[1] + 1],
+              [indexs[0], indexs[1] - 1],
+              [indexs[0], indexs[1] + 1],
+              [indexs[0] + 1, indexs[1] - 1],
+              [indexs[0] + 1, indexs[1]],
+              [indexs[0] + 1, indexs[1] + 1],
+            ].forEach((subIndexs) => {
+              const el = document.querySelector(
+                `[data-v='${subIndexs.join("-")}']`
+              );
+              if (el) {
+                const text = el.querySelector(".number").innerText.trim();
+                if (el.className.indexOf("hide") >= 0 && text === "") {
+                  el.classList.remove("hide");
+                  loop(subIndexs);
+                } else {
+                  el.classList.remove("hide");
+                }
+              }
+            });
+          };
+          loop(indexs);
+        }
+      });
+      v.addEventListener("contextmenu", (e) => {
+        v.classList.toggle("info");
+        message.innerHTML = `地雷${
+          minesCount - box.querySelectorAll(".info").length
+        }`;
+        e.preventDefault();
+      });
+    });
+  </script>
+</html>

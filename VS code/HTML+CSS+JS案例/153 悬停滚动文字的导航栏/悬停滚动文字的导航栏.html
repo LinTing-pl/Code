@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>悬停滚动文字的导航栏</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(#ebf4ff, #f6f6f6);
+      }
+      .nav {
+        display: flex;
+        list-style: none;
+        background-color: #222;
+        width: 900px;
+        /* max-width: 90vw; */
+      }
+      .nav li {
+        min-width: 130px;
+        padding: 12px 0;
+        transition: all 0.3s;
+        cursor: pointer;
+      }
+      .nav li:hover {
+        background-color: #000;
+      }
+      .nav li a {
+        color: #fff;
+        text-decoration: none;
+        letter-spacing: 3px;
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .nav li a span {
+        position: relative;
+        transition: all 0.3s;
+      }
+      .nav li a span::before {
+        content: attr(data-text);
+        position: absolute;
+        transform: translateY(130%);
+      }
+      .nav li a:hover span {
+        transform: translateY(-130%);
+      }
+    </style>
+  </head>
+  <body>
+    <ul class="nav">
+      <li><a href="#">首页</a></li>
+      <li><a href="#">公司介绍</a></li>
+      <li><a href="#">产品案例</a></li>
+      <li><a href="#">案例展示</a></li>
+      <li><a href="#">联系我们</a></li>
+    </ul>
+  </body>
+  <script>
+    const links = document.querySelectorAll(".nav li a");
+
+    links.forEach((link) => {
+      let letters = link.textContent.split("");
+      link.textContent = "";
+      letters.forEach((letter, i) => {
+        let span = document.createElement("span");
+        span.textContent = letter;
+        span.dataset.text = letter;
+        span.style.transitionDelay = i / 25 + "s";
+        link.append(span);
+      });
+    });
+  </script>
+</html>

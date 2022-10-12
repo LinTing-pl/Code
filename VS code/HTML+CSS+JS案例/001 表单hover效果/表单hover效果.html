@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>表单hover效果</title>
+    <style>
+        body {
+            background: #1d1928;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 350px;
+            height: 450px;
+            border-radius: 20px;
+            background: #4471a3;
+            box-shadow: 15px 15px 10px rgb(33, 45, 58, 0.3);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container form {
+            width: 350px;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container form .tbx {
+            width: 250px;
+            height: 40px;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            font-size: 16px;
+            background: none;
+            color: #fff;
+            border-bottom: 1px solid #fff;
+        }
+
+        .container form .tbx::placeholder {
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .container form .sub {
+            width: 250px;
+            height: 40px;
+            border-radius: 20px;
+            border: 1px solid #fff;
+            outline: none;
+            background: none;
+            letter-spacing: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .container h1 {
+            color: #ecf0f1;
+            font-size: 50px;
+            font-weight: 100;
+            text-shadow: 5px 5px 5px rgba(33, 45, 58, 0.3);
+            z-index: 1;
+        }
+
+        .container .in {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: #cf455f;
+            transform: translate(-50%, -50%);
+            animation: in 0.5s ease-out forwards;
+        }
+
+        .container .out {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            width: 1200px;
+            height: 1200px;
+            border-radius: 50%;
+            background: #cf455f;
+            transform: translate(-50%, -50%);
+            animation: out 0.5s ease-out forwards;
+        }
+
+        @keyframes in {
+            0% {
+                width: 0;
+                height: 0;
+            }
+            100% {
+                width: 1200px;
+                height: 1200px;
+            }
+        }
+
+        @keyframes out {
+            0% {
+                width: 1200px;
+                height: 1200px;
+            }
+            100% {
+                width: 0;
+                height: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>登陆</h1>
+    <form action="">
+        <input class="tbx" placeholder="账号" type="text"/>
+        <input class="tbx" placeholder="密码" type="text"/>
+        <input class="sub" type="button" value="登陆"/>
+    </form>
+</div>
+</body>
+<script src="../../JS/jquery.js"></script>
+<script>
+    let con = document.querySelector(".container");
+    let isIn = true;
+    let isOut = false;
+    let span;
+    con.addEventListener("mouseenter", (e) => {
+        if (isIn) {
+            let inX = e.clientX - e.target.offsetLeft;
+            let inY = e.clientY - e.target.offsetTop;
+            let el = document.createElement("span");
+            el.style.left = inX + "px";
+            el.style.top = inY + "px";
+            con.appendChild(el);
+            $(".container span").removeClass("out").addClass("in");
+            span = document.querySelector(".container span");
+            isIn = false;
+            isOut = true;
+        }
+    });
+    con.addEventListener("mouseleave", (e) => {
+        if (isOut) {
+            let outX = e.clientX - e.target.offsetLeft;
+            let outY = e.clientY - e.target.offsetTop;
+            $(".in").css("left", outX + "px");
+            $(".in").css("top", outY + "px");
+
+            $(".container span").removeClass("in").addClass("out");
+
+            isOut = false;
+            setTimeout(() => {
+                con.removeChild(span);
+                isIn = true;
+            }, 500);
+        }
+    });
+</script>
+</html>

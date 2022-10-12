@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>左侧分类菜单右侧轮播图的组合布局</title>
+    <link rel="stylesheet" href="./CSS/iconfont.css" />
+    <script src="./JS/vue2.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: linear-gradient(#e6e9f0, #eef1f5);
+      }
+      a {
+        text-decoration: none;
+      }
+      a:link,
+      a:visited {
+        color: #5e5e5e;
+      }
+      .container {
+        width: 95vw;
+        max-width: 1200px;
+        height: 460px;
+        position: relative;
+        overflow: hidden;
+      }
+      .banner {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+      .banner-slide {
+        width: 100%;
+        height: 100%;
+        display: none;
+      }
+      .slide1 {
+        background: url(./img/img1.jpg) no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+      .slide2 {
+        background: url(./img/img2.jpg) no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+      .slide3 {
+        background: url(./img/img3.jpg) no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+      .slide-active {
+        display: block;
+      }
+      .button {
+        width: 40px;
+        height: 80px;
+        position: absolute;
+        top: 50%;
+        left: 244px;
+        margin-top: -40px;
+        background-color: rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+      }
+      .button.next {
+        left: auto;
+        right: 0;
+      }
+      .button .iconfont {
+        color: #fff;
+        font-size: 50px;
+      }
+      .button:hover {
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+      .dots {
+        position: absolute;
+        right: 0;
+        bottom: 24px;
+        padding-right: 24px;
+      }
+      .dots span {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: rgba(7, 17, 27, 0.4);
+        margin-left: 8px;
+        cursor: pointer;
+        box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.8);
+      }
+      .dots span.dot-active {
+        background-color: #fff;
+        box-shadow: inset 0 0 0 2px rgba(7, 17, 27, 0.4);
+      }
+      .menu-content {
+        width: 244px;
+        height: 460px;
+        background-color: rgba(7, 17, 27, 0.25);
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding-top: 6px;
+      }
+      .menu-item {
+        height: 64px;
+        line-height: 66px;
+        padding: 0 24px;
+        cursor: pointer;
+      }
+      .menu-item a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        padding: 0 8px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        height: 64px;
+        font-size: 16px;
+      }
+      .menu-item:last-child a {
+        border-bottom: none;
+      }
+      .menu-item a span {
+        flex: 1;
+      }
+      .menu-item a .iconfont {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 18px;
+      }
+      .sub-menu {
+        border: 1px solid #d9dde1;
+        background-color: #fff;
+        width: calc(80vw - 244px);
+        max-width: 730px;
+        height: 458px;
+        position: absolute;
+        left: 244px;
+        top: 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .hide {
+        display: none;
+      }
+      .inner-box {
+        width: 100%;
+        height: 100%;
+        background: url() no-repeat;
+        overflow: auto;
+      }
+      .sub-inner-box {
+        width: 100%;
+        margin-left: 40px;
+        width: calc(100% - 40px);
+      }
+      .sub-inner-box .title {
+        color: #f01414;
+        font-size: 16px;
+        line-height: 16px;
+        font-weight: bold;
+        margin-top: 28px;
+        margin-bottom: 30px;
+      }
+      .sub-inner-box .sub-row {
+        margin-bottom: 25px;
+        line-height: 25px;
+      }
+      .sub-inner-box .sub-row .bold {
+        font-weight: 700;
+        margin-right: 15px;
+      }
+      .sub-inner-box .sub-row a {
+        margin-right: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="app">
+      <div class="banner" @mouseover="stopAutoPlay" @mouseout="startAutoPlay">
+        <a href="#" v-for="(item, index) in banner_size" :key="index">
+          <div
+            :class="['banner-slide', 'slide'+item, item===banner_index?'slide-active':'']"
+          ></div>
+        </a>
+      </div>
+      <div class="button prev" @click="prevBanner">
+        <i class="iconfont icon-left"></i>
+      </div>
+      <div class="button next" @click="nextBanner">
+        <i class="iconfont icon-right"></i>
+      </div>
+      <div class="dots">
+        <span
+          :class="item===banner_index?'dot-active':''"
+          v-for="(item, index) in banner_size"
+          :key="index"
+          @click="changeBanner(item)"
+        ></span>
+      </div>
+      <div class="menu-content" @mouseout="hideSubMenu">
+        <div
+          class="menu-item"
+          v-for="(item, index) in menu_list"
+          :key="index"
+          @mouseover="showSubMenu(index)"
+        >
+          <a href="#">
+            <span>{{item.title}}</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+        </div>
+      </div>
+      <div
+        class="sub-menu hide"
+        @mouseover="showSubMenu(-1)"
+        @mouseout="hideSubMenu"
+      >
+        <div
+          class="inner-box"
+          v-for="(item, index) in menu_list"
+          :key="index"
+          v-if="menu_item_index===index"
+        >
+          <div class="sub-inner-box">
+            <div class="title">{{item.title}}</div>
+            <div
+              class="sub-row"
+              v-for="(item1, index1) in item.list"
+              :key="index1"
+            >
+              <span class="bold">{{item1.menu_title}} :</span>
+              <a
+                href="#"
+                class="menu"
+                v-for="(item2, index2) in item1.menus"
+                :key="index2"
+                >{{item2}}</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    new Vue({
+      el: "#app",
+      data() {
+        return {
+          timer: null,
+          banner_index: 1,
+          banner_size: 3,
+          menu_item_index: 0,
+          menu_list: [
+            {
+              title: "手机、配件",
+              list: [
+                {
+                  menu_title: "手机通讯",
+                  menus: ["手机", "手机维修", "以旧换新"],
+                },
+                {
+                  menu_title: "手机配件",
+                  menus: ["手机壳", "手机存储卡", "数据线", "充电器", "电池"],
+                },
+                {
+                  menu_title: "运营商",
+                  menus: ["手中国联通机", "中国移动", "中国电信"],
+                },
+                {
+                  menu_title: "智能设备",
+                  menus: ["智能手环", "智能家居", "智能手表", "其他配件"],
+                },
+                {
+                  menu_title: "娱乐",
+                  menus: ["耳机", "音响", "收音机", "麦克风"],
+                },
+              ],
+            },
+            {
+              title: "电脑",
+              list: [
+                {
+                  menu_title: "电脑",
+                  menus: ["笔记本", "平板", "一体机"],
+                },
+                {
+                  menu_title: "电脑配件",
+                  menus: [
+                    "显示器",
+                    "CPU",
+                    "主板",
+                    "硬盘",
+                    "电源",
+                    "显卡",
+                    "其他配件",
+                  ],
+                },
+                {
+                  menu_title: "游戏设备",
+                  menus: ["游戏机", "耳机", "游戏软件"],
+                },
+                {
+                  menu_title: "网络产品",
+                  menus: ["路由器", "网络机顶盒", "交换机", "存储卡", "网卡"],
+                },
+                {
+                  menu_title: "外部产品",
+                  menus: [
+                    "鼠标",
+                    "键盘",
+                    "U盘",
+                    "移动硬盘",
+                    "鼠标垫",
+                    "电脑清洁",
+                  ],
+                },
+              ],
+            },
+            {
+              title: "家用电器",
+              list: [
+                {
+                  menu_title: "电视",
+                  menus: ["手国产品牌", "日韩品牌", "欧美品牌"],
+                },
+                {
+                  menu_title: "空调",
+                  menus: ["显示器", "柜式中央", "壁柜式"],
+                },
+                {
+                  menu_title: "冰箱",
+                  menus: ["多门", "对开门", "三门", "双门"],
+                },
+                {
+                  menu_title: "洗衣机",
+                  menus: ["滚筒式洗衣机", "迷你洗衣机", "洗烘一体机"],
+                },
+                {
+                  menu_title: "厨房电器",
+                  menus: ["油烟机", "洗碗机", "燃气灶"],
+                },
+              ],
+            },
+            {
+              title: "家具",
+              list: [
+                {
+                  menu_title: "家纺",
+                  menus: ["被子", "枕头", "四件套", "床垫"],
+                },
+                {
+                  menu_title: "灯具",
+                  menus: ["台灯", "顶灯", "节能灯", "应急灯"],
+                },
+                {
+                  menu_title: "厨具",
+                  menus: ["烹饪锅具", "餐具", "菜板", "刀具"],
+                },
+                {
+                  menu_title: "家具",
+                  menus: ["地毯", "沙发垫套装", "装饰字画", "照片墙", "窗帘"],
+                },
+                {
+                  menu_title: "生活日用",
+                  menus: ["收纳用品", "浴室用品", "雨伞雨衣"],
+                },
+              ],
+            },
+          ],
+        };
+      },
+      methods: {
+        stopAutoPlay() {
+          if (this.timer) {
+            clearInterval(this.timer);
+          }
+        },
+        startAutoPlay() {
+          let _t = this;
+          _t.timer = setInterval(function () {
+            _t.banner_index++;
+            if (_t.banner_index > _t.banner_size) {
+              _t.banner_index = 1;
+            }
+          }, 3000);
+        },
+        prevBanner() {
+          this.stopAutoPlay();
+          this.banner_index--;
+          if (this.banner_index < 1) {
+            this.banner_index = this.banner_size;
+          }
+          this.startAutoPlay();
+        },
+        nextBanner() {
+          this.stopAutoPlay();
+          this.banner_index++;
+          if (this.banner_index > this.banner_size) {
+            this.banner_index = 1;
+          }
+          this.startAutoPlay();
+        },
+        changeBanner(index) {
+          this.stopAutoPlay();
+          this.banner_index = index;
+          this.startAutoPlay();
+        },
+        showSubMenu(index) {
+          if (index != -1) {
+            this.menu_item_index = index;
+          }
+          document.querySelector(".sub-menu").classList.remove("hide");
+        },
+        hideSubMenu() {
+          document.querySelector(".sub-menu").classList.add("hide");
+        },
+      },
+      mounted() {
+        this.startAutoPlay();
+      },
+    });
+  </script>
+</html>

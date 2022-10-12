@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>彩虹倒映水面的唯美背景</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        background: linear-gradient(
+          180deg,
+          #9795f0 0%,
+          #fbc8d4 45%,
+          #fbc8d4 55%,
+          #9795f0 100%
+        );
+        overflow: hidden;
+      }
+      .container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+      .container::before,
+      .container::after {
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      .container::after {
+        background-image: radial-gradient(
+            ellipse at 0% 100%,
+            #0b0b31 50%,
+            transparent 50.5%
+          ),
+          radial-gradient(ellipse at 100% 100%, #0b0b31 50%, transparent 50.5%),
+          radial-gradient(
+            circle at 50% 100%,
+            #f5c4d1aa 30%,
+            #845fa7aa 30.5%,
+            #845fa7aa 35%,
+            #5461acaa 35.5%,
+            #5461acaa 40%,
+            #64cdf3aa 40.5%,
+            #64cdf3aa 45%,
+            #91c83daa 45.5%,
+            #91c83daa 50%,
+            #faf04faa 50.55%,
+            #faf04faa 55%,
+            #faae51aa 55.55%,
+            #faae51aa 60%,
+            #df4348aa 60.5%,
+            #df4348aa 65%,
+            transparent 65.5%
+          );
+        background-repeat: no-repeat;
+        background-size: 75% 86px, 75% 86px, 416px 208px;
+        background-position: 0 50%, 100% 50%, 50% 35%;
+        filter: blur(1px);
+      }
+      .container::before {
+        background-image: radial-gradient(
+            ellipse at 0% 0%,
+            #0b0b31 50%,
+            transparent 50.5%
+          ),
+          radial-gradient(ellipse at 100% 0%, #0b0b31 50%, transparent 50.5%),
+          radial-gradient(
+            circle at 50% 0%,
+            #f5c4d1aa 30%,
+            #845fa7aa 30.5%,
+            #845fa7aa 35%,
+            #5461acaa 35.5%,
+            #5461acaa 40%,
+            #64cdf3aa 40.5%,
+            #64cdf3aa 45%,
+            #91c83daa 45.5%,
+            #91c83daa 50%,
+            #faf04faa 50.55%,
+            #faf04faa 55%,
+            #faae51aa 55.55%,
+            #faae51aa 60%,
+            #df4348aa 60.5%,
+            #df4348aa 65%,
+            transparent 65.5%
+          );
+        background-repeat: no-repeat;
+        background-size: 85% 86px, 85% 86px, 400px 200px;
+        background-position: 0 62%, 100% 62%, 50% 72%;
+        filter: blur(13px);
+        transform: scaleX(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container"></div>
+  </body>
+</html>

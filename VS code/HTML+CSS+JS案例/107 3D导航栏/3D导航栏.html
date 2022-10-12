@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D导航栏</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: linear-gradient(200deg, #fff, #dfe9f3);
+      }
+      ul {
+        display: flex;
+      }
+      ul li {
+        position: relative;
+        list-style: none;
+        width: 160px;
+        height: 50px;
+        cursor: pointer;
+        transform-style: preserve-3d;
+        transition: all 0.5s;
+      }
+      ul li div {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+      }
+      ul li div:first-child {
+        background-color: #72afd3;
+        transform: translateZ(25px);
+      }
+      ul li div:last-child {
+        background-color: #468fb9;
+        transform: translateY(25px) rotateX(-90deg);
+      }
+      ul li:hover {
+        transform: rotateX(90deg);
+      }
+    </style>
+  </head>
+  <body>
+    <ul>
+      <li>
+        <div>首页</div>
+        <div>首页</div>
+      </li>
+      <li>
+        <div>关于我们</div>
+        <div>关于我们</div>
+      </li>
+      <li>
+        <div>服务</div>
+        <div>服务</div>
+      </li>
+      <li>
+        <div>案例</div>
+        <div>案例</div>
+      </li>
+      <li>
+        <div>用户反馈</div>
+        <div>用户反馈</div>
+      </li>
+    </ul>
+  </body>
+</html>

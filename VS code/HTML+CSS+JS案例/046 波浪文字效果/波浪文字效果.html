@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>波浪文字效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #000;
+      }
+      .wavy {
+        position: relative;
+        -webkit-box-reflect: below -12px linear-gradient(transparent, rgba(0, 0, 0, 0.2));
+      }
+      .wavy span {
+        position: relative;
+        display: inline-block;
+        color: #fff;
+        font-size: 50px;
+        text-transform: uppercase;
+        letter-spacing: 8px;
+        animation: wavyAnimate 1s ease-in-out infinite;
+        animation-delay: calc(var(--i) * 0.1s);
+      }
+      @keyframes wavyAnimate {
+        0% {
+          transform: translateY(0);
+        }
+        20% {
+          transform: translateY(-20px);
+        }
+        40%,
+        100% {
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wavy">
+      <span style="--i: 1">l</span>
+      <span style="--i: 2">o</span>
+      <span style="--i: 3">a</span>
+      <span style="--i: 4">d</span>
+      <span style="--i: 5">i</span>
+      <span style="--i: 6">n</span>
+      <span style="--i: 7">g</span>
+      <span style="--i: 8">.</span>
+      <span style="--i: 9">.</span>
+      <span style="--i: 10">.</span>
+    </div>
+  </body>
+</html>

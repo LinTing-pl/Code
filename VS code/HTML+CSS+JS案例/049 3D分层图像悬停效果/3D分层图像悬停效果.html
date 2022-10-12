@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D分层图像悬停效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: linear-gradient(200deg, #deecdd, #74ebd5);
+      }
+      .container {
+        width: 360px;
+        height: 640px;
+      }
+      .container .img-box {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background: rgb(0, 0, 0, 0.1);
+        transition: all 0.5s;
+      }
+      .container img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        background-color: #646464;
+        transition: all 0.5s;
+        filter: drop-shadow(0 0 40px rgb(189, 220, 233));
+      }
+      .container:hover .img-box {
+        transform: rotate(-30deg) skew(25deg) scale(0.8);
+        margin-top: 80px;
+      }
+      .container:hover img:nth-child(4) {
+        transform: translate(160px, -160px);
+        opacity: 1;
+        transition-delay: 0.5s;
+      }
+      .container:hover img:nth-child(3) {
+        transform: translate(120px, -120px);
+        opacity: 0.8;
+        transition-delay: 0.5s;
+      }
+      .container:hover img:nth-child(2) {
+        transform: translate(80px, -80px);
+        opacity: 0.6;
+        transition-delay: 0.5s;
+      }
+      .container:hover img:nth-child(1) {
+        transform: translate(40px, -40px);
+        opacity: 0.4;
+        transition-delay: 0.5s;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="img-box">
+        <img src="./img/img1.jfif" alt="" />
+        <img src="./img/img1.jfif" alt="" />
+        <img src="./img/img1.jfif" alt="" />
+        <img src="./img/img1.jfif" alt="" />
+      </div>
+    </div>
+  </body>
+</html>

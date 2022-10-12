@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>旋转的圣诞树</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background-color: #333;
+      }
+      .star {
+        width: 36px;
+        height: 36px;
+        position: absolute;
+        left: calc(50% - 18px);
+        top: calc(20vh - 22px);
+        z-index: 2;
+        background-color: #ffce54;
+        clip-path: polygon(
+          50% 0%,
+          61% 35%,
+          98% 35%,
+          68% 57%,
+          79% 91%,
+          50% 70%,
+          21% 91%,
+          32% 57%,
+          2% 35%,
+          39% 35%
+        );
+        transition: all 0.3s;
+      }
+      ul {
+        padding: 0;
+      }
+      ul li {
+        list-style: none;
+      }
+      .tree li {
+        position: absolute;
+        top: 20vh;
+        right: 50%;
+        width: 1px;
+        height: var(--h);
+        background-image: linear-gradient(
+          transparent,
+          rgba(46, 204, 113, 0.35)
+        );
+        transform-origin: 50% 0;
+        animation: swing 4s ease-in-out infinite;
+        animation-delay: var(--d);
+      }
+      .tree li::before {
+        content: "";
+        position: absolute;
+        left: -1px;
+        bottom: -1px;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+      }
+      .tree li:nth-child(4n)::before {
+        background-color: #d8334a;
+      }
+      .tree li:nth-child(4n + 1)::before {
+        background-color: #ffce54;
+      }
+      .tree li:nth-child(4n + 2)::before {
+        background-color: #2ecc71;
+      }
+      .tree li:nth-child(4n + 3)::before {
+        background-color: #5d9cec;
+      }
+      .star:hover {
+        background: url("./img/img1.jfif");
+        background-size: cover;
+        background-position: center;
+        width: 50vw;
+        height: 50vh;
+        border-radius: 20px;
+        clip-path: none;
+        left: calc(50% - 25vw);
+      }
+      @keyframes swing {
+        0%,
+        100% {
+          transform: rotateZ(-30deg);
+        }
+        50% {
+          transform: rotateZ(30deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="star"></div>
+    <ul class="tree" id="tree"></ul>
+  </body>
+  <script>
+    function createTree() {
+      for (let i = 0; i < 128; i++) {
+        let li = document.createElement("li");
+        li.style.cssText = `--h:calc(60vh / 128 * ${i});--d:calc(-28s / 128 * ${i})`;
+        document.getElementById("tree").appendChild(li);
+      }
+    }
+    window.addEventListener("load", () => {
+      createTree();
+    });
+  </script>
+</html>

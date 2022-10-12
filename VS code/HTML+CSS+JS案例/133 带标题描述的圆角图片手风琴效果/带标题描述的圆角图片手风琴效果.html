@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>带标题描述的圆角图片手风琴效果</title>
+    <link rel="stylesheet" href="./CSS/iconfont.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: radial-gradient(
+          circle at top center,
+          #718497,
+          #29323c
+        );
+      }
+      .container {
+        display: flex;
+        width: 90vw;
+        max-width: 900px;
+        height: 400px;
+      }
+      .item {
+        position: relative;
+        width: 60px;
+        margin: 10px;
+        cursor: pointer;
+        border-radius: 30px;
+        background-size: cover;
+        background-position: center;
+        transition: all 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+      }
+      .item .shadow {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 100px;
+        transition: all 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+        overflow: hidden;
+      }
+      .item .content {
+        display: flex;
+        position: absolute;
+        left: 10px;
+        right: 0;
+        bottom: 10px;
+        height: 40px;
+        transition: all 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+      }
+      .item .content .icon {
+        min-width: 40px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .iconfont {
+        font-size: 16px;
+      }
+      .item:nth-child(1) .iconfont {
+        color: #fc6e51;
+      }
+      .item:nth-child(2) .iconfont {
+        color: #ffce54;
+      }
+      .item:nth-child(3) .iconfont {
+        color: #2ecc71;
+      }
+      .item:nth-child(4) .iconfont {
+        color: #5d9cec;
+      }
+      .item:nth-child(5) .iconfont {
+        color: #ac92ec;
+      }
+      .item .content .text {
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px;
+        color: #fff;
+        width: 100%;
+      }
+      .item .content .text div {
+        width: calc(100% - 70px);
+        text-overflow: ellipsis;
+        overflow: hidden;
+        opacity: 0;
+        white-space: nowrap;
+        transition: opacity 0.5s ease-in-out;
+      }
+      .item .content .text .tit {
+        font-weight: bold;
+        font-size: 18px;
+      }
+      .item .content .text .sub {
+        transition-delay: 0.1s;
+      }
+      .item.active {
+        flex: 1;
+        margin: 0;
+        border-radius: 40px;
+      }
+      .item.active .shadow {
+        background: linear-gradient(rgba(0, 0, 0, 0.35) 65%, transparent);
+        border-radius: 0 0 40px 40px;
+      }
+      .item.active .content {
+        bottom: 20px;
+        left: 20px;
+      }
+      .item.active .content .text div {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="item active" style="background-image: url(./img/img4.jpg)">
+        <div class="shadow"></div>
+        <div class="content">
+          <div class="icon">
+            <span class="iconfont icon-sun"></span>
+          </div>
+          <div class="text">
+            <div class="tit">这是标题</div>
+            <div class="sub">这是一段描述</div>
+          </div>
+        </div>
+      </div>
+      <div class="item" style="background-image: url(./img/img3.jpg)">
+        <div class="shadow"></div>
+        <div class="content">
+          <div class="icon">
+            <span class="iconfont icon-cloud"></span>
+          </div>
+          <div class="text">
+            <div class="tit">这是标题</div>
+            <div class="sub">这是一段描述</div>
+          </div>
+        </div>
+      </div>
+      <div class="item" style="background-image: url(./img/img1.jpg)">
+        <div class="shadow"></div>
+        <div class="content">
+          <div class="icon">
+            <span class="iconfont icon-rain"></span>
+          </div>
+          <div class="text">
+            <div class="tit">这是标题</div>
+            <div class="sub">这是一段描述</div>
+          </div>
+        </div>
+      </div>
+      <div class="item" style="background-image: url(./img/img5.jpg)">
+        <div class="shadow"></div>
+        <div class="content">
+          <div class="icon">
+            <span class="iconfont icon-bolt"></span>
+          </div>
+          <div class="text">
+            <div class="tit">这是标题</div>
+            <div class="sub">这是一段描述</div>
+          </div>
+        </div>
+      </div>
+      <div class="item" style="background-image: url(./img/img2.jpg)">
+        <div class="shadow"></div>
+        <div class="content">
+          <div class="icon">
+            <span class="iconfont icon-Snow"></span>
+          </div>
+          <div class="text">
+            <div class="tit">这是标题</div>
+            <div class="sub">这是一段描述</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    let items = document.querySelectorAll(".item");
+    function setActive() {
+      items.forEach((item) => {
+        item.classList.remove("active");
+      });
+      this.classList.add("active");
+    }
+    items.forEach((item) => {
+      item.addEventListener("click", setActive);
+    });
+  </script>
+</html>

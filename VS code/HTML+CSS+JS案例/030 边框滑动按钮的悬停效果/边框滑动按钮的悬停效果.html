@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>边框滑动按钮的悬停效果</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            --bgc: #353b48;
+            background-color: var(--bgc);
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            width: 500px;
+        }
+
+        .container .btn {
+            width: 200px;
+            height: 60px;
+            background: none;
+            border: 4px solid;
+            color: var(--c);
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            margin: 20px;
+            position: relative;
+        }
+
+        .container .btn::before,
+        .container .btn::after {
+            content: "";
+            position: absolute;
+            width: 14px;
+            height: 4px;
+            background-color: var(--bgc);
+            transform: skewX(30deg);
+            transition: all 0.4s;
+        }
+
+        .container .btn::before {
+            top: -4px;
+            left: 10%;
+        }
+
+        .container .btn::after {
+            bottom: -4px;
+            right: 10%;
+        }
+
+        .container .btn:hover::before {
+            left: 80%;
+        }
+
+        .container .btn:hover::after {
+            right: 80%;
+        }
+
+        .container .btn:nth-child(1) {
+            --c: #4ad3e2;
+        }
+
+        .container .btn:nth-child(2) {
+            --c: #93edd4;
+        }
+
+        .container .btn:nth-child(3) {
+            --c: #f9cb8f;
+        }
+
+        .container .btn:nth-child(4) {
+            --c: #ffb1a3;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <button class="btn">点赞</button>
+    <button class="btn">关注</button>
+    <button class="btn">评论</button>
+    <button class="btn">转发</button>
+</div>
+</body>
+</html>

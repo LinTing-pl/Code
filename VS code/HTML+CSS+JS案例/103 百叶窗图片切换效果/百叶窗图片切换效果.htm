@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>百叶窗图片切换效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: linear-gradient(0deg, #a3bded, #6991c7);
+      }
+      .img1 {
+        width: 900px;
+        height: 500px;
+        background: url(./img/img1.jfif) no-repeat;
+        background-size: cover;
+        background-position: center center;
+        display: flex;
+      }
+      .img2 {
+        background: url(./img/img2.jfif) no-repeat;
+        background-size: cover;
+        background-position-x: calc(var(--i) * 10%);
+        flex: 1;
+        transform: rotateY(90deg);
+        transition: all 0.8s;
+      }
+      .img1:hover .img2 {
+        transform: rotateY(0);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="img1">
+      <div class="img2" style="--i: 0"></div>
+      <div class="img2" style="--i: 1"></div>
+      <div class="img2" style="--i: 2"></div>
+      <div class="img2" style="--i: 3"></div>
+      <div class="img2" style="--i: 4"></div>
+      <div class="img2" style="--i: 5"></div>
+      <div class="img2" style="--i: 6"></div>
+      <div class="img2" style="--i: 7"></div>
+      <div class="img2" style="--i: 8"></div>
+      <div class="img2" style="--i: 9"></div>
+      <div class="img2" style="--i: 10"></div>
+    </div>
+  </body>
+</html>

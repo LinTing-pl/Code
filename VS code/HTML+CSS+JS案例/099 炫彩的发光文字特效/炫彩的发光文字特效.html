@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>炫彩的发光文字特效</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #06252e;
+      }
+      .container {
+        -webkit-box-reflect: below 1px
+          linear-gradient(transparent, rgba(0, 0, 0, 0.2));
+      }
+      h2 {
+        color: #fff;
+        font-size: 96px;
+        letter-spacing: 15px;
+        text-transform: uppercase;
+        text-align: center;
+        outline: none;
+        --c: lightgreen;
+        line-height: 78px;
+        text-shadow: 0 0 10px var(--c), 0 0 20px var(--c), 0 0 40px var(--c),
+          0 0 80px var(--c), 0 0 160px var(--c);
+        animation: animate 5s linear infinite;
+      }
+      @keyframes animate {
+        to {
+          filter: hue-rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2 contenteditable="true">hello</h2>
+    </div>
+  </body>
+</html>

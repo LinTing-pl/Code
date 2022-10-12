@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>文本背景扫光效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #000;
+      }
+      h1 {
+        color: transparent;
+        font-size: 60px;
+        letter-spacing: 5px;
+        background: linear-gradient(90deg, #000, #fff, #000);
+        background-size: 80%;
+        -webkit-background-clip: text;
+        background-repeat: no-repeat;
+        background-position: center;
+        animation: move 2s linear infinite;
+      }
+      @keyframes move {
+        0% {
+          background-position: -500%;
+        }
+        100% {
+          background-position: 500%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hello World,Hello Everybody!</h1>
+  </body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>无限滚动的轮播图</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+      }
+      .swiper {
+        width: 100vw;
+        height: 150px;
+        overflow: hidden;
+      }
+      .swiper-group {
+        height: 150px;
+        display: flex;
+        flex-wrap: wrap;
+        transition: transform 1s;
+      }
+      .img {
+        height: 150px;
+        width: 100vw;
+        color: #fff;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="swiper">
+      <div class="swiper-group"></div>
+    </div>
+  </body>
+  <script>
+    const arr = [
+      { bgColor: "red" },
+      { bgColor: "green" },
+      { bgColor: "#ff8800" },
+      { bgColor: "blue" },
+    ];
+    const swiper = document.querySelector(".swiper");
+    const group = document.querySelector(".swiper-group");
+    const swiperWidth = swiper.offsetWidth;
+    var intervalId = null;
+    group.innerHTML = arr
+      .map((v, i) => {
+        return `<div class='img' data-v='${i}' style='background-color:${v.bgColor}'>${i}</div>`;
+      })
+      .join("");
+    group.style.width = arr.length + "00%";
+    const drawParams = {
+      isDrag: false,
+      isAnimating: false,
+      startX: 0,
+      moveX: 0,
+      index: 0,
+      time: 0,
+      moveWidth: 0,
+    };
+    const run = (i, check) => {
+      const childs = [...group.children];
+      const lastChild = childs[childs.length - 1];
+      const firstChild = childs[0];
+      const currEl = group.querySelector(`[data-v='${i}']`);
+      const index = childs.indexOf(currEl);
+      if (check == "check") {
+        group.style.transition = "inherit";
+        if (index === 0) {
+          group.insertBefore(lastChild, firstChild);
+          drawParams.moveWidth = -(index + 1) * swiperWidth;
+          group.style.transform = `translateX(${drawParams.moveWidth}px)`;
+          return;
+        } else if (index === arr.length - 1) {
+          group.appendChild(firstChild);
+          drawParams.moveWidth = -(index - 1) * swiperWidth;
+          group.style.transform = `translateX(${drawParams.moveWidth}px)`;
+          return;
+        }
+      } else {
+        group.style.transition = ``;
+        setTimeout(() => {
+          drawParams.moveWidth = -index * swiperWidth;
+          group.style.transform = `translateX(${drawParams.moveWidth}px)`;
+          drawParams.isAnimating = true;
+          group.ontransitionend = () => {
+            drawParams.isAnimating = false;
+            run(i, "check");
+          };
+        });
+      }
+    };
+    run(0, "check");
+    const autoRun = () => {
+      clearInterval(intervalId);
+      intervalId = setInterval(() => {
+        if (drawParams.isDrag) {
+          clearInterval(intervalId);
+          return;
+        }
+        if (drawParams.index === arr.length - 1) {
+          drawParams.index = 0;
+        } else {
+          drawParams.index++;
+        }
+        run(drawParams.index);
+      }, 2000);
+    };
+    autoRun(2000);
+
+    group.addEventListener("touchstart", (e) => {
+      const el = e.touches[0];
+      if (drawParams.isAnimating) {
+        return;
+      }
+      drawParams.isDrag = true;
+      drawParams.startX = el.pageX;
+      drawParams.time = Date.now();
+      group.style.transition = "inherit";
+    });
+    group.addEventListener("touchmove", (e) => {
+      const el = e.touches[0];
+      if (drawParams.isDrag) {
+        drawParams.moveX = el.pageX - drawParams.startX;
+        group.style.transform = `translateX(${
+          drawParams.moveWidth + drawParams.moveX
+        }px)`;
+      }
+    });
+    group.addEventListener("touchend", (e) => {
+      const el = e.touches[0];
+      if (drawParams.isDrag) {
+        const index = drawParams.index;
+        drawParams.isDrag = false;
+        group.style.transition = "";
+        if (Date.now() - drawParams.time < 500) {
+          if (drawParams.moveX < -30) {
+            drawParams.index++;
+          } else if (drawParams.moveX > 30) {
+            drawParams.index--;
+          } else if (drawParams.moveX < 0) {
+            if (Math.abs(drawParams.moveX) > swiperWidth / 2) {
+              drawParams.index++;
+            }
+          } else {
+            if (Math.abs(drawParams.moveX) > swiperWidth / 2) {
+              drawParams.index--;
+            }
+          }
+          if (drawParams.index >= arr.length) {
+            drawParams.index = 0;
+          } else if (drawParams.index < 0) {
+            drawParams.index = arr.length - 1;
+          }
+          run(drawParams.index);
+          drawParams.moveX = drawParams.startX;
+          autoRun();
+        }
+      }
+    });
+  </script>
+</html>

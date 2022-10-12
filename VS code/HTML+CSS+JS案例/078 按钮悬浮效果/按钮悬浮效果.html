@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>按钮悬浮效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: linear-gradient(200deg, #ffecd2, #fcb69f);
+      }
+      .container {
+        perspective: 320px;
+      }
+      .btn {
+        display: block;
+        margin: 40px 0;
+        width: 240px;
+        height: 80px;
+        border: none;
+        background-color: #fda085;
+        font-size: 18px;
+        border-radius: 6px;
+        outline: none;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .btn:nth-child(1):hover {
+        transform: rotateX(15deg);
+        box-shadow: 0 15px 15px rgba(255, 95, 65, 0.56);
+      }
+      .btn:nth-child(2):hover {
+        transform: rotateX(-15deg);
+        box-shadow: 0 -15px 15px rgba(255, 95, 65, 0.56);
+      }
+      .btn:nth-child(3):hover {
+        transform: rotateY(15deg);
+        box-shadow: -15px 0 15px rgba(255, 95, 65, 0.56);
+      }
+      .btn:nth-child(4):hover {
+        transform: rotateY(-15deg);
+        box-shadow: 15px 0 15px rgba(255, 95, 65, 0.56);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <button class="btn">点赞</button>
+      <button class="btn">关注</button>
+      <button class="btn">收藏</button>
+      <button class="btn">分享</button>
+    </div>
+  </body>
+</html>

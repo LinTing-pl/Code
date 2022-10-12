@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>实现字符串模板渲染</title>
+  </head>
+  <body>
+    <div class="main">
+      {{name}},{{age}}
+      <b style="color: {{age===12?'red':'blue'}}">你好</b>
+    </div>
+  </body>
+  <script>
+    new Init({
+      el: ".main",
+      data: {
+        name: "abc",
+        age: 11,
+      },
+    });
+    function Init(opt) {
+      this.data = opt.data;
+      this.el = document.querySelector(opt.el);
+      this.el.innerHTML = this.el.innerHTML.replace(
+        /\{\{(.*?)\}\}/g,
+        (a, b) => {
+          return new Function(...Object.keys(this.data), ` return ${b}`)(
+            ...Object.values(this.data)
+          );
+        }
+      );
+    }
+  </script>
+</html>

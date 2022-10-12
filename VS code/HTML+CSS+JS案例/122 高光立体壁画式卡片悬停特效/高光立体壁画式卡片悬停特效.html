@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>高光立体壁画式卡片悬停特效</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #353540;
+      }
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        display: flex;
+      }
+      .card {
+        position: relative;
+        flex: 1;
+        height: 460px;
+        margin: 0 20px;
+        perspective: 1000px;
+      }
+      .card::before {
+        content: "";
+        width: 90%;
+        height: 90%;
+        background-color: rgba(0, 0, 0, 0.5);
+        position: absolute;
+        z-index: 99;
+        left: 5%;
+        top: 5%;
+        box-shadow: 0 6px 12px 12px rgba(0, 0, 0, 0.4);
+        opacity: 1;
+        transform-origin: top center;
+        transition: all 0.3s ease-in-out;
+      }
+      .card:hover::before {
+        opacity: 0.6;
+        transform: rotateX(7deg) translateY(-6px) scale(1.05);
+      }
+      .card-cover {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
+        transform-style: preserve-3d;
+        transform-origin: top center;
+        transition: transform 0.35s ease-in-out;
+      }
+      .card-cover::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 120%;
+        background: linear-gradient(
+          226deg,
+          rgba(255, 255, 255, 0) 40%,
+          rgba(255, 255, 255, 0.3) 50%,
+          rgba(255, 255, 255, 0) 60%
+        );
+        transform: translateY(-100%);
+        transition: transform 0.85s cubic-bezier(0.165, 0.84, 0.44, 1);
+      }
+      .card:hover .card-cover {
+        transform: rotateX(7deg) translateY(-6px);
+      }
+      .card:hover .card-cover::after {
+        transform: translateY(100%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div
+          class="card-cover"
+          style="background-image: url(./img/img1.jfif)"
+        ></div>
+      </div>
+      <div class="card">
+        <div
+          class="card-cover"
+          style="background-image: url(./img/img2.jfif)"
+        ></div>
+      </div>
+      <div class="card">
+        <div
+          class="card-cover"
+          style="background-image: url(./img/img3.jfif)"
+        ></div>
+      </div>
+      <div class="card">
+        <div
+          class="card-cover"
+          style="background-image: url(./img/img4.jfif)"
+        ></div>
+      </div>
+    </div>
+  </body>
+</html>

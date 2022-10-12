@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>可自由拖拽排序的表格</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #eee;
+      }
+      .table-box {
+        width: 800px;
+        max-width: 90vw;
+        position: relative;
+      }
+      table {
+        width: 100%;
+        background-color: #fff;
+        border-spacing: 0;
+        border-collapse: collapse;
+        table-layout: fixed;
+      }
+      th {
+        background-color: #e7f3ff;
+        height: 25px;
+        cursor: pointer;
+      }
+      th,
+      td {
+        color: #333;
+        font-size: 15px;
+        text-align: center;
+        padding: 8px 10px;
+        border: 1px solid #ddd;
+      }
+      .box {
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        height: 100%;
+        text-align: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: move;
+        display: none;
+      }
+      .box p {
+        line-height: 37.5px;
+        font-size: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="table-box">
+      <table>
+        <tbody>
+          <tr>
+            <th title="点击排序" onclick="sortTable(0)">座号</th>
+            <th title="点击排序" onclick="sortTable(1)">姓名</th>
+            <th title="点击排序" onclick="sortTable(2)">性别</th>
+            <th title="点击排序" onclick="sortTable(3)">年龄</th>
+            <th title="点击排序" onclick="sortTable(4)">分数</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>张珊</td>
+            <td>女</td>
+            <td>17</td>
+            <td>80</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>李斯</td>
+            <td>男</td>
+            <td>18</td>
+            <td>86</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>王武</td>
+            <td>男</td>
+            <td>18</td>
+            <td>77</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>赵琉</td>
+            <td>女</td>
+            <td>17</td>
+            <td>93</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>孙琪</td>
+            <td>女</td>
+            <td>18</td>
+            <td>96</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>肖明</td>
+            <td>男</td>
+            <td>17</td>
+            <td>90</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>吴小红</td>
+            <td>女</td>
+            <td>18</td>
+            <td>80</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>刘小华</td>
+            <td>女</td>
+            <td>17</td>
+            <td>79</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>陆小军</td>
+            <td>男</td>
+            <td>19</td>
+            <td>63</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>汤小敏</td>
+            <td>女</td>
+            <td>17</td>
+            <td>88</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="box"></div>
+    </div>
+  </body>
+  <script>
+    function sortTable(idx) {
+      var otable = document.querySelector("table"),
+        obody = otable.tBodies[0],
+        otr = obody.rows,
+        tarr = [];
+      for (var i = 1; i < otr.length; i++) {
+        tarr[i - 1] = otr[i];
+      }
+      if (obody.sortCol == idx) {
+        tarr.reverse();
+      } else {
+        tarr.sort(function (tr1, tr2) {
+          var v1 = tr1.cells[idx].innerHTML;
+          var v2 = tr2.cells[idx].innerHTML;
+          if (!isNaN(v1) && !isNaN(v2)) {
+            return v1 - v2;
+          } else {
+            return v1.localeCompare(v2);
+          }
+        });
+      }
+      var fragment = document.createDocumentFragment();
+      for (var i = 0; i < tarr.length; i++) {
+        fragment.appendChild(tarr[i]);
+      }
+      obody.appendChild(fragment);
+      obody.sortCol = idx;
+    }
+    function DragSort() {
+      var otbox = document.querySelector(".table-box"),
+        otable = document.querySelector("table"),
+        obody = otable.tBodies[0],
+        oth = obody.getElementsByTagName("th"),
+        otd = obody.getElementsByTagName("td"),
+        box = document.querySelector(".box"),
+        arrn = [];
+      for (var i = 0; i < otd.length; i++) {
+        otd[i].onmousedown = function (e) {
+          var e = e || window.event,
+            target = e.target,
+            thW = target.offsetWidth,
+            maxL = otbox.offsetWidth - thW,
+            rows = otable.rows,
+            tboxL = otbox.offsetLeft,
+            disX = target.offsetLeft,
+            that = this,
+            cdisX = e.clientX - tboxL - disX;
+          for (var j = 0; j < rows.length; j++) {
+            var op = document.createElement("p");
+            op.innerHTML = rows[j].cells[this.cellIndex].innerHTML;
+            box.appendChild(op);
+          }
+          for (var j = 0; j < oth.length; j++) {
+            arrn.push(oth[j].offsetLeft);
+          }
+          box.style.display = "block";
+          box.style.width = thW + "px";
+          box.style.left = disX + "px";
+
+          document.onmousemove = function (e) {
+            box.style.top = 0;
+            box.style.left = e.clientX - tboxL - cdisX + "px";
+            if (box.offsetLeft > maxL) {
+              box.style.left = maxL + "px";
+            } else if (box.offsetLeft < 0) {
+              box.style.left = 0;
+            }
+            document.onselectstart = function () {
+              return false;
+            };
+          };
+          document.onmouseup = function (e) {
+            var ops = box.getElementsByTagName("p"),
+              oboxL = box.offsetLeft + cdisX;
+            for (var j = 0; j < arrn.length; j++) {
+              if (arrn[j] < oboxL) {
+                var index = j;
+              }
+            }
+            for (var j = 0; j < rows.length; j++) {
+              rows[j].cells[that.cellIndex].innerHTML = "";
+              rows[j].cells[that.cellIndex].innerHTML =
+                rows[j].cells[index].innerHTML;
+              rows[j].cells[index].innerHTML = "";
+              rows[j].cells[index].innerHTML = ops[j].innerHTML;
+            }
+
+            box.innerHTML = "";
+            arrn = [];
+            box.style.display = "none";
+            document.onmousemove = null;
+            document.onmouseup = null;
+            document.onselectstart = function () {
+              return false;
+            };
+          };
+        };
+      }
+    }
+    DragSort();
+  </script>
+</html>

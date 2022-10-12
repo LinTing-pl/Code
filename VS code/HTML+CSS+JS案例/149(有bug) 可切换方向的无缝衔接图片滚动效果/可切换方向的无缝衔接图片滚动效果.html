@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>可切换方向的无缝衔接图片滚动效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #1b1b1b;
+      }
+      .container {
+        width: 800px;
+        position: relative;
+        overflow: hidden;
+      }
+      ul {
+        width: 800px;
+        height: 150px;
+        overflow: hidden;
+        display: flex;
+        position: relative;
+      }
+      li {
+        list-style: none;
+        height: 100%;
+        padding-right: 20px;
+      }
+      li img {
+        width: 200px;
+        height: 150px;
+        object-fit: cover;
+        object-position: center;
+      }
+      .btns {
+        display: flex;
+        justify-content: center;
+        padding-top: 50px;
+      }
+      .btns .btn {
+        color: #fff;
+        border: 1px solid #ddd;
+        padding: 5px 15px;
+        margin: 0 15px;
+        border-radius: 3px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      .btns .btn:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <ul>
+        <li><img src="./img/img1.jfif" alt="" /></li>
+        <li><img src="./img/img2.jfif" alt="" /></li>
+        <li><img src="./img/img3.jfif" alt="" /></li>
+        <li><img src="./img/img4.jfif" alt="" /></li>
+      </ul>
+      <div class="btns">
+        <div class="btn">⬅ 向左走</div>
+        <div class="btn">向右走 ➡</div>
+      </div>
+    </div>
+  </body>
+  <script>
+    let ul = document.querySelector("ul");
+    let lis = document.querySelectorAll("li");
+    let btns = document.querySelectorAll(".btn");
+
+    ul.innerHTML = ul.innerHTML + ul.innerHTML;
+    let spa = 2;
+    console.log(lis[0].offsetWidth);
+    // ul.style.width = lis[0].offsetWidth * lis.length + "px";
+
+    function move() {
+      console.log(ul.offsetLeft);
+      if (ul.offsetLeft < -ul.offsetWidth / 2) {
+        ul.style.left = "0px";
+      }
+      if (ul.offsetLeft > 0) {
+        ul.style.left = -ul.offsetWidth / 2 + "px";
+      }
+      ul.style.left = ul.offsetLeft + spa + "px";
+    }
+    let timer = setInterval(move, 30);
+    ul.addEventListener("mouseover", () => {
+      clearInterval(timer);
+    });
+    ul.addEventListener("mouseout", () => {
+      timer = setInterval(move, 30);
+    });
+    btns[0].addEventListener("click", function () {
+      spa = -2;
+    });
+    btns[1].addEventListener("click", function () {
+      spa = 2;
+    });
+  </script>
+</html>

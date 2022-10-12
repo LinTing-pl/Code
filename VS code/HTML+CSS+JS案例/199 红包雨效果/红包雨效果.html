@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>红包雨效果</title>
+    <style>
+      body {
+        height: 100vh;
+      }
+      .img {
+        position: fixed;
+        top: -100px;
+        width: 40px;
+        animation: run linear infinite;
+      }
+      @keyframes run {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(150vh);
+        }
+      }
+    </style>
+  </head>
+  <body></body>
+  <script>
+    const hongbaos = Array.from(new Array(20));
+    const maxLeft = document.body.offsetWidth - 40;
+
+    document.body.innerHTML = hongbaos
+      .map((v) => {
+        return `<img src='./img/hongbao.png' class='img' style='left:${
+          Math.random() * maxLeft
+        }px; animation-duration:${Math.random() * 2 + 1}s'  />`;
+      })
+      .join("");
+  </script>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>马赛克背景的按钮特效</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-image: linear-gradient(200deg, #485563, #29323c);
+      }
+      .button {
+        width: 250px;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        margin: 15px 0;
+        cursor: pointer;
+        overflow: hidden;
+        position: relative;
+      }
+      .button p {
+        font-size: 22px;
+        font-weight: bold;
+        position: absolute;
+        transition: all 1s;
+      }
+      .button .back {
+        width: 100%;
+        height: 100px;
+        position: absolute;
+      }
+      .button .back span {
+        background-color: #fff;
+        display: block;
+        float: left;
+      }
+      .button:hover div span {
+        background-color: var(--c);
+      }
+      .button:hover p {
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="button">
+      <div class="back" style="--c: #e74c3c"></div>
+      <p>点赞</p>
+    </div>
+    <div class="button">
+      <div class="back" style="--c: #2ecc71"></div>
+      <p>关注</p>
+    </div>
+    <div class="button">
+      <div class="back" style="--c: #3498db"></div>
+      <p>收藏</p>
+    </div>
+    <div class="button">
+      <div class="back" style="--c: #9b59b6"></div>
+      <p>转发</p>
+    </div>
+  </body>
+  <script>
+    let backs = document.getElementsByClassName("back");
+    for (let i = 0; i < backs.length; i++) {
+      let back = backs[i];
+      let width = back.clientWidth / 25;
+      let height = width;
+      let count = 25 * parseInt(back.clientHeight / height);
+      for (let j = 0; j < count; j++) {
+        let span = document.createElement("span");
+        span.style.width = width + "px";
+        span.style.height = height + "px";
+        span.style.transition = `0.2s linear ${Math.random() / 2}s`;
+        back.append(span);
+      }
+    }
+  </script>
+</html>

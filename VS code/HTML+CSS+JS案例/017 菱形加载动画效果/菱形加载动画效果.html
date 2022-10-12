@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>菱形加载动画效果</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: linear-gradient(200deg, #f4efef, #e3eeff);
+        }
+
+        .loading {
+            width: 200px;
+            height: 200px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 10px;
+            transform: rotate(45deg);
+        }
+
+        .loading span {
+            --c: blue;
+            background-color: var(--c);
+            position: relative;
+            transform: rotate(0);
+            animation: blinking 2s linear infinite;
+            animation-delay: var(--d);
+            filter: drop-shadow(0 0 3px var(--c));
+        }
+
+        .loading::before {
+            color: #fff;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .loading span:nth-child(7) {
+            --c: #f15a5a;
+            --d: 0s;
+        }
+
+        .loading span:nth-child(4),
+        .loading span:nth-child(8) {
+            --c: #f0c419;
+            --d: 0.2s;
+        }
+
+        .loading span:nth-child(1),
+        .loading span:nth-child(5),
+        .loading span:nth-child(9) {
+            --c: #4eba6f;
+            --d: 0.4s;
+        }
+
+        .loading span:nth-child(2),
+        .loading span:nth-child(6) {
+            --c: #2d95bf;
+            --d: 0.6s;
+        }
+
+        .loading span:nth-child(3) {
+            --c: #955ba5;
+            --d: 0.8s;
+        }
+
+        @keyframes blinking {
+            0%,
+            100% {
+                transform: scale(0);
+            }
+            40%,
+            80% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="loading">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+{
+  "id": "3568426",
+  "name": "xuanting",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "3507021",
+      "name": "renren",
+      "font_class": "renren",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "1238657",
+      "name": "social-weibo",
+      "font_class": "social-weibo",
+      "unicode": "e621",
+      "unicode_decimal": 58913
+    },
+    {
+      "icon_id": "5968413",
+      "name": "WeChat2 ",
+      "font_class": "WeChat",
+      "unicode": "e681",
+      "unicode_decimal": 59009
+    },
+    {
+      "icon_id": "8065298",
+      "name": "telegram",
+      "font_class": "telegram",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "15378872",
+      "name": "tencentweibo",
+      "font_class": "tencentweibo",
+      "unicode": "ecd5",
+      "unicode_decimal": 60629
+    },
+    {
+      "icon_id": "23943071",
+      "name": "QQ",
+      "font_class": "QQ",
+      "unicode": "f933",
+      "unicode_decimal": 63795
+    }
+  ]
+}

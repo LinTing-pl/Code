@@ -1,0 +1,44 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "929854",
+      "name": "subway",
+      "font_class": "subway",
+      "unicode": "e83b",
+      "unicode_decimal": 59451
+    },
+    {
+      "icon_id": "1261216",
+      "name": "bus",
+      "font_class": "bus",
+      "unicode": "e64a",
+      "unicode_decimal": 58954
+    },
+    {
+      "icon_id": "8826712",
+      "name": "motocycle",
+      "font_class": "motocycle",
+      "unicode": "e92a",
+      "unicode_decimal": 59690
+    },
+    {
+      "icon_id": "9631817",
+      "name": "bicycle",
+      "font_class": "bicycle",
+      "unicode": "e679",
+      "unicode_decimal": 59001
+    },
+    {
+      "icon_id": "14441128",
+      "name": "car",
+      "font_class": "car",
+      "unicode": "e686",
+      "unicode_decimal": 59014
+    }
+  ]
+}

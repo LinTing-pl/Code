@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>涟漪特效按钮</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: linear-gradient(200deg, #80d0c7, #13547a);
+      }
+      .btn-box {
+        width: 500px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+      .btn-box button {
+        position: relative;
+        border: none;
+        background-image: linear-gradient(90deg, #52d1c2, #1ab3a1);
+        width: 200px;
+        height: 60px;
+        margin: 20px 0;
+        font-size: 18px;
+        color: #fff;
+        letter-spacing: 3px;
+        border-radius: 30px;
+        box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        overflow: hidden;
+      }
+      .btn-box button:hover {
+        box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.3);
+      }
+      .btn-box button span {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background-color: #fff;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        animation: animate 1s ease;
+      }
+      @keyframes animate {
+        from {
+          width: 0;
+          height: 0;
+          opacity: 0.5;
+        }
+        to {
+          width: 400px;
+          height: 400px;
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="btn-box">
+      <button>点赞</button>
+      <button>关注</button>
+      <button>收藏</button>
+      <button>转发</button>
+    </div>
+  </body>
+  <script>
+    const btns = document.querySelectorAll("button");
+    btns.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        let span = document.createElement("span");
+        span.style.left = e.offsetX + "px";
+        span.style.top = e.offsetY + "px";
+        btn.appendChild(span);
+        setTimeout(() => {
+          span.remove();
+        }, 1000);
+      });
+    });
+  </script>
+</html>

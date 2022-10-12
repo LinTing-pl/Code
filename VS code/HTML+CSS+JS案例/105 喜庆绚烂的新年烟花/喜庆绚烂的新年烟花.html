@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>喜庆绚烂的新年烟花</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        background: url(./img/img1.jfif) no-repeat;
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
+        user-select: none;
+      }
+      canvas {
+        position: absolute;
+        mix-blend-mode: lighten;
+      }
+      .container {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        mix-blend-mode: color-dodge;
+      }
+      .year {
+        font-size: 30vw;
+        color: #aaa;
+        font-weight: 700;
+        letter-spacing: 15px;
+      }
+      .greetings {
+        color: #eee;
+        font-size: 3.5vw;
+        font-weight: bold;
+        text-align: center;
+        letter-spacing: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="year">2022</div>
+      <div class="greetings">新年快乐！</div>
+    </div>
+    <canvas id="canvas"></canvas>
+  </body>
+  <script type="text/javascript">
+    var canvas = document.getElementById("canvas");
+    canvas.width = document.documentElement.clientWidth;
+    canvas.height = document.documentElement.clientHeight;
+    var ctx = canvas.getContext("2d");
+
+    var arr = []; //存取烟花的数组
+    var list = []; //存取碎片的数组
+
+    //定义烟花
+    function Fire() {
+      (this.x = canvas.width / 2), //烟花的x坐标
+        (this.y = canvas.height), //烟花的y坐标
+        (this.radius = 2), //烟花的半径
+        (this.speed = getRandom(8, 12)), //运行的速度
+        (this.angle = getRandom(1.1 * Math.PI, 1.9 * Math.PI)), //发射的范围
+        //this.color='white';//颜色
+        (this.color =
+          Math.random() > 0.5
+            ? "white"
+            : "#" + Math.random().toString(16).substr(2, 6).toUpperCase());
+    }
+    Fire.prototype.draw = function () {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI); //画圆
+      ctx.fillStyle = this.color;
+      ctx.fill();
+      ctx.closePath();
+    };
+    //爆炸后重置烟花的位置、速度等参数，以便再次发射
+    Fire.prototype.restore = function () {
+      this.x = canvas.width / 2;
+      this.y = canvas.height;
+      this.speed = getRandom(8, 12);
+      this.angle = getRandom(1.1 * Math.PI, 1.9 * Math.PI);
+    };
+
+    Fire.prototype.update = function () {
+      //更新X坐标
+      this.x += Math.cos(this.angle) * this.speed;
+      //更新Y坐标
+      this.y += Math.sin(this.angle) * this.speed;
+      //控制飞行的最大位置
+      if (
+        this.y < canvas.height * 0.2 ||
+        this.x < canvas.width * 0.1 ||
+        this.x > canvas.width * 0.9
+      ) {
+        //达到最大位置后
+        buildChildFire(this); //生成烟花碎片
+        this.restore(); //将烟花重置
+      }
+    };
+    //定义烟花碎片
+    function ChildFire() {
+      (this.x = 0), //烟花碎片x位置
+        (this.y = 0), //烟花碎片y位置
+        (this.radius = 1), //烟花碎片半径
+        (this.n = 1), //烟花碎片次数
+        (this.speed = getRandom(1, 10) / 5), //烟花碎片速度
+        (this.g = 0.98), //重力
+        (this.mocha = 0.96), //摩擦力
+        //this.color='#' + Math.random().toString(16).substr(2, 6).toUpperCase(),
+
+        //一半是白色的碎片，一半是五颜六色的碎片
+        (this.color =
+          Math.random() > 0.5
+            ? "white"
+            : "#" + Math.random().toString(16).substr(2, 6).toUpperCase()),
+        //碎片的角度
+        (this.angle = getRandom(0, 2 * Math.PI)); //0-2π之间随机，这样就各个方向都有了
+    }
+    //绘制碎片
+    ChildFire.prototype.draw = function () {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+      ctx.closePath();
+    };
+    console.log(ChildFire.prototype);
+    ChildFire.prototype.update = function (index) {
+      //更新X坐标
+      this.x += Math.cos(this.angle) * this.speed * this.mocha;
+      //更新Y坐标
+      this.y += Math.sin(this.angle) * this.speed * this.mocha * this.g;
+
+      //执行一次加1
+      this.n++;
+      //50次后清除烟花碎片
+      if (this.n >= 50) {
+        //清除当前碎片的动画函数
+        window.cancelAnimationFrame(this.raf);
+        //清除当前烟花碎片，否则会导致卡死
+        list.splice(index, 1);
+      } else {
+        this.raf = window.requestAnimationFrame(this.draw);
+      }
+    };
+
+    //创建烟花对象(这里默认2个，多了可能会卡)
+    var fire = new Fire();
+    arr.push(fire);
+    var fire2 = new Fire();
+    arr.push(fire2);
+
+    //清洗画布
+    function clear() {
+      ctx.fillStyle = "rgba(0,0,0,0.3)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+    //创建碎片
+    function buildChildFire(fire) {
+      for (var i = 0; i < 400; i++) {
+        var cFire = new ChildFire();
+        //定义烟花碎片的x、y轴位置
+        cFire.x = fire.x;
+        cFire.y = fire.y;
+        list.push(cFire);
+      }
+    }
+
+    function draw() {
+      clear();
+      //循环存烟花碎片数组
+      list.forEach(function (c, i) {
+        c.draw();
+        c.update(i);
+      });
+      //循环存烟花数组
+      arr.forEach(function (c, i) {
+        c.draw();
+        c.update();
+      });
+      window.requestAnimationFrame(draw);
+    }
+    //获取一定范围内的随机数
+    function getRandom(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+    //执行动画函数
+    window.requestAnimationFrame(draw);
+  </script>
+</html>

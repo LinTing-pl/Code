@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>计算器</title>
+    <style>
+      body {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .calc {
+        display: flex;
+        flex-wrap: wrap;
+        width: 300px;
+      }
+
+      .res,
+      .item {
+        box-sizing: border-box;
+        width: 75px;
+        height: 75px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #ddd;
+      }
+      .res {
+        width: 300px;
+      }
+      .item:active {
+        background-color: #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calc">
+      <div class="res" contenteditable="true"></div>
+      <div class="item">1</div>
+      <div class="item">2</div>
+      <div class="item">3</div>
+      <div class="item">+</div>
+      <div class="item">4</div>
+      <div class="item">5</div>
+      <div class="item">6</div>
+      <div class="item">-</div>
+      <div class="item">7</div>
+      <div class="item">8</div>
+      <div class="item">9</div>
+      <div class="item">*</div>
+      <div class="item">0</div>
+      <div class="item">.</div>
+      <div class="item">=</div>
+      <div class="item">/</div>
+    </div>
+  </body>
+  <script>
+    document.querySelectorAll(".item").forEach((item) => {
+      item.addEventListener("click", (e) => {
+        const clickContent = item.innerText;
+        const resEl = document.querySelector(".res");
+        if (clickContent === "=") {
+          resEl.innerText = eval(resEl.innerText);
+        } else {
+          resEl.innerText += clickContent;
+        }
+      });
+    });
+  </script>
+</html>

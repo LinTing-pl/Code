@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>阿里云盘的侧边导航栏</title>
+    <link rel="stylesheet" href="./CSS/iconfont.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        background: url(./img/img2.jfif) no-repeat;
+        background-size: cover;
+      }
+      .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+      }
+      .iconfont {
+        color: #fff;
+        font-size: 24px;
+      }
+      .left-box {
+        width: 250px;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.65);
+        position: relative;
+        color: #fff;
+        font-size: 14px;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.5s ease;
+      }
+      .left-box ul {
+        list-style: none;
+        width: 90%;
+        margin: 25px auto;
+        flex: 1;
+      }
+      .left-box li {
+        height: 46px;
+        display: flex;
+        align-items: center;
+        padding-left: 12px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .left-box li.active,
+      .left-box li.active:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+      .left-box li:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+      .left-box hr {
+        width: 90%;
+        margin: 18px auto;
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .left-box .iconfont {
+        margin-right: 16px;
+      }
+      .user-info {
+        display: flex;
+        align-items: center;
+        padding: 24px;
+      }
+      .user-info img {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 14px;
+      }
+      .user-info span {
+        flex: 1;
+      }
+      .user-info .iconfont {
+        font-size: 20px;
+        margin-right: 0;
+      }
+      .right-box {
+        background-color: #0f0f11;
+        flex: 1;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+      .right-box .top {
+        margin: 25px 35px;
+        display: flex;
+        align-items: center;
+        height: 46px;
+      }
+      .right-box .top .current-tag {
+        flex: 1;
+        color: #fff;
+        font-weight: 600;
+      }
+      .right-box .top .btn {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+      }
+      .right-box .top .btn:last-child {
+        background-color: #446dff;
+        margin-left: 20px;
+      }
+      .right-box .middle {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #222;
+        font-size: 6vw;
+        font-weight: bold;
+        text-transform: uppercase;
+        user-select: none;
+      }
+      .right-box .handle {
+        width: 10px;
+        height: 50px;
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+        cursor: pointer;
+        opacity: 0;
+        transition: all 0.3s;
+      }
+      .right-box .handle::before,
+      .right-box .handle::after {
+        content: "";
+        background-color: rgba(255, 255, 255, 0.2);
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 50%;
+        border-radius: 10px 10px 0 0;
+      }
+      .right-box .handle::after {
+        bottom: 0;
+        border-radius: 0 0 10px 10px;
+      }
+      .right-box:hover .handle {
+        opacity: 1;
+      }
+      .right-box .handle:hover::before {
+        transform: skewX(-15deg);
+      }
+      .right-box .handle:hover::after {
+        transform: skewX(15deg);
+      }
+      .right-box .handle.close:hover::before {
+        transform: skewX(15deg);
+      }
+      .right-box .handle.close:hover::after {
+        transform: skewX(-15deg);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left-box">
+        <ul>
+          <li class="item">
+            <span class="iconfont icon-file"></span>
+            文件
+          </li>
+          <li class="item">
+            <span class="iconfont icon-album"></span>
+            相册
+          </li>
+          <li class="item">
+            <span class="iconfont icon-like"></span>
+            收藏夹
+          </li>
+          <li class="item">
+            <span class="iconfont icon-Vault"></span>
+            保险箱
+          </li>
+          <li class="item">
+            <span class="iconfont icon-dingyue"></span>
+            订阅
+          </li>
+          <li class="item">
+            <span class="iconfont icon-trash"></span>
+            回收站
+          </li>
+          <hr />
+          <li class="item">
+            <span class="iconfont icon-round_transfer"></span>
+            传输列表
+          </li>
+        </ul>
+        <div class="user-info">
+          <img src="./img/img1.jfif" alt="" />
+          <span>草帽小子</span>
+          <span class="iconfont icon-gear"></span>
+        </div>
+      </div>
+      <div class="right-box">
+        <div class="top">
+          <span class="current-tag">文件</span>
+          <div class="btn">
+            <span class="iconfont icon-search"></span>
+          </div>
+          <div class="btn">
+            <span class="iconfont icon-add_defalut"></span>
+          </div>
+        </div>
+        <div class="middle">i'm xiaohuihui</div>
+        <div class="handle"></div>
+      </div>
+    </div>
+  </body>
+  <script>
+    let items = document.querySelectorAll(".item");
+    let current_tag = document.querySelector(".current-tag");
+    let handle = document.querySelector(".handle");
+    let left_box = document.querySelector(".left-box");
+    function setActive() {
+      items.forEach((item) => {
+        item.classList.remove("active");
+      });
+      this.classList.add("active");
+      current_tag.innerText = this.innerText;
+    }
+    items.forEach((item) => {
+      item.addEventListener("click", setActive);
+    });
+    handle.addEventListener("click", function () {
+      if (!this.classList.contains("close")) {
+        left_box.style.width = 0;
+        this.classList.add("close");
+      } else {
+        left_box.style.width = 250 + "px";
+        this.classList.remove("close");
+      }
+    });
+  </script>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>轮播图效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: linear-gradient(200deg, #eef1f5, #e6e90f);
+      }
+      .swipe {
+        position: relative;
+        width: 800px;
+        height: 500px;
+        text-align: center;
+        color: #fff;
+        overflow: hidden;
+      }
+      .swipe ul {
+        padding: 0;
+        width: calc(800px * 3);
+        transition: all 0.5s;
+      }
+      .swipe li {
+        float: left;
+        width: 800px;
+        height: 500px;
+        list-style: none;
+        line-height: 500px;
+        font-size: 50px;
+      }
+      .swipe li:nth-child(1) {
+        background-color: lightcoral;
+      }
+      .swipe li:nth-child(2) {
+        background-color: lightseagreen;
+      }
+      .swipe li:nth-child(3) {
+        background-color: lightsalmon;
+      }
+      .swipe label[for^="indicator"] {
+        position: absolute;
+        top: 450px;
+        width: 20px;
+        height: 20px;
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .swipe label[for="indicator1"] {
+        left: 44%;
+      }
+      .swipe label[for="indicator2"] {
+        left: 49%;
+      }
+      .swipe label[for="indicator3"] {
+        left: 54%;
+      }
+      #indicator1:checked ~ ul {
+        margin-left: 0;
+      }
+      #indicator2:checked ~ ul {
+        margin-left: -800px;
+      }
+      #indicator3:checked ~ ul {
+        margin-left: -1600px;
+      }
+      #indicator1:checked ~ label[for="indicator1"] {
+        background-color: #fff;
+      }
+      #indicator2:checked ~ label[for="indicator2"] {
+        background-color: #fff;
+      }
+      #indicator3:checked ~ label[for="indicator3"] {
+        background-color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="swipe">
+      <input type="radio" name="indicator" id="indicator1" checked hidden />
+      <label for="indicator1"></label>
+      <input type="radio" name="indicator" id="indicator2" checked hidden />
+      <label for="indicator2"></label>
+      <input type="radio" name="indicator" id="indicator3" checked hidden />
+      <label for="indicator3"></label>
+      <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+      </ul>
+    </div>
+  </body>
+</html>

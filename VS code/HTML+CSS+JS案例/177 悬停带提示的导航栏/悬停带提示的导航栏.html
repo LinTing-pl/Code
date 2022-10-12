@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>悬停带提示的导航栏</title>
+    <link rel="stylesheet" href="./CSS/iconfont.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f2f5f7;
+      }
+      .icon-nav {
+        list-style: none;
+        background-color: #231f2e;
+        padding: 0 12px 12px 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-radius: 10px;
+        box-shadow: 0 10px 50px rgba(6, 5, 59, 0.25);
+      }
+      .icon-nav li {
+        margin-top: 12px;
+      }
+      .icon-nav li.split {
+        margin-top: 80px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+      }
+      .icon-nav a {
+        color: #fff;
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;
+        position: relative;
+      }
+      .icon-nav a i {
+        font-size: 20px;
+      }
+      .icon-nav a span {
+        position: absolute;
+        left: calc(100% + 24px);
+        background-color: #fa5c51;
+        white-space: nowrap;
+        font-size: 15px;
+        padding: 8px 16px;
+        border-radius: 6px;
+        opacity: 0;
+        transform-origin: center left;
+        transition: 0.15s ease;
+      }
+      .icon-nav a span::before {
+        content: "";
+        width: 12px;
+        height: 12px;
+        background-color: #fa5c51;
+        border-radius: 3px;
+        position: absolute;
+        left: -4px;
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+      }
+      .icon-nav a:hover,
+      .icon-nav a:focus,
+      .icon-nav a:active {
+        background-color: #fa5c51;
+        outline: none;
+      }
+      .icon-nav a:hover span,
+      .icon-nav a:focus span,
+      .icon-nav a:active span {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <ul class="icon-nav">
+      <li>
+        <a href="#">
+          <i class="iconfont icon-home2"></i>
+          <span>首页</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="iconfont icon-product-hunt"></i>
+          <span>产品管理</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="iconfont icon-user-circle"></i>
+          <span>会员管理</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="iconfont icon-shopping-bag"></i>
+          <span>订单管理</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="iconfont icon-credit_card"></i>
+          <span>财务中心</span>
+        </a>
+      </li>
+      <li class="split">
+        <a href="#">
+          <i class="iconfont icon-bell"></i>
+          <span>消息</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="iconfont icon-gear"></i>
+          <span>系统配置</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="iconfont icon-user-fill"></i>
+          <span>用户中心</span>
+        </a>
+      </li>
+    </ul>
+  </body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>动感的环形加载动画效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #222;
+      }
+      .loading {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        border: 4px solid transparent;
+        border-top-color: #4bc0c8;
+        position: relative;
+        animation: rotate 2s linear infinite;
+      }
+      .loading::before {
+        content: "";
+        position: absolute;
+        left: 5px;
+        top: 5px;
+        right: 5px;
+        bottom: 5px;
+        border-radius: 50%;
+        border: 4px solid transparent;
+        border-top-color: #c779d0;
+        animation: rotate 3s linear infinite;
+      }
+      .loading::after {
+        content: "";
+        position: absolute;
+        left: 15px;
+        top: 15px;
+        right: 15px;
+        bottom: 15px;
+        border-radius: 50%;
+        border: 4px solid transparent;
+        border-top-color: #feac5e;
+        animation: rotate 1.5s linear infinite;
+      }
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading"></div>
+  </body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>翻滚吧乔巴自定义滑块控件</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: linear-gradient(#a1c4fd, #c2e9fb);
+        --thumb-rotate: 0deg;
+      }
+      #slider {
+        width: 70vw;
+        max-width: 500px;
+        appearance: none;
+        -webkit-appearance: none;
+        background: none;
+        outline: none;
+      }
+      #slider::-webkit-slider-runnable-track {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 100%;
+        height: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+      }
+      #slider::-webkit-slider-thumb {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 50px;
+        height: 50px;
+        background: url(./img/mifeng.png) no-repeat;
+        background-size: cover;
+        position: relative;
+        top: -10px;
+        background-position: 0 0;
+        transform: scale(1.8) rotate(var(--thumb-rotate));
+      }
+      #slider::-webkit-slider-thumb:active {
+        background-position: 100% 0;
+        transform: scale(2) rotate(var(--thumb-rotate));
+      }
+      .slider-bar {
+        display: flex;
+      }
+      .slider-bar span {
+        width: 50px;
+        height: 50px;
+        background-color: #fff;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 15px;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        font-size: 20px;
+        font-weight: 600;
+        color: #5282cb;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slider-bar">
+      <input type="range" name="" value="0" id="slider" />
+      <span>0</span>
+    </div>
+  </body>
+  <script>
+    const slider = document.querySelector("#slider");
+    const span = document.querySelector(".slider-bar span");
+    slider.addEventListener("input", function () {
+      span.innerText = slider.value;
+      slider.style.setProperty(
+        "--thumb-rotate",
+        (slider.value / 100) * 720 + "deg"
+      );
+    });
+  </script>
+</html>

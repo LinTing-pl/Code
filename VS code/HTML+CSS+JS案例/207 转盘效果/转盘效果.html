@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>转盘效果</title>
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .zp {
+        width: 400px;
+        height: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+      .zp-pannel {
+        background: url(./img/img1.jpeg);
+        background-size: 400px 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        transition: all 3s;
+      }
+      .item {
+        position: absolute;
+      }
+      .btn {
+        position: absolute;
+        width: 75px;
+        height: 75px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .btn::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -150%);
+        height: 70px;
+        width: 5px;
+        background-color: #fdf5b9;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="zp">
+      <div class="zp-pannel" style="transform: rotate(-1080deg)"></div>
+      <div class="btn">开始</div>
+    </div>
+  </body>
+  <script>
+    const arr = [
+      { name: "积分+1" },
+      { name: "积分+2" },
+      { name: "积分+1" },
+      { name: "积分+2" },
+      { name: "积分+3" },
+      { name: "积分+4" },
+      { name: "电动车一辆" },
+      { name: "积分+10" },
+    ];
+    const zp = document.querySelector(".zp-pannel");
+    const btn = document.querySelector(".btn");
+    const d = 360 / arr.length;
+
+    zp.innerHTML = arr
+      .map((v, i) => {
+        return `<div class='item' style='transform:rotate(${
+          i * d - 70
+        }deg) translate(100px)'>${v.name}</div>`;
+      })
+      .join("");
+    btn.onclick = () => {
+      const zpIndex = arr.findIndex((v) => v.is);
+      const deg = -(zpIndex * d + 740);
+      zp.style.transition = "inherit";
+      zp.transform = "";
+      setTimeout(() => {
+        zp.style.transition = "";
+        setTimeout(() => {
+          zp.style.transform = `rotate(${deg}deg)`;
+        });
+      });
+    };
+  </script>
+</html>

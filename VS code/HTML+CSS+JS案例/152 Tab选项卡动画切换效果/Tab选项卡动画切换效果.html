@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tab选项卡动画切换效果</title>
+    <link rel="stylesheet" href="./CSS/iconfont.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container {
+        border: 1px solid #38ada9;
+      }
+      .nav {
+        display: flex;
+      }
+      .nav .item {
+        width: 140px;
+        height: 108px;
+        border-right: 1px solid #38ada9;
+        border-bottom: 1px solid #38ada9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+      .nav .item:last-child {
+        border-right: none;
+      }
+      .nav .item::before {
+        content: "";
+        width: 80px;
+        height: 80px;
+        background-color: #38ada9;
+        border-radius: 50%;
+        position: absolute;
+        transition: all 0.3s;
+      }
+      .nav .iconfont {
+        color: #fff;
+        position: relative;
+        font-size: 36px;
+      }
+      .nav .item.active::before {
+        width: 150%;
+        height: 150%;
+      }
+      .content {
+        width: 100%;
+        height: 300px;
+        position: relative;
+      }
+      section {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        opacity: 0;
+        transition: opacity 0.4s;
+      }
+      section span {
+        font-size: 80px;
+        font-weight: bold;
+        color: #38ada940;
+      }
+      section.active {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav">
+        <div class="item">
+          <span class="iconfont icon-bicycle"></span>
+        </div>
+        <div class="item">
+          <span class="iconfont icon-motocycle"></span>
+        </div>
+        <div class="item">
+          <span class="iconfont icon-bus"></span>
+        </div>
+        <div class="item">
+          <span class="iconfont icon-car"></span>
+        </div>
+        <div class="item">
+          <span class="iconfont icon-subway"></span>
+        </div>
+      </div>
+      <div class="content">
+        <section><span>1</span></section>
+        <section><span>2</span></section>
+        <section><span>3</span></section>
+        <section><span>4</span></section>
+        <section><span>5</span></section>
+      </div>
+    </div>
+  </body>
+  <script>
+    const items = document.querySelectorAll(".item");
+    const sections = document.querySelectorAll("section");
+    function removeActive() {
+      items.forEach((item) => {
+        item.classList.remove("active");
+      });
+      sections.forEach((section) => {
+        section.classList.remove("active");
+      });
+    }
+    items.forEach((item, index) => {
+      item.addEventListener("click", function () {
+        removeActive();
+        item.classList.add("active");
+        sections[index].classList.add("active");
+      });
+    });
+  </script>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>仿优酷视频轮播图</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f4f4f4;
+      }
+      .container {
+        width: 100%;
+        height: 592px;
+        position: relative;
+      }
+      .shades {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        pointer-events: none;
+      }
+      .shades .left {
+        width: 160px;
+        height: 100%;
+        background: linear-gradient(-90deg, transparent, #16161a);
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      .shades .right {
+        width: 160px;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, #16161a);
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+      .shades .top {
+        width: 100%;
+        height: 90px;
+        background: linear-gradient(transparent, #16161a);
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      .shades .bottom {
+        width: 100%;
+        height: 220px;
+        background: linear-gradient(180deg, transparent, #16161a);
+        position: absolute;
+        left: 0;
+        bottom: 0;
+      }
+      .imgs {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+      .imgs img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        position: absolute;
+      }
+      .imgs a {
+        opacity: 0;
+        transition: all 0.2s;
+      }
+      .imgs a.active {
+        opacity: 1;
+      }
+      .titles {
+        width: 297px;
+        height: 416px;
+        position: absolute;
+        top: 19%;
+        right: 5%;
+        background: linear-gradient(
+          180deg,
+          transparent,
+          #16161a 22%,
+          #16161a 81%,
+          transparent
+        );
+      }
+      .titles a {
+        display: block;
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: none;
+        width: 100%;
+        padding: 12px 20px;
+      }
+      .titles .title2 {
+        font-size: 12px;
+        margin-top: 8px;
+        font-weight: normal;
+        display: none;
+      }
+      .titles a.active {
+        color: #fff;
+        font-size: 20px;
+        font-weight: bold;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.25) 20%,
+          transparent 90%
+        );
+      }
+      .titles a.active .title2 {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="imgs">
+        <a href="#" class="active">
+          <img src="./img/img1.jpg" alt="" />
+        </a>
+        <a href="#">
+          <img src="./img/img2.jpg" alt="" />
+        </a>
+        <a href="#">
+          <img src="./img/img3.jpg" alt="" />
+        </a>
+        <a href="#">
+          <img src="./img/img4.jpg" alt="" />
+        </a>
+        <a href="#">
+          <img src="./img/img5.jpg" alt="" />
+        </a>
+        <a href="#">
+          <img src="./img/img6.jpg" alt="" />
+        </a>
+        <a href="#">
+          <img src="./img/img7.jpg" alt="" />
+        </a>
+        <a href="#">
+          <img src="./img/img8.jpg" alt="" />
+        </a>
+      </div>
+      <div class="shades">
+        <div class="left"></div>
+        <div class="top"></div>
+        <div class="right"></div>
+        <div class="bottom"></div>
+      </div>
+      <div class="titles">
+        <a href="#" class="active">
+          <div class="title">这！就是街舞 第五季</div>
+          <div class="title2">限时双人斗舞看嗨王一博</div>
+        </a>
+        <a href="#">
+          <div class="title">特级英雄黄继光</div>
+          <div class="title2">致敬“最可爱的人”！</div>
+        </a>
+        <a href="#">
+          <div class="title">炽道</div>
+          <div class="title2">金晨王安宇燃爆荷尔蒙</div>
+        </a>
+        <a href="#">
+          <div class="title">两个人的小森林</div>
+          <div class="title2">鬼马少女攻陷禁欲教授</div>
+        </a>
+        <a href="#">
+          <div class="title">大考</div>
+          <div class="title2">高考生逆境备考鱼跃龙门</div>
+        </a>
+        <a href="#">
+          <div class="title">中国好声音2022</div>
+          <div class="title2">李荣浩战队三美晋级三强</div>
+        </a>
+        <a href="#">
+          <div class="title">冰火魔厨</div>
+          <div class="title2">斗罗前传，天才少年蜕变成神</div>
+        </a>
+        <a href="#">
+          <div class="title">喜迎二十大 奋进新征程</div>
+          <div class="title2">优秀网络视听作品展播</div>
+        </a>
+      </div>
+    </div>
+  </body>
+  <script>
+    const titles = document.querySelectorAll(".titles a");
+    const imgs = document.querySelectorAll(".imgs a");
+    let currIndex = 0,
+      timer = null;
+    function removeActive() {
+      titles.forEach((a) => {
+        a.classList.remove("active");
+      });
+      imgs.forEach((img) => {
+        img.classList.remove("active");
+      });
+    }
+    function changeBanner(index) {
+      console.log(currIndex);
+      removeActive();
+      titles[index].classList.add("active");
+      imgs[index].classList.add("active");
+    }
+    function autoBanner() {
+      timer = setInterval(() => {
+        currIndex++;
+        if (currIndex > titles.length - 1) {
+          currIndex = 0;
+        }
+        changeBanner(currIndex);
+      }, 3000);
+    }
+    titles.forEach((a, index) => {
+      a.addEventListener("mouseenter", function () {
+        clearInterval(timer);
+        currIndex = index;
+        changeBanner(currIndex);
+      });
+      a.addEventListener("mouseleave", autoBanner);
+    });
+    autoBanner();
+  </script>
+</html>

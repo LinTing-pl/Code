@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>带标题的图像悬停效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #212121;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .card {
+        width: 310px;
+        height: 220px;
+        overflow: hidden;
+        margin: 10px;
+        background-color: #000;
+        color: #fff;
+        position: relative;
+        cursor: pointer;
+      }
+      .card img {
+        width: 100%;
+        height: 100%;
+        transition: all 0.35s;
+      }
+      .card .text {
+        position: absolute;
+        inset: 30px;
+        padding: 0 18px;
+      }
+      .card .text::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        left: 100%;
+        border-left: 4px solid rgba(255, 255, 255, 0.8);
+        background-color: rgba(255, 255, 255, 0.5);
+        opacity: 0;
+        transition: all 0.5s;
+        transition-delay: 0.6s;
+      }
+      .card .text h2,
+      .card .text p {
+        margin-bottom: 6px;
+        opacity: 0;
+        transition: all 0.35s;
+      }
+      .card .text h2 {
+        font-weight: 300;
+        text-transform: uppercase;
+        transform: translate(30%, 0);
+        transition-delay: 0.3s;
+      }
+      .card .text h2 span {
+        font-weight: 800;
+      }
+      .card .text p {
+        font-weight: 200;
+        transform: translate(0, 30%);
+      }
+      .card:hover img {
+        opacity: 0.3;
+      }
+      .card:hover .text h2 {
+        opacity: 1;
+        transform: translate(0, 0);
+        transition-delay: 0.4s;
+      }
+      .card:hover .text p {
+        opacity: 0.9;
+        transform: translate(0, 0);
+        transition-delay: 0.6s;
+      }
+      .card:hover .text::before {
+        background-color: rgba(255, 255, 255, 0);
+        left: 0;
+        opacity: 1;
+        transition-delay: 0s;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <img src="./img/img1.jpg" alt="" />
+        <div class="text">
+          <h2>A man <span>can't</span> ride your back unless it is bent</h2>
+          <p>你的腰不弯，别人就不能骑在你背上。</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="./img/img2.jpg" alt="" />
+        <div class="text">
+          <h2>Wasting <span>time</span> is <span>robbing</span> oneself</h2>
+          <p>浪费时间就是掠夺自己。</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="./img/img3.jpg" alt="" />
+        <div class="text">
+          <h2>Conceit is the <span>quicksand</span> of success</h2>
+          <p>自负是成功的流沙。</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>文字滚动特效</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        background-color: #f2be45;
+        position: relative;
+        animation: changeBg 2.5s linear forwards;
+      }
+      .container::before,
+      .container::after {
+        position: absolute;
+        top: 5%;
+        color: #f2be45;
+        font-size: 70px;
+        font-weight: bold;
+        animation: showText 2.5s linear forwards;
+        z-index: 3;
+      }
+      .container::before {
+        content: "热烈祝贺";
+        left: 5%;
+        transform: skewX(15deg);
+      }
+      .container::after {
+        content: "卫冕冠军";
+        right: 5%;
+        transform: skewX(-15deg);
+      }
+      .letter {
+        font-size: 160px;
+        font-weight: bold;
+        color: #725e82;
+        text-transform: uppercase;
+        position: fixed;
+      }
+      .letter span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 180px;
+        height: 200px;
+      }
+      .letter.letter1 {
+        left: calc(50% - 270px);
+        top: -600px;
+        animation: letter1Animate 2.5s ease-in-out;
+      }
+      .letter.letter2 {
+        left: calc(50% - 90px);
+        top: -400px;
+        animation: letter2Animate 2.5s ease-in-out;
+      }
+      .letter.letter3 {
+        left: calc(50% + 90px);
+        top: -1000px;
+        animation: letter3Animate 2.5s ease-in-out;
+      }
+      .letter .check {
+        color: #f2be45;
+      }
+      @keyframes changeBg {
+        0% {
+          background-color: #f2be45;
+        }
+        100% {
+          background-color: #725e82;
+        }
+      }
+      @keyframes letter1Animate {
+        0% {
+          top: -2000px;
+        }
+        100% {
+          top: -600px;
+          color: #725e82;
+        }
+      }
+      @keyframes letter2Animate {
+        0% {
+          top: -4000px;
+        }
+        100% {
+          top: -400px;
+          color: #725e82;
+        }
+      }
+      @keyframes letter3Animate {
+        0% {
+          top: -3000px;
+        }
+        100% {
+          top: -1000px;
+          color: #725e82;
+        }
+      }
+      @keyframes showText {
+        0% {
+          color: #f2be45;
+        }
+        98% {
+          color: #725e82;
+          text-shadow: none;
+        }
+        100% {
+          color: #fff;
+          text-shadow: 5px 5px 0 #f2be45;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="letter letter1">
+        <span>a</span>
+        <span>b</span>
+        <span>c</span>
+        <span>d</span>
+        <span class="check">e</span>
+        <span>f</span>
+        <span>g</span>
+        <span>h</span>
+        <span>i</span>
+        <span>j</span>
+        <span>k</span>
+        <span>l</span>
+        <span>m</span>
+        <span>n</span>
+        <span>o</span>
+        <span>p</span>
+        <span>q</span>
+        <span>r</span>
+        <span>s</span>
+        <span>t</span>
+        <span>u</span>
+        <span>v</span>
+        <span>w</span>
+        <span>x</span>
+        <span>y</span>
+        <span>z</span>
+      </div>
+      <div class="letter letter2">
+        <span>a</span>
+        <span>b</span>
+        <span>c</span>
+        <span class="check">d</span>
+        <span>e</span>
+        <span>f</span>
+        <span>g</span>
+        <span>h</span>
+        <span>i</span>
+        <span>j</span>
+        <span>k</span>
+        <span>l</span>
+        <span>m</span>
+        <span>n</span>
+        <span>o</span>
+        <span>p</span>
+        <span>q</span>
+        <span>r</span>
+        <span>s</span>
+        <span>t</span>
+        <span>u</span>
+        <span>v</span>
+        <span>w</span>
+        <span>x</span>
+        <span>y</span>
+        <span>z</span>
+      </div>
+      <div class="letter letter3">
+        <span>a</span>
+        <span>b</span>
+        <span>c</span>
+        <span>d</span>
+        <span>e</span>
+        <span>f</span>
+        <span class="check">g</span>
+        <span>h</span>
+        <span>i</span>
+        <span>j</span>
+        <span>k</span>
+        <span>l</span>
+        <span>m</span>
+        <span>n</span>
+        <span>o</span>
+        <span>p</span>
+        <span>q</span>
+        <span>r</span>
+        <span>s</span>
+        <span>t</span>
+        <span>u</span>
+        <span>v</span>
+        <span>w</span>
+        <span>x</span>
+        <span>y</span>
+        <span>z</span>
+      </div>
+    </div>
+  </body>
+</html>

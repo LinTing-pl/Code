@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>交互式图片鼠标悬停景深对焦效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .container {
+        width: 100%;
+        height: 160px;
+        position: relative;
+        overflow: hidden;
+      }
+      .container div {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+      }
+      .container div:nth-child(1) {
+        left: 0;
+        top: 0;
+      }
+      .container div:nth-child(2) {
+        left: 35%;
+        top: 0;
+      }
+      .container div:nth-child(3) {
+        left: -25%;
+        top: 0;
+      }
+      .container div:nth-child(4) {
+        left: 25%;
+        top: 0;
+      }
+      .container div:nth-child(5) {
+        left: -10%;
+        top: 0;
+      }
+      .container div:nth-child(6) {
+        left: 15%;
+        top: 0;
+      }
+      .container div img {
+        width: 110%;
+        height: 100%;
+        object-fit: contain;
+        --offset: 0px;
+        --blur: 2px;
+        transform: translateX(var(--offset));
+        filter: blur(var(--blur));
+      }
+      h3 {
+        margin-top: 25px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div><img src="./img/香蕉.png" alt="" /></div>
+      <div><img src="./img/西瓜.png" alt="" /></div>
+      <div><img src="./img/羊正面.png" alt="" /></div>
+      <div><img src="./img/羊招手.png" alt="" /></div>
+      <div><img src="./img/羊侧面.png" alt="" /></div>
+      <div><img src="./img/桃子.png" alt="" /></div>
+    </div>
+    <h3>在图片上左右移动鼠标查看效果</h3>
+  </body>
+  <script>
+    const container = document.querySelector(".container");
+    const imgs = document.querySelectorAll(".container img");
+    container.addEventListener("mousemove", function (e) {
+      let percent = e.clientX / window.outerWidth;
+      let offset = 10 * percent;
+      let blur = 20;
+      imgs.forEach((img, index) => {
+        offset *= 1.3;
+        let blurValue = Math.pow(index / imgs.length - percent, 2) * blur;
+        img.style.setProperty("--offset", offset + "px");
+        img.style.setProperty("--blur", blurValue + "px");
+      });
+    });
+  </script>
+</html>

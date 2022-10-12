@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>不偷看密码的猫头鹰登陆界面</title>
+    <script src="./CSS/iconfont.js"></script>
+    <style>
+      .icon {
+        vertical-align: -0.15em;
+        fill: currentColor;
+        overflow: hidden;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: linear-gradient(200deg, #72afd3, #96fbc4);
+      }
+      .login-box {
+        position: relative;
+        width: 320px;
+      }
+      .input-box {
+        display: flex;
+        flex-direction: column;
+      }
+      .input-box input {
+        height: 40px;
+        border-radius: 3px;
+        text-indent: 15px;
+        outline: none;
+        border: none;
+        margin-bottom: 15px;
+      }
+      .input-box input:focus {
+        outline: 1px solid lightseagreen;
+      }
+      .input-box button {
+        border: none;
+        height: 45px;
+        background-color: lightseagreen;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+      .owl {
+        width: 160px;
+        height: 108px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: -75px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: -1;
+      }
+      .owl .hand {
+        width: 34px;
+        height: 34px;
+        border-radius: 40px;
+        background-color: #472d20;
+        position: absolute;
+        left: 0px;
+        bottom: 25px;
+        transform: scaleY(0.6);
+        transition: all 0.3s ease-in-out;
+      }
+      .owl .hand.hand-r {
+        left: 125px;
+      }
+      .owl.password .hand {
+        transform: translateX(42px) translateY(-32px) scale(0.7);
+      }
+      .owl.password .hand.hand-r {
+        transform: translateX(-42px) translateY(-32px) scale(0.7);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-box">
+      <div class="owl" id="owl">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-weibiaoti-_huabanfuben"></use>
+        </svg>
+        <div class="hand"></div>
+        <div class="hand hand-r"></div>
+      </div>
+      <div class="input-box">
+        <input type="text" placeholder="账号" />
+        <input
+          type="password"
+          placeholder="密码"
+          id="password"
+          onfocus="aC()"
+          onblur="aR()"
+        />
+        <button>登陆</button>
+      </div>
+    </div>
+  </body>
+  <script>
+    function aC() {
+      const owl = document.getElementById("owl");
+      owl.classList.add("password");
+    }
+    function aR() {
+      const owl = document.getElementById("owl");
+      if (!document.getElementById("password").value) {
+        owl.classList.remove("password");
+      }
+    }
+  </script>
+</html>

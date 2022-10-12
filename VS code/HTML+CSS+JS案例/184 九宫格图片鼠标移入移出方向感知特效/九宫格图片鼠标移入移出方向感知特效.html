@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>九宫格图片鼠标移入移出方向感知特效</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(#dfe9f3, #fff);
+      }
+      .container {
+        width: 630px;
+      }
+      li {
+        list-style: none;
+        position: relative;
+        width: 200px;
+        height: 160px;
+        float: left;
+        margin: 5px 10px 5px 0;
+        overflow: hidden;
+      }
+      li img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transition: 0.25s ease-in;
+      }
+      li p {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.75);
+        position: absolute;
+        left: 0;
+        top: -100%;
+        font-size: 15px;
+        color: #aaa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        line-height: 24px;
+      }
+      li:hover img {
+        transform: scale(1.1);
+      }
+      li:nth-child(3) {
+        /* margin-right: 0; */
+        width: 200px;
+        height: 330px;
+      }
+      li:nth-child(4),
+      li:nth-child(5) {
+        margin-top: -165px;
+      }
+      li:nth-child(5) {
+        margin-left: 210px;
+      }
+    </style>
+  </head>
+  <body>
+    <ul class="container">
+      <li>
+        <img src="./img/img1.jpg" alt="" />
+        <p>
+          1.大丈夫当朝碧海而暮苍梧。。大丈夫当朝碧海而暮苍梧。。大丈夫当朝碧海而暮苍梧。。
+        </p>
+      </li>
+      <li>
+        <img src="./img/img2.jpg" alt="" />
+        <p>
+          2.大丈夫当朝碧海而暮苍梧。。大丈夫当朝碧海而暮苍梧。。大丈夫当朝碧海而暮苍梧。。
+        </p>
+      </li>
+      <li>
+        <img src="./img/img3.jpg" alt="" />
+        <p>
+          3.大丈夫当朝碧海而暮苍梧。。大丈夫当朝碧海而暮苍梧。。大丈夫当朝碧海而暮苍梧。。
+        </p>
+      </li>
+      <li>
+        <img src="./img/img4.jpg" alt="" />
+        <p>
+          4.大丈夫当朝碧海而暮苍梧。。大丈夫当朝碧海而暮苍梧。。大丈夫当朝碧海而暮苍梧。。
+        </p>
+      </li>
+      <li>
+        <img src="./img/img5.jpg" alt="" />
+        <p>
+          5.大丈夫当朝碧海而暮苍梧。。大丈夫当朝碧海而暮苍梧。。大丈夫当朝碧海而暮苍梧。。
+        </p>
+      </li>
+      <li>
+        <img src="./img/img6.jpg" alt="" />
+        <p>
+          6.大丈夫当朝碧海而暮苍梧。。大丈夫当朝碧海而暮苍梧。。大丈夫当朝碧海而暮苍梧。。
+        </p>
+      </li>
+      <li>
+        <img src="./img/img7.jpg" alt="" />
+        <p>
+          7.大丈夫当朝碧海而暮苍梧。。大丈夫当朝碧海而暮苍梧。。大丈夫当朝碧海而暮苍梧。。
+        </p>
+      </li>
+      <li>
+        <img src="./img/img8.jpg" alt="" />
+        <p>
+          8.大丈夫当朝碧海而暮苍梧。。大丈夫当朝碧海而暮苍梧。。大丈夫当朝碧海而暮苍梧。。
+        </p>
+      </li>
+    </ul>
+  </body>
+  <script>
+    const lis = document.querySelectorAll(".container li"),
+      ps = document.querySelectorAll(".container li p");
+    function direct(e, o) {
+      var w = o.offsetWidth,
+        h = o.offsetHeight,
+        top = o.offsetTop,
+        left = o.offsetLeft,
+        scrollTop =
+          document.body.scrollTop || document.documentElement.scrollTop,
+        scrollLeft =
+          document.body.scrollLeft || document.documentElement.scrollLeft,
+        offTop = top - scrollTop,
+        offLeft = left - screenLeft,
+        ex = e.pageX - screenLeft || e.clientX,
+        ey = e.pageY - screenTop || e.clientY,
+        x = ex - offLeft - (w / 2) * (w > h ? h / w : 1),
+        y = ey - offTop - (h / 2) * (h > w ? w / h : 1),
+        angle =
+          (Math.round((Math.atan2(y, x) * (180 / Math.PI) + 180) / 90) + 3) % 4,
+        directName = ["上", "右", "下", "左"];
+      return directName[angle];
+    }
+    function mouseEvent(angle, o, d) {
+      var w = o.offsetWidth,
+        h = o.offsetHeight;
+      var p = o.querySelector("p");
+      p.style.transition = "0s";
+      if (d == "in") {
+        switch (angle) {
+          case "上":
+            if (p.offsetLeft == 0 && p.offsetTop == 0) break;
+            p.style.left = 0;
+            p.style.top = -h + "px";
+            setTimeout(() => {
+              p.style.left = 0;
+              p.style.top = 0;
+              p.style.transition = "0.2s";
+            }, 50);
+            break;
+          case "右":
+            if (p.offsetLeft == 0 && p.offsetTop == 0) break;
+            p.style.left = w + "px";
+            p.style.top = 0;
+            setTimeout(() => {
+              p.style.left = 0;
+              p.style.top = 0;
+              p.style.transition = "0.2s";
+            }, 50);
+            break;
+          case "下":
+            if (p.offsetLeft == 0 && p.offsetTop == 0) break;
+            p.style.left = 0;
+            p.style.top = h + "px";
+            setTimeout(() => {
+              p.style.left = 0;
+              p.style.top = 0;
+              p.style.transition = "0.2s";
+            }, 50);
+            break;
+          case "左":
+            if (p.offsetLeft == 0 && p.offsetTop == 0) break;
+            p.style.left = -w + "px";
+            p.style.top = 0;
+            setTimeout(() => {
+              p.style.left = 0;
+              p.style.top = 0;
+              p.style.transition = "0.2s";
+            }, 50);
+            break;
+        }
+      } else if (d == "out") {
+        switch (angle) {
+          case "上":
+            setTimeout(() => {
+              p.style.left = 0;
+              p.style.top = -h + "px";
+              p.style.transition = "0.2s";
+              p.style.transitionDelay = "0.1s";
+            }, 50);
+            break;
+          case "右":
+            setTimeout(() => {
+              p.style.left = w + "px";
+              p.style.top = 0;
+              p.style.transition = "0.2s";
+              p.style.transitionDelay = "0.1s";
+            }, 50);
+            break;
+          case "下":
+            setTimeout(() => {
+              p.style.left = 0;
+              p.style.top = h + "px";
+              p.style.transition = "0.2s";
+              p.style.transitionDelay = "0.1s";
+            }, 50);
+            break;
+          case "左":
+            setTimeout(() => {
+              p.style.left = -w + "px";
+              p.style.top = 0;
+              p.style.transition = "0.2s";
+              p.style.transitionDelay = "0.1s";
+            }, 50);
+            break;
+        }
+      }
+    }
+    lis.forEach((li) => {
+      li.addEventListener("mouseenter", function (e) {
+        var e = e || window.event;
+        var angle = direct(e, this);
+        mouseEvent(angle, this, "in");
+      });
+      li.addEventListener("mouseleave", function (e) {
+        var e = e || window.event;
+        var angle = direct(e, this);
+        mouseEvent(angle, this, "out");
+      });
+    });
+  </script>
+</html>

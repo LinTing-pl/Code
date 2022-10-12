@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="author" content="Linting" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    #main {
+      border: 2px solid #696969;
+      width: 60%;
+      height: 80%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    #middle {
+      height: 14%;
+      display: flex;
+    }
+    .text {
+      height: 43%;
+      border: solid 1px #696969;
+    }
+    textarea {
+      width: 100%;
+      height: 99%;
+      border: none;
+      resize: none;
+      overflow: hidden;
+      border: none;
+      padding: 0;
+      margin: 0;
+      color: #111;
+      font: 200 18px/1.2em "Microsoft YaHei", Arial, Helvetica, Sans-Serif;
+      overflow: auto;
+    }
+    #pwarea {
+      width: 70%;
+    }
+    #pw {
+      margin-top: 3px;
+      font-size: 100%;
+    }
+    #func {
+      width: 30%;
+      border: solid 1px #dfdfdf;
+      display: flex;
+      flex-direction: column;
+    }
+    .switch1 {
+      margin-top: 2px;
+      width: 30%;
+      height: 90%;
+      position: relative;
+      border: 1px solid #dfdfdf;
+      background-color: #fdfdfd;
+      box-shadow: #dfdfdf 0 0 0 0 inset;
+      border-radius: 20px;
+      background-clip: content-box;
+      display: inline-block;
+      -webkit-appearance: none;
+      user-select: none;
+      outline: none;
+      transition: border cubic-bezier(0, 0, 0, 1) 0.4s,
+        box-shadow cubic-bezier(0, 0, 0, 1) 0.4s;
+    }
+
+    .switch1:before {
+      content: "";
+      width: 56%;
+      height: 100%;
+      position: absolute;
+      top: 0px;
+      left: 0;
+      border-radius: 20px;
+      background-color: #fff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+      transition: left 0.3s;
+    }
+
+    .switch1:checked {
+      border-color: #64bd63;
+      box-shadow: #64bd63 0 0 0 16px inset;
+      background-color: #64bd63;
+      box-shadow: #64bd63 0 0 0 16px inset;
+      background-color: #64bd63;
+      transition: border ease 0.4s, box-shadow ease 0.4s,
+        background-color ease 1.2s;
+    }
+
+    .switch1:checked:before {
+      left: 44%;
+      transition: left 0.3s;
+    }
+    .switch2 {
+      width: 22%;
+      height: 90%;
+    }
+    form {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    span {
+      width: 100%;
+      height: 100%;
+      text-align: center;
+    }
+  </style>
+  <body>
+    <div id="main">
+      <div class="text">
+        <textarea
+          name=""
+          placeholder="请输入需要操作的文本"
+          v-model="message"
+        ></textarea>
+      </div>
+      <div id="middle">
+        <div id="pwarea">
+          <form>
+            <span>
+              密码:<input
+                id="pw"
+                type="password"
+                required
+                maxlength="8"
+                v-model="key"
+                title="必须填写密码"
+                placeholder="请输入8位以内密码"
+              />
+              <input
+                type="checkbox"
+                name=""
+                id="visible"
+                @click="vis"
+              />显示密码 </span
+            ><span>
+              <input class="switch2" type="button" @click="de" value="清空" />
+              <input
+                class="switch2"
+                type="button"
+                @click="paste"
+                value="复制" />
+              <input
+                class="switch2"
+                type="submit"
+                @click.prevent="check"
+                value="执行"
+            /></span>
+          </form>
+        </div>
+        <div id="func">
+          <span>
+            <input
+              class="switch1"
+              type="radio"
+              checked
+              name="opt"
+              value="0"
+            />加密</span
+          >
+          <span>
+            <input
+              class="switch1"
+              type="radio"
+              name="opt"
+              value="1"
+            />解密</span
+          >
+        </div>
+      </div>
+      <div class="text">
+        <textarea
+          name=""
+          v-text:value="result"
+          readonly
+          placeholder="计算后的文本"
+        ></textarea>
+      </div>
+    </div>
+  </body>
+  <!-- https://unpkg.com/vue@next -->
+  <script src="./vue.js"></script>
+  <script>
+    //  @author：麟听 WeChat:15019763969
+    function DES() {
+      this.Database = {
+        ip: {
+          ip: [
+            58, 50, 42, 34, 26, 18, 10, 2, 60, 52, 44, 36, 28, 20, 12, 4, 62,
+            54, 46, 38, 30, 22, 14, 6, 64, 56, 48, 40, 32, 24, 16, 8, 57, 49,
+            41, 33, 25, 17, 9, 1, 59, 51, 43, 35, 27, 19, 11, 3, 61, 53, 45, 37,
+            29, 21, 13, 5, 63, 55, 47, 39, 31, 23, 15, 7,
+          ],
+          inverseip: [
+            40, 8, 48, 16, 56, 24, 64, 32, 39, 7, 47, 15, 55, 23, 63, 31, 38, 6,
+            46, 14, 54, 22, 62, 30, 37, 5, 45, 13, 53, 21, 61, 29, 36, 4, 44,
+            12, 52, 20, 60, 28, 35, 3, 43, 11, 51, 19, 59, 27, 34, 2, 42, 10,
+            50, 18, 58, 26, 33, 1, 41, 9, 49, 17, 57, 25,
+          ],
+        },
+        Ebox: [
+          32, 1, 2, 3, 4, 5, 4, 5, 6, 7, 8, 9, 8, 9, 10, 11, 12, 13, 12, 13, 14,
+          15, 16, 17, 16, 17, 18, 19, 20, 21, 20, 21, 22, 23, 24, 25, 24, 25,
+          26, 27, 28, 29, 28, 29, 30, 31, 32, 1,
+        ],
+        Pbox: [
+          16, 7, 20, 21, 29, 12, 28, 17, 1, 15, 23, 26, 5, 18, 31, 10, 2, 8, 24,
+          14, 32, 27, 3, 9, 19, 13, 30, 6, 22, 11, 4, 25,
+        ],
+        Sbox: {
+          s1: [
+            [14, 4, 13, 1, 2, 15, 11, 8, 3, 10, 6, 12, 5, 9, 0, 7],
+            [0, 15, 7, 4, 14, 2, 13, 1, 10, 6, 12, 11, 9, 5, 3, 8],
+            [4, 1, 14, 8, 13, 6, 2, 11, 15, 12, 9, 7, 3, 10, 5, 0],
+            [15, 12, 8, 2, 4, 9, 1, 7, 5, 11, 3, 14, 10, 0, 6, 13],
+          ],
+          s2: [
+            [15, 1, 8, 14, 6, 11, 3, 4, 9, 7, 2, 13, 12, 0, 5, 10],
+            [3, 13, 4, 7, 15, 2, 8, 14, 12, 0, 1, 10, 6, 9, 11, 5],
+            [0, 14, 7, 11, 10, 4, 13, 1, 5, 8, 12, 6, 9, 3, 2, 15],
+            [13, 8, 10, 1, 3, 15, 4, 2, 11, 6, 7, 12, 0, 5, 14, 9],
+          ],
+          s3: [
+            [10, 0, 9, 14, 6, 3, 15, 5, 1, 13, 12, 7, 11, 4, 2, 8],
+            [13, 7, 0, 9, 3, 4, 6, 10, 2, 8, 5, 14, 12, 11, 15, 1],
+            [13, 6, 4, 9, 8, 15, 3, 0, 11, 1, 2, 12, 5, 10, 14, 7],
+            [1, 10, 13, 0, 6, 9, 8, 7, 4, 15, 14, 3, 11, 5, 2, 12],
+          ],
+          s4: [
+            [7, 13, 14, 3, 0, 6, 9, 10, 1, 2, 8, 5, 11, 12, 4, 15],
+            [13, 8, 11, 5, 6, 15, 0, 3, 4, 7, 2, 12, 1, 10, 14, 9],
+            [10, 6, 9, 0, 12, 11, 7, 13, 15, 1, 3, 14, 5, 2, 8, 4],
+            [3, 15, 0, 6, 10, 1, 13, 8, 9, 4, 5, 11, 12, 7, 2, 14],
+          ],
+          s5: [
+            [2, 12, 4, 1, 7, 10, 11, 6, 8, 5, 3, 15, 13, 0, 14, 9],
+            [14, 11, 2, 12, 4, 7, 13, 1, 5, 0, 15, 10, 3, 9, 8, 6],
+            [4, 2, 1, 11, 10, 13, 7, 8, 15, 9, 12, 5, 6, 3, 0, 14],
+            [11, 8, 12, 7, 1, 14, 2, 13, 6, 15, 0, 9, 10, 4, 5, 3],
+          ],
+          s6: [
+            [12, 1, 10, 15, 9, 2, 6, 8, 0, 13, 3, 4, 14, 7, 5, 11],
+            [10, 15, 4, 2, 7, 12, 9, 5, 6, 1, 13, 14, 0, 11, 3, 8],
+            [9, 14, 15, 5, 2, 8, 12, 3, 7, 0, 4, 10, 1, 13, 11, 6],
+            [4, 3, 2, 12, 9, 5, 15, 10, 11, 14, 1, 7, 6, 0, 8, 13],
+          ],
+          s7: [
+            [4, 11, 2, 14, 15, 0, 8, 13, 3, 12, 9, 7, 5, 10, 6, 1],
+            [13, 0, 11, 7, 4, 9, 1, 10, 14, 3, 5, 12, 2, 15, 8, 6],
+            [1, 4, 11, 13, 12, 3, 7, 14, 10, 15, 6, 8, 0, 5, 9, 2],
+            [6, 11, 13, 8, 1, 4, 10, 7, 9, 5, 0, 15, 14, 2, 3, 12],
+          ],
+          s8: [
+            [13, 2, 8, 4, 6, 15, 11, 1, 10, 9, 3, 14, 5, 0, 12, 7],
+            [1, 15, 13, 8, 10, 3, 7, 4, 12, 5, 6, 11, 0, 14, 9, 2],
+            [7, 11, 4, 1, 9, 12, 14, 2, 0, 6, 10, 13, 15, 3, 5, 8],
+            [2, 1, 14, 7, 4, 10, 8, 13, 15, 12, 9, 0, 3, 5, 6, 11],
+          ],
+        },
+        PC: {
+          "PC-1": [
+            57, 49, 41, 33, 25, 17, 9, 1, 58, 50, 42, 34, 26, 18, 10, 2, 59, 51,
+            43, 35, 27, 19, 11, 3, 60, 52, 44, 36, 63, 55, 47, 39, 31, 23, 15,
+            7, 62, 54, 46, 38, 30, 22, 14, 6, 61, 53, 45, 37, 29, 21, 13, 5, 28,
+            20, 12, 4,
+          ],
+          "PC-2": [
+            14, 17, 11, 24, 1, 5, 3, 28, 15, 6, 21, 10, 23, 19, 12, 4, 26, 8,
+            16, 7, 27, 20, 13, 2, 41, 52, 31, 37, 47, 55, 30, 40, 51, 45, 33,
+            48, 44, 49, 39, 56, 34, 53, 46, 42, 50, 36, 29, 32,
+          ],
+        },
+        step: [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1],
+      };
+      this._keyStr =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    }
+    DES.prototype.Base64Encode = function (e) {
+      var t = "";
+      var n, r, i, s, o, u, a;
+      var f = 0;
+      e = this.Base64UTF8Encode(e);
+      while (f < e.length) {
+        n = e.charCodeAt(f++);
+        r = e.charCodeAt(f++);
+        i = e.charCodeAt(f++);
+        s = n >> 2;
+        o = ((n & 3) << 4) | (r >> 4);
+        u = ((r & 15) << 2) | (i >> 6);
+        a = i & 63;
+        if (isNaN(r)) {
+          u = a = 64;
+        } else if (isNaN(i)) {
+          a = 64;
+        }
+        t =
+          t +
+          this._keyStr.charAt(s) +
+          this._keyStr.charAt(o) +
+          this._keyStr.charAt(u) +
+          this._keyStr.charAt(a);
+      }
+      return t;
+    };
+    DES.prototype.Base64Decode = function (e) {
+      var t = "";
+      var n, r, i;
+      var s, o, u, a;
+      var f = 0;
+      e = e.replace(/[^A-Za-z0-9+/]/g, "");
+      while (f < e.length) {
+        s = this._keyStr.indexOf(e.charAt(f++));
+        o = this._keyStr.indexOf(e.charAt(f++));
+        u = this._keyStr.indexOf(e.charAt(f++));
+        a = this._keyStr.indexOf(e.charAt(f++));
+        n = (s << 2) | (o >> 4);
+        r = ((o & 15) << 4) | (u >> 2);
+        i = ((u & 3) << 6) | a;
+        t = t + String.fromCharCode(n);
+        if (u != 64) {
+          t = t + String.fromCharCode(r);
+        }
+        if (a != 64) {
+          t = t + String.fromCharCode(i);
+        }
+      }
+      t = this.Base64UTF8Decode(t);
+      return t;
+    };
+    DES.prototype.Base64UTF8Encode = function (e) {
+      e = e.replace(/rn/g, "n");
+      var t = "";
+      for (var n = 0; n < e.length; n++) {
+        var r = e.charCodeAt(n);
+        if (r < 128) {
+          t += String.fromCharCode(r);
+        } else if (r > 127 && r < 2048) {
+          t += String.fromCharCode((r >> 6) | 192);
+          t += String.fromCharCode((r & 63) | 128);
+        } else {
+          t += String.fromCharCode((r >> 12) | 224);
+          t += String.fromCharCode(((r >> 6) & 63) | 128);
+          t += String.fromCharCode((r & 63) | 128);
+        }
+      }
+      return t;
+    };
+    DES.prototype.Base64UTF8Decode = function (e) {
+      var t = "";
+      var n = 0;
+      var r = (c1 = c2 = 0);
+      while (n < e.length) {
+        r = e.charCodeAt(n);
+        if (r < 128) {
+          t += String.fromCharCode(r);
+          n++;
+        } else if (r > 191 && r < 224) {
+          c2 = e.charCodeAt(n + 1);
+          t += String.fromCharCode(((r & 31) << 6) | (c2 & 63));
+          n += 2;
+        } else {
+          c2 = e.charCodeAt(n + 1);
+          c3 = e.charCodeAt(n + 2);
+          t += String.fromCharCode(
+            ((r & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63)
+          );
+          n += 3;
+        }
+      }
+      return t;
+    };
+    DES.prototype.IP = function (m) {
+      // IP初始置换,64位进64位出
+      let ip = this.Database["ip"]["ip"];
+      let ipTable = [];
+      ip.forEach((value, index, arr) => {
+        ipTable.push(m[arr[index] - 1]);
+      });
+      return ipTable;
+    };
+    DES.prototype.InverseIP = function (m) {
+      // InverseIP逆初始置换,64位进64位出
+      let inverseip = this.Database["ip"]["inverseip"];
+      let inverseipTable = [];
+      inverseip.forEach((value, index, arr) => {
+        inverseipTable.push(m[arr[index] - 1]);
+      });
+      return inverseipTable;
+    };
+    DES.prototype.E_extend = function (m) {
+      // E扩展置换,32位进48位出
+      let E = this.Database["Ebox"];
+      let ETable = [];
+      E.forEach((value, index, arr) => {
+        ETable.push(m[arr[index] - 1]);
+      });
+      return ETable;
+    };
+    DES.prototype.SboxChange = function (m) {
+      // s盒置换，将48位输入均分成长度为6的8个小组，每个小组按顺序进入相应的S盒各得到4位输出，返回合并后的32位结果。
+      let result1 = [];
+      let result2 = "";
+      let STable = [];
+      let Sbox = [
+        this.Database["Sbox"]["s1"],
+        this.Database["Sbox"]["s2"],
+        this.Database["Sbox"]["s3"],
+        this.Database["Sbox"]["s4"],
+        this.Database["Sbox"]["s5"],
+        this.Database["Sbox"]["s6"],
+        this.Database["Sbox"]["s7"],
+        this.Database["Sbox"]["s8"],
+      ];
+      for (let i = 0; i < 8; i++) {
+        let entry = m.slice(i * 6, (i + 1) * 6);
+        let row = parseInt(String(entry[0]) + String(entry[5]), 2);
+        let col = parseInt(
+          String(entry[1]) +
+            String(entry[2]) +
+            String(entry[3]) +
+            String(entry[4]),
+          2
+        );
+        result1.push(this.fill(Sbox[i][row][col].toString(2), 4));
+      }
+      result1.forEach((value) => {
+        result2 += value;
+      });
+      for (let i = 0; i < result2.length; i++) {
+        STable.push(Number(result2[i]));
+      }
+      return STable;
+    };
+    DES.prototype.fill = function (num, length) {
+      // 补位
+      for (let len = (num + "").length; len < length; len++) {
+        num = "0" + num;
+      }
+      return num;
+    };
+    DES.prototype.PboxChange = function (m) {
+      // P盒置换：将32位输入按P规则置换后返回32位结果。
+      let P = this.Database["Pbox"];
+      let PTable = [];
+      P.forEach((value, index, arr) => {
+        PTable.push(m[arr[index] - 1]);
+      });
+      return PTable;
+    };
+    DES.prototype.Xor = function (m, n) {
+      let XTable = [];
+      // 异或运算
+      m.forEach((value, index) => {
+        XTable.push(m[index] ^ n[index]);
+      });
+      return XTable;
+    };
+    DES.prototype.leftMove = function (m, step) {
+      // 循环左移
+      return m.slice(step).concat(m.slice(0, step));
+    };
+    DES.prototype.createSubkey = function (prekey) {
+      // 子密钥的生成，64位->56位->48位
+      let result = [];
+      let Key56 = [];
+      let PC_1 = this.Database["PC"]["PC-1"];
+      let PC_2 = this.Database["PC"]["PC-2"];
+      let step = this.Database["step"];
+      for (let i = 0; i < 56; i++) {
+        Key56.push(prekey[PC_1[i] - 1]);
+      }
+      let C = Key56.slice(0, 28);
+      let D = Key56.slice(28);
+      for (let i = 0; i < 16; i++) {
+        let Key48 = [];
+        C = this.leftMove(C, step[i]);
+        D = this.leftMove(D, step[i]);
+        let K = C.concat(D);
+        for (let j = 0; j < 48; j++) {
+          Key48.push(K[PC_2[j] - 1]);
+        }
+        result.push(Key48);
+      }
+      return result;
+    };
+    DES.prototype.string2bit = function (m) {
+      // 将字符串转换位二进制，自动补64bit
+      let output = [];
+      let result = [];
+      let num = 0;
+      let a = [];
+      for (let i of m) {
+        a.push(this.fill(i.charCodeAt().toString(2), 8));
+      }
+      a.forEach((value, index, arr) => {
+        for (let i = 0; i < value.length; i++) {
+          num++;
+          result.push(Number(value[i]));
+          while (index == arr.length - 1 && i == value.length - 1 && num < 64) {
+            num += 8;
+            result = result.concat([0, 0, 1, 0, 0, 0, 0, 0]);
+          }
+          if (num >= 64) {
+            output.push(result);
+            num = 0;
+            result = [];
+          }
+        }
+      });
+      return output;
+    };
+    DES.prototype.bit2string = function (m) {
+      // 将二进制转换为字符串
+      let result = [];
+      for (let i = 0; i < m.length; i++) {
+        let string = m[i].join("");
+        for (let j = 0; j < 8; j++) {
+          let quiz = parseInt(string.slice(j * 8, (j + 1) * 8), 2);
+          result.push(String.fromCharCode(quiz));
+        }
+      }
+      return result.join("");
+    };
+    DES.prototype.cipher = function (message, key, opt) {
+      let result = [];
+      let subkey = [];
+      opt == "0"
+        ? (subkey = this.createSubkey(key))
+        : (subkey = this.createSubkey(key).reverse());
+      message.forEach((value, index) => {
+        let m = this.IP(value);
+        for (let i = 0; i < 16; i++) {
+          let L = m.slice(0, 32);
+          let R = m.slice(32);
+          let E = this.E_extend(R);
+          let X1 = this.Xor(E, subkey[i]);
+          let S = this.SboxChange(X1);
+          let P = this.PboxChange(S);
+          let X2 = this.Xor(L, P);
+          m = R.concat(X2);
+        }
+        m = m.slice(32).concat(m.slice(0, 32));
+        let IIP = this.InverseIP(m);
+        result.push(IIP);
+      });
+      let output = this.bit2string(result);
+      return output;
+    };
+    DES.prototype.Desrun = function (m, k, o) {
+      let message = this.string2bit(m);
+      let key = this.string2bit(k)[0];
+      let result = this.cipher(message, key, o);
+      return result;
+    };
+    /* 加密过程:
+     1.采用base64编码，防止des后出现unicode乱码问题;
+     2.执行des加密;
+    */
+    DES.prototype.encrypt = function (message, key) {
+      let basecode = this.Base64Encode(message);
+      let descode = this.Desrun(basecode, key, "0");
+      return descode;
+    };
+    /* 解密过程:
+     1.执行des加密;
+     2.执行base64编码;
+    */
+    DES.prototype.decrypt = function (message, key) {
+      let descode = this.Desrun(message, key, "1");
+      let basecode = this.Base64Decode(descode);
+      return basecode;
+    };
+  </script>
+  <script>
+    let des = new DES();
+    Vue.createApp({
+      data() {
+        return {
+          message: ``,
+          key: "",
+          result: ``,
+          opt: "",
+        };
+      },
+      methods: {
+        check() {
+          if (this.key == "") return;
+          let o = document.getElementsByClassName("switch1");
+          for (let i = 0; i < o.length; i++) {
+            if (o[i].checked) {
+              this.opt = o[i].value;
+            }
+          }
+          console.log("输入的文本:", this.message);
+          console.log("密码:", this.key);
+          this.opt == "0"
+            ? (this.result = des.encrypt(this.message, this.key))
+            : (this.result = des.decrypt(this.message, this.key));
+          // this.key = "";
+          console.log("结果:", this.result);
+        },
+        paste() {
+          this.message = this.result;
+        },
+        vis() {
+          let a = document.getElementById("visible");
+          let b = document.getElementById("pw");
+          if (a.checked) {
+            b.type = "text";
+          } else {
+            b.type = "password";
+          }
+        },
+        de() {
+          this.message = "";
+          this.key = "";
+          this.result = "";
+        },
+      },
+    }).mount("#main");
+  </script>
+</html>

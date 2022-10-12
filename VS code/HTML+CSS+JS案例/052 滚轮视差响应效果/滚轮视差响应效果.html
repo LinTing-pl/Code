@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>滚轮视差响应效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 200vh;
+      }
+      .bg {
+        background-image: url("./img/img1.jfif");
+        background-size: cover;
+        background-position: 50% 50%;
+        height: 200vh;
+        width: 100%;
+        font-size: 350px;
+        font-weight: 900;
+        text-align: center;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        overflow: hidden;
+        position: absolute;
+        padding-top: 100px;
+      }
+      .bg::before {
+        content: "";
+        background-image: inherit;
+        background-size: cover;
+        background-position: 50% 50%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+      }
+      h2 {
+        position: absolute;
+        top: 20px;
+        width: 100%;
+        text-align: center;
+        letter-spacing: 8px;
+        color: #fff;
+      }
+      h1 {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 145vh;
+        text-align: center;
+        width: 60%;
+        color: #fff;
+        letter-spacing: 10px;
+        padding: 100px 0;
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <h2>滚轮滚一下呗！</h2>
+    <div class="bg">
+      <span>HELLO</span>
+    </div>
+    <h1>欢迎来到麟听的世界</h1>
+  </body>
+  <script>
+    const bg = document.querySelector(".bg");
+    document.addEventListener("scroll", function () {
+      const scrollY = window.scrollY;
+      if (scrollY != 0) {
+        bg.style.backgroundPosition = `calc(50% + ${scrollY}px) calc(50% + ${scrollY}px)`;
+      } else {
+        bg.style.backgroundPosition = "";
+      }
+    });
+  </script>
+</html>

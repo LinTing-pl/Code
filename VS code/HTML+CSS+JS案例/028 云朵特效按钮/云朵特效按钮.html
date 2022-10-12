@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>云朵特效按钮</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: linear-gradient(200deg, #00c6fb, #66a6ff);
+        }
+
+        nav ul {
+            list-style: none;
+        }
+
+        nav ul li {
+            --c: #fff;
+            color: var(--c);
+            width: 240px;
+            height: 60px;
+            border: 3px solid var(--c);
+            text-align: center;
+            border-radius: 10px;
+            line-height: 60px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s;
+        }
+
+        nav ul li:hover {
+            color: #222;
+        }
+
+        nav ul li span {
+            position: absolute;
+            width: 25%;
+            height: 100%;
+            background-color: var(--c);
+            border-radius: 50%;
+            transform: translateY(150%);
+            left: calc((var(--n) - 1) * 25%);
+            transition: all 0.5s;
+            transition-delay: calc((var(--n) - 1) * 0.1s);
+            z-index: -1;
+        }
+
+        nav ul li:hover span {
+            transform: translateY(0) scale(2);
+        }
+
+        nav ul li span:nth-child(1) {
+            --n: 1;
+        }
+
+        nav ul li span:nth-child(2) {
+            --n: 2;
+        }
+
+        nav ul li span:nth-child(3) {
+            --n: 3;
+        }
+
+        nav ul li span:nth-child(4) {
+            --n: 4;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <ul>
+        <li>点赞<span></span><span></span><span></span><span></span></li>
+        <li>关注<span></span><span></span><span></span><span></span></li>
+        <li>评论<span></span><span></span><span></span><span></span></li>
+        <li>转发<span></span><span></span><span></span><span></span></li>
+    </ul>
+</nav>
+</body>
+</html>

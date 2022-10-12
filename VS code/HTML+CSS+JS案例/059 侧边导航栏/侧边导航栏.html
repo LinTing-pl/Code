@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>侧边导航栏</title>
+    <link rel="stylesheet" href="./CSS/iconfont.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #e2c8db;
+      }
+      ul {
+        list-style: none;
+      }
+      nav {
+        position: fixed;
+        width: 300px;
+        height: 650px;
+        background-color: #c584b3;
+      }
+      .menu {
+        margin: 50px 0;
+        color: #fff;
+      }
+      .li {
+        letter-spacing: 2px;
+        font-size: 17px;
+        font-weight: 600;
+        padding: 16px 0;
+        transition: all 0.3s;
+      }
+      .menu li:hover {
+        background-color: #d2a6c6;
+      }
+      .li span {
+        display: inline-block;
+        font-size: 20px;
+        width: 50px;
+        height: 20px;
+        text-align: center;
+        margin-left: 5px;
+      }
+      .li ul {
+        width: 0px;
+        height: 550px;
+        padding: 50px 0;
+        background-color: #a06993;
+        position: absolute;
+        top: 0;
+        right: 0;
+        overflow: hidden;
+        transition: all 0.3s;
+      }
+      .li ul li {
+        padding: 16px 24px;
+        white-space: nowrap;
+        transition: all 0.3s;
+      }
+      .li:hover ul {
+        width: 250px;
+      }
+      .li ul li:hover {
+        background-color: #c28fb4;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <ul class="menu">
+        <li class="li">
+          <span class="iconfont icon-th-large"></span>
+          基础组件
+          <ul>
+            <li>Button 按钮</li>
+            <li>Cell 单元格</li>
+            <li>Icon 图标</li>
+            <li>Image 图片</li>
+            <li>Layout 布局</li>
+            <li>Popup 弹出层</li>
+            <li>Toast 轻提示</li>
+          </ul>
+        </li>
+        <li class="li">
+          <span class="iconfont icon-checkbox-checked"></span>
+          表单组件
+          <ul>
+            <li>Calendar 日历</li>
+            <li>Cascader 级联选择</li>
+            <li>Checkbox 复选框</li>
+            <li>Field 输入框</li>
+            <li>Picker 选择器</li>
+            <li>Radio 单选框</li>
+            <li>Rate 评分</li>
+            <li>Slide 滑块</li>
+            <li>Stepper 步进器</li>
+            <li>Switch 开关</li>
+          </ul>
+        </li>
+        <li class="li">
+          <span class="iconfont icon-commentfill"></span>
+          反馈组件
+          <ul>
+            <li>Dialog 弹出框</li>
+            <li>Loading 加载</li>
+            <li>Notify 消息通知</li>
+            <li>Overlay 遮罩层</li>
+          </ul>
+        </li>
+        <li class="li">
+          <span class="iconfont icon-tags-fill"></span>
+          展示组件
+          <ul>
+            <li>Badge 徽标</li>
+            <li>Circle 环形进度条</li>
+            <li>Collapse 折叠面板</li>
+            <li>CountDown 倒计时</li>
+            <li>List 列表</li>
+            <li>NoticeBar 通知栏</li>
+            <li>Progress 进度条</li>
+            <li>Steps 步骤条</li>
+            <li>Tag 标签</li>
+          </ul>
+        </li>
+        <li class="li">
+          <span class="iconfont icon-bars"></span>
+          导航组件
+          <ul>
+            <li>Grid 宫格</li>
+            <li>IndexBar 索引栏</li>
+            <li>NavBar 导航栏</li>
+            <li>Pagination 分页</li>
+            <li>SideBar 侧边导航</li>
+            <li>Tag 标签页</li>
+            <li>Tabbar 标签栏</li>
+            <li>TreeSelect 分类选择</li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </body>
+</html>

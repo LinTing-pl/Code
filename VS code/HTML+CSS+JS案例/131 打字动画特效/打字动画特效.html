@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>打字动画特效</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #222;
+      }
+      .text {
+        position: relative;
+        color: #fff;
+        font-size: 62px;
+        letter-spacing: 3px;
+        width: 65px;
+        white-space: nowrap;
+        overflow: hidden;
+        --count: 6;
+        animation: typing 1.8s steps(var(--count)) forwards;
+        -webkit-box-reflect: below 1px
+          linear-gradient(transparent 30%, rgba(0, 0, 0, 0.05));
+      }
+      .text::after {
+        content: "";
+        width: 2px;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: #fff;
+        animation: blink 1s linear infinite;
+      }
+      @keyframes blink {
+        0%,
+        49% {
+          opacity: 0;
+        }
+        50%,
+        100% {
+          opacity: 1;
+        }
+      }
+      @keyframes typing {
+        0% {
+          width: 0;
+        }
+        100% {
+          width: calc(var(--count) * 65px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="text">打字动画特效</div>
+  </body>
+</html>

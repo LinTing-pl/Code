@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>隐藏式侧边栏菜单</title>
+    <link rel="stylesheet" href="./CSS/iconfont.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        background-color: #333;
+      }
+      .container {
+        width: 15px;
+        height: 600px;
+        position: fixed;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: #222;
+        border-radius: 0 15px 15px 0;
+        overflow: hidden;
+        transition: all 0.3s;
+      }
+      .container::before {
+        content: "";
+        width: 50%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        background-color: lightseagreen;
+      }
+      .container li {
+        list-style: none;
+        position: absolute;
+        top: var(--t);
+        width: 100%;
+        height: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container li a {
+        text-decoration: none;
+        color: transparent;
+        transition: all 0.3s;
+      }
+      .container li a span {
+        font-size: 30px;
+      }
+      .container:hover {
+        width: 130px;
+        border-radius: 0 30px 30px 0;
+      }
+      .container:hover li a {
+        color: #fff;
+      }
+      .container .top {
+        width: calc(100% - 30px);
+        margin-left: 30px;
+        height: 20%;
+        background-color: #222;
+        border-radius: 0 0 0 20px;
+      }
+      .container .middle {
+        width: calc(100% - 60px);
+        margin-left: 40px;
+        height: 10%;
+        background-color: lightseagreen;
+        border-radius: 20px;
+      }
+      .container .bottom {
+        width: calc(100% - 30px);
+        margin-left: 40px;
+        height: 100%;
+        background-color: #222;
+        border-radius: 20px 0 0 0;
+      }
+      .container li:nth-child(1):hover ~ .top {
+        height: 20%;
+      }
+      .container li:nth-child(2):hover ~ .top {
+        height: 30%;
+      }
+      .container li:nth-child(3):hover ~ .top {
+        height: 40%;
+      }
+      .container li:nth-child(4):hover ~ .top {
+        height: 50%;
+      }
+      .container li:nth-child(5):hover ~ .top {
+        height: 60%;
+      }
+      .container li:nth-child(6):hover ~ .top {
+        height: 70%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <li style="--t: 20%">
+        <a href="#">
+          <span class="iconfont icon-homefill"></span>
+        </a>
+      </li>
+      <li style="--t: 30%">
+        <a href="#">
+          <span class="iconfont icon-th-large"></span>
+        </a>
+      </li>
+      <li style="--t: 40%">
+        <a href="#">
+          <span class="iconfont icon-shop"></span>
+        </a>
+      </li>
+      <li style="--t: 50%">
+        <a href="#">
+          <span class="iconfont icon-user"></span>
+        </a>
+      </li>
+      <li style="--t: 60%">
+        <a href="#">
+          <span class="iconfont icon-icon_shezhi"></span>
+        </a>
+      </li>
+      <li style="--t: 70%">
+        <a href="#">
+          <span class="iconfont icon-sign-out"></span>
+        </a>
+      </li>
+      <div class="top"></div>
+      <div class="middle"></div>
+      <div class="bottom"></div>
+    </div>
+  </body>
+</html>

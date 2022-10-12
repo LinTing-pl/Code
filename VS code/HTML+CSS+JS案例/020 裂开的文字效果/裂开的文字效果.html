@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>裂开的文字效果</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        section {
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        section .item {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        section .item .a {
+            color: #fff;
+            font-size: 10vw;
+            font-style: italic;
+            font-weight: bold;
+            top: 0;
+            opacity: 1;
+            transition: top 0.5s, opacity 0.5s;
+        }
+
+        section .item .a:nth-child(1) {
+            position: absolute;
+            clip-path: polygon(0% 0%, 100% 0%, 100% 51%, 0% 51%);
+        }
+
+        section .item .a:nth-child(2) {
+            position: relative;
+            clip-path: polygon(0% 50%, 100% 50%, 100% 100%, 0% 100%);
+        }
+
+        section:hover .item {
+            filter: blur(10px);
+            transform: scale(0.8);
+            transition: filter 0.5s, transform 0.5s;
+        }
+
+        section .item:hover {
+            filter: blur(0px);
+            transform: scale(1);
+            transition: filter 0.5s, transform 0.5s;
+        }
+
+        section .item:hover {
+            filter: drop-shadow(0 0 10px rgba(255 255 255));
+        }
+
+        section .item:hover .a:nth-child(1) {
+            top: -40px;
+            opacity: 0.5;
+            transition: top 0.5s, opacity 0.5s;
+        }
+
+        section .item:hover .a:nth-child(2) {
+            top: 40px;
+            opacity: 0.5;
+            transition: top 0.5s, opacity 0.5s;
+        }
+
+        section .item a {
+            position: absolute;
+            color: #fff;
+            font-size: 20px;
+            text-decoration: none;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        section .item a:hover {
+            text-decoration: underline;
+        }
+
+        section .item:hover a {
+            opacity: 1;
+            transition: opacity 0.5s;
+        }
+    </style>
+</head>
+<body>
+<section>
+    <div class="item">
+        <div class="a">Zan.</div>
+        <div class="a">Zan.</div>
+        <a href="#">点赞了解更多</a>
+    </div>
+    <div class="item">
+        <div class="a">Foll.</div>
+        <div class="a">Foll.</div>
+        <a href="#">关注了解更多</a>
+    </div>
+    <div class="item">
+        <div class="a">Coll.</div>
+        <div class="a">Coll.</div>
+        <a href="#">收藏了解更多</a>
+    </div>
+</section>
+</body>
+</html>

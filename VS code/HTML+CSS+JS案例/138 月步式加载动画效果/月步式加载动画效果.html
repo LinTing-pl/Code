@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>月步式加载动画效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: linear-gradient(#1e3c72, #2a5298);
+      }
+      .loading {
+        width: 125px;
+        position: relative;
+        perspective: 200px;
+      }
+      .loading::before,
+      .loading::after {
+        content: "";
+        width: 50px;
+        height: 50px;
+        background-color: transparent;
+        position: absolute;
+        animation: jumping 0.5s ease infinite;
+      }
+      .loading::before {
+        left: 0;
+      }
+      .loading::after {
+        right: 0;
+        animation-delay: 0.15s;
+      }
+      @keyframes jumping {
+        0% {
+          transform: scale(1) translateY(0) rotateX(0);
+          box-shadow: 0 0 0 transparent;
+        }
+        100% {
+          background-color: #fff;
+          transform: scale(1.2) translateY(-55px) rotateX(45deg);
+          box-shadow: 0 55px 100px #fff;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading"></div>
+  </body>
+</html>

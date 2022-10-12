@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>脉冲波纹催眠动画特效</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #121212;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .circle {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: aliceblue;
+        position: absolute;
+        animation: pulse 2.5s ease-in-out infinite;
+      }
+      .circle:nth-child(1) {
+        width: calc(50px * 1);
+        height: calc(50px * 1);
+        opacity: 1;
+        animation-delay: 0.12s;
+      }
+      .circle:nth-child(2) {
+        width: calc(50px * 2);
+        height: calc(50px * 2);
+        opacity: 0.5;
+        animation-delay: 0.24s;
+      }
+      .circle:nth-child(3) {
+        width: calc(50px * 3);
+        height: calc(50px * 3);
+        opacity: 0.33;
+        animation-delay: 0.36s;
+      }
+      .circle:nth-child(4) {
+        width: calc(50px * 4);
+        height: calc(50px * 4);
+        opacity: 0.25;
+        animation-delay: 0.48s;
+      }
+      .circle:nth-child(5) {
+        width: calc(50px * 5);
+        height: calc(50px * 5);
+        opacity: 0.2;
+        animation-delay: 0.6s;
+      }
+      .circle:nth-child(6) {
+        width: calc(50px * 6);
+        height: calc(50px * 6);
+        opacity: 0.16;
+        animation-delay: 0.72s;
+      }
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        25% {
+          transform: scale(1.4);
+        }
+        70% {
+          transform: scale(0.6);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+    </div>
+  </body>
+</html>

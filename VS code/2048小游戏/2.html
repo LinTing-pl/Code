@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Document</title>
+</head>
+<body>
+<div class="p1">
+    <div class="p2">
+        <div class="p3"></div>
+        <div class="p3"></div>
+    </div>
+</div>
+</body>
+<style>
+    .p1 {
+        border: solid 2px red;
+        height: 400px;
+        width: 400px;
+    }
+
+    .p2 {
+        border: solid 2px red;
+        height: 300px;
+        width: 300px;
+    }
+
+    .p3 {
+        border: solid 2px red;
+        height: 100px;
+        width: 100px;
+    }
+
+    .p3 + div {
+        border: black solid 2px;
+    }
+</style>
+<script>
+    p = new Promise((resolve, reject) => {
+        console.log("then");
+        setTimeout(() => {
+            console.log("ttt");
+        }, 2000)
+        resolve();
+    });
+    p.then((result) => {
+        setTimeout((e) => {
+            console.log("then1");
+        }, 200);
+    }).then(() => {
+        console.log("then2");
+    });
+</script>
+</html>

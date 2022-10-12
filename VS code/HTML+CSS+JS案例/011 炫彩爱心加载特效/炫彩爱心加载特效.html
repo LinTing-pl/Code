@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>炫彩爱心加载特效</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: radial-gradient(circle at center, mediumpurple, #000);
+        }
+
+        .heart {
+            width: 280px;
+            height: 220px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .heart span {
+            --c: plum;
+            --h: 50%;
+            --t: 25%;
+            background-color: var(--c);
+            width: 20px;
+            border-radius: 10px;
+            position: relative;
+            height: var(--h);
+            top: var(--t);
+            animation: beating 1.2s infinite;
+        }
+
+        .heart span:nth-child(1),
+        .heart span:nth-child(9) {
+            --c: lightcoral;
+            --h: 60px;
+            --t: 44px;
+        }
+
+        .heart span:nth-child(2),
+        .heart span:nth-child(8) {
+            --c: lightskyblue;
+            --h: 120px;
+            --t: 12px;
+        }
+
+        .heart span:nth-child(3),
+        .heart span:nth-child(7) {
+            --c: lightgreen;
+            --h: 160px;
+            --t: 0px;
+        }
+
+        .heart span:nth-child(4),
+        .heart span:nth-child(6) {
+            --c: gold;
+            --h: 180px;
+            --t: 16px;
+        }
+
+        .heart span:nth-child(5) {
+            --c: plum;
+            --h: 180px;
+            --t: 32px;
+        }
+
+        @keyframes beating {
+            0%,
+            30% {
+                height: var(--h);
+                top: var(--t);
+                background-color: var(--c);
+                filter: blur(0);
+            }
+            60%,
+            70% {
+                height: 50%;
+                top: 25%;
+                background-color: plum;
+                filter: blur(5px);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="heart">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+</body>
+</html>

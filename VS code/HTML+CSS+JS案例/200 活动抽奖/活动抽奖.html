@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>活动抽奖</title>
+    <style>
+      .main {
+        width: 336px;
+        height: 336px;
+        display: flex;
+        flex-wrap: wrap;
+        user-select: none;
+      }
+      .item {
+        width: 100px;
+        height: 100px;
+        background-color: #eee;
+        border: 1px solid #ddd;
+        margin: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .item.btn {
+        background-color: green;
+        cursor: pointer;
+      }
+      .item.active {
+        background-color: #999;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main"></div>
+  </body>
+  <script>
+    onload = () => {
+      const data = {
+        jp: [
+          {
+            name: "代金券 1",
+          },
+          {
+            name: "代金券 2",
+          },
+          {
+            name: "代金券 3",
+          },
+          {
+            name: "代金券 4",
+          },
+          {
+            name: "代金券 5",
+          },
+          {
+            name: "代金券 6",
+          },
+          {
+            name: "代金券 7",
+          },
+          {
+            name: "代金券 8",
+          },
+        ],
+      };
+      const main = document.querySelector(".main");
+      main.innerHTML = data.jp
+        .map((v) => {
+          return `<div class='item' is=''>${v.name}</div>`;
+        })
+        .join("");
+      main.children[0].classList.add("active");
+      const el = document.createElement("div");
+      el.className = "item btn";
+      el.innerHTML = "抽奖";
+      el.onclick = () => {
+        let index = 0;
+        let isRunning = true;
+        const intervalId = setInterval(() => {
+          const nodeList = [...main.childNodes].filter((v) => {
+            return v.className.indexOf("btn") == -1;
+          });
+          const list = [0, 1, 2, 4, 7, 6, 5, 3].map((v) => {
+            return nodeList[v];
+          });
+          if (!list[index]) {
+            index = 0;
+          }
+          const active1 = main.querySelector(".active");
+          active1 && active1.classList.remove("active");
+          list[index].classList.add("active");
+          if (!isRunning && list[index].getAttribute("is")) {
+            return clearInterval(intervalId);
+          }
+          index++;
+        }, 100);
+        setTimeout(() => {
+          isRunning = false;
+          main.childNodes.forEach((e) => {
+            e.removeAttribute("is");
+          });
+          main.childNodes[Math.floor(Math.random() * 8)].setAttribute(
+            "is",
+            true
+          );
+        }, 3000);
+      };
+      main.insertBefore(el, main.children[4]);
+    };
+  </script>
+</html>

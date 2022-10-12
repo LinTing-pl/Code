@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>下载图片</title>
+  </head>
+  <body>
+    <button onclick="openImg(src)">下载图片</button>
+  </body>
+  <script>
+    var openImg = (imageSrc) => {
+      const a = document.createElement("a");
+      const name = imageSrc.substring(imageSrc.lastIndexOf("/") + 1);
+      a.setAttribute("download", name);
+      a.setAttribute("target", "_blank");
+      a.setAttribute("href", imageSrc);
+      a.click();
+    };
+    src = "../027 3D旋转木马相册/img/img1.jfif";
+  </script>
+</html>

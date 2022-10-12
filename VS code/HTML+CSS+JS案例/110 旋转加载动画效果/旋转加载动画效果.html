@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>旋转加载动画效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #333;
+      }
+      .loading {
+        position: relative;
+        text-align: center;
+      }
+      .left-box {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: rotate(0deg);
+      }
+      .right-box {
+        position: absolute;
+        top: -29px;
+        left: -9px;
+        transform: rotate(90deg);
+      }
+      .dots-top {
+        position: absolute;
+        right: 196px;
+        top: -78px;
+        transform: rotate(0);
+      }
+      .dots-bottom {
+        position: absolute;
+        right: -216px;
+        top: 40px;
+        transform: rotate(180deg);
+      }
+      .dot {
+        position: absolute;
+        width: 240px;
+        height: 240px;
+        z-index: 5;
+        transform: rotate(45deg);
+        animation: spin 2s linear infinite;
+      }
+      .dot::after {
+        content: "";
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: #a08fd5;
+      }
+      .dot:nth-child(2) {
+        z-index: 4;
+        animation-delay: 0.1s;
+      }
+      .dot:nth-child(2)::after {
+        background-color: #c0b1eb;
+        transform: scale(0.8);
+      }
+      .dot:nth-child(3) {
+        z-index: 3;
+        animation-delay: 0.2s;
+      }
+      .dot:nth-child(3)::after {
+        background-color: #f5e866;
+        transform: scale(0.6);
+      }
+      .dot:nth-child(4) {
+        z-index: 2;
+        animation-delay: 0.3s;
+      }
+      .dot:nth-child(4)::after {
+        background-color: #effe3d;
+        transform: scale(0.4);
+      }
+      .dot:nth-child(5) {
+        z-index: 1;
+        animation-delay: 0.4s;
+      }
+      .dot:nth-child(5)::after {
+        background-color: #ffea00;
+        transform: scale(0.2);
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(45deg);
+        }
+        5% {
+          transform: rotate(45deg);
+          animation-timing-function: ease-out;
+        }
+        70% {
+          transform: rotate(405deg);
+          animation-timing-function: ease-in;
+        }
+        100% {
+          transform: rotate(405deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading">
+      <div class="left-box">
+        <div class="dots-top">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+        <div class="dots-bottom">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>
+      <div class="right-box">
+        <div class="dots-top">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+        <div class="dots-bottom">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+@font-face {
+  font-family: "iconfont"; /* Project id  */
+  src: url('iconfont.ttf?t=1664203743467') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-subway:before {
+  content: "\e83b";
+}
+
+.icon-bus:before {
+  content: "\e64a";
+}
+
+.icon-motocycle:before {
+  content: "\e92a";
+}
+
+.icon-bicycle:before {
+  content: "\e679";
+}
+
+.icon-car:before {
+  content: "\e686";
+}
+

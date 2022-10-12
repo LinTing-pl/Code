@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>菜单栏图标悬停效果</title>
+    <link href="./CSS/iconfont.css" rel="stylesheet"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: linear-gradient(200deg, #eef1f5, #e6e9f0);
+        }
+
+        .nav {
+            display: flex;
+            background-color: #b7a1eb;
+            height: 100px;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav .menu {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            width: 600px;
+        }
+
+        .nav .menu .item {
+            position: relative;
+            cursor: pointer;
+            padding: 0 10px;
+            width: 120px;
+            height: 100%;
+            transition: all 0.4s ease;
+        }
+
+        .nav .menu .item:hover {
+            background-color: #a38bdb;
+        }
+
+        .nav .menu .item a {
+            display: block;
+            position: relative;
+            width: 100%;
+            height: 100px;
+            text-decoration: none;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .nav .menu .item a span {
+            transition: all 0.4s ease;
+        }
+
+        .nav .menu .item a .iconfont {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 100%;
+            text-align: center;
+            font-size: 32px;
+        }
+
+        .nav .menu .item a span:nth-child(2) {
+            position: absolute;
+            width: 100%;
+            bottom: -50%;
+            left: 0;
+            text-align: center;
+            opacity: 0;
+        }
+
+        .nav .menu .item:hover a span:nth-child(2) {
+            opacity: 1;
+            bottom: 18px;
+        }
+
+        .nav .menu .item:hover a .iconfont {
+            transform: translateY(-95%);
+        }
+    </style>
+</head>
+<body>
+<nav class="nav">
+    <ul class="menu">
+        <li class="item">
+            <a href="#"
+            ><span class="iconfont icon-home2"></span><span>首页</span></a
+            >
+        </li>
+        <li class="item">
+            <a href="#"
+            ><span class="iconfont icon-heart-active"></span
+            ><span>动态</span></a
+            >
+        </li>
+        <li class="item">
+            <a href="#"
+            ><span class="iconfont icon-plus-circle"></span><span>发布</span></a
+            >
+        </li>
+        <li class="item">
+            <a href="#"
+            ><span class="iconfont icon-bell"></span><span>消息</span></a
+            >
+        </li>
+        <li class="item">
+            <a href="#"
+            ><span class="iconfont icon-user"></span><span>我的</span></a
+            >
+        </li>
+    </ul>
+</nav>
+</body>
+</html>

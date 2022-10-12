@@ -1,0 +1,37 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "836441",
+      "name": "clone",
+      "font_class": "clone",
+      "unicode": "e692",
+      "unicode_decimal": 59026
+    },
+    {
+      "icon_id": "1084649",
+      "name": "share",
+      "font_class": "share",
+      "unicode": "e63f",
+      "unicode_decimal": 58943
+    },
+    {
+      "icon_id": "16619477",
+      "name": "trash",
+      "font_class": "trash",
+      "unicode": "e6dd",
+      "unicode_decimal": 59101
+    },
+    {
+      "icon_id": "20981760",
+      "name": "slider",
+      "font_class": "slider",
+      "unicode": "e511",
+      "unicode_decimal": 58641
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "2675011",
+      "name": "消息",
+      "font_class": "xiaoxi",
+      "unicode": "e62f",
+      "unicode_decimal": 58927
+    },
+    {
+      "icon_id": "5297134",
+      "name": "user",
+      "font_class": "user",
+      "unicode": "e64b",
+      "unicode_decimal": 58955
+    },
+    {
+      "icon_id": "7674921",
+      "name": "展开2",
+      "font_class": "zhankaijiahao",
+      "unicode": "e71c",
+      "unicode_decimal": 59164
+    },
+    {
+      "icon_id": "12934664",
+      "name": "heart",
+      "font_class": "tubiaozhizuomoban-",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>分享按钮切换效果</title>
+    <link href="./CSS/iconfont.css" rel="stylesheet"/>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: linear-gradient(200deg, #f3e7e9, #e3eeff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .share-btn {
+            width: 300px;
+            height: 80px;
+            background-color: #fff;
+            border-radius: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s linear;
+        }
+
+        .share-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .share-btn > span {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #333;
+            color: #fff;
+            font-size: 18px;
+            text-align: center;
+            line-height: 80px;
+            border-radius: 40px;
+            z-index: 1;
+            transition: all 0.6s linear;
+        }
+
+        .share-btn:hover > span {
+            transform: translateX(-100%);
+            transition-delay: 0.3s;
+        }
+
+        .share-btn a {
+            flex: 1;
+            font-size: 26px;
+            color: #333;
+            text-align: center;
+            text-decoration: none;
+            transform: translateX(-100%);
+            opacity: 0;
+            transition: all 0.3s linear;
+        }
+
+        .share-btn a:hover span {
+            color: plum;
+            filter: drop-shadow(0 0 3px plum);
+        }
+
+        .share-btn a span {
+            font-size: 26px;
+        }
+
+        .share-btn:hover a {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .share-btn a:nth-of-type(1) {
+            transition-delay: 1s;
+        }
+
+        .share-btn a:nth-of-type(2) {
+            transition-delay: 0.8s;
+        }
+
+        .share-btn a:nth-of-type(3) {
+            transition-delay: 0.6s;
+        }
+
+        .share-btn a:nth-of-type(4) {
+            transition-delay: 0.4s;
+        }
+    </style>
+</head>
+<body>
+<div class="share-btn">
+    <span><span class="iconfont icon-share"></span>去分享</span>
+    <a href="#"><span class="iconfont icon-QQ"></span></a>
+    <a href="#"><span class="iconfont icon-weixin"></span></a>
+    <a href="#"><span class="iconfont icon-weibo"></span></a>
+    <a href="#"><span class="iconfont icon-renren"></span></a>
+</div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>简单的太阳系</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #000;
+        --s: #f39c12;
+        --e: #3498db;
+        --m: #1abc9c;
+      }
+      .sun {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: var(--s);
+        box-shadow: 0 0 10px var(--s), 0 0 20px var(--s), 0 0 30px var(--s),
+          0 0 40px var(--s);
+        animation: rotate 36.5s linear infinite;
+      }
+      .sun::before {
+        content: "";
+        width: 330px;
+        height: 330px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        z-index: -1;
+        border: 1px solid #fff;
+      }
+      .earth {
+        position: absolute;
+        left: 200px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: var(--e);
+        box-shadow: 0 0 10px var(--e), 0 0 20px var(--e), 0 0 30px var(--e),
+          0 0 40px var(--e);
+        animation: rotate 3s linear infinite;
+      }
+      .earth::before {
+        content: "";
+        width: 48px;
+        height: 48px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border: 1px solid gray;
+        border-radius: 50%;
+      }
+      .moon {
+        position: absolute;
+        left: 32px;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background-color: var(--m);
+        box-shadow: 0 0 10px var(--m), 0 0 20px var(--m), 0 0 30px var(--m),
+          0 0 40px var(--m);
+      }
+      @keyframes rotate {
+        to {
+          transform: rotateZ(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sun">
+      <div class="earth">
+        <div class="moon"></div>
+      </div>
+    </div>
+  </body>
+</html>

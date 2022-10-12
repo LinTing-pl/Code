@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: rgb(54, 48, 48);
+      }
+      .left {
+        color: #c2ffad;
+        display: inline-block;
+        vertical-align: top;
+        width: 230px;
+        height: 600px;
+      }
+      #score {
+        color: red;
+      }
+      #rows {
+        color: blue;
+      }
+      .middle {
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        width: 230px;
+        height: 600px;
+      }
+      #game {
+        position: absolute;
+        background-color: white;
+        width: 230px;
+        height: 600px;
+      }
+      #mask {
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.4);
+        width: 230px;
+        height: 600px;
+      }
+      #start {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 120px;
+        height: 30px;
+        margin-top: -15px;
+        margin-left: -60px;
+        background: #c2ffad;
+        color: #000;
+        text-decoration: none;
+        text-align: center;
+        font-size: 20px;
+        padding: 13px 0;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .right {
+        display: inline-block;
+        vertical-align: top;
+        width: 230px;
+        height: 600px;
+      }
+      div.right > p {
+        color: #c2ffad;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="left">
+      <p>分数(Score):<span id="score">0000</span></p>
+      <p>已消灭(Rows):<span id="rows">0</span></p>
+      <p>
+        操作方法:<br />
+        ⬆:方块顺时针变形<br />
+        ⬇:方块加速掉落<br />
+        ⬅:方块向左移动<br />
+        ➡:方块向右移动
+      </p>
+    </div>
+    <div class="middle">
+      <canvas id="game"></canvas>
+      <div id="mask"></div>
+      <a href="javascript:startGame();" id="start">开始游戏</a>
+    </div>
+    <div class="right">
+      <p>下一个方块(Next):</p>
+      <canvas id="next"></canvas>
+    </div>
+  </body>
+  <script>
+    let I = {
+      color: ":#fa1e1e",
+      maxWidth: 4,
+      block: {
+        0: [
+          [0, 0, 0, 0],
+          [1, 1, 1, 1],
+          [0, 0, 0, 0],
+          [0, 0, 0, 0],
+        ],
+        1: [
+          [0, 0, 1, 0],
+          [0, 0, 1, 0],
+          [0, 0, 1, 0],
+          [0, 0, 1, 0],
+        ],
+        2: [
+          [0, 0, 0, 0],
+          [0, 0, 0, 0],
+          [1, 1, 1, 1],
+          [0, 0, 0, 0],
+        ],
+        3: [
+          [0, 1, 0, 0],
+          [0, 1, 0, 0],
+          [0, 1, 0, 0],
+          [0, 1, 0, 0],
+        ],
+      },
+    };
+    let J = {
+      color: ":#fa1e1e",
+      maxWidth: 4,
+      block: {
+        0: [
+          [0, 0, 1],
+          [0, 0, 1],
+          [0, 1, 1],
+        ],
+        1: [
+          [0, 0, 0],
+          [1, 0, 0],
+          [1, 1, 1],
+        ],
+        2: [
+          [1, 1, 0],
+          [1, 0, 0],
+          [1, 0, 0],
+        ],
+        3: [
+          [1, 1, 1],
+          [0, 0, 1],
+          [0, 0, 0],
+        ],
+      },
+    };
+    let L = {
+      color: ":#fa1e1e",
+      maxWidth: 4,
+      block: {
+        0: [
+          [1, 0, 0],
+          [1, 0, 0],
+          [1, 1, 0],
+        ],
+        1: [
+          [1, 1, 1],
+          [1, 0, 0],
+          [0, 0, 0],
+        ],
+        2: [
+          [0, 1, 1],
+          [0, 0, 1],
+          [0, 0, 1],
+        ],
+        3: [
+          [0, 0, 0],
+          [0, 0, 1],
+          [1, 1, 1],
+        ],
+      },
+    };
+    let S = {
+      color: ":#fa1e1e",
+      maxWidth: 4,
+      block: {
+        0: [
+          [1, 1, 1],
+          [1, 0, 1],
+          [0, 0, 0],
+        ],
+        1: [
+          [0, 1, 1],
+          [0, 0, 1],
+          [0, 1, 1],
+        ],
+        2: [
+          [0, 0, 0],
+          [1, 0, 1],
+          [1, 1, 1],
+        ],
+        3: [
+          [1, 1, 0],
+          [1, 0, 0],
+          [1, 1, 0],
+        ],
+      },
+    };
+    let T = {
+      color: ":#fa1e1e",
+      maxWidth: 4,
+      block: {
+        0: [
+          [1, 1, 1],
+          [0, 1, 0],
+          [0, 1, 0],
+        ],
+        1: [
+          [0, 0, 1],
+          [1, 1, 1],
+          [0, 0, 1],
+        ],
+        2: [
+          [0, 1, 0],
+          [0, 1, 0],
+          [1, 1, 1],
+        ],
+        3: [
+          [1, 0, 0],
+          [1, 1, 1],
+          [1, 0, 0],
+        ],
+      },
+    };
+    let Z = {
+      color: ":#fa1e1e",
+      maxWidth: 4,
+      block: {
+        0: [
+          [1, 1, 0],
+          [0, 1, 1],
+          [0, 0, 0],
+        ],
+        1: [
+          [0, 1, 0],
+          [0, 1, 1],
+          [0, 0, 1],
+        ],
+        2: [
+          [0, 0, 0],
+          [0, 1, 1],
+          [1, 1, 0],
+        ],
+        3: [
+          [1, 0, 0],
+          [1, 1, 0],
+          [0, 1, 0],
+        ],
+      },
+    };
+
+    function drawPiece(piece, dir, x, y) {
+      let block = piece.block[dir];
+      for (let row = 0; row < 3; row++) {
+        for (let col = 0; col < 3; col++) {
+          if (block[row][col] == 1) {
+            brs.fillStyle = "red";
+            brs.fillRect((x + col) * 30, (y + row) * 30, 30, 30);
+          }
+        }
+      }
+    }
+
+    function startGame() {
+      let a = document.getElementById("start");
+      let b = document.getElementById("mask");
+      a.style.visibility = "hidden";
+      b.style.visibility = "hidden";
+      playing=true;
+      drawPiece(currentPiece.type,currentPiece.dir,currentPiece.x,currentPiece.y);
+    }
+    let currentPiece = {
+      type: I,
+      dir: 0,
+      x: 3,
+      y: 0,
+    };
+
+    function handlePlayerAction() {}
+    let lastDropTime = 0;
+    let setDropSize = 600;
+    let playing = false;
+    function handleAutoDrop() {
+      let now = new Date().getTime();
+      let duration = now - lastDropTime;
+      if (duration - setDropSize) {
+        currentPiece.y += 0.1;
+        lastDropTime = now;
+      }
+    }
+    function redraw() {
+      brs.clearRect(0, 0, 300, 600);
+      drawPiece(
+        currentPiece.type,
+        currentPiece.dir,
+        currentPiece.x,
+        currentPiece.y,
+      );
+    }
+    function gameloop() {
+      if (playing) {
+        // handlePlayerAction();
+        handleAutoDrop();
+        redraw();
+        console.log(1)
+      }
+      requestAnimationFrame(gameloop);
+    }
+    let cvs = document.getElementById("game");
+    cvs.width = cvs.clientWidth;
+    cvs.height = cvs.clientHeight;
+    let brs = cvs.getContext("2d");
+    brs.lineWidth = 0.0001;
+    gameloop();
+  </script>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>自适应上下拖拽</title>
+    <style>
+      .main {
+        display: flex;
+        height: 300px;
+        width: 100%;
+        flex-direction: column;
+        border: 1px solid;
+      }
+      .content-top {
+        background-color: green;
+        flex: 1;
+        border: 1px solid red;
+        overflow: auto;
+        padding: 10px;
+      }
+      .content-bottom {
+        background-color: cadetblue;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+      .content-draw {
+        background-color: teal;
+        border: 1px solid;
+        height: 30px;
+        width: 100px;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        user-select: none;
+      }
+      .content-render {
+        overflow: auto;
+        flex: 1;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div class="content-top">
+        这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分这是上半部分
+      </div>
+      <div class="content-bottom">
+        <div class="content-draw" id="drawBtn">拖拽</div>
+        <div class="content-render">
+          这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分这是下半部分
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    onload = () => {
+      const drawBtn = document.getElementById("drawBtn");
+      const main = drawBtn.parentElement;
+      let isMoving = false;
+      let mouseY = 0;
+      let currHeight = 0;
+      drawBtn.addEventListener("mousedown", (e) => {
+        mouseY = e.pageY;
+        isMoving = true;
+        currHeight = main.offsetHeight;
+      });
+      drawBtn.addEventListener("mouseup", (e) => {
+        isMoving = false;
+      });
+      drawBtn.addEventListener("mousemove", (e) => {
+        if (isMoving) {
+          moveTop = e.pageY - mouseY;
+          main.style.height = currHeight - moveTop + "px";
+        }
+      });
+    };
+  </script>
+</html>

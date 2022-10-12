@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>带缩略图的焦点图切换效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(180deg, #517fa4, #243949);
+      }
+      .container {
+        width: 1000px;
+        height: 700px;
+      }
+      .container ul {
+        list-style: none;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-end;
+      }
+      .container ul li {
+        width: 200px;
+      }
+      .container ul li img {
+        width: 100%;
+        height: 110px;
+        border: 5px solid transparent;
+      }
+      .container ul .big-img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1000px;
+        height: 550px;
+        background: url("./img/img1.jfif") no-repeat;
+        background-size: cover;
+        background-position: center;
+        border: 5px solid transparent;
+        transition: all 0.5s;
+      }
+      .container ul .frame {
+        position: absolute;
+        left: 0;
+        bottom: 4px;
+        width: 200px;
+        height: 110px;
+        border: 5px solid #fff;
+        pointer-events: none;
+        transition: all 0.5s;
+      }
+      .container ul .frame::before {
+        content: "";
+        position: absolute;
+        width: 30px;
+        height: 15px;
+        background-color: #fff;
+        left: calc(50% - 15px);
+        top: -18px;
+        clip-path: polygon(0 100%, 50% 0, 100% 100%);
+      }
+      .container ul li:nth-child(1):hover ~ .big-img {
+        background-image: url("./img/img1.jfif");
+      }
+      .container ul li:nth-child(2):hover ~ .big-img {
+        background-image: url("./img/img2.jfif");
+      }
+      .container ul li:nth-child(3):hover ~ .big-img {
+        background-image: url("./img/img3.jfif");
+      }
+      .container ul li:nth-child(4):hover ~ .big-img {
+        background-image: url("./img/img4.jfif");
+      }
+      .container ul li:nth-child(5):hover ~ .big-img {
+        background-image: url("./img/img5.jfif");
+      }
+      .container ul li:nth-child(1):hover ~ .frame {
+        left: 0;
+      }
+      .container ul li:nth-child(2):hover ~ .frame {
+        left: 200px;
+      }
+      .container ul li:nth-child(3):hover ~ .frame {
+        left: 400px;
+      }
+      .container ul li:nth-child(4):hover ~ .frame {
+        left: 600px;
+      }
+      .container ul li:nth-child(5):hover ~ .frame {
+        left: 800px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <ul>
+        <li><img src="./img/img1.jfif" alt="" /></li>
+        <li><img src="./img/img2.jfif" alt="" /></li>
+        <li><img src="./img/img3.jfif" alt="" /></li>
+        <li><img src="./img/img4.jfif" alt="" /></li>
+        <li><img src="./img/img5.jfif" alt="" /></li>
+        <li class="big-img"></li>
+        <li class="frame"></li>
+      </ul>
+    </div>
+  </body>
+</html>

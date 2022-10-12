@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>点赞的动画效果</title>
+    <script src="./CSS/iconfont.js"></script>
+    <style>
+      .icon {
+        /* width: 1em;
+        height: 1em; */
+        vertical-align: -0.15em;
+        fill: currentColor;
+        overflow: hidden;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        --c: red;
+      }
+
+      svg {
+        width: 200px;
+        position: relative;
+        z-index: -10px;
+      }
+      #heart {
+        fill: #eee;
+        stroke: var(--c);
+        stroke-width: 40px;
+        stroke-dasharray: 3000;
+        stroke-dashoffset: 3000;
+        stroke-linecap: round;
+      }
+      span {
+        display: block;
+        width: 24px;
+        height: 24px;
+        background-color: transparent;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        box-shadow: 0 -160px 0 var(--c), 0 160px 0 var(--c),
+          -160px 0px 0 var(--c), 160px -0px 0 var(--c), -120px -120px 0 var(--c),
+          120px -120px 0 var(--c), 120px 120px 0 var(--c),
+          -120px 120px 0 var(--c);
+      }
+      #checkbox:checked + svg #heart {
+        animation: drawHeart 1s linear forwards;
+      }
+      #checkbox:checked ~ span {
+        animation: blink 0.5s ease-in-out forwards;
+        animation-delay: 0.85s;
+      }
+      #checkbox:checked + svg {
+        animation: beat 1s linear forwards;
+      }
+      label {
+        cursor: pointer;
+      }
+      @keyframes drawHeart {
+        0% {
+          stroke-dashoffset: 3000;
+        }
+        80% {
+          fill: #eee;
+          stroke-dashoffset: 0;
+        }
+        100% {
+          fill: var(--c);
+          stroke-dashoffset: 0;
+        }
+      }
+      @keyframes blink {
+        0% {
+          transform: translate(-50%, -50%) scale(0.5);
+          opacity: 0.8;
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(1.1);
+          opacity: 0;
+        }
+      }
+      @keyframes beat {
+        0% {
+          transform: scale(1);
+        }
+        70% {
+          transform: scale(1);
+        }
+        80% {
+          transform: scale(1.2);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <label for="checkbox">
+      <input type="checkbox" id="checkbox" hidden />
+      <svg class="icon" aria-hidden="true">
+        <use xlink:href="#icon-aixin" id="heart"></use>
+      </svg>
+      <span></span>
+    </label>
+  </body>
+</html>

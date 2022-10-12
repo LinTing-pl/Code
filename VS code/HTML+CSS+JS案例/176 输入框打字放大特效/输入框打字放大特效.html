@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>输入框打字放大特效</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: linear-gradient(180deg, #6a85b6, #bac8e0);
+        overflow: hidden;
+      }
+      h1 {
+        color: #fff;
+        text-align: center;
+      }
+      .input-box {
+        position: relative;
+      }
+      .input-box input {
+        opacity: 0;
+      }
+      .input-box label {
+        min-width: 100%;
+        min-height: 40px;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 4px;
+        padding: 0 10px;
+        cursor: text;
+        transition: 0.2s;
+      }
+      .input-box input:focus ~ label {
+        box-shadow: 0 5px 20px #6a85b6;
+      }
+      .input-box span {
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .input-animate {
+        animation: print 0.2s ease-in-out;
+      }
+      .shake {
+        animation: shake 0.2s ease-in-out;
+      }
+      @keyframes print {
+        0% {
+          position: absolute;
+          transform: scale(50);
+        }
+        99% {
+          position: absolute;
+        }
+        100% {
+          position: relative;
+        }
+      }
+      @keyframes shake {
+        50% {
+          transform: scale(0.95);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>输入框打字特效</h1>
+      <div class="input-box">
+        <input type="text" id="txtMessage" v-model="message" />
+        <label for="txtMessage">
+          <span
+            class="input-animate"
+            v-for="(m, index) in message2"
+            :key="index"
+            >{{m}}</span
+          >
+        </label>
+      </div>
+    </div>
+  </body>
+  <script src="./JS/vue2.js"></script>
+  <script>
+    new Vue({
+      el: ".container",
+      data() {
+        return {
+          message: "",
+        };
+      },
+      watch: {
+        message: {
+          handler: function (newVal, oldVal) {
+            if (newVal.length > oldVal.length) {
+              setTimeout(() => {
+                document.querySelector(".input-box").classList.add("shake");
+                setTimeout(() => {
+                  document
+                    .querySelector(".input-box")
+                    .classList.remove("shake");
+                }, 300);
+              }, 200);
+            }
+          },
+        },
+      },
+      computed: {
+        message2: function () {
+          return this.message.split("");
+        },
+      },
+    });
+  </script>
+</html>

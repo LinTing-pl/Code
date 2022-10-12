@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>心形加载动画</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container {
+        position: absolute;
+        top: 40vh;
+      }
+      .loading {
+        animation: rotate 2.5s cubic-bezier(0.75, 0, 0.5, 1) infinite;
+      }
+      .loading span {
+        width: 100px;
+        height: 100px;
+        display: block;
+        position: absolute;
+        background-color: #ff8f92;
+        border: 1px solid #ff8f92;
+        border-radius: 50%;
+      }
+      .loading span:nth-child(1) {
+        transform: translate(-28px, -28px);
+        animation: animate1 2.5s cubic-bezier(0.75, 0, 0.5, 1) infinite;
+      }
+      .loading span:nth-child(2) {
+        transform: translate(28px, -28px);
+        animation: animate2 2.5s cubic-bezier(0.75, 0, 0.5, 1) infinite;
+      }
+      .loading span:nth-child(3) {
+        position: relative;
+        border-radius: 0;
+        transform: scale(0.98) rotate(-45deg);
+        animation: animate3 2.5s cubic-bezier(0.75, 0, 0.5, 1) infinite;
+      }
+      .shadow {
+        position: relative;
+        width: 100px;
+        height: 20px;
+        background-color: #d9d9d9;
+        border-radius: 50%;
+        top: 50px;
+        animation: shadow 2.5s cubic-bezier(0.75, 0, 0.5, 1) infinite;
+      }
+      @keyframes animate1 {
+        60% {
+          transform: scale(0.4);
+        }
+      }
+      @keyframes animate2 {
+        40% {
+          transform: scale(0.4);
+        }
+      }
+      @keyframes animate3 {
+        50% {
+          border-radius: 100%;
+          transform: scale(0.5) rotate(-45deg);
+        }
+        100% {
+          transform: scale(0.98) rotate(-45deg);
+        }
+      }
+      @keyframes rotate {
+        50% {
+          transform: rotate(360deg);
+        }
+        100% {
+          transform: rotate(720deg);
+        }
+      }
+      @keyframes shadow {
+        50% {
+          background-color: #fff;
+          transform: scale(0.5);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="loading">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="shadow"></div>
+    </div>
+  </body>
+</html>

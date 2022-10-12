@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>手写签名</title>
+    <style>
+      canvas {
+        position: absolute;
+        border: 1px solid #000;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.75);
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="cvs" width="500" height="350"></canvas>
+  </body>
+  <script>
+    const csv = document.getElementById("cvs");
+    const ctx = csv.getContext("2d");
+    let isDrawing = false;
+
+    csv.addEventListener("mousedown", (e) => {
+      isDrawing = true;
+      ctx.moveTo(e.pageX, e.pageY);
+    });
+    csv.addEventListener("mousemove", (e) => {
+      if (isDrawing) {
+        ctx.lineTo(e.pageX, e.pageY);
+        ctx.stroke();
+      }
+    });
+    csv.addEventListener("mouseup", (e) => {
+      isDrawing = false;
+    });
+  </script>
+</html>

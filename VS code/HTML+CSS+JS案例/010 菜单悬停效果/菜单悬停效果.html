@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>菜单悬停效果</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: linear-gradient(200deg, #dad4ec, #f3e7e9);
+        }
+
+        ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            list-style: none;
+            transition: all 0.5s;
+        }
+
+        ul li a {
+            position: relative;
+            display: block;
+            text-align: center;
+            margin: 0 30px;
+            color: #333;
+            font-size: 40px;
+            text-decoration: none;
+        }
+
+        ul:hover li {
+            opacity: 0.2;
+            filter: blur(2px);
+        }
+
+        ul li:hover {
+            opacity: 1;
+            filter: blur(0);
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li><a>首页</a></li>
+    <li><a>关于我们</a></li>
+    <li><a>服务</a></li>
+    <li><a>案例</a></li>
+    <li><a>用户反馈</a></li>
+</ul>
+</body>
+</html>

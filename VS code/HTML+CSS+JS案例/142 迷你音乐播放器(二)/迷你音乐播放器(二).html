@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>迷你音乐播放器(二)</title>
+    <link rel="stylesheet" href="./CSS/iconfont.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container {
+        width: 430px;
+        height: 100px;
+      }
+      .bg {
+        position: fixed;
+        inset: -40px;
+        background: url(./img/红模仿.jfif) no-repeat;
+        background-size: cover;
+        background-position: center;
+        filter: blur(40px);
+        z-index: 1;
+      }
+      .bg-mask {
+        position: fixed;
+        inset: 0;
+        background: rgba(255, 255, 255, 0.5);
+        z-index: 2;
+      }
+      .player {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        height: 100%;
+      }
+      .player-track {
+        position: absolute;
+        top: 0;
+        right: 15px;
+        bottom: 0;
+        left: 15px;
+        padding: 13px 22px 10px 184px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 15px 15px 0 0;
+        transition: top 0.3s ease;
+      }
+      .player-track.active {
+        top: -95px;
+      }
+      .ablum-name {
+        color: #333;
+        font-size: 17px;
+        font-weight: bold;
+      }
+      .track-name {
+        color: #888;
+        font-size: 13px;
+        margin: 3px 0 12px 0;
+      }
+      .track-time {
+        height: 12px;
+        line-height: 12px;
+        margin-bottom: 4px;
+        overflow: hidden;
+      }
+      .current-time,
+      .total-time {
+        color: #ff668f;
+        font-size: 11px;
+        transition: all 0.3s ease;
+      }
+      .current-time {
+        float: left;
+      }
+      .total-time {
+        float: right;
+      }
+      .progress-box {
+        position: relative;
+        height: 4px;
+        background-color: #ead2d7;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .hover-time {
+        position: absolute;
+        top: -30px;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        font-size: 12px;
+        padding: 5px 6px;
+        border-radius: 4px;
+        display: none;
+      }
+      .hover-bar {
+        position: absolute;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+        z-index: 2;
+      }
+      .progress-bar {
+        position: absolute;
+        inset: 0;
+        background-color: #fd6d94;
+        border-radius: 4px;
+        z-index: 1;
+        width: 0;
+        transition: width 0.2s ease;
+      }
+      .player-content {
+        position: relative;
+        height: 100%;
+        background-color: #fff;
+        border-radius: 15px;
+        z-index: 2;
+        box-shadow: 0 30px 80px #656565;
+      }
+      .album-cover {
+        width: 115px;
+        height: 115px;
+        border-radius: 50%;
+        position: absolute;
+        top: -40px;
+        left: 40px;
+        box-shadow: 0 0 0 10px #fff;
+        overflow: hidden;
+        transition: 0.3s ease;
+      }
+      .album-cover::before {
+        content: "";
+        width: 20px;
+        height: 20px;
+        background-color: #d6dee7;
+        position: absolute;
+        inset: 0;
+        top: 50%;
+        border-radius: 50%;
+        margin: -10px auto auto auto;
+        box-shadow: inset 0 0 0 2px #fff;
+        z-index: 1;
+      }
+      .album-cover.active {
+        top: -60px;
+        box-shadow: 0 0 0 4px #fff7f7, 0 30px 50px -15px #afb7c1;
+      }
+      .album-cover img {
+        display: block;
+        width: 100%;
+        height: 0;
+        object-fit: cover;
+        opacity: 0;
+      }
+      .album-cover img.active {
+        height: 100%;
+        opacity: 1;
+      }
+      .album-cover.active img.active {
+        animation: rotateAlbumCover 3s linear infinite;
+      }
+      .play-controls {
+        width: 255px;
+        height: 100%;
+        float: right;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+      }
+      .control {
+        flex: 1;
+      }
+      .control .button {
+        width: 75px;
+        height: 75px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.2s ease;
+      }
+      .control .button span {
+        color: #d6dee6;
+        font-size: 30px;
+        transition: 0.2s ease;
+      }
+      .control .button:hover {
+        background-color: #d6d6de;
+      }
+      .control .button:hover span {
+        color: #fff;
+      }
+      @keyframes rotateAlbumCover {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="bg"></div>
+      <div class="bg-mask"></div>
+      <div class="player">
+        <div class="player-track">
+          <div class="album-name">红模仿</div>
+          <div class="track-name">周杰伦 - 红模仿</div>
+          <div class="track-time">
+            <div class="current-time">00:00</div>
+            <div class="total-time">03:50</div>
+          </div>
+          <div class="progress-box">
+            <div class="hover-time">00:36</div>
+            <div class="hover-bar"></div>
+            <div class="progress-bar"></div>
+          </div>
+        </div>
+        <div class="player-content">
+          <div class="album-cover">
+            <img src="./img/红模仿.jfif" alt="" class="active" />
+            <img src="./img/感官先生.jfif" alt="" />
+            <img src="./img/夜曲.jfif" alt="" />
+            <img src="./img/我的名字.jfif" alt="" />
+            <img src="./img/本草纲目.jfif" alt="" />
+          </div>
+          <div class="play-controls">
+            <div class="control">
+              <div class="button play-prev">
+                <span class="iconfont icon-step-backward"></span>
+              </div>
+            </div>
+            <div class="control">
+              <div class="button play-pause">
+                <span class="iconfont icon-playfill"></span>
+              </div>
+            </div>
+            <div class="control">
+              <div class="button play-next">
+                <span class="iconfont icon-step-forward"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    let play_pause = document.querySelector(".play-pause");
+    let player_track = document.querySelector(".player-track");
+    let album_cover = document.querySelector(".album-cover");
+    let bg = document.querySelector(".bg");
+    let album_name = document.querySelector(".album-name");
+    let track_name = document.querySelector(".track-name");
+    let track_time = document.querySelector(".track-cover");
+    let current_time = document.querySelector(".current-time");
+    let total_time = document.querySelector(".total-time");
+    let progress_box = document.querySelector(".progress-box");
+    let hover_time = document.querySelector(".hover-time");
+    let hover_bar = document.querySelector(".hover-bar");
+    let progress_bar = document.querySelector(".progress-bar");
+    let play_prev = document.querySelector(".play-prev");
+    let play_next = document.querySelector(".play-next");
+
+    let albums = ["红模仿", "感官先生", "夜曲", "我的名字", "本草纲目"];
+    let track_names = [
+      "周杰伦 - 红模仿",
+      "刘凤瑶 - 感官先生",
+      "周杰伦 - 夜曲",
+      "焦麦奇 - 我的名字",
+      "周杰伦 - 本草纲目",
+    ];
+    let progress_t,
+      progress_loc,
+      c_m,
+      ct_minutes,
+      ct_seconds,
+      cur_minutes,
+      cur_seconds,
+      dur_minutes,
+      dur_seconds,
+      play_progress;
+
+    let cur_index = -1;
+
+    function intiPlayer() {
+      audio = new Audio();
+      selectTrack(0);
+      play_pause.addEventListener("click", playPause);
+      progress_box.addEventListener("mouseover", function (e) {
+        showHover(e);
+      });
+      progress_box.addEventListener("mouseout", hideHover);
+      progress_box.addEventListener("click", playFromClickedPos);
+      audio.addEventListener("timeupdate", updateCurTime);
+      play_prev.addEventListener("click", function () {
+        selectTrack(-1);
+      });
+      play_next.addEventListener("click", function () {
+        selectTrack(1);
+      });
+    }
+    function playPause() {
+      setTimeout(() => {
+        if (audio.paused) {
+          player_track.classList.add("active");
+          play_pause.querySelector(".iconfont").classList =
+            "iconfont icon-pause";
+          album_cover.classList.add("active");
+          audio.play();
+        } else {
+          player_track.classList.remove("active");
+          play_pause.querySelector(".iconfont").classList =
+            "iconfont icon-playfill";
+          album_cover.classList.remove("active");
+          audio.pause();
+        }
+      }, 300);
+    }
+    function showHover(e) {
+      progress_t = e.clientX - progress_box.getBoundingClientRect().left;
+      progress_loc =
+        audio.duration *
+        (progress_t / progress_box.getBoundingClientRect().width);
+      hover_bar.style.width = progress_t + "px";
+      c_m = progress_loc / 60;
+      ct_minutes = Math.floor(c_m);
+      ct_seconds = Math.floor(progress_loc - ct_minutes * 60);
+      if (ct_minutes < 10) {
+        ct_minutes = "0" + ct_minutes;
+      }
+      if (ct_seconds < 10) {
+        ct_seconds = "0" + ct_seconds;
+      }
+      if (isNaN(ct_minutes) || isNaN(ct_seconds)) {
+        hover_time.innerText = "--:--";
+      } else {
+        hover_time.innerText = ct_minutes + ":" + ct_seconds;
+      }
+      hover_time.style.left = progress_t + "px";
+      hover_time.style.marginLeft = "-20px";
+      hover_time.style.display = "block";
+    }
+    function hideHover() {
+      hover_bar.style.width = "0px";
+      hover_time.innerText = "00:00";
+      hover_time.style.left = "0px";
+      hover_time.style.marginLeft = "0px";
+      hover_time.style.display = "none";
+    }
+    function playFromClickedPos() {
+      audio.currentTime = progress_loc;
+      progress_bar.style.width = progress_t + "px";
+      hideHover();
+    }
+    function updateCurTime() {
+      cur_minutes = Math.floor(audio.currentTime / 60);
+      cur_seconds = Math.floor(audio.currentTime - cur_minutes * 60);
+      dur_minutes = Math.floor(audio.duration / 60);
+      dur_seconds = Math.floor(audio.duration - dur_minutes * 60);
+      play_progress = (audio.currentTime / audio.duration) * 100;
+
+      if (cur_minutes < 10) {
+        ct_minutes = "0" + ct_minutes;
+      }
+      if (cur_seconds < 10) {
+        ct_seconds = "0" + ct_seconds;
+      }
+      if (dur_minutes < 10) {
+        ct_minutes = "0" + ct_minutes;
+      }
+      if (dur_seconds < 10) {
+        ct_seconds = "0" + ct_seconds;
+      }
+      if (isNaN(cur_minutes) || isNaN(cur_seconds)) {
+        current_time.innerText = "00:00";
+      } else {
+        current_time.innerText = cur_minutes + ":" + cur_seconds;
+      }
+      if (isNaN(dur_minutes) || isNaN(dur_seconds)) {
+        total_time.innerText = "00:00";
+      } else {
+        total_time.innerText = dur_minutes + ":" + dur_seconds;
+      }
+
+      progress_bar.style.width = play_progress + "%";
+      if (play_progress == 100) {
+        play_pause.querySelector(".iconfont").classList =
+          "iconfont icon-playfill";
+        progress_bar.style.width = "0px";
+        current_time.innerText = "00:00";
+        player_track.classList.remove("active");
+        album_cover.classList.remove("active");
+      }
+    }
+    function selectTrack(flag) {
+      if (flag == 0 || flag == 1) {
+        ++cur_index;
+        if (cur_index >= albums.length) {
+          cur_index = 0;
+        }
+      } else {
+        --cur_index;
+        if (cur_index < 0) {
+          cur_index = albums.length - 1;
+        }
+      }
+
+      if (cur_index > -1 && cur_index < albums.length) {
+        if (flag == 0) {
+          play_pause.querySelector(".iconfont").classList =
+            "iconfont icon-playfill";
+        } else {
+          play_pause.querySelector(".iconfont").classList =
+            "iconfont icon-pause";
+        }
+        progress_bar.style.width = "0px";
+        current_time.innerText = "00:00";
+        total_time.innerText = "00:00";
+        let cur_ablum = albums[cur_index];
+        let cur_track_name = track_names[cur_index];
+        audio.src = "./mp3/" + cur_ablum + ".mp3";
+        if (flag != 0) {
+          audio.play();
+          player_track.classList.add("active");
+          album_cover.classList.add("active");
+        }
+        album_name.innerText = cur_ablum;
+        track_name.innerText = cur_track_name;
+        album_cover.querySelector(".active").classList.remove("active");
+        album_cover
+          .getElementsByTagName("img")
+          [cur_index].classList.add("active");
+        bg.style.backgroundImage =
+          "url(" +
+          album_cover
+            .getElementsByTagName("img")
+            [cur_index].getAttribute("src") +
+          ")";
+      } else {
+        if (flag == 0 || flag == 1) {
+          --cur_index;
+        } else {
+          ++cur_index;
+        }
+      }
+    }
+    intiPlayer();
+  </script>
+</html>

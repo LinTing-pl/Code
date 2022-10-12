@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>传送带式的加载动画效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #2f3542;
+      }
+      .loading {
+        width: 100px;
+        position: relative;
+      }
+      .loading div {
+        width: 30px;
+        height: 30px;
+        background-color: #0abde3;
+        position: absolute;
+        left: calc(var(--i) * 30px);
+        border: 1px solid;
+        animation: move 2s linear infinite;
+        animation-delay: calc(var(--i) * -400ms);
+      }
+      @keyframes move {
+        0% {
+          left: 150px;
+          top: 0;
+        }
+        80% {
+          left: 0;
+          top: 0;
+        }
+        85% {
+          left: 0;
+          top: -30px;
+          width: 30px;
+          height: 30px;
+        }
+        88% {
+          left: 0;
+          top: -30px;
+        }
+        90% {
+          width: 60px;
+          height: 25px;
+        }
+        95% {
+          left: 150px;
+          top: -30px;
+          width: 30px;
+          height: 30px;
+        }
+        98% {
+          left: 150px;
+          top: -30px;
+        }
+        100% {
+          left: 150px;
+          top: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading">
+      <div style="--i: 0"></div>
+      <div style="--i: 1"></div>
+      <div style="--i: 2"></div>
+      <div style="--i: 3"></div>
+      <div style="--i: 4"></div>
+    </div>
+  </body>
+</html>

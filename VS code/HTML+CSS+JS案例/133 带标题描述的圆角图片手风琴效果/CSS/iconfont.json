@@ -1,0 +1,44 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "128755",
+      "name": "sun",
+      "font_class": "sun",
+      "unicode": "e6df",
+      "unicode_decimal": 59103
+    },
+    {
+      "icon_id": "401050",
+      "name": "rain",
+      "font_class": "rain",
+      "unicode": "e81e",
+      "unicode_decimal": 59422
+    },
+    {
+      "icon_id": "836281",
+      "name": "bolt",
+      "font_class": "bolt",
+      "unicode": "e64f",
+      "unicode_decimal": 58959
+    },
+    {
+      "icon_id": "4766902",
+      "name": "cloud",
+      "font_class": "cloud",
+      "unicode": "e7d9",
+      "unicode_decimal": 59353
+    },
+    {
+      "icon_id": "6805571",
+      "name": "Snow",
+      "font_class": "Snow",
+      "unicode": "e9b2",
+      "unicode_decimal": 59826
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>鼠标移动推开粒子特效</title>
+    <script src="./JS/particles.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background-color: palevioletred;
+        overflow: hidden;
+      }
+      .canvas {
+        position: absolute;
+        display: block;
+        top: 0;
+        left: 0;
+      }
+      .text {
+        color: #fff;
+        letter-spacing: 2px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        user-select: none;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas class="canvas"></canvas>
+    <div class="text">鼠标移动推开粒子</div>
+  </body>
+  <script>
+    Particles.init({
+      selector: ".canvas",
+      responsive: [
+        {
+          breakpoint: 768,
+          options: {
+            maxParticles: 200,
+            color: "#48F2E3",
+            connectParticles: false,
+          },
+        },
+        {
+          breakpoint: 425,
+          options: {
+            maxParticles: 100,
+            connectParticles: true,
+          },
+        },
+        {
+          breakpoint: 320,
+          options: {
+            maxParticles: 0,
+          },
+        },
+      ],
+    });
+  </script>
+</html>

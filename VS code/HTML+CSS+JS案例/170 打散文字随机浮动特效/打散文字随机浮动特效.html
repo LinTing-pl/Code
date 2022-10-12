@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>打散文字随机浮动特效</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        background-color: #000;
+        overflow: hidden;
+      }
+      #text {
+        color: #fff;
+        font-size: 20px;
+        width: 80vw;
+        line-height: 1.1;
+        margin: 100px auto;
+      }
+      #btn {
+        width: 150px;
+        height: 50px;
+        border: 1px solid #fff;
+        background: #000;
+        color: #fff;
+        font-size: 20px;
+        outline: none;
+        cursor: pointer;
+        border-radius: 8px;
+        display: block;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <article>
+      <p id="text">
+        你说帘外海棠，锦屏鸳鸯；后来庭院春深，咫尺画堂。
+        你说笛声如诉，费尽思量；后来茶烟尚绿，人影茫茫。
+        你说可人如玉，与子偕臧；后来长亭远望，夜色微凉。
+        你说霞染天光，陌上花开与谁享；后来烟笼柳暗，湖心水动影无双。
+        你说彼岸灯火，心之所向；后来渔舟晚唱，烟雨彷徨。
+        你说水静莲香，惠风和畅；后来云遮薄月，清露如霜。
+        你说幽窗棋罢，再吐衷肠；后来风卷孤松，雾漫山冈。
+        你说红袖佯嗔，秋波流转思张敞；后来黛眉长敛，春色飘零别阮郎。
+        你说暗香浮动，刹那光芒；后来玉殒琼碎，疏影横窗。
+        你说良辰美景，乘兴独往；后来红尘紫陌，雪落太行。
+        你说赋尽高唐，三生石上；后来君居淄右，妾家河阳。
+        你说玉楼朱颜，飞月流觞迎客棹；后来幽谷居士，枕琴听雨卧禅房。
+        你说高山流水，客答春江；后来章台游冶，系马垂杨。
+        你说锦瑟韶光，华灯幢幢；后来荼蘼开至，青苔满墙。
+        你说天地玄黄，风月琳琅；后来月斜江上，云淡天长。
+      </p>
+      <button id="btn">放松一下</button>
+    </article>
+  </body>
+  <script src="./JS/neontext.umd.js"></script>
+  <script>
+    const resetBtn = document.querySelector("#btn");
+    neontext.neonify({
+      elem: "text",
+      shadowBlurRadius: 5,
+      colors: [
+        "#f5c4d1",
+        "#845fa7",
+        "#845fa7",
+        "#5461ac",
+        "#5461ac",
+        "#64cdf3",
+        "#64cdf3",
+        "#91c83d",
+        "#91c83d",
+        "#faf04f",
+        "#faf04f",
+        "#faae51",
+        "#faae51",
+        "#df4348",
+        "#df4348",
+      ],
+      random: true,
+      colorizeText: true,
+      shadowOffsetX: 4,
+      shadowOffsetY: 4,
+    });
+    resetBtn.addEventListener("click", function () {
+      neontext.neonify({
+        elem: "text",
+        shadowBlurRadius: 5,
+        colors: [
+          "#f5c4d1",
+          "#845fa7",
+          "#845fa7",
+          "#5461ac",
+          "#5461ac",
+          "#64cdf3",
+          "#64cdf3",
+          "#91c83d",
+          "#91c83d",
+          "#faf04f",
+          "#faf04f",
+          "#faae51",
+          "#faae51",
+          "#df4348",
+          "#df4348",
+        ],
+        random: true,
+        colorizeText: true,
+        shadowOffsetX: 4,
+        shadowOffsetY: 4,
+      });
+    });
+  </script>
+</html>

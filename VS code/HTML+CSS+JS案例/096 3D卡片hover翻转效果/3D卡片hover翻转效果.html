@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D卡片hover翻转效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: linear-gradient(200deg, #fff1eb, #ace0f9);
+      }
+      section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        transform-style: preserve-3d;
+      }
+      .card {
+        position: relative;
+        width: 320px;
+        height: 320px;
+        margin: 20px;
+        transform-style: preserve-3d;
+        perspective: 1000px;
+      }
+      .card .box {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        transition: all 1s ease;
+      }
+      .card .box .img-box {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .card .box .img-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .card .box .con-box {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform-style: preserve-3d;
+        backface-visibility: hidden;
+        transform: rotateY(180deg);
+      }
+      .card .box .con-box div {
+        color: #fff;
+        padding: 20px;
+        background: linear-gradient(30deg, #514a9d, #24c6dc);
+        transform: translateZ(100px);
+      }
+      .card .box .con-box div h2 {
+        font-size: 20px;
+        letter-spacing: 2px;
+      }
+      .con-box .box .con-box div p {
+        font-size: 15px;
+        text-align: justify;
+        margin-top: 5px;
+      }
+      .card:hover .box {
+        transform: rotateY(180deg);
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <div class="card">
+        <div class="box">
+          <div class="img-box">
+            <img src="./img/img1.jfif" alt="" />
+          </div>
+          <div class="con-box">
+            <div>
+              <h2>蒙奇·D·路飞</h2>
+              <p>
+                蒙奇·D·路飞，日本漫画《航海王》及其衍生作品中的男主角。绰号“草帽”路飞，是草帽一伙、草帽大船团船长，四皇、极恶的世代之一。橡胶果实（人人果实·幻兽种·尼卡形态）能力者，悬赏金30亿贝里。梦想是找到传说中的大秘宝（ONEPIECE），成为海贼王。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="box">
+          <div class="img-box">
+            <img src="./img/img2.jfif" alt="" />
+          </div>
+          <div class="con-box">
+            <div>
+              <h2>罗罗诺亚·索隆</h2>
+              <p>
+                索隆是一名由伊露维塔在爱努的大乐章之前创造出来的迈雅。在时间初始的时候，他和其他爱努一起进入一亚。在那里他成为了被称作迈隆的奥力的迈雅。但不久之后他就被米尔寇诱入歧途，成为黑暗大敌强大也最被信任的仆从。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="box">
+          <div class="img-box">
+            <img src="./img/img3.jfif" alt="" />
+          </div>
+          <div class="con-box">
+            <div>
+              <h2>山治</h2>
+              <p>
+                山治，原名文斯莫克·山治，日本漫画《航海王》及其衍生作品中的角色。草帽一伙厨师，外号“黑足”，草帽一伙怪物三人组之一，与罗罗诺亚·索隆并称为蒙奇·D·路飞的左膀右臂，是一个足技高手。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

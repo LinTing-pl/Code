@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>雾霜玻璃图片预览特效</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        background-color: rgba(0, 0, 0, 0.75);
+      }
+      .container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+      .image {
+        width: 100%;
+        height: 100%;
+        background-image: url(./img/img2.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        filter: blur(6px);
+        overflow: hidden;
+      }
+      .image::before {
+        content: "";
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.2);
+        position: absolute;
+      }
+      .cursor {
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        border: 8px solid rgba(255, 255, 255, 0.2);
+        position: absolute;
+        background-image: url(./img/img2.jpg);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+        background-size: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="image"></div>
+      <div class="cursor"></div>
+    </div>
+  </body>
+  <script>
+    const container = document.querySelector(".container");
+    const cursor = document.querySelector(".cursor");
+
+    container.addEventListener("mouseover", function (e) {
+      let contRect = container.getBoundingClientRect();
+      let cursRect = cursor.getBoundingClientRect();
+
+      let cursX = e.clientX - contRect.left - cursRect.width / 2;
+      let cursY = e.clientY - contRect.top - cursRect.height / 2;
+      cursor.style.left = `${cursX}px`;
+      cursor.style.top = `${cursY}px`;
+    });
+  </script>
+</html>

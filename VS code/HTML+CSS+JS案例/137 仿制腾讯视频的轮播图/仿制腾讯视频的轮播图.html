@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>仿制腾讯视频的轮播图</title>
+    <script src="./JS/vue2.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container {
+        width: 100vw;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .banner {
+        width: 90vw;
+        max-width: 1680px;
+        height: 432px;
+        background-size: cover;
+        background-position: center;
+      }
+      .title-box {
+        width: 348px;
+        height: 412px;
+        background-color: rgba(0, 0, 0, 0.45);
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: #fff;
+        padding-top: 20px;
+        backdrop-filter: blur(3px);
+      }
+      .title {
+        height: 43px;
+        line-height: 43px;
+        text-indent: 40px;
+        font-size: 15px;
+        cursor: pointer;
+        white-space: nowrap;
+        white-space: nowrap;
+        overflow: hidden;
+        transform: font-size 0.1s;
+      }
+      .title span {
+        font-size: 13px;
+        opacity: 0;
+      }
+      .title.active {
+        color: #ff5c38;
+        font-size: 22px;
+        font-weight: bold;
+      }
+      .title.active span {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="container"
+      id="app"
+      :style="'background-color:'+active_color+';'"
+    >
+      <div
+        class="banner"
+        :style="'background-image:url('+active_img+');'"
+      ></div>
+      <div class="title-box">
+        <div
+          :class="['title',index===active_index?'active':'']"
+          v-for="(item, index) in list"
+          :key="index"
+          @mouseover="changeBanner(index)"
+        >
+          {{item.title}}
+          <span>{{item.sub_title}}</span>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    new Vue({
+      el: "#app",
+      data() {
+        return {
+          timer: null,
+          active_index: 0,
+          active_img: "./img/img1.jpg",
+          active_color: "#53839a",
+          size: 9,
+          list: [
+            {
+              title: "极限挑战",
+              sub_title: "岳云鹏贾乃亮毁容式扎球",
+              image: "./img/img1.jpg",
+              bg_color: "#53839a",
+            },
+            {
+              title: "沸腾校园",
+              sub_title: "辅导员开启抢人大战",
+              image: "./img/img2.jpg",
+              bg_color: "#bbbbaf",
+            },
+            {
+              title: "柴小七2",
+              sub_title: "冷气CP再续奇妙跨星恋",
+              image: "./img/img3.jpg",
+              bg_color: "#120f16",
+            },
+            {
+              title: "脱口秀5",
+              sub_title: "豆豆神还原体检尴尬经",
+              image: "./img/img4.jpg",
+              bg_color: "#600004",
+            },
+            {
+              title: "永恒联盟",
+              sub_title: "正版高爆奇迹手游",
+              image: "./img/img5.jpg",
+              bg_color: "#eeec88",
+            },
+            {
+              title: "你安全吗？",
+              sub_title: "檀健次荣梓杉网络缉凶",
+              image: "./img/img6.jpg",
+              bg_color: "#89a1a3",
+            },
+            {
+              title: "宵夜江湖2",
+              sub_title: "这一把涮串太诱人",
+              image: "./img/img7.jpg",
+              bg_color: "#1d221c",
+            },
+            {
+              title: "喜迎二十大奋进新征程",
+              sub_title: "",
+              image: "./img/img8.jpg",
+              bg_color: "#bd60d5",
+            },
+            {
+              title: "故宫里的大怪兽2: 开播！月光迷宫奇幻启程",
+              sub_title: "开播！月光迷宫奇幻启程",
+              image: "./img/img9.jpg",
+              bg_color: "#0d293d",
+            },
+          ],
+        };
+      },
+      methods: {
+        stopAutoPlay() {
+          if (this.timer) {
+            clearInterval(this.timer);
+          }
+        },
+        startAutoPlay() {
+          let _t = this;
+          this.timer = setInterval(() => {
+            _t.active_index++;
+            if (_t.active_index >= _t.size) {
+              _t.active_index = 0;
+            }
+            _t.changeBanner(_t.active_index);
+          }, 3000);
+        },
+        changeBanner(index) {
+          this.stopAutoPlay();
+          this.active_index = index;
+          this.active_img = this.list[index].image;
+          this.active_color = this.list[index].bg_color;
+          this.startAutoPlay();
+        },
+      },
+      mounted() {
+        this.startAutoPlay();
+      },
+    });
+  </script>
+</html>

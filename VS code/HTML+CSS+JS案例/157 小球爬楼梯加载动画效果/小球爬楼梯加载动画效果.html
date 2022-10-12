@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>小球爬楼梯加载动画效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: linear-gradient(200deg, #537895, #09203f);
+      }
+      .loading {
+        position: relative;
+        color: #fff;
+        width: 96px;
+        height: 68px;
+      }
+      .loading div {
+        background-color: currentColor;
+      }
+      .loading div:nth-child(1) {
+        width: 32px;
+        height: 32px;
+        position: absolute;
+        bottom: 32%;
+        left: 18%;
+        border-radius: 50%;
+        transform-origin: center bottom;
+        animation: ball-jump 0.6s ease-in-out infinite;
+      }
+      .loading div:not(:nth-child(1)) {
+        width: 32px;
+        height: 5px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translateX(60%);
+        animation: ball-steps 1.8s linear infinite;
+      }
+      .loading div:nth-child(2) {
+        animation-delay: 0s;
+      }
+      .loading div:nth-child(3) {
+        animation-delay: -0.6s;
+      }
+      .loading div:nth-child(4) {
+        animation-delay: -1.2s;
+      }
+      @keyframes ball-jump {
+        0% {
+          transform: scale(1, 0.7);
+        }
+        20% {
+          transform: scale(0.7, 1.2);
+        }
+        40% {
+          transform: scale(1, 1);
+        }
+        50% {
+          bottom: 150%;
+          transform: scale(1, 1);
+        }
+        80%,
+        90% {
+          transform: scale(0.7, 1.2);
+        }
+        100% {
+          transform: scale(1, 0.7);
+        }
+      }
+      @keyframes ball-steps {
+        0% {
+          top: 0;
+          right: 0;
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          top: 100%;
+          right: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </body>
+</html>

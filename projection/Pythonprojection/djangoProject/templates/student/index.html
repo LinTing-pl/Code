@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生列表</title>
+    <link href="../../static/css/opt.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<table border="1px" style="border-collapse: collapse;" width="100%">
+    <div class="opt">
+        <ul><a href="../add" id="add">添加学生</a></ul>
+        <ul>
+            <form action="../search/" method="post">{% csrf_token %}<input id="search" name="info" placeholder="查找学生"
+                                                                           type="text"><input
+                    type="submit" value="查找">
+            </form>
+        </ul>
+    </div>
+    <tr>
+        <th>编号</th>
+        <th>姓名</th>
+        <th>学号</th>
+        <th>操作</th>
+    </tr>
+    {% for student in students %}
+    <tr>
+        <td align="center">{{ forloop.counter }}</td>
+        <td align="center">{{ student.student_name }}</td>
+        <td align="center">{{ student.student_no }}</td>
+        <td align="center">
+            <a href="../edit/?id={{ student.id }}">
+                编辑
+            </a>
+            <a href="../delete/?id={{ student.id }}">
+                删除
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

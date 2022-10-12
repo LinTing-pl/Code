@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>带进度条的任务卡片切换特效</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #efefef;
+      }
+      .container {
+        width: 100vw;
+        max-width: 850px;
+        height: 350px;
+        background-color: #fff;
+        border-radius: 25px;
+        box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+        position: relative;
+      }
+      .card {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 350px;
+        padding-left: 30px;
+        position: absolute;
+        overflow: hidden;
+      }
+      .card .img {
+        width: 260px;
+        height: 260px;
+        border-radius: 20px;
+        overflow: hidden;
+        flex-shrink: 0;
+        box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+      }
+      .card .img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 25;
+        opacity: 0;
+        transition: all 0.6s;
+      }
+      #slide_1:checked ~ .card-1 img,
+      #slide_2:checked ~ .card-2 img,
+      #slide_3:checked ~ .card-3 img {
+        opacity: 1;
+        transition-delay: 0.2s;
+      }
+      .card .content {
+        flex: 1;
+        padding: 0 30px 0 35px;
+        position: relative;
+        left: 50px;
+        opacity: 0;
+        transition: all 0.6s;
+      }
+      #slide_1:checked ~ .card-1 .content,
+      #slide_2:checked ~ .card-2 .content,
+      #slide_3:checked ~ .card-3 .content {
+        opacity: 1;
+        left: 0;
+        transition-delay: 0.3s;
+      }
+      .card .title {
+        font-size: 30px;
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+      .card .text {
+        font-size: 17px;
+        color: #555;
+        text-align: justify;
+        margin-bottom: 25px;
+      }
+      .card a {
+        padding: 13px 20px;
+        background-color: #000;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 50px;
+        letter-spacing: 1px;
+        font-weight: 600;
+        box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+        float: right;
+      }
+      .slider {
+        position: absolute;
+        bottom: 25px;
+        left: 55%;
+        transform: translateX(-50%);
+        z-index: 1;
+      }
+      .slider .slide {
+        width: 50px;
+        height: 10px;
+        background-color: #dfdfdf;
+        display: inline-flex;
+        margin: 3px;
+        border-radius: 5px;
+        cursor: pointer;
+        position: relative;
+      }
+      .slider .slide::before {
+        content: "";
+        width: 0;
+        height: 100%;
+        background-color: #000;
+        border-radius: 5px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        transform: scale(0);
+        transform-origin: left;
+        transition: all 0.6s;
+      }
+      #slide_1:checked ~ .slider .slide-1::before,
+      #slide_2:checked ~ .slider .slide-2::before,
+      #slide_3:checked ~ .slider .slide-3::before {
+        width: 100%;
+        transform: scale(1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <input type="radio" name="select" id="slide_1" hidden checked />
+      <input type="radio" name="select" id="slide_2" hidden />
+      <input type="radio" name="select" id="slide_3" hidden />
+      <div class="slider">
+        <label for="slide_1" class="slide slide-1"></label>
+        <label for="slide_2" class="slide slide-2"></label>
+        <label for="slide_3" class="slide slide-3"></label>
+      </div>
+      <div class="card card-1">
+        <div class="img">
+          <img src="./img/img1.jpg" alt="" />
+        </div>
+        <div class="content">
+          <div class="title">女帝</div>
+          <div class="text">
+            女帝女帝女帝女帝女帝女帝女帝女帝女帝女帝女帝女帝女帝女帝女帝女帝女帝女帝女帝女帝女帝女帝女帝女帝女帝
+          </div>
+          <a href="#">查看更多</a>
+        </div>
+      </div>
+      <div class="card card-2">
+        <div class="img">
+          <img src="./img/img2.jpg" alt="" />
+        </div>
+        <div class="content">
+          <div class="title">罗宾</div>
+          <div class="text">
+            罗宾罗宾罗宾罗宾罗宾罗宾罗宾罗宾罗宾罗宾罗宾罗宾罗宾罗宾罗宾罗宾罗宾罗宾罗宾罗宾罗宾罗宾罗宾罗宾罗宾
+          </div>
+          <a href="#">查看更多</a>
+        </div>
+      </div>
+      <div class="card card-3">
+        <div class="img">
+          <img src="./img/img3.jpg" alt="" />
+        </div>
+        <div class="content">
+          <div class="title">娜美</div>
+          <div class="text">
+            娜美娜美娜美娜美娜美娜美娜美娜美娜美娜美娜美娜美娜美娜美娜美娜美娜美娜美娜美娜美娜美娜美娜美娜美娜美
+          </div>
+          <a href="#">查看更多</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

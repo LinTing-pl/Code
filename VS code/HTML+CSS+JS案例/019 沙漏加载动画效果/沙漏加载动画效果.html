@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>沙漏加载动画效果</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: linear-gradient(200deg, #b5aee4, #505285);
+        }
+
+        .loading {
+            width: 86px;
+            height: 196px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            animation: rotating 2s linear infinite;
+        }
+
+        .top,
+        .bottom {
+            width: 70px;
+            height: 70px;
+            border-style: solid;
+            border-color: #dcdcdc;
+            border-width: 4px 4px 12px 12px;
+            border-radius: 50% 100% 50% 30%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .top {
+            transform: rotate(-45deg);
+        }
+
+        .bottom {
+            transform: rotate(135deg);
+        }
+
+        .top::before,
+        .bottom::before {
+            content: "";
+            position: absolute;
+            width: inherit;
+            height: inherit;
+            background-color: #cabbe9;
+            animation: 2s linear infinite;
+        }
+
+        .top::before {
+            border-radius: 0 100% 0 0;
+            animation-name: drop-sand;
+        }
+
+        .bottom::before {
+            border-radius: 0 0 0 25%;
+            transform: translate(50px, -50px);
+            animation-name: fill-sand;
+        }
+
+        .loading::after {
+            content: "";
+            width: 5px;
+            height: 96px;
+            background-color: #cabbe9;
+            position: absolute;
+            top: 20px;
+            animation: flow 2s linear infinite;
+        }
+
+        @keyframes drop-sand {
+            to {
+                transform: translate(-50px, 50px);
+            }
+        }
+
+        @keyframes fill-sand {
+            to {
+                transform: translate(0px, 0px);
+            }
+        }
+
+        @keyframes flow {
+            10%,
+            100% {
+                transform: translateY(64px);
+            }
+        }
+
+        @keyframes rotating {
+            0%,
+            90% {
+                transform: rotate(0);
+            }
+            100% {
+                transform: rotate(180deg);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="loading">
+    <span class="top"></span>
+    <span class="bottom"></span>
+</div>
+</body>
+</html>

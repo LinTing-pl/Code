@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D分层按钮的悬停效果</title>
+    <link rel="stylesheet" href="./CSS/iconfont.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: linear-gradient(200deg, #29323c, #485563);
+      }
+      .icon-box {
+        display: flex;
+      }
+      .icon-box a {
+        color: #fff;
+        margin: 0 30px;
+        text-decoration: none;
+        display: block;
+        position: relative;
+      }
+      .icon-box a .layer {
+        width: 70px;
+        height: 70px;
+      }
+      .icon-box a .layer span {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 1px solid var(--c);
+        border-radius: 6px;
+        transition: all 0.3s;
+      }
+      .icon-box a .layer span.iconfont {
+        font-size: 35px;
+        text-align: center;
+        line-height: 70px;
+        color: var(--c);
+        backdrop-filter: blur(4px);
+      }
+      .icon-box a .text {
+        position: absolute;
+        opacity: 0;
+        bottom: 0px;
+        width: 100%;
+        text-align: center;
+        transition: all 0.3s;
+      }
+      .icon-box a:hover .text {
+        bottom: -35px;
+        opacity: 1;
+        color: var(--c);
+      }
+      .icon-box a:hover .layer {
+        transform: rotate(-35deg) skew(20deg);
+      }
+      .icon-box a:hover .layer span:nth-child(1) {
+        opacity: 0.2;
+        transform: translate(0, 0);
+      }
+      .icon-box a:hover .layer span:nth-child(2) {
+        opacity: 0.4;
+        transform: translate(5px, -5px);
+      }
+      .icon-box a:hover .layer span:nth-child(3) {
+        opacity: 0.6;
+        transform: translate(10px, -10px);
+      }
+      .icon-box a:hover .layer span:nth-child(4) {
+        opacity: 0.8;
+        transform: translate(15px, -15px);
+      }
+      .icon-box a:hover .layer span:nth-child(5) {
+        opacity: 1;
+        transform: translate(20px, -20px);
+      }
+      .icon-box a:hover .layer span {
+        box-shadow: -1px 1px 3px var(--c);
+      }
+      .icon-box a:nth-child(1) .layer span,
+      .icon-box a:nth-child(1) .text {
+        --c: #12b7fb;
+      }
+      .icon-box a:nth-child(2) .layer span,
+      .icon-box a:nth-child(2) .text {
+        --c: #2aae67;
+      }
+      .icon-box a:nth-child(3) .layer span,
+      .icon-box a:nth-child(3) .text {
+        --c: #e79115;
+      }
+      .icon-box a:nth-child(4) .layer span,
+      .icon-box a:nth-child(4) .text {
+        --c: #2075fd;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="icon-box">
+      <a href="#">
+        <div class="layer">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span class="iconfont icon-QQ"></span>
+        </div>
+        <div class="text">QQ</div>
+      </a>
+      <a href="#">
+        <div class="layer">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span class="iconfont icon-weixin"></span>
+        </div>
+        <div class="text">微信</div>
+      </a>
+      <a href="#">
+        <div class="layer">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span class="iconfont icon-weibo"></span>
+        </div>
+        <div class="text">微博</div>
+      </a>
+      <a href="#">
+        <div class="layer">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span class="iconfont icon-renren"></span>
+        </div>
+        <div class="text">人人</div>
+      </a>
+    </div>
+  </body>
+</html>

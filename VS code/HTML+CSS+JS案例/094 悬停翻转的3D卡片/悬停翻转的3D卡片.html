@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>悬停翻转的3D卡片</title>
+    <link rel="stylesheet" href="./CSS/iconfont.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f4f4f4;
+      }
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .box {
+        width: 350px;
+        margin: 10px;
+        text-align: center;
+        position: relative;
+        transform-style: preserve-3d;
+        perspective: 3000px;
+      }
+      .box .front {
+        background-color: #fff;
+        width: 100%;
+        height: 220px;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        transition: all 0.5s ease;
+      }
+      .box .front :is(span, .icon span) {
+        background-image: linear-gradient(200deg, #02dbb0, #007adf);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .box .front .icon {
+        height: 80px;
+      }
+      .box .front .icon span {
+        display: block;
+        font-size: 65px;
+        font-weight: 900;
+        width: 100px;
+        height: 100px;
+      }
+      .box .front span,
+      .box .back span {
+        font-size: 22px;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+      .box .back {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        width: 100%;
+        height: 220px;
+        background-image: linear-gradient(200deg, #02dbb0, #007adf);
+        padding: 30px;
+        color: #fff;
+        opacity: 0;
+        transform: translateY(110px) rotateX(-90deg);
+        transition: all 0.5s ease;
+      }
+      .box .back p {
+        margin-top: 12px;
+        text-align: justify;
+        line-height: 23px;
+      }
+      .box:hover .front {
+        opacity: 0;
+        transform: translateY(-110px) rotateX(90deg);
+      }
+      .box:hover .back {
+        opacity: 1;
+        transform: translateY(0px) rotateX(0deg);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="box">
+        <div class="front">
+          <div class="icon">
+            <span class="iconfont icon-apple"></span>
+          </div>
+          <span>apple</span>
+        </div>
+        <div class="back">
+          <span>apple</span>
+          <p>
+            苹果公司创立之初，主要开发和销售的个人电脑，截至2014年致力于设计、开发和销售消费电子、计算机软件、在线服务和个人计算机。
+          </p>
+        </div>
+      </div>
+      <div class="box">
+        <div class="front">
+          <div class="icon">
+            <span class="iconfont icon-logo_google"></span>
+          </div>
+          <span>google</span>
+        </div>
+        <div class="back">
+          <span>google</span>
+          <p>
+            谷歌公司（GoogleInc.）成立于1998年9月4日，由拉里·佩奇和谢尔盖·布林共同创建，被公认为全球最大的搜索引擎公司。谷歌是一家位于美国的跨国科技企业，业务包括互联网搜索、云计算、广告技术等，同时开发并提供大量基于互联网的产品与服务，其主要利润来自于AdWords等广告服务。
+          </p>
+        </div>
+      </div>
+      <div class="box">
+        <div class="front">
+          <div class="icon">
+            <span class="iconfont icon-windows-fill"></span>
+          </div>
+          <span>microsoft</span>
+        </div>
+        <div class="back">
+          <span>microsoft</span>
+          <p>
+            微软（Microsoft）是一家美国跨国科技企业，由比尔·盖茨和保罗·艾伦于1975年4月4日创立。公司总部设立在华盛顿州雷德蒙德（Redmond，邻近西雅图），以研发、制造、授权和提供广泛的电脑软件服务业务为主。
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

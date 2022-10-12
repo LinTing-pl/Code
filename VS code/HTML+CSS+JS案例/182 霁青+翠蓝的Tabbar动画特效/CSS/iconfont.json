@@ -1,0 +1,30 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "160002",
+      "name": "home2",
+      "font_class": "home2",
+      "unicode": "f0175",
+      "unicode_decimal": 983413
+    },
+    {
+      "icon_id": "809937",
+      "name": "user",
+      "font_class": "icon-user",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
+      "icon_id": "6151105",
+      "name": "inbox in-fill",
+      "font_class": "inboxin-fill",
+      "unicode": "e7b2",
+      "unicode_decimal": 59314
+    }
+  ]
+}

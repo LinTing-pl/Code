@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>简约社交分享按钮</title>
+    <link href="./CSS/iconfont.css" rel="stylesheet"/>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: linear-gradient(200deg, #517fa4, #243949);
+        }
+
+        .btn-box a {
+            color: #88bef5;
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            margin: 0 16px;
+            display: inline-block;
+            position: relative;
+            text-decoration: none;
+            transition: all 0.5s linear;
+        }
+
+        .btn-box a span {
+            font-size: 40px;
+        }
+
+        .btn-box a::before,
+        .btn-box a::after {
+            content: "";
+            position: absolute;
+            box-sizing: border-box;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            transition: all 0.5s linear;
+        }
+
+        .btn-box a:hover {
+            filter: drop-shadow(0 0 10px #88bff56c);
+            transform: scale(0.8);
+        }
+
+        .btn-box a:hover::before {
+            border-left: 4px solid;
+            border-right: 4px solid;
+            transform: skewX(20deg);
+        }
+
+        .btn-box a:hover::after {
+            border-top: 4px solid;
+            border-bottom: 4px solid;
+            transform: skewY(-20deg);
+        }
+    </style>
+</head>
+<body>
+<div class="btn-box">
+    <a href=""><span class="iconfont icon-QQ"></span></a>
+    <a href=""><span class="iconfont icon-wechat"></span></a>
+    <a href=""><span class="iconfont icon-weibo"></span></a>
+    <a href=""><span class="iconfont icon-renren"></span></a>
+</div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>字符动画</title>
+    <style>
+      body {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      video,
+      canvas {
+        border: 1px solid;
+      }
+    </style>
+  </head>
+  <body>
+    <video
+      src="./mp4/preview.mp4"
+      id="video"
+      oncanplay="init()"
+      loop
+      autoplay
+      width="400"></video>
+    <canvas id="cvs"></canvas>
+    <canvas id="cvs2" onclick="video.play()"></canvas>
+  </body>
+  <script>
+    const cvs = document.getElementById("cvs");
+    const cvs2 = document.getElementById("cvs2");
+    const init = () => {
+      const ctx = cvs.getContext("2d");
+      const ctx2 = cvs2.getContext("2d");
+      cvs.height = cvs2.height = video.offsetHeight;
+      cvs.width = cvs2.width = video.offsetWidth;
+      const playVideo = () => {
+        requestAnimationFrame(playVideo);
+        const { width, height } = cvs;
+        ctx.drawImage(video, 0, 0, width, height);
+        const data = ctx.getImageData(0, 0, width, height).data;
+        ctx2.clearRect(0, 0, width, height);
+        const bl = 8;
+        ctx2.font = "12px serif";
+        for (let i = 0; i < data.length; i += 4 * bl) {
+          const x = parseInt(((i + 1) % (width * 4)) / 4);
+          const y = parseInt(i / (width * 4));
+          if (x % bl === 0 && y % bl === 0) {
+            const g = parseInt((data[i] + data[i + 1] + data[i + 2]) / 1.5);
+            ctx2.fillStyle = `rgb(${g},${g},${g},${data[i + 3]})`;
+            ctx2.fillText("8", x, y);
+          }
+        }
+      };
+      playVideo();
+    };
+  </script>
+</html>
