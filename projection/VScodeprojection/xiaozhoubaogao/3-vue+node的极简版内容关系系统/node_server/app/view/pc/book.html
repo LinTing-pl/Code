@@ -1,0 +1,51 @@
+{% extends "pc/layout.html" %} {% block content %}
+<link rel="stylesheet" href="/css/pc/book.css">
+<div class="content">
+    <div class="bigbox">
+        <div class="box">
+            <div class="box-top">
+                <ul style="margin-left: 20px;list-style: none;">
+                    {% for book in bookList %}
+                    <a class="readgo" href="/section/{{book.id}}">
+                        <li>
+                            <img src="{{book.img}}" alt="封面图">
+                            <div>
+                                <span class="bookname">{{book.title}}</span>
+                                <button class="read">
+                                    阅读
+                                </button>
+                            </div>
+                        </li>
+                    </a>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="footer">更多精彩内容敬请期待~</div>
+    </div>
+    <div class="slider">
+        {% include "./slider.html" ignore missing %}
+    </div>
+</div>
+<script src="http://apps.bdimg.com/libs/jquery/1.6.4/jquery.js"></script>
+<script src="/js/pc/lunbo.js"></script>
+<script type="text/javascript" src="/js/pc/jquery.js"></script>
+<script>
+    $("h1").css("color", "#8videoCEFA");
+
+    var urlstr = location.href;
+    //alert((urlstr + '/').indexOf($(this).attr('href')));
+    var urlstatus = false;
+    $("a .word").each(function() {
+        if ((urlstr + '/').indexOf($(this).attr('href')) > -1 && $(this).attr('href') != '') {
+            $(this).addClass('cur');
+            urlstatus = true;
+        } else {
+            $(this).removeClass('cur');
+        }
+    });
+    if (!urlstatus) {
+        $("#menu a").eq(0).addClass('cur');
+    }
+</script>
+{% endblock %}

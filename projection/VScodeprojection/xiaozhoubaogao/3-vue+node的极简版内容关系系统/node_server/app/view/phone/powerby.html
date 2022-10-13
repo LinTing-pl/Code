@@ -1,0 +1,25 @@
+<div class="link">
+    <p>
+        <a href="/">晓舟报告</a>
+        <span>|</span>
+        <a href="/">团队介绍</a>
+    </p>
+    <p class="powerby">晓舟报告官方网站©2019 冀ICP备18023262号-4</p>
+</div>
+<style>
+    .link .pic{
+    width: 0.6rem;
+    float: right;
+    position: relative;
+    /* left: 0.2rem; */
+    bottom: 0.5rem;
+}
+</style>
+<script src="/js/phone/jquery.js"></script>
+<script>
+
+    $(".pic").click(function () {
+        $('body,html').animate({ scrollTop: 0 }, 100);
+        return false;
+    });
+</script>

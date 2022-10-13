@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+ul{
+    margin-left:0px;
+}
+body {
+    background-color: #f6f6f6;
+}
+
+.content {
+    max-width: 1260px;
+    min-width: 1260px;
+    margin: 0 auto;
+}
+
+.content .data {
+    width: 955px;
+    float: left;
+    margin-right: 15px;
+    margin-bottom: 25px;
+}
+
+.content .data .title {
+    margin-top: 15px;
+    width: 100%;
+    height: 50px;
+    font-size: 20px;
+    line-height: 50px;
+    padding-left: 23px;
+    background-color: #fff;
+    font-family: '微软雅黑';
+}
+
+.content .data #reco_list {
+    width: 100%;
+    min-height: 200px;
+    background-color: #fff;
+}
+
+.content .data #blog_list {
+    width: 100%;
+    min-height: 200px;
+    background-color: #fff;
+}
+
+.content .data #video_list {
+    width: 100%;
+    min-height: 200px;
+    background-color: #fff;
+}
+
+.content .data #reco_list .jump {
+    display: block;
+    width: 100%;
+    height: 200px;
+    background-color: #fff;
+    margin-top: 10px;
+}
+
+.content .data #reco_list .picture {
+    width: 230px;
+    height: 150px;
+    margin-top: 25px;
+    margin-left: 15px;
+    float: left;
+}
+
+.content .data #reco_list .picture img {
+    width: 100%;
+    height: 100%;
+}
+
+.content .data #reco_list .introduce {
+    float: left;
+    margin-left: 25px;
+    margin-top: 35px;
+}
+
+.content .data #reco_list .introduce .bookname {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 18px;
+    color:#000;
+}
+
+.content .data #reco_list .introduce .bookoutline {
+    margin-bottom: 30px;
+    color: #808080;
+}
+
+.content .data #reco_list a {
+    font-size: 14px;
+    color: #000;
+    text-decoration: none;
+}
+
+.content .data #reco_list .introduce button {
+    width: 90px;
+    height: 40px;
+    background-color: #e3f0fc;
+    border: 0px;
+    border-radius: 5px;
+}
+
+.content .data .footer {
+    width: 100%;
+    height: 50px;
+    background-color: #fff;
+    text-align: center;
+    line-height: 50px;
+    color: #808080;
+    font-size: 12px;
+    margin-top:8px;
+}

@@ -1,0 +1,207 @@
+.fe .showSection .showSection-btn {
+    border: 1px solid #eee;
+    width: 22px;
+    height: 22px;
+    background-color: #fff;
+    outline: none;
+}
+
+/* nav
+col-md-2
+hidden-xs
+pos_nav */
+
+.content-text h1 {
+    font-size: 28px;
+}
+
+.content-text h3 {
+    font-size: 22px;
+}
+
+.content-text h4 {
+    font-size: 20px;
+}
+
+.fe .section {
+    display: none;
+}
+
+.fe .chapter .active {
+    background-color: #7abbff;
+}
+
+.toTop{
+    width:50px;
+    position: fixed;
+    right:30px;
+    bottom:100px;
+}
+.toTop img{
+    width:100%;
+}
+
+.content_chapter_list{
+    margin-top:20px;
+    margin-bottom:50px;
+}
+.content_chapter_list .btn{
+    margin-bottom:10px;
+}
+
+/* 小于768样式 */
+@media screen and (max-width:767px) {
+    .pos_nav {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        overflow: auto;
+    }
+
+    .fe .nav {
+        width: 84%;
+        height: 100%;
+        z-index: 100;
+        margin-top: 50px;
+        padding: 0;
+        background-color: #fff;
+        position: fixed;
+        animation: Emerge 0.2s;
+    }
+
+    @keyframes Emerge {
+        0% {
+            left: -320px;
+            top: 0px;
+        }
+
+        100% {
+            left: 0px;
+            top: 0px;
+        }
+    }
+
+    .fe .nav .blue {
+        width: 100%;
+        height: 50px;
+        background-color: #7abbff;
+        float: left;
+        color: #fff;
+        font-size: 16px;
+        line-height: 65px;
+        border: 1px solid #7abbff;
+    }
+
+    .fe .nav .blue p {
+        text-align: center;
+    }
+
+    .fe .nav .chapter {
+        width: 100%;
+        float: left;
+        padding: 5px;
+    }
+
+    .fe .nav .chapter ul {
+        margin-left: 0px;
+    }
+
+    .fe .nav .chapter a {
+        color: #707070;
+    }
+
+    .fe .nav .chapter ul li {
+        list-style: none;
+        margin-left: 12%;
+        margin-top: 5px;
+    }
+
+    .fe .content .show {
+        margin-top:10px;
+        width: 20%;
+        float: right;
+    }
+
+    .fe .content .blue {
+        display: none;
+    }
+}
+
+
+/* 大于768样式 */
+
+@media screen and (min-width:768px) {
+    .fe {
+        margin-top: 20px;
+    }
+
+    .fe .content {
+        border: 1px solid #cccccc;
+        width: 79%;
+        padding-right: 0px;
+        padding-left: 0px;
+        margin-left: 1.1%;
+        margin-right: 1.1%;
+    }
+
+    .fe .nav {
+        border: 1px solid #cccccc;
+        /* height: 600px; */
+        margin-left: 1.1%;
+        width: 17%;
+        padding: 0;
+    }
+
+    .fe .nav .blue span {
+        margin-left: 15px;
+    }
+
+    .fe .nav .chapter {
+        width: 100%;
+        /* height: 9.3%; */
+        /* clear: both; */
+        float: left;
+        padding: 5px;
+    }
+
+    .fe .nav .chapter a {
+        color: #707070;
+    }
+
+    .fe .nav .chapter ul li {
+        list-style: none;
+        margin-left: 12%;
+        margin-top: 5px;
+    }
+
+    .fe .nav .blue {
+        width: 100%;
+        height: 50px;
+        background-color: #7abbff;
+        float: left;
+        color: #fff;
+        font-size: 16px;
+        line-height: 65px;
+        border: 1px solid #7abbff;
+    }
+
+    .fe .content .blue {
+        width: 100%;
+        height: 50px;
+        background-color: #7abbff;
+        float: left;
+        color: #fff;
+        font-size: 16px;
+        line-height: 65px;
+    }
+
+    .fe .blue p {
+        line-height: 50px;
+        margin-left: 20px;
+    }
+
+    .fe .content .content-text {
+        padding: 25px;
+        margin-top: 25px;
+    }
+}

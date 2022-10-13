@@ -1,0 +1,56 @@
+{% extends "pc/layout.html" %} {% block content %}
+<link rel="stylesheet" href="/css/pc/home.css">
+<div class="content">
+    <div class="data">
+        <h2 class="title">精选手册</h2>
+        <div id="reco_list" class="clear">
+            {% for item in bookList %}
+            <a class="jump" href="/book/{{item.id}}">
+                <div class="picture"><img class="pic" src="{{item.img}}" alt=""></div>
+                <div class="introduce">
+                    <h3 class="bookname">{{item.title}}</h3>
+                    <!-- 书的简介 -->
+                    <p class="bookoutline">{{item.createdAt | dateformate}}</p>
+                    <button class="enter">阅读</button>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <h2 class="title">精选博客</h2>
+        <div id="reco_list">
+            {% for item in blogList %}
+            <a class="jump" href="/blog/{{item.id}}">
+
+                <div class="picture"><img class="pic" src="{{item.img}}" alt=""></div>
+                <div class="introduce">
+                    <h3 class="blogname">{{item.title}}</h3>
+                    <p class="videooutline">{{item.createdAt | dateformate}}</p>
+                    <!-- <p class="bookoutline">{{item.html_content | safe}}</p> -->
+                </div>
+            </a class="jump">
+            {% endfor %}
+        </div>
+
+        <h2 class="title">精选视频</h2>
+        <div id="reco_list">
+            {% for item in videoList %}
+            <a class="jump" href="/video/{{item.id}}">
+                <div class="picture"><img class="pic" src="{{item.img}}" alt=""></div>
+                <div class="introduce">
+                    <h3 class="videoname">{{item.title}}</h3>
+                    <p class="videooutline">{{item.createdAt | dateformate}}</p>
+                    <button class="enter">观看</button>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="footer">©2019 冀ICP备 18023262号-4</div>
+    </div>
+    <div class="slider">
+        {% include "./slider.html" ignore missing %}
+    </div>
+</div>
+<script src="/js/pc/jquery.js"></script>
+<script src="/js/pc/lunbo.js"></script>
+
+{% endblock %}

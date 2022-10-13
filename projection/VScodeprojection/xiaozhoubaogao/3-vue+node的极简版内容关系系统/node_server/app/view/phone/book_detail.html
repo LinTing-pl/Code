@@ -1,0 +1,112 @@
+{% extends "./layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="/css/phone/book_detail.css">
+<link rel="stylesheet" href="/css/github-markdown.min.css">
+<link rel="stylesheet" href="/css/github.min.css">
+<link rel="stylesheet" href="/css/katex.min.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/style.css">
+{% endblock %}
+
+{% block content %}
+<div class="header_container">
+    {% include "./header.html" ignore missing %}
+</div>
+<div class="content">
+    <h3 class="title">{{section.title}}</h3>
+    <p class="book_Tiem">{{section.updatedAt | dateformate}}</p>
+    <div class="content-text">{{section.html_text | safe}}</div>
+</div>
+<div class="fe">
+    <div class="nav hidden-xs pos_nav">
+        {% for chapter in menu %}
+        <div class="chapter" chapterid="{{chapter.id}}">
+            <div class="showSection">
+                <button class="showSection-btn"><img src="/img/pc/右箭头.png" alt=""></button>
+                <a>{{chapter.dataValues.title}}</a>
+            </div>
+            <ul class="section">
+                {% for section in chapter.dataValues.sectionList %}
+                <a class="jump" href="/section/{{section.dataValues.id}}">
+                    <li festid="{{festiva.id}}">
+                        {{section.dataValues.title}}
+                    </li>
+                </a>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+
+
+    </div>
+    <div class="footer">
+        <!-- <a class="leftjump" href="/docs/{{currentPage}}/{{a.conPage}}">
+                <img src="/img/phone/Arrowleft.png" alt="">
+            </a> -->
+        <!-- <button class="btn btn-default show">
+            目录
+        </button> -->
+
+        <button type="button" class="btn btn-default show">
+            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 
+            目录
+          </button>
+        <!-- <a class="rightjump" href="/docs/{{currentPage}}/{{a.contPage}}">
+                <img src="/img/phone/Arrowright.png" alt="">
+            </a> -->
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="/js/phone/jquery.js"></script>
+<script src="/js/phone/main.js"></script>
+<script src="/js/phone/katex.min.js"></script>
+<script src="/js/phone/highlight.min.js"></script>
+<script>
+    //点击显示隐藏目录
+    $(".fe .show").click(function (e) {
+        if ($(".fe .nav").hasClass("hidden-xs")) {
+            $(".fe .nav").removeClass("hidden-xs")
+        } else {
+            $(".fe .nav").addClass("hidden-xs")
+        }
+        e.stopPropagation();
+    })
+
+    //点击内容隐藏目录
+    $(".content").click(function () {
+        $(".fe .nav").addClass("hidden-xs")
+        $(".b").css("display", "block")
+
+    })
+
+    //点击目录隐藏目录
+    $(".footer .btn").click(function () {
+        $(".b").css("display", "none")
+    })
+    // //想法1点击取消隐藏内容
+    // $(".nav .cancel").click(function () {
+    //     $(".fe .nav").css("display", "none")
+    // })
+
+    $(".showSection").click(function () {
+
+        let src = $(this).find(".showSection-btn img").attr("src");
+        if (src === "/img/pc/右箭头.png") {
+            $(this).find(".showSection-btn img").attr("src", "/img/pc/下箭头.png")
+        } else {
+            $(this).find(".showSection-btn img").attr("src", "/img/pc/右箭头.png")
+        }
+        $(this).parent().find("ul").toggleClass("section")
+        // $(this).parent().find("ul").show();
+    })
+    $(".content .pic").click(function () {
+        $('body,html').animate({
+            scrollTop: 0
+        }, 100);
+        return false;
+    });
+</script>
+{% endblock %}

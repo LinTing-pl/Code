@@ -1,0 +1,16 @@
+<div class="account clear">
+    <ul>
+        <li> {% for book in recommendBook %}
+            <span class="selected">精选</span> {% if recommendBook %}
+            <div class="bookOne">
+                <img src="{{book.img}}" alt="">
+                <span>{{book.title}}</span>
+                <br>
+                <button><a href="/docs/{{book.firstSectionId}}">阅读</a></button>
+            </div>
+
+            {% else %} {% endif %}{% endfor %} {% for blog in recommendBlog %}
+            <span class="account-content"><a href="/blog/{{blog.id}}">{{blog.title}}</a></span> {% endfor %}
+        </li>
+    </ul>
+</div>

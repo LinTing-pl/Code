@@ -1,0 +1,117 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    height: 11.4rem;
+}
+.header {
+    margin:4% auto;
+    /* width:6.68rem; */
+    width:89.06%;
+    background-color: #f2f2f2;
+    border-radius: 0.15rem;
+    height:0.7rem;
+}
+
+.header img{
+    width: 0.3rem;
+    font-size: 0.3rem;
+    display: block;
+    float:left;
+    margin-top:0.2rem;
+    margin-left:0.2rem;
+}
+.header input {
+    display: block;
+    float:left;
+    margin-left:0.1rem;
+    margin-top:0.20rem;
+    border:none;
+    background-color: #f2f2f2;
+    outline: none;
+    width:74.66%;
+}
+.content{
+    width: 89.06%;
+    margin: 0.25rem auto;
+}
+.content .list .data_list {
+    display: block;
+    height: 1.3rem;
+    margin-bottom: 0.25rem;
+    display:flex;
+}
+
+.content .list .introduce {
+    margin-left: 0.28rem;
+    width: 3.1rem;
+    height: 1rem;
+    width:100%;
+}
+.content .list .introduce .bookname {
+    font-size: 0.28rem;
+    margin-bottom: 0.1rem;
+    margin-top:0.12rem;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width:100%;
+    max-width: 130px;
+}
+.content .list .introduce .bookoutline {
+    font-size: 0.24rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #b3b3b3;
+    width:100%;
+    max-width: 130px;
+}
+.content .list .datapic {
+    width: 4rem;
+    height: 1.25rem;
+}
+.content .list .datapic img{
+    width: 100%;
+    height: 100%;
+}
+
+.content .list .jump {
+    display: block;
+    margin-top:0.42rem;
+    margin-left:0.12rem;
+    color: white;
+    text-decoration: none;
+    font-size: 0.24rem;
+    width: 1.96rem;
+    height: 0.37rem;
+    border-radius: 30px;
+    text-align: center;
+    line-height: 0.37rem;
+    background-color: #00ccff;
+}
+.link {
+    float: left;
+    width:  100%;
+    font-size: 0.22rem;
+    margin-bottom: 60px;
+    margin-top: 0.42rem;
+}
+.link p {
+    text-align: center;
+    font-size: 0.22rem;
+}
+.link p a{
+    color: #42d3ff;
+    text-decoration: none;
+}
+.link p span{
+    color: #bebebe;
+}
+.link .powerby {
+    color: #bebebe;
+    font-size: 0.22rem;
+    margin-top: 0.18rem;
+}

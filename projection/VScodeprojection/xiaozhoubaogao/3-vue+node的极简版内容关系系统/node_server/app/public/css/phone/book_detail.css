@@ -1,0 +1,149 @@
+ul,ol{
+    margin:0px;
+    padding:0px;
+}
+.content{
+    width:89.06%;
+    margin:0 auto;
+    margin-bottom: 1rem;
+}
+.content img{
+    width: 0.6rem;
+    float: right;
+    position: absolute;
+    right: 0.2rem;
+    bottom: 0.9rem;
+}
+.content .title{
+    font-size: 0.42rem;
+    font-weight: 700;
+}
+.content .book_Tiem{
+    color: #b3b3b3;
+}
+.fe .pos_nav{
+    width: 100%;
+    height: 8.77rem;
+    overflow: scroll;
+    background-color: #f7f7f7;
+    position: fixed;
+    bottom: 0px;
+    animation: anim 0.3s;
+    display: flex;
+    flex-direction:column;
+    /* justify-content:space-around; */
+    align-items:center;
+    padding:0;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.fe{
+    width: 100%;
+}
+.fe .chapter{
+    width: 92%;
+    margin: 0;
+
+}
+.fe .chapter .showSection{
+    width: 100%;
+    margin: 0;
+    line-height: 1rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+.fe .chapter ul{
+    margin: 0;
+}
+.fe .chapter .jump{
+    margin: 0;
+    width: 100%;
+    margin-left: 0.2rem;
+    height: 0.8rem;
+    border-bottom: 1px solid #f0f0f0;
+    list-style: none;
+    display: block;
+}
+.fe .chapter ul li{
+    color: #808080;
+    height: 0.73rem;
+    padding: 0;
+    padding-left: 0.1rem;
+    line-height: 0.73rem;
+    font-size: 0.24rem;
+}
+.fe .chapter a{
+    margin-left: 0.1rem;
+    color: black;
+    font-size:0.28rem;
+}
+.showSection .showSection-btn {
+    width: 0.25rem;
+    height: 0.25rem;;
+    background-color: #f7f7f7;
+    outline: none;
+    border: 0px;
+    position: absolute;
+    right: 0.3rem;
+}
+.section {
+    display: none;
+}
+
+/* md文档内容的样式-开始 */
+.content-text ul,
+.content-text ol {
+    padding-inline-start: 1em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    padding-inline-start: 20px;
+    margin-left:20px;
+}
+
+.content-text h3 {
+    font-weight: 700;
+    font-size: 18px;
+    
+}
+
+.content-text h4 {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+}
+.content-text img{
+    display: block;
+    max-width: 100%;
+}
+/* md文档内容的样式-结束 */
+
+.footer{
+    width: 100%;
+    height: 0.92rem;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    flex-direction:row;
+    background-color: #f7f7f7;
+    align-items:center;
+    flex-wrap: wrap;
+}
+.footer .leftjump{
+    margin-left: 0.3rem;
+}
+.footer .show{
+    font-size: 0.26rem;
+    margin:0 auto;
+}
+.footer .rightjump{
+    margin-left: 2.8rem;
+}
+
+@keyframes anim{
+    0%{
+        bottom: -100px;
+    }
+    100%{
+       bottom: 0px;
+    }
+}

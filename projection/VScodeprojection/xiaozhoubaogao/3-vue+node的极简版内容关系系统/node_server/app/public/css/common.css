@@ -1,0 +1,6 @@
+.clear::before,
+.clear::after {
+    content: "";
+    display: block;
+    clear: both;
+}

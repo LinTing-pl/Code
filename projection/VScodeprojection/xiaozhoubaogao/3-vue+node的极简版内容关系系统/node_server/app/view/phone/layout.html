@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{title}}</title>
+    <meta name="keywords" content="前端开发,javascript,php,node,jquery,git,python,java,sql,mysql,linux,go语言,golang,前端,教程,软件,编程,互联网,晓舟报告">
+    <meta name="description" content="晓舟报告是程序员学习教程, 内容涵盖WEB前端、java、python、Golang、PHP等学习内容， 内容形式包括学习资料、学习文档、学习方法、就业指导等，通过全面的学习内容，为新手程序员打下坚实的理论基础。">
+    <link rel="stylesheet" href="/css/phone/menu.css">
+    <link rel="stylesheet" href="/css/phone/phone_common.css">
+    <style>
+        html,body{
+            min-height:100%;
+        }
+        .loading{
+            height:100%;
+            width:100%;
+            position:fixed;
+            top:0px;
+            z-index: 999999;
+            background-color: #fff;
+            font-size:16px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?95201159d5784b9f4de65d11bcd691d0";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    {% block css %} {% endblock %}
+</head>
+
+<body>
+    <div class="loading">
+        <p>
+            数据加载中，请稍后...
+        </p>
+    </div>
+    {% block content %} {% endblock %}
+    {% block js %} {% endblock %}
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    <script>
+        wx.config({
+            // debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: '{{configData.appid}}', // 必填，公众号的唯一标识
+            timestamp: Number('{{configData.timestamp}}'), // 必填，生成签名的时间戳
+            nonceStr: '{{configData.nonceStr}}', // 必填，生成签名的随机串
+            signature: '{{configData.signature}}', // 必填，签名
+            jsApiList: [
+                "updateAppMessageShareData",
+                "updateTimelineShareData"
+            ] // 必填，需要使用的JS接口列表
+        });
+        let title = `{{configData.title}}`;
+        let desc = `{{configData.desc}}`;
+        let requer_url = `{{configData.requer_url}}`;
+        let imgUrl = `{{configData.imgUrl}}`;
+        wx.ready(function () {
+            wx.updateAppMessageShareData({
+                title: title, // 分享标题
+                desc: desc, // 分享描述
+                link: requer_url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                imgUrl: imgUrl, // 分享图标
+                success: function () {
+
+                }
+            });
+            wx.updateTimelineShareData({
+                title: title,
+                desc: desc,
+                link: requer_url,
+                imgUrl: imgUrl,
+                success: function () {
+
+                }
+            });
+        });
+    </script>
+    <script src="/js/phone/fontsizeset.js?v=1.1"></script>
+</body>
+
+</html>

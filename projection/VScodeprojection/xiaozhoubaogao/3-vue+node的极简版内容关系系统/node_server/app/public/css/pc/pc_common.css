@@ -1,0 +1,162 @@
+/* pc端的公共样式文件 */
+
+.slider {
+    width: 290px;
+    float: left;
+    margin-top: 16px;
+    margin-bottom: 20px;
+    background-color: #f6f6f6;
+}
+
+
+/* swiper为轮播图的样式 */
+
+:root {
+    /* 设置swiper左右箭头和下方圆点的颜色 */
+    --swiper-theme-color: #fff !important;
+}
+
+.slider .swiper {
+    width: 290px;
+    height: 160px;
+    overflow: hidden;
+}
+
+.slider .swiper .swiper-container {
+    height: 100%;
+}
+
+.slider .swiper .swiper-container img {
+    width: 100%;
+}
+
+
+/* acount样式 */
+
+.slider .account {
+    float: left;
+    width: 290px;
+    padding-left: 10px;
+    padding-top: 15px;
+    margin-top: 2px;
+    background-color: #fff;
+    margin-bottom: 10px;
+}
+
+.slider .account ul {
+    list-style: none;
+}
+
+.slider .account .selected {
+    width: 270px;
+    height: 49px;
+    float: left;
+    line-height: 49px;
+    font-size: 18px;
+    font-family: 微软雅黑;
+    margin-left: 12px;
+}
+
+.slider .account .bookOne {
+    float: left;
+    width: 100%;
+    height: 110px;
+    border-top: 1px solid #bcbcbc;
+    padding-left: 12px;
+}
+
+.slider .account .border_top {
+    color: #000;
+    width: 270px;
+    border-top: 1px solid #bcbcbc;
+    height: 110px;
+    float: left;
+    padding-left: 12px;
+}
+
+.slider .account div img {
+    width: 75px;
+    height: 85px;
+    margin-top: 15px;
+    float: left;
+}
+
+.slider .account div span {
+    margin-top: 25px;
+    margin-left: 15px;
+    position: relative;
+    top: 24px;
+}
+
+.slider .account div button {
+    position: relative;
+    top: 54px;
+    left: 10px;
+    background-color: #e3f0fc;
+    border: none;
+    width: 60px;
+    height: 27px;
+    outline: none;
+    border-radius: 10px;
+}
+
+.slider .account div button a {
+    text-decoration: none;
+    color: #3995ff;
+}
+
+.slider .account ul li .account-content {
+    width: 270px;
+    height: 45px;
+    float: left;
+    line-height: 45px;
+    border-top: 1px solid #bcbcbc;
+    padding-left: 12px;
+    padding-right: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.slider .account ul li .account-content a {
+    text-decoration: none;
+    color: black;
+}
+
+.slider .powerby {
+    margin-top: 2px;
+    /* background-color: #fff; */
+    padding: 10px;
+}
+
+.slider .powerby ul {
+    list-style: none;
+}
+
+.slider .powerby ul p {
+    clear: both;
+    color: #b4b4b4;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.slider .powerby ul li {
+    float: left;
+    margin-right: 8px;
+    color: #b4b4b4;
+    margin-bottom: 5px;
+}
+
+.slider .powerby ul a {
+    text-decoration: none;
+    color: #b4b4b4;
+}
+
+.slider .powerby ul a:hover {
+    color: #00cdfc;
+}
+
+.slider .powerby p {
+    margin-top: 8px;
+    color: #b4b4b4;
+}

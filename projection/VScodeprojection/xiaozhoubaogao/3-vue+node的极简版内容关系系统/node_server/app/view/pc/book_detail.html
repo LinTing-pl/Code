@@ -1,0 +1,116 @@
+{% extends "pc/layout.html" %} {% block content %}
+<link rel="stylesheet" href="/css/pc/book_detail.css">
+<link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/github-markdown.min.css">
+<link rel="stylesheet" href="/css/github.min.css">
+<link rel="stylesheet" href="/css/katex.min.css">
+<div class="bast">
+    <div class="Bookcontent clear">
+        <div class="booklink">
+            <div class="nav hidden-xs pos_nav">
+                {% for chapter in menu %}
+                <div class="chapter" chapterid="{{chapter.id}}">
+                    <div class="showSection">
+                        <button class="showSection-btn"><img src="/img/pc/右箭头.png" alt=""></button>
+                        <a class="chapter_name">{{chapter.dataValues.title}}</a>
+                        <ul class="hide">
+                            {% for section in chapter.dataValues.sectionList %}
+                            <li festid="{{section.dataValues.id}}">
+                                <a class="section_name" href="/section/{{section.dataValues.id}}">{{section.dataValues.title}}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+        <div class="Readcontent">
+            <div class="content">
+                <div class="sectionName">
+                    {{section.dataValues.title}}
+                </div>
+                <div class="content-text">
+                    {{section.dataValues.html_text | safe}}
+                </div>
+            </div>
+        </div>
+        <div class="booklist">
+            <ul>
+                {% for book in bookList %}
+                <li><a href="/book/{{book.id}}">{{book.title}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="long">
+            <ul>
+                <li><a href="/">晓舟报告</a></li>
+                <li>|</li>
+                <li> <a href="/team">团队介绍</a></li>
+                <li>|</li>
+                <li>晓舟报告官方网站©2019 冀ICP备 18023262号-4</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block js %}
+<script src="/js/pc/jquery-2.1.1.min.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script src="/js/katex.min.js"></script>
+<script>
+    $(".Bookcontent .show").click(function(e) {
+        if ($(".Bookcontent .nav").hasClass("hidden-xs")) {
+            $(".Bookcontent .nav").removeClass("hidden-xs")
+        } else {
+            $(".Bookcontent .nav").addClass("hidden-xs")
+        }
+        e.stopPropagation();
+    })
+    $(".Bookcontent .content").click(function() {
+        $(".Bookcontent .nav").addClass("hidden-xs")
+    })
+    $(".Bookcontent .showSection").click(function() {
+
+        let src = $(this).find(".showSection-btn img").attr("src");
+        if (src === "/img/pc/右箭头.png") {
+            $(this).find(".showSection-btn img").attr("src", "/img/pc/下箭头.png")
+        } else {
+            $(this).find(".showSection-btn img").attr("src", "/img/pc/右箭头.png")
+        }
+        $(this).parent().find("ul").toggleClass("hide")
+            // $(this).parent().find("ul").show();
+    })
+
+    /*
+        设置目录为展开
+    */
+
+    let chapterID = `{{chapter.id}}`
+    let festID = `{{section.id}}`;
+    console.log(chapterID,"节id")
+    let chapter = $(`[chapterID= ${chapterID} ]`);
+    //删除section让指定章节展开
+    //添加active，增加小节背景色
+    if (festID) {
+        chapter.find("ul").removeClass("hide");
+        chapter.find(`[festid=${festID}]`).addClass("active")
+            //设置为打开状态
+        chapter.find(".showSection-btn img").attr("src", "/img/pc/下箭头.png");
+    }
+
+
+    //控制文章中图片的样式
+    $(".content-text").find("img").css("max-width", "100%");
+    $(".content-text").find("img").parent().css("text-align", "center");
+
+    //返回顶部
+    $(".toTop").click(function() {
+        $("html,body").animate({
+            "scrollTop": "0px"
+        }, 200)
+    })
+</script>
+{% endblock %}x

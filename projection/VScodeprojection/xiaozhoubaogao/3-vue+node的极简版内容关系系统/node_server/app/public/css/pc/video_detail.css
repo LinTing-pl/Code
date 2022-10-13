@@ -1,0 +1,255 @@
+/* 重写layout的样式 */
+.long .header{
+    max-width: 1660px;
+}
+ul{
+    margin-left:0px;
+}
+.bast {
+    background-color: #f6f6f6;
+    width: 100%;
+    position: relative;
+}
+
+.content {
+    max-width: 1660px;
+    min-width: 1260px;
+    background-color: #f6f6f6;
+    margin: 0 auto;
+    display: flex;
+}
+
+.bigbox {
+    width:100%;
+    margin-right: 15px;
+    min-height: 1150px;
+}
+
+.box {
+    width:100%;
+    margin-top: 15px;
+    background-color: #ffffff;
+    
+    margin-bottom: 15px;
+}
+
+.box .text {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.box .videolist {
+    list-style: none;
+    overflow: hidden;
+}
+
+.box .videolist .title{
+    margin-left:20px;
+    margin-top:20px;
+}
+
+.box .videolist .title {
+    font-size: 18px;
+    /* margin-top: 20px; */
+    margin-left: 20px;
+}
+
+.box .videolist .title .collection {
+    font-size: 16px;
+    float: right;
+    padding-right: 10px;
+    color: #b2b2b2;
+    border: 0px;
+    background-color: #fff;
+}
+
+.box .videolist .videocontent {
+    margin-left: 20px;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.box .videolist .video {
+    margin-top: 30px;
+    height: 720px;
+    background-color: #333333;
+    text-align: center;
+}
+.box .videolist .video .video_content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height:100%;
+}
+.box .videolist .video .video_content .desc {
+    color:#fff;
+    display:block;
+    margin-bottom:10px;
+}
+
+.box .videolist .video .video_content a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+}
+
+
+.box .videolist .modal .modal-header .Userimg {
+    float: left;
+    width: 55px;
+    height: 55px;
+}
+
+.box .videolist .modal .modal-header .Userimg img {
+    width: 100%;
+    height: 100%;
+}
+
+.box .videolist .modal .modal-header label {
+    margin-top: 8px;
+    float: left;
+    margin-left: 20px;
+    font-size: 16px;
+    font-family: 微软雅黑;
+}
+
+.box .box-top {
+    width: 955px;
+    height: 300px;
+    /* border: 1px solid red; */
+}
+
+.box .box-top ul li {
+    width: 935px;
+    height: 150px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    /* border: 1px solid red; */
+    float: left;
+}
+
+.box .box-top ul li div {
+    width: 655px;
+    height: 150px;
+    /* float: left; */
+    margin-left: 255px;
+    border-bottom: 1px solid black;
+}
+
+.box .box-top ul li img {
+    float: left;
+    width: 230px;
+    height: 150px;
+}
+
+.box .box-top ul li div span {
+    float: left;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.box .box-top ul li div p {
+    float: left;
+    color: #808080;
+    font-size: 16px;
+    margin-top: 47px;
+    margin-left: -108px;
+}
+
+.box .box-top ul li div button {
+    float: left;
+    background-color: #e5faff;
+    border: none;
+    color: #00cdfc;
+    width: 90px;
+    height: 40px;
+    outline: none;
+    border-radius: 10px;
+    margin-top: 94px;
+    margin-left: -565px;
+}
+
+.box iframe{
+    width:100%;
+    height:100%;
+}
+
+.video_slider{
+width:290px;
+}
+
+.list {
+    width: 290px;
+    height: 472px;
+    margin-top: 15px;
+}
+
+.list div {
+    background-color: #ffffff;
+    width: 290px;
+    height: 412px;
+    float: left;
+}
+
+.list ul {
+    list-style: none;
+    background-color: #ffffff;
+    width: 290px;
+    height: 369px;
+    float: left;
+    overflow: scroll;
+    overflow-y: scroll;
+    /* overflow-x: hidden;*/
+}
+
+.list ul::-webkit-scrollbar {
+    width: 6px;
+}
+
+.list ul::-webkit-scrollbar-thumb {
+    background-color: #8899A7;
+    border-radius: 3px;
+}
+
+.list div .anthology {
+    margin-top: 14px;
+    margin-bottom: 6px;
+    margin-left: 23px;
+    font-family: 微软雅黑;
+    font-size: 18px;
+    float: left;
+}
+
+.list .open {
+    width: 290px;
+    height: 50px;
+    background-color: #0084ff;
+    margin-bottom: 10px;
+    float: left;
+    text-align: center;
+    line-height: 50px;
+    text-decoration: none;
+    font-family: 微软雅黑;
+    font-size: 18px;
+    color: #fff;
+}
+
+.list ul .videonumber {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.list ul .videonumber a {
+    font-size: 16px;
+    text-decoration: none;
+    color: #a7a7a7;
+    margin-left: 23px;
+}
+
+
+.footer {
+    width: 100%;
+    padding:20px;
+    background-color: #ffffff;
+}

@@ -1,0 +1,76 @@
+<div class="meunlist">
+    <ul class="meun">
+        <li class="meunli">
+            <a class="a" href="/">
+                <img class="pic" src="/img/phone/layer1.png" alt="">
+                <span class="word">首页</span>
+            </a>
+        </li>
+        <li class="meunli">
+            <a class="a" href="/book">
+                <img class="pic" src="/img/phone/layer2.png" alt="">
+                <span class="word">手册</span>
+            </a>
+        </li>
+        <li class="meunli">
+            <a class="a" href="/blog">
+                <img class="pic" src="/img/phone/layer3.png" alt="">
+                <span class="word">博客</span>
+            </a>
+        </li>
+        <li class="meunli">
+            <a class="a" href="/video">
+                <img class="pic" src="/img/phone/video.png" alt="">
+                <span class="word">视频</span>
+            </a>
+        </li>
+        <li class="meunli">
+            <a class="a" href="/resource">
+                <img class="pic" src="/img/phone/Resources.png" alt="">
+                <span class="word">资源</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<script src="/js/phone/jquery.js"></script>
+<script>
+    let path = location.pathname;
+    let imgList = [
+        "/img/phone/layer1.2.png",
+        "/img/phone/layer2.2.png",
+        "/img/phone/layer3.2.png",
+        "/img/phone/video1.png",
+        "/img/phone/layer4.2.png",
+    ]
+    switch (path) {
+        case "/":
+            setLine(0);
+            break;
+        case "/book":
+            setLine(1);
+            break;
+        case "/blog":
+            setLine(2);
+            break;
+        case "/videos":
+            setLine(3);
+            break;
+        case "/home":
+            setLine(4);
+            break;
+    }
+
+    let checkDetails = /\/details\/\d+/;
+    let checkVideo = /\/video\/\d+/;
+
+    if(checkDetails.test(path)){
+        setLine(1);
+    }else if(checkVideo.test(path)){
+        setLine(3);
+    }
+
+    function setLine(index) {
+        $(".word").eq(index).addClass("active");
+        $(".meunli").eq(index).find("img").attr("src",imgList[index])
+    }
+</script>

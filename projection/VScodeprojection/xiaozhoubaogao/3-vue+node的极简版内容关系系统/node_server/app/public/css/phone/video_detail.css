@@ -1,0 +1,209 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.banner {
+    width: 100%;
+    font-size: 18px;
+    height: 4.5rem;
+    background-color: black;
+    background-size:100% 100%;
+    color: white;
+}
+.banner iframe{
+    height:100%;
+    width:100%;
+}
+.content {
+    width: 7.5rem;
+    /* height: 6rem; */
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction:column;
+    /* justify-content:center; */
+    align-items:center;
+}
+.content .jumap{
+    width: 92%;
+    height: 0.85rem;
+    border-bottom: 2px solid #f0f0f0;
+    display:flex;
+}
+.jumap .button1{
+    width: 1.1rem;
+    height: 0.83rem;
+    font-size: 0.28rem;
+    background-color: white;
+    border: white;
+    border-bottom: 2px solid white;
+    flex:1
+}
+
+.content .data{
+    width: 91.5%;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.content .data .introduce{
+    width: 100%;
+    /* height: 3.9rem;
+    border-bottom: 1px solid #f0f0f0; */
+    margin: 0 auto;
+}
+.content .data .introduce ul{
+    margin: 0;
+}
+.content .data .introduce ul li{
+    list-style: none;
+    margin-left: 0.1rem;
+}
+.content .data .introduce ul li .name{
+    display: flex;
+    font-size: 0.28rem;
+    justify-content:space-between;
+    margin: 0;
+    margin-top: 0.3rem; 
+}
+.content .data .introduce ul li .videodata{
+    width: 100%;
+    color: #999999;
+    font-size: 14px;
+    margin-bottom: 2.9%;
+    /* height: 13.4%; */
+}
+.content .data .introduce ul li .videodata{
+    word-break: break-all;
+    /* white-space: normal; */
+    display: inline-block;
+    font-size: 0.24rem;
+}
+/* .money{
+    border: 1px solid red;
+} */
+.content .data .jianjie ul li .video{
+    width: 100%;
+    font-size: 14px;
+}
+.content .data .jianjie .video .videotile .s{
+    float: right;
+}
+.content .data .jianjie .video .videodata ul {
+    display: flex;
+    justify-content:space-between;
+
+}
+.content .data .jianjie .video .videodata ul li{
+    width: 23.6%;
+    height: 0.7rem;  
+    border: 1px solid #b3b3b3;
+
+    border-radius: 5px;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    margin-top: 3.1%;
+    margin-bottom: 4.3%;
+}
+.content .data .jianjie .video .videodata ul li a{
+    color: #b3b3b3;
+}
+
+.content .data .catalog ul{
+    list-style: none;
+    width: 100%;
+    border-top: 1px solid #f0f0f0;
+    margin: 0;
+}
+.content .data .catalog ul li{
+    width: 100%;
+    height: 0.82rem;
+    border-bottom: 1px solid #f0f0f0;
+    line-height: 0.85rem;
+    padding-left: 10px;
+    font-size: 16px;
+}
+.content .data .catalog ul li a{
+    color: black;
+    font-size: 0.28rem;
+
+}
+.content{
+    width: 100%;
+    /* height: 20%;
+    border-bottom: 1px solid #f0f0f0; */
+    
+}
+.boke {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* align-items:center; */
+}
+.boke .title {
+    font-size: 16px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    margin-top: 0.25rem;
+}
+.boke ul{
+    display: flex;
+    /* justify-content:center; */
+    align-items:flex-start;
+    flex-direction:column;
+    margin: 0;
+}
+.boke ul li{
+    display: flex;
+    justify-content:flex-start;
+    align-items:center;
+    /* padding-bottom: 0.2rem; */
+    border-bottom: 1px solid #f0f0f0;
+    margin-top: 0.37rem;
+    padding-bottom: 0.3rem; 
+}
+.boke .box{
+    margin-left: 0.3rem;
+    width: 2rem;
+    height: 1rem;
+    display: flex;
+    flex-wrap:wrap;
+    margin-right: 0.5rem;
+}
+.boke .box .bookname{
+    font-size: 14px;
+}
+.boke .pic{
+    width: 28.9%;
+    height: 1rem;
+    /* height: 1.3rem; */
+}
+.boke .jump {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    width: 0.96rem;
+    height: 0.37rem;
+    /* border: 1px solid red; */
+    border-radius: 30px;
+    text-align: center;
+    line-height: 0.37rem;
+    background-color: #00ccff;
+}
+.introduce{
+    width: 6.9rem;
+    display: none;
+}
+.introduce p{
+    font-size: 0.28rem;
+    margin-top: 0.3rem;
+    margin-left: 0.1rem;
+}
+.introduce .synopsis{
+    font-size: 0.24rem;
+    margin-top: 0.2rem;
+    color: #999999;
+}

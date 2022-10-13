@@ -1,0 +1,3 @@
+.first:hover + .second{
+    color:red;
+}

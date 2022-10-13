@@ -1,0 +1,36 @@
+{% extends "./layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="/css/phone/hand_book.css?v=1.4">
+{% endblock %}
+
+
+{% block content %}
+<div class="header">
+    <img src="/img/phone/Magnifier.png" alt="" />
+    <input type="text" placeholder="输入搜索内容" id="search_input" />
+</div>
+<div class="content">
+    <div class="list">
+        {% for item in bookList %}
+        <a class="data_list" href="/book/{{item.id}}">
+            <div class="datapic">
+                <img src="{{item.img}}" alt="">
+            </div>
+            <div class="introduce">
+                <h3 class="bookname">{{item.title}}</h3>
+                <p class="bookoutline">{{item.updatedAt  | dateformate}}</p>
+            </div>
+            <span class="jump" href="/details/{{item.id}}"><span class="enter">进入</span></span>
+        </a>
+        {% endfor %}
+    </div>
+    <div class="powerby">
+        {% include "./powerby.html" ignore missing %}
+    </div>
+</div>
+
+<div class="menu_container">
+    {% include "./menu.html" ignore missing %}
+</div>
+{% endblock %}

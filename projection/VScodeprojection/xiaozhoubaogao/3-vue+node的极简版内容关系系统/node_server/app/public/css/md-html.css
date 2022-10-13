@@ -1,0 +1,28 @@
+/* md文档内容的样式-开始 */
+.content-text ul,
+.content-text ol {
+    padding-inline-start: 1em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    padding-inline-start: 20px;
+    margin-left: 20px;
+}
+
+.content-text h3 {
+    font-weight: 700;
+    font-size: 18px;
+
+}
+
+.content-text h4 {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.content-text img {
+    display: block;
+    max-width: 100%;
+}
+
+/* md文档内容的样式-结束 */

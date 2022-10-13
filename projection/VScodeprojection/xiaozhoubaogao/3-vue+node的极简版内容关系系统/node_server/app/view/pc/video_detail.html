@@ -1,0 +1,75 @@
+{% extends "pc/layout.html" %} {% block content %}
+
+<link rel="stylesheet" href="/css/pc/video_detail.css">
+<link rel="stylesheet" href="/css/md-html.css?v=1.1">
+<div class="bast clear">
+    <div class="content">
+        <div class="bigbox">
+            <div class="box">
+                <div class="videolist">
+                    <h3 class="title">{{video.title}}</h3>
+                    <div class="video">
+                        {{video.iframe_url | safe}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="video_slider">
+            <div class="list">
+                <span class="open">{{video.title}}</span>
+                <div>
+                    <span class="anthology">选集</span>
+                    <ul>
+                        {% for video in videoList %}
+                        <li class="videonumber"><a href="/video/{{video.id}}">{{video.title}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="slider">
+                {% include "./slider_video.html" ignore missing %}
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+</div>
+<script src="http://apps.bdimg.com/libs/jquery/1.6.4/jquery.js"></script>
+<script src="/js/pc/lunbo.js"></script>
+<script type="text/javascript" src="/js/pc/jquery.js"></script>
+
+<!--如果需要在 Chrome 和 Firefox 等现代浏览器中通过 H5 播放 HLS 和 Dash 格式的视频，需要在 tcplayer.min.js 之前引入 hls.js 和 dash.js。-->
+<!-- <script src="//imgcache.qq.com/open/qcloud/video/tcplayer/libs/hls.min.0.12.4.js"></script> -->
+<!-- <script src="//imgcache.qq.com/open/qcloud/video/tcplayer/libs/dash.all.min.2.9.3.js"></script> -->
+<!--播放器脚本文件-->
+<!-- <script src="//imgcache.qq.com/open/qcloud/video/tcplayer/tcplayer.min.js"></script> -->
+<script>
+    $(".points1").click(function() {
+        $(".modal-body .box-bottom1").css("display", "block");
+        $(".modal-body .box-bottom2").css("display", "none");
+        $(".points1").css("border-bottom", "2px solid #8ebaff");
+        $(".points2").css("border-bottom", "2px solid #ffffff");
+        $(".points1").css("color", "#0084ff");
+        $(".points2").css("color", "#000000");
+
+    })
+
+    $(".points2").click(function() {
+        $(".modal-body .box-bottom1").css("display", "none");
+        $(".modal-body .box-bottom2").css("display", "block");
+        $(".points2").css("border-bottom", "2px solid #8ebaff");
+        $(".points1").css("border-bottom", "2px solid #ffffff");
+        $(".points2").css("color", "#0084ff");
+        $(".points1").css("color", "#000000");
+    })
+    let videoUrl = `{{video.video}}`
+    var player = TCPlayer("player-container-id", { // player-container-id 为播放器容器ID，必须与html中一致
+        fileID: videoUrl, // 请传入需要播放的视频fileID 必须
+        appID: "1256980551", // 请传入点播账号的appID 必须
+        autoplay: false //是否自动播放
+            //其他参数请在开发文档中查看
+    });
+</script>
+{% endblock %}

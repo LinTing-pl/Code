@@ -1,0 +1,78 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+a{
+    color:#000;
+    text-decoration: none;
+}
+
+.link {
+    float: left;
+    width: 100%;
+    font-size: 0.22rem;
+    margin-bottom: 60px;
+    margin-top: 0.42rem;
+}
+
+.link p {
+    text-align: center;
+    font-size: 0.22rem;
+}
+
+.link p a {
+    color: #42d3ff;
+    text-decoration: none;
+}
+
+.link p span {
+    color: #bebebe;
+}
+
+.link .powerby {
+    color: #bebebe;
+    font-size: 0.22rem;
+    margin-top: 0.18rem;
+}
+
+.header {
+    height: 0.7rem;
+    background-color: #333333;
+}
+
+.header *{
+    margin:0;
+    padding:0;
+}
+
+.header .logo {
+    float: left;
+    display: flex;
+    justify-content: center;
+    /* 水平居中 */
+    align-items: center;
+    /* 垂直居中 */
+    width: 2rem;
+    height:0.7rem;
+}
+
+.header .logo img{
+    height:0.26rem;
+}
+
+.header .jump {
+    list-style: none;
+    font-size: 0.24rem;
+    width: 2.8rem;
+    float: right;
+    height:0.7rem;
+    line-height: 0.7rem;
+    color: #bebebe;
+}
+
+.header a {
+    font-size: 0.24rem;
+    color: #bebebe;
+    text-decoration: none;
+}

@@ -1,0 +1,240 @@
+* {
+    margin: 0;
+    padding: 0;
+    margin: 0 auto;
+}
+
+body {
+    background-color: #f6f6f6;
+}
+
+.Bookcontent {
+    max-width: 1260px;
+    min-width: 1260px;
+    padding-top: 15px;
+}
+
+.Bookcontent .showSection .showSection-btn {
+    width: 22px;
+    height: 22px;
+    background-color: #fff;
+    outline: none;
+    border: 0px;
+}
+
+.Bookcontent .section {
+    display: none;
+}
+
+.Bookcontente .chapter .active {
+    background-color: #7abbff;
+}
+
+.content_chapter_list {
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.content_chapter_list .btn {
+    margin-bottom: 10px;
+}
+
+.Bookcontent .booklink {
+    width: 250px;
+    height: 620px;
+    float: left;
+}
+
+.Bookcontent .booklink .bookname {
+    height: 150px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    padding:10px;
+}
+
+.Bookcontent .booklink .bookname img {
+    float: left;
+    height: 100%;
+    width:100%;
+}
+
+.Bookcontent .booklink .bookname .name {
+    color: black;
+    margin-left: 10px;
+    margin-top: 30px;
+    float: left;
+    font-size: 16px;
+    width: 50%;
+    height: 16px;
+    font-family: 宋体;
+}
+
+.Bookcontent .booklink .bookname .introduce {
+    float: left;
+    width: 50%;
+    font-size: 14px;
+    color: #808080;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-left: 10px;
+    font-family: 宋体;
+}
+
+.Bookcontent .booklink .nav {
+    width: 250px;
+    min-height: 360px;
+    padding: 20px;
+    padding-top: 0px;
+    background-color: #fff;
+}
+
+.Bookcontent .booklink .nav .chapter .showSection {
+    margin-top: 19px;
+}
+
+.Bookcontent .booklink .nav .chapter .active a {
+    color: #00cdfc !important;
+}
+
+.Bookcontent .booklink .nav .chapter .showSection .hide {
+    display: none;
+}
+
+.Bookcontent .booklink .nav .chapter .showSection .chapter_name {
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.Bookcontent .booklink .nav .chapter .showSection .section_name {
+    font-size: 14px;
+}
+
+.Bookcontent .booklink .nav .chapter .showSection a {
+    margin-left: 10px;
+    color: black;
+}
+.Bookcontent .booklink .nav .chapter .showSection ul {
+    margin-top:5px;
+}
+.Bookcontent .booklink .nav .chapter .showSection ul li {
+    margin-left: 20px;
+    line-height: 30px;
+    list-style: none;
+    font-size: 16px;
+}
+
+.Bookcontent .booklink .nav .chapter .showSection ul li a{
+    color: #7e7e7e;
+}
+
+.Bookcontent .Readcontent {
+    width: 840px;
+    /* height: 825px; */
+    float: left;
+    margin-left: 10px;
+    background-color: #ffffff;
+}
+
+.Bookcontent .Readcontent .sectionName {
+    padding-left: 20px;
+    width: 810px;
+    height: 52px;
+    border-bottom: 2px solid #e6e6e6;
+    margin: 0 auto;
+    font-size: 20px;
+    line-height: 50px;
+    box-sizing: border-box;
+}
+
+.Bookcontent .Readcontent .sectionName .collection {
+    font-size: 16px;
+    float: right;
+    padding-right: 20px;
+    color: #b2b2b2;
+    border: 0px;
+    background-color: #fff;
+}
+
+.Bookcontent .Readcontent .content-text {
+    min-height: 824px;
+    width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-top: 15px;
+}
+/* md文档内容的样式-开始 */
+.Bookcontent .Readcontent .content-text ul,
+.Bookcontent .Readcontent .content-text ol {
+    padding-inline-start: 1em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    padding-inline-start: 20px;
+}
+
+.Bookcontent .Readcontent .content-text h3{
+    font-weight: 700;
+    font-size:18px;
+}
+.Bookcontent .Readcontent .content-text h4 {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* md文档内容的样式-结束 */
+.Bookcontent .booklist ul {
+    list-style: none;
+}
+
+.Bookcontent .booklist ul li {
+    width: 150px;
+    height: 50px;
+    float: left;
+    line-height: 50px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+    margin-bottom: 19px;
+    margin-left: 5px;
+}
+
+.Bookcontent .booklist ul li:hover {
+    background-color: #e6e6e6;
+}
+
+.Bookcontent .booklist ul li a {
+    font-size: 14px;
+    text-decoration: none;
+    color: #000;
+}
+
+.footer {
+    width: 100%;
+    height: 59px;
+    color: #bebebe;
+    margin-top: 31px;
+    background-color: #fff;
+}
+
+.footer ul {
+    width: 471px;
+    height: 100%;
+    margin: 0 auto;
+    line-height: 59px;
+}
+
+.footer ul li {
+    list-style: none;
+    float: left;
+    margin-left: 10px;
+}
+
+.footer ul li a {
+    text-decoration: none;
+    color: #bebebe;
+    ;
+}
+
+.footer ul li a:hover {
+    color: #00cdfc;
+}

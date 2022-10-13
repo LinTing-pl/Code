@@ -1,0 +1,47 @@
+{% extends "pc/layout.html" %} {% block content %}
+<link rel="stylesheet" href="/css/pc/resources.css">
+<div class="bast">
+    <div class="content">
+        <div class="box">
+            <p>资源下载</p>
+            <hr>
+            <ul>
+                {% for item in resourceList %}
+                <a href="{{item.url}}">
+                    <li>
+                        <span class="title">{{item.title}}</span>
+                        <br>
+                        <span class="code">提取码：{{item.code}}</span>
+                        <span class="blueText">立即下载</spanclass="blueText">
+                    </li>
+                </a>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="slider">
+            {% include "./slider.html" ignore missing %}
+        </div>
+    </div>
+</div>
+<script src="http://apps.bdimg.com/libs/jquery/1.6.4/jquery.js"></script>
+<script src="/js/pc/lunbo.js"></script>
+<script type="text/javascript" src="/js/pc/jquery.js"></script>
+<script>
+    $("h1").css("color", "#8videoCEFA");
+
+    var urlstr = location.href;
+    //alert((urlstr + '/').indexOf($(this).attr('href')));
+    var urlstatus = false;
+    $("a .word").each(function() {
+        if ((urlstr + '/').indexOf($(this).attr('href')) > -1 && $(this).attr('href') != '') {
+            $(this).addClass('cur');
+            urlstatus = true;
+        } else {
+            $(this).removeClass('cur');
+        }
+    });
+    if (!urlstatus) {
+        $("#menu a").eq(0).addClass('cur');
+    }
+</script>
+{% endblock %}

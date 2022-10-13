@@ -1,0 +1,25 @@
+{% extends "pc/layout.html" %} {% block content %}
+<link rel="stylesheet" href="/css/pc/video.css">
+<div class="content">
+    <div class="data">
+        <ul id="book_list">
+            {% for item in videoList %}
+            <li>
+                <div class="picture"><img class="pic" src="{{item.img}}" alt=""></div>
+                <div class="introduce">
+                    <h3 class="bookname">{{item.title}}</h3>
+                    <a class="jump" href="/video/{{item.id}}">
+                        <button class="enter">观看</button>
+                    </a>
+                </div>
+            </li>
+
+            {% endfor %}
+        </ul>
+        <div class="footer">更多精彩内容敬请期待</div>
+    </div>
+    <div class="slider">
+        {% include "./slider.html" ignore missing %}
+    </div>
+</div>
+{% endblock %}

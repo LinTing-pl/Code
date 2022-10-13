@@ -1,0 +1,68 @@
+{% extends "./layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="/css/phone/video_detail.css">
+{% endblock %}
+
+{% block content %}
+<div class="header_container">
+    {% include "./header.html" ignore missing %}
+</div>
+<div class="banner">
+    {{video.iframe_url | safe}}
+</div>
+<div class="content">
+    <div class="jumap">
+        <button class="details button1">讲义</button>
+        <button class="catalog button1">目录</button>
+    </div>
+    <div class="data">
+        <div class="introduce">
+            <p class="introduction">简介</p>
+            <div class="synopsis">{{video.html_intro | safe}}</div>
+        </div>
+        <div class="catalog">
+            <ul>
+                {% for item in videoList %}
+                <li><a href="/video/{{item.id}}">{{item.title}}</a></li>
+                {% endfor %}
+            </ul>
+            <span>{{videolist.videoList}}</span>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="/js/phone/jquery.js"></script>
+<script>
+    // //切换目录，详情
+    $(".jumap .details").click(function () {
+        $(".jumap .details").css("color", "#0090ff");
+        $(".jumap .details").css("border-bottom", "3px solid #0090ff");
+        $(".jumap .catalog").css("color", "black");
+        $(".jumap .catalog").css("border-bottom", "3px solid white");
+        $(".data .introduce").css("display", "block");
+        $(".data .catalog").css("display", "none");
+    })
+    $(".jumap .catalog").click(function () {
+        $(".jumap .catalog").css("color", "#0090ff");
+        $(".jumap .catalog").css("border-bottom", "3px solid #0090ff");
+        $(".jumap .details").css("color", "black");
+        $(".jumap .details").css("border-bottom", "3px solid white");
+        $(".data .introduce").css("display", "none");
+        $(".data .catalog").css("display", "block");
+    })
+</script>
+{% if user.isvip == 1 %}
+    <script>
+        let videoUrl = `{{video.video}}`
+        var player = TCPlayer("player-container-id", { // player-container-id 为播放器容器ID，必须与html中一致
+            fileID: videoUrl, // 请传入需要播放的视频fileID 必须
+            appID: "1256980551", // 请传入点播账号的appID 必须
+            autoplay: false //是否自动播放
+            //其他参数请在开发文档中查看
+        });
+    </script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,227 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f6f6f6;
+}
+
+.long {
+    width: 100%;
+    min-width: 1260px;
+    background-color: #ffffff;
+}
+
+.long .header {
+    max-width: 1260px;
+    min-width: 1260px;
+    height: 60px;
+    /* border: 1px solid red; */
+    /* position: absolute; */
+    top: 0;
+    margin: 0 auto;
+}
+
+.header .title {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    width: 115px;
+    height: 28px;
+    margin-top: 16px;
+    float: left;
+}
+
+.header .title img {
+    width: 100%;
+    height: 100%;
+}
+
+.header .meun {
+    /* display: flex; */
+    /* flex-direction: row; */
+    /* margin-left: 300px; */
+    float: left;
+    margin-left: 24px;
+}
+
+.header .meun li {
+    list-style: none;
+    /* display: flex;
+    align-items: center; */
+    font-size: 15px;
+    font-family: 微软雅黑;
+    line-height: 58px;
+    margin-top: 0.1%;
+    width: 114px;
+    text-align: center;
+    float: left;
+}
+
+.header .meun li a {
+    display: block;
+    color: black;
+    text-decoration: none;
+}
+
+.header .meun li:hover {
+    box-sizing: border-box;
+    border-bottom: 2px solid#0084ff;
+}
+
+.header .meun .active {
+    box-sizing: border-box;
+    border-bottom: 2px solid#0084ff;
+}
+
+.header .sigin {
+    border: none;
+    outline: none;
+    float: right;
+    /* margin-right: 8%; */
+    margin-top: 10px;
+    position: relative;
+}
+
+.header .sigin .addShow {
+    clear: both;
+    width: 115px;
+    position: relative;
+    float: right;
+    top: 40px;
+    right:0px;
+    background-color: #ffffff;
+    z-index: 99999;
+    position:absolute;
+}
+
+.header .sigin .addShow ul{
+    list-style: none;
+}
+
+.header .sigin .addShow .hide{
+    display:none;
+    
+}
+
+.header .nbBtn {
+    background-color: #0084ff;
+    width: 130px;
+    height: 100%;
+    border: 0px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    float: right;
+    /* margin-right: 8%; */
+    /* margin-top: 10px; */
+}
+
+.header.sigin img {
+    width: 100%;
+    height: 100%;
+}
+
+.header .search {
+    float: right;
+    width: 300px;
+    height: 40px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #e5e5e5;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
+.header .search input {
+    width: 268px;
+    height: 100%;
+    border: 0px;
+    padding-left: 15px;
+    font-size: 16px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.header .search button {
+    background-color: #fff;
+    border: none;
+}
+
+
+
+.addShow ul li {
+    padding-right: 10px;
+    padding-left: 10px;
+    text-align: center;
+    width: 100%;
+    height: 30px;
+    /* border-bottom: 1px solid #e5e5e5; */
+    box-sizing: border-box;
+}
+
+.addShow ul li a {
+    font-size: 13px;
+    text-decoration: none;
+    color: #808080;
+    line-height: 30px;
+}
+
+.hyperlink {
+    z-index: 9;
+    position: fixed;
+    width: 41px;
+    right: 2%;
+    bottom: 6%;
+}
+
+.hyperlink .Code {
+    position: absolute;
+    left: -196px;
+    top: -68px;
+    width: 175px;
+    height: 215px;
+    border: 1px solid #b3b3b3;
+    background-color: #fff;
+    box-sizing: border-box;
+    display: none;
+}
+
+.hyperlink .CodeTeam {
+    position: absolute;
+    left: -196px;
+    top: -30px;
+    width: 175px;
+    height: 215px;
+    border: 1px solid #b3b3b3;
+    background-color: #fff;
+    box-sizing: border-box;
+    display: none;
+}
+
+.hyperlink>ul img {
+    width: 30px;
+}
+
+.hyperlink>div img {
+    width: 100%;
+}
+
+.hyperlink p {
+    text-align: center;
+    font-size: 18px;
+}
+
+.hyperlink ul li {
+    list-style: none;
+    line-height: 50px;
+    width: 41px;
+    height: 36px;
+    margin-top: 15px;
+}
+
+.hyperlink .bbb {
+    width: 100px;
+    height: 100px;
+    border: 1px solid red;
+}

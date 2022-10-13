@@ -1,0 +1,29 @@
+{% extends "./layout.html" %} 
+
+{% block css %}
+<link rel="stylesheet" href="/css/phone/resource.css">
+{% endblock %}
+
+{% block content %}
+<div class="header_container">
+    {% include "./header.html" ignore missing %}
+</div>
+<div class="content">
+    <ul id="search_list">
+        {% for item in resourceList %}
+        <li>
+            <div class="box">
+                <span class="bookname">{{item.title}}</span>
+                <span class="bookoutline">提取码:{{item.code}}</span>
+            </div>
+            <a class="download" href="{{item.url}}">立即下载</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="menu_container">
+    {% include "./menu.html" ignore missing %}
+</div>
+{% endblock %}
+

@@ -1,0 +1,290 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f6f6f6;
+}
+
+.bast {
+    width: 100%;
+    /* min-height: 654px; */
+}
+
+.content {
+    width: 1322px;
+    margin-top: 15px;
+    margin: 0 auto;
+    max-width: 1322px;
+    min-width: 1000px;
+    /* border: 1px solid red; */
+    background-color: #f6f6f6;
+    margin: 0 auto;
+}
+
+.box {
+    width: 955px;
+    float: left;
+    margin-left: 30px;
+    margin-top: 12px;
+    margin-right: 15px;
+    /* overflow:auto; */
+    background-color: #fff;
+    padding: 20px;
+    min-height: 504px;
+    margin-bottom: 20px;
+}
+
+.box .BlogText {
+    clear: both;
+    width: 100%;
+}
+
+.box .BlogText h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    /* text-align: center; */
+}
+
+.box .BlogText .collection {
+    font-size: 16px;
+    float: right;
+    color: #b2b2b2;
+    border: 0px;
+    background-color: #fff;
+}
+
+.box .BlogText .blogCont {
+    margin-bottom: 20px;
+    font-size: 16px;
+    /* 影响博客内容显示效果，所以被注释 */
+    /* min-height: 661px; */
+}
+
+.box .BlogText .blogCont img {
+    max-width: 100%;
+}
+
+.box .BlogText .releaseTime {
+    color: #b2b2b2;
+    font-size: 16px;
+}
+
+.box1 {
+    width: 290px;
+    height: 500px;
+    float: left;
+    margin-top: 16px;
+    margin-bottom: 20px;
+    background-color: #fff;
+}
+
+.box1 .data {
+    width: 100%;
+    height: 180px;
+    float: left;
+    margin-right: 0px;
+    margin-bottom: 0px;
+}
+
+.box1 .account {
+    width: 290px;
+    height: 310px;
+    float: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 15px;
+    margin-bottom: 20px;
+}
+
+.box1 .account ul {
+    list-style: none;
+}
+
+.box1 .account .selected {
+    width: 270px;
+    height: 49px;
+    float: left;
+    line-height: 49px;
+    font-size: 18px;
+    font-family: 微软雅黑;
+    margin-left: 12px;
+}
+
+.box1 .account div {
+    width: 270px;
+    border-top: 1px solid #bcbcbc;
+    height: 110px;
+    float: left;
+    padding-left: 12px;
+}
+
+.box1 .account div img {
+    width: 75px;
+    height: 85px;
+    margin-top: 15px;
+    float: left;
+}
+
+.box1 .account div span {
+    margin-top: 25px;
+    margin-left: 15px;
+    position: relative;
+    top: 24px;
+}
+
+.box1 .account div button {
+    position: relative;
+    top: 54px;
+    left: 10px;
+    background-color: #e3f0fc;
+    border: none;
+    width: 60px;
+    height: 27px;
+    outline: none;
+    border-radius: 10px;
+}
+
+.box1 .account div button a {
+    text-decoration: none;
+    color: #3995ff;
+}
+
+.box1 .account ul li .account-content {
+    width: 270px;
+    height: 45px;
+    float: left;
+    line-height: 45px;
+    border-top: 1px solid #bcbcbc;
+    padding-left: 12px;
+    padding-right: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.box1 .account ul li .account-content a {
+    text-decoration: none;
+    color: black;
+}
+
+.headlist {
+    width: 290px;
+    height: 216px;
+    margin-top: 10px;
+    background-color: #ffffff;
+}
+
+.headlist ul {
+    list-style: none;
+}
+
+.headlist ul li {
+    height: 54px;
+    line-height: 54px;
+    text-align: center;
+    border-top: 1px solid #f2f2f2;
+}
+
+.headlist ul li a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.footer {
+    width: 955px;
+    height: 50px;
+    background-color: #fff;
+    margin-top: 15px;
+}
+
+
+/* 轮播*/
+
+.banner {
+    width: 290px;
+    height: 180px;
+}
+
+.banner .lunbotu {
+    /* position: absolute; */
+    /* top: 100px; */
+    /* left: 100px; */
+    width: 290px;
+    height: 180px;
+    /* margin-top: -16px;
+    margin-left: -51px; */
+}
+
+
+/*使用绝对定位，使全部图片叠加到一块*/
+
+.banner .lunbotu .box2 {
+    width: 290px;
+    height: 180px;
+}
+
+.banner .lunbotu .box2 img {
+    width: 290px;
+    height: 180px;
+    display: none;
+    float: left;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+
+/*下面小圆点，使用绝对定位，位于图片的正下方*/
+
+.banner .lunbotu .circle {
+    position: relative;
+    /* bottom: 15px; */
+    left: -14px;
+    top: -18px;
+    margin-left: 161px;
+    text-align: center;
+}
+
+
+/*每个小圆点的样式*/
+
+.banner .lunbotu .circle b {
+    display: inline-block;
+    width: 20px;
+    height: 3px;
+    background-color: rgb(255, 255, 255, 0.5);
+    margin-right: 1px;
+}
+
+
+/*小圆点的当前样式，也是鼠标移上去的样式*/
+
+.banner .lunbotu .circle .current {
+    background-color: #fff;
+}
+
+
+/*左右两侧的按钮，采用绝对定位*/
+
+.banner .lunbotu .btn {
+    position: absolute;
+    top: 22%;
+    width: 30px;
+    height: 50px;
+    margin-top: -25px;
+    background-color: rgba(255, 255, 255, .7);
+    text-align: center;
+    line-height: 50px;
+    font-size: 50px;
+    cursor: pointer;
+}
+
+.banner .lunbotu .left {
+    left: 0;
+}
+
+.banner .lunbotu .right {
+    right: 0;
+}
