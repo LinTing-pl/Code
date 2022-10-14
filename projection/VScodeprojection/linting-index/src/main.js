@@ -5,6 +5,8 @@ import store from "./store";
 import Element from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 
+var axios = require("axios");
+Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
 Vue.use(Element);
 new Vue({

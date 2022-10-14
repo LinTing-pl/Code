@@ -25,22 +25,18 @@
 export default {
   data() {
     return {
-      srcList: [
-        [
-          { cls: "精选手册", img: "", title: "22", date: "1", info: "" },
-          { cls: "精选手册", img: "", title: "33", date: "2", info: "" },
-        ],
-        [
-          { cls: "精选博客", img: "", title: "11", date: "1", info: "博客" },
-          { cls: "精选博客", img: "", title: "22", date: "2", info: "博客" },
-        ],
-
-        [
-          { cls: "精选视频", img: "", title: "22", date: "1", info: "" },
-          { cls: "精选视频", img: "", title: "22", date: "2", info: "" },
-        ],
-      ],
+      srcList: [],
     };
+  },
+  mounted() {
+    this.getData();
+  },
+  methods: {
+    getData() {
+      this.$axios.default.get("/dev-api/index/get").then((res) => {
+        this.srcList = res.data;
+      });
+    },
   },
 };
 </script>
@@ -120,5 +116,7 @@ export default {
   color: #46a5fd;
   outline: none;
   border: none;
+  cursor: pointer;
+  user-select: none;
 }
 </style>

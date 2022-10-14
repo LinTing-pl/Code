@@ -64,6 +64,7 @@ ul {
   justify-content: center;
   align-items: center;
   height: 62px;
+  user-select: none;
 }
 .logo {
   font-size: 33px;

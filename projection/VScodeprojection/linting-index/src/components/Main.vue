@@ -26,10 +26,4 @@ export default {
   width: 70%;
   height: 100%;
 }
-.side-content {
-  background: #999;
-  width: 30%;
-  height: 100%;
-  margin-left: 2%;
-}
 </style>
