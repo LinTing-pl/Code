@@ -1,25 +1,32 @@
 <template>
-  <div class="side-content">
-    <!-- side的大图片 -->
-    <div class="img">
-      <img :src="bigImg" alt="" />
-    </div>
-    <span class="title">精选</span>
-    <!-- 精选展示内容 -->
-    <div class="content">
-      <!-- enter可展示内容 -->
-      <div
-        :class="{ info: true, active: index === 0 }"
-        v-for="(item, index) in sideList"
-        :key="index"
-        @mouseenter="addActive"
-      >
-        <div class="img"><img :src="item.img" alt="" /></div>
-        <div class="info-side">
-          <div class="info-title">{{ item.title }}</div>
-          <button class="btn">阅读</button>
+  <div class="side">
+    <div class="side-content">
+      <!-- side的大图片 -->
+      <div class="img">
+        <img :src="bigImg" alt="" />
+      </div>
+      <span class="title">精选</span>
+      <!-- 精选展示内容 -->
+      <div class="content">
+        <!-- enter可展示内容 -->
+        <div
+          :class="{ info: true, active: index === 0 }"
+          v-for="(item, index) in sideList"
+          :key="index"
+          @mouseenter="addActive"
+        >
+          <div class="img"><img :src="item.img" alt="" /></div>
+          <div class="info-side">
+            <div class="info-title">{{ item.title }}</div>
+            <button class="btn">阅读</button>
+          </div>
         </div>
       </div>
+    </div>
+    <div class="side-footer">
+      Linting | 移动端 <br />
+      团队介绍 <br />
+      Linting官方网站
     </div>
   </div>
 </template>
@@ -52,10 +59,15 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-.side-content {
+.side {
   width: 30%;
   height: 100%;
   margin-left: 2%;
+}
+.side-content {
+  width: 100%;
+  background-color: #fff;
+  padding-bottom: 10px;
 }
 .img {
   height: 200px;
@@ -78,6 +90,7 @@ export default {
   height: 30px;
   border-top: 1px solid #ddd;
   position: relative;
+  padding: 5px 0;
 }
 .info .img {
   position: absolute;
@@ -86,11 +99,16 @@ export default {
   left: 5px;
 }
 .info .info-title {
+  width: 100%;
+  height: 30px;
   position: relative;
   font-size: 18px;
   font-weight: bold;
-  text-align: left;
+  text-align: justify;
   left: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .info .btn {
   opacity: 0;
@@ -104,20 +122,27 @@ export default {
 
 .info.active .img {
   opacity: 1;
-  visibility: initial;
+  visibility: visible;
   position: relative;
   height: 70px;
-  width: 90px;
+  width: 100px;
   top: 5px;
+}
+.info.active .img img {
+  width: 100px;
+  height: 70px;
+  object-fit: cover;
 }
 .info.active .info-side {
   position: relative;
 }
 .info.active .info-side .info-title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   left: 10px;
   top: 5px;
+  height: 43px;
+  white-space: normal;
 }
 .info.active .info-side .btn {
   opacity: 1;
@@ -131,5 +156,11 @@ export default {
   color: #46a5fd;
   outline: none;
   border: none;
+}
+.side-footer {
+  font-size: 18px;
+  color: #c6c6c6;
+  text-align: left;
+  line-height: 1.5;
 }
 </style>

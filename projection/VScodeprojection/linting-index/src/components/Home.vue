@@ -14,6 +14,11 @@ export default {
     Nav,
     Main,
   },
+  data() {
+    return {
+      index: "",
+    };
+  },
 };
 </script>
 <style lang='scss' scoped>

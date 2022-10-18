@@ -4,7 +4,7 @@
     mode="horizontal"
     class="el-menu-demo"
     router
-    :default-active="'/index'"
+    :default-active="index"
     background-color="#ffffff"
     text-color="#313131"
   >
@@ -15,6 +15,7 @@
       :index="item.name"
       v-for="(item, index) in navList"
       :key="index"
+      @click="setIndex(item.name)"
       >{{ item.navItem }}</el-menu-item
     >
     <!-- 搜索框 -->
@@ -31,6 +32,7 @@
 export default {
   data() {
     return {
+      index: "/index",
       navList: [
         {
           name: "/index",
@@ -54,6 +56,17 @@ export default {
         },
       ],
     };
+  },
+  mounted() {
+    let flag = sessionStorage.getItem("index");
+    if (flag) {
+      this.index = flag;
+    }
+  },
+  methods: {
+    setIndex(index) {
+      sessionStorage.setItem("index", index);
+    },
   },
 };
 </script>

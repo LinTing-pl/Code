@@ -3,14 +3,17 @@
   <div class="container">
     <div class="main-content">
       <router-view />
+      <Bottom></Bottom>
     </div>
     <SideContent></SideContent>
   </div>
 </template>
 <script>
+import Bottom from "./Bottom";
 import SideContent from "./SideContent.vue";
 export default {
   components: {
+    Bottom,
     SideContent,
   },
 };
@@ -24,6 +27,5 @@ export default {
 }
 .main-content {
   width: 70%;
-  height: 100%;
 }
 </style>

@@ -6,6 +6,9 @@ import Study from "../components/Study";
 import Blog from "../components/Blog";
 import Video from "../components/Video";
 import Load from "../components/Load";
+import Details from "../components/Details.vue";
+import StudyContent from "../components/StudyContent.vue";
+import StudyContentMiddle from "../components/StudyContentMiddle.vue";
 
 Vue.use(VueRouter);
 
@@ -41,6 +44,25 @@ const routes = [
         path: "/load",
         name: "load",
         component: Load,
+      },
+    ],
+  },
+  {
+    path: "/details",
+    name: "details",
+    component: Details,
+    children: [
+      {
+        path: "/studycontent/:id",
+        name: "studycontent",
+        component: StudyContent,
+        children: [
+          {
+            path: "/:content",
+            name: "studycontentmiddle",
+            component: StudyContentMiddle,
+          },
+        ],
       },
     ],
   },
