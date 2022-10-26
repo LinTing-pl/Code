@@ -15,12 +15,22 @@
       :index="item.name"
       v-for="(item, index) in navList"
       :key="index"
+      :id="item.name"
       @click="setIndex(item.name)"
       >{{ item.navItem }}</el-menu-item
     >
     <!-- 搜索框 -->
-    <el-input class="search-input" placeholder="搜索">
-      <i slot="suffix" class="el-input__icon el-icon-search"></i>
+    <el-input
+      class="search-input"
+      placeholder="搜索书名"
+      v-model="searchParams"
+      @keyup.native.enter="toSearch"
+    >
+      <i
+        slot="suffix"
+        class="el-input__icon el-icon-search"
+        @click="toSearch"
+      ></i>
     </el-input>
     <!-- 登录按钮 -->
     <div class="login-btn">登录</div>
@@ -55,6 +65,7 @@ export default {
           navItem: "资源下载",
         },
       ],
+      searchParams: "",
     };
   },
   mounted() {
@@ -62,10 +73,21 @@ export default {
     if (flag) {
       this.index = flag;
     }
+    this.searchParams = sessionStorage.getItem("search");
   },
   methods: {
     setIndex(index) {
       sessionStorage.setItem("index", index);
+    },
+    toSearch() {
+      if (!!this.searchParams) {
+        sessionStorage.setItem("search", this.searchParams);
+        if (this.$router.history.current.name !== "search") {
+          this.$router.push("/search");
+        } else {
+          this.$router.go(0);
+        }
+      }
     },
   },
 };
@@ -91,6 +113,7 @@ ul {
   width: 200px;
   margin-left: 70px;
   margin-right: 12px;
+  position: relative;
 }
 .login-btn {
   background: #0084ff;
@@ -105,5 +128,11 @@ ul {
 }
 .login-btn:hover {
   background-color: #108cff;
+}
+.el-input__icon.el-icon-search {
+  cursor: pointer;
+}
+.el-input__icon.el-icon-search:hover {
+  color: #108cff;
 }
 </style>

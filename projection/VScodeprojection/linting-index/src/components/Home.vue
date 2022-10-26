@@ -1,9 +1,9 @@
 <template>
   <div class="home">
     <!-- 导航 -->
-    <Nav></Nav>
+    <Nav :pIndex="index"></Nav>
     <!-- 主体 -->
-    <Main></Main>
+    <Main @putIndex="putIndex"></Main>
   </div>
 </template>
 <script>
@@ -18,6 +18,11 @@ export default {
     return {
       index: "",
     };
+  },
+  methods: {
+    putIndex(index) {
+      this.index = index;
+    },
   },
 };
 </script>

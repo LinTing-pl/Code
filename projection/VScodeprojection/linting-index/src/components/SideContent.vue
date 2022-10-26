@@ -18,7 +18,7 @@
           <div class="img"><img :src="item.img" alt="" /></div>
           <div class="info-side">
             <div class="info-title">{{ item.title }}</div>
-            <button class="btn">阅读</button>
+            <button class="btn" @click="read(item.id)">阅读</button>
           </div>
         </div>
       </div>
@@ -43,8 +43,8 @@ export default {
   },
   methods: {
     getData() {
-      this.$axios.default.get("/dev-api/side/get").then((res) => {
-        this.sideList = res.data;
+      this.$axios.default.get("/dev-api/blog/get").then((res) => {
+        this.sideList = res.data.slice(0, 4);
         this.bigImg = this.sideList[0]["img"];
       });
     },
@@ -54,6 +54,16 @@ export default {
         div.classList.remove("active");
       });
       e.target.classList.add("active");
+    },
+    read(id) {
+      this.$router
+        .push({
+          name: "blogcontent",
+          params: {
+            id: id,
+          },
+        })
+        .catch((err) => {});
     },
   },
 };
@@ -137,18 +147,21 @@ export default {
   position: relative;
 }
 .info.active .info-side .info-title {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
   left: 10px;
   top: 5px;
   height: 43px;
+  width: 120px;
+  text-align: left;
   white-space: normal;
 }
 .info.active .info-side .btn {
   opacity: 1;
   visibility: initial;
   width: 50px;
-  height: 25px;
+  height: 30px;
+  line-height: 30px;
   position: absolute;
   left: 10px;
   bottom: 5px;
@@ -156,6 +169,9 @@ export default {
   color: #46a5fd;
   outline: none;
   border: none;
+}
+.info.active .info-side .btn:hover {
+  box-shadow: 0 0 5px rgb(156, 209, 233);
 }
 .side-footer {
   font-size: 18px;

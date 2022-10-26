@@ -2,7 +2,7 @@
   <div class="con">
     <div
       class="chapter"
-      @click="toggleActive($event, index)"
+      @click="toggleActive($event)"
       v-for="(item, index) in list"
       :key="index"
       :title="item.chapter"
@@ -22,7 +22,7 @@
           :title="item2.section"
           @click="
             sectionActive($event);
-            toStudyContentMiddle(item2.section, item2.content, index2);
+            toStudySrc(item2.section, item2.content, index, index2);
           "
         >
           {{ item2.section }}
@@ -41,13 +41,15 @@ export default {
   },
   props: ["list"],
   mounted() {
-    if (localStorage.getItem("sectionIndex") !== null) {
+    if (sessionStorage.getItem("sectionIndex") !== null) {
       this.chapterIndex =
-        parseInt((this.chapterIndex = localStorage.getItem("chapterIndex"))) ||
-        0;
+        parseInt(
+          (this.chapterIndex = sessionStorage.getItem("chapterIndex"))
+        ) || 0;
       this.sectionIndex =
-        parseInt((this.sectionIndex = localStorage.getItem("sectionIndex"))) ||
-        0;
+        parseInt(
+          (this.sectionIndex = sessionStorage.getItem("sectionIndex"))
+        ) || 0;
     }
   },
   updated() {
@@ -55,9 +57,8 @@ export default {
   },
 
   methods: {
-    toggleActive(e, index) {
+    toggleActive(e) {
       e.target.classList.toggle("active");
-      localStorage.setItem("chapterIndex", index);
     },
     sectionActive(e) {
       let sections = e.path[3].querySelectorAll(".section");
@@ -66,16 +67,10 @@ export default {
       });
       e.target.className = "section active2";
     },
-    toStudyContentMiddle(title, content, index) {
+    toStudySrc(title, content, index1, index2) {
       this.$emit("putBookcontent", { title: title, content: content });
-      localStorage.setItem("bookcontent", JSON.stringify({ title, content }));
-      localStorage.setItem("sectionIndex", index);
-      this.$router
-        .push({
-          name: "studycontentmiddle",
-          params: { content: { title, content } },
-        })
-        .catch((err) => {});
+      sessionStorage.setItem("sectionIndex", index2);
+      sessionStorage.setItem("chapterIndex", index1);
     },
   },
 };

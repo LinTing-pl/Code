@@ -7,7 +7,8 @@ export default {};
 <style lang='scss' scoped>
 .bottom {
   width: 100%;
-  height: 25px;
+  height: 40px;
+  line-height: 40px;
   font-size: 18px;
   background-color: #fff;
   color: #ddd;

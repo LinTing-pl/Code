@@ -25,6 +25,25 @@ module.exports = (appInfo) => {
   config.view = {
     defaultViewEngine: "nunjucks",
   };
+  config.security = {
+    crsf: {
+      enable: false,
+      ignoreJSON: true,
+    },
+    domainWhiteList: [],
+  };
+  config.mysql = {
+    client: {
+      host: "localhost",
+      port: "3306",
+      user: "root",
+      password: "Linting1025",
+      database: "linting-code",
+      multipleStatements: true,
+    },
+    app: true,
+    agent: false,
+  };
   return {
     ...config,
     ...userConfig,

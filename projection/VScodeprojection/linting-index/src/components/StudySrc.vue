@@ -1,27 +1,16 @@
 <template>
   <div class="middle-Container">
     <div class="top">
-      {{ bookcontent.title || title }}
+      {{ bookcontent.title }}
     </div>
     <div class="bookcontent">
-      {{ bookcontent.content || content }}
+      {{ bookcontent.content }}
     </div>
   </div>
 </template>
 <script>
 export default {
-  data() {
-    return {
-      title: "",
-      content: "",
-    };
-  },
   props: ["bookcontent"],
-  mounted() {
-    let data = JSON.parse(localStorage.getItem("bookcontent"));
-    this.title = data.title;
-    this.content = data.content;
-  },
 };
 </script>
 <style lang='scss' scoped>

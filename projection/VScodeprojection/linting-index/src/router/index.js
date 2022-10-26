@@ -8,7 +8,9 @@ import Video from "../components/Video";
 import Load from "../components/Load";
 import Details from "../components/Details.vue";
 import StudyContent from "../components/StudyContent.vue";
-import StudyContentMiddle from "../components/StudyContentMiddle.vue";
+import BlogContent from "../components/BlogContent.vue";
+import VideoContent from "../components/VideoContent.vue";
+import Search from "../components/Search.vue";
 
 Vue.use(VueRouter);
 
@@ -45,6 +47,11 @@ const routes = [
         name: "load",
         component: Load,
       },
+      {
+        path: "/search",
+        name: "search",
+        component: Search,
+      },
     ],
   },
   {
@@ -56,13 +63,16 @@ const routes = [
         path: "/studycontent/:id",
         name: "studycontent",
         component: StudyContent,
-        children: [
-          {
-            path: "/:content",
-            name: "studycontentmiddle",
-            component: StudyContentMiddle,
-          },
-        ],
+      },
+      {
+        path: "/blogcontent/:id",
+        name: "blogcontent",
+        component: BlogContent,
+      },
+      {
+        path: "/videocontent/:id",
+        name: "videocontent",
+        component: VideoContent,
       },
     ],
   },

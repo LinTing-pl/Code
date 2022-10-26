@@ -1,13 +1,13 @@
 <template>
   <div class="container">
-    <div class="card" v-for="(item, index) in srcList" :key="index">
+    <div class="card" v-for="(item, index) in curList" :key="index">
       <div class="img">
         <img :src="item.img" alt="" />
       </div>
       <div class="info">
         <span class="info-title">{{ item.title }}</span>
         <span class="info-info">{{ item.info }}</span>
-        <button class="info-btn" @click="read(item.id)">观看</button>
+        <button class="info-btn" @click="read(item.cls, item.id)">阅读</button>
       </div>
     </div>
     <div class="block">
@@ -16,7 +16,7 @@
         :current-page.sync="currentPage"
         :page-size="5"
         layout="total, prev, pager, next"
-        :total="videoLength"
+        :total="searchLength"
       >
       </el-pagination>
     </div>
@@ -27,27 +27,56 @@ export default {
   data() {
     return {
       srcList: [],
+      curList: [],
       currentPage: 1,
-      videoLength: JSON.parse(sessionStorage.getItem("video")).length,
+      searchLength: 0,
+      cls: {
+        手册: "studycontent",
+        博客: "blogcontent",
+        视频: "videocontent",
+      },
     };
   },
   mounted() {
+    this.srcList = this.search();
+    this.searchLength = this.srcList.length;
     this.handleCurrentChange();
   },
   methods: {
-    read(id) {
+    read(cls, id) {
       this.$router.push({
-        name: "videocontent",
-        params: {
-          id: id,
-        },
+        name: this.cls[cls],
+        params: { id: id },
       });
     },
     handleCurrentChange() {
-      this.srcList = JSON.parse(sessionStorage.getItem("video")).slice(
+      this.curList = this.srcList.slice(
         (this.currentPage - 1) * 5,
         this.currentPage * 5
       );
+    },
+    search() {
+      let searchParams = sessionStorage.getItem("search");
+      const data1 = JSON.parse(sessionStorage.getItem("study"));
+      const data2 = JSON.parse(sessionStorage.getItem("blog"));
+      const data3 = JSON.parse(sessionStorage.getItem("video"));
+      let res = [];
+      data1.forEach((v) => {
+        if (v.title.indexOf(searchParams) !== -1) {
+          res.push(v);
+        }
+      });
+      data2.forEach((v) => {
+        if (v.title.indexOf(searchParams) !== -1) {
+          res.push(v);
+        }
+      });
+      data3.forEach((v) => {
+        if (v.title.indexOf(searchParams) !== -1) {
+          res.push(v);
+        }
+      });
+      return res;
     },
   },
 };
@@ -97,9 +126,14 @@ export default {
   font-size: 20px;
 }
 .info .info-info {
-  font-size: 20px;
+  width: 100%;
+  margin: 5px 0;
+  font-size: 16px;
+  text-align: left;
   color: #aaa;
-  margin: 10px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .info .info-btn {
   width: 80px;

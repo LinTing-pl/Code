@@ -1,6 +1,11 @@
 <template>
   <div class="container">
-    <div class="card" v-for="(item, index) in srcList" :key="index">
+    <div
+      class="card"
+      v-for="(item, index) in srcList"
+      :key="index"
+      @click="read(item.id)"
+    >
       <div class="img">
         <img :src="item.img" alt="" />
       </div>
@@ -10,6 +15,16 @@
         <span class="info-info">{{ item.info }}</span>
       </div>
     </div>
+    <div class="block">
+      <el-pagination
+        @current-change="handleCurrentChange"
+        :current-page.sync="currentPage"
+        :page-size="5"
+        layout="total, prev, pager, next"
+        :total="blogLength"
+      >
+      </el-pagination>
+    </div>
   </div>
 </template>
 <script>
@@ -17,16 +32,25 @@ export default {
   data() {
     return {
       srcList: [],
+      currentPage: 1,
+      blogLength: JSON.parse(sessionStorage.getItem("blog")).length,
     };
   },
   mounted() {
-    this.getData();
+    this.handleCurrentChange();
   },
   methods: {
-    getData() {
-      this.$axios.default.get("/dev-api/blog/get").then((res) => {
-        this.srcList = res.data;
+    read(id) {
+      this.$router.push({
+        name: "blogcontent",
+        params: { id: id },
       });
+    },
+    handleCurrentChange() {
+      this.srcList = JSON.parse(sessionStorage.getItem("blog")).slice(
+        (this.currentPage - 1) * 5,
+        this.currentPage * 5
+      );
     },
   },
 };
@@ -48,6 +72,7 @@ export default {
   align-items: center;
   background-color: #fff;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 .img {
   display: flex;
@@ -82,5 +107,10 @@ export default {
 .info .info-info {
   font-size: 20px;
   color: #aaa;
+}
+.block {
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 10px;
 }
 </style>

@@ -14,22 +14,27 @@
       ></Chapter>
     </div>
     <div class="middle">
-      <router-view :bookcontent="bookcontent"></router-view>
+      <StudySrc :bookcontent="bookcontent"></StudySrc>
     </div>
     <div class="right">
-      <div class="others"></div>
+      <div class="others" v-for="(item, index) in othersList" :key="index">
+        {{ item.title }}
+      </div>
     </div>
   </div>
 </template>
 <script>
 import Chapter from "./StudyChapter";
+import StudySrc from "../components/StudySrc.vue";
 export default {
   components: {
     Chapter,
+    StudySrc,
   },
   data() {
     return {
       studyContentList: [],
+      othersList: [],
       bookcontent: "",
     };
   },
@@ -42,9 +47,11 @@ export default {
       this.$axios.default.get(`/dev-api/study/get/${index}`).then((res) => {
         this.studyContentList = res.data;
       });
+      this.othersList = JSON.parse(sessionStorage.getItem("study")).slice(0, 4);
     },
-    putBookcontent(value) {
-      this.bookcontent = value;
+
+    putBookcontent(data) {
+      this.bookcontent = data;
     },
   },
 };
@@ -57,19 +64,20 @@ export default {
   flex-direction: row;
   align-items: start;
   margin-top: 10px;
+  height: auto;
 }
 .left {
   width: 22%;
+  position: relative;
 }
 .middle {
   width: 65%;
-  min-height: calc(100vh - 160px);
+  height: 80vh;
   background-color: #fff;
-  margin: 0 10px;
+  margin: 0 10px 50px;
 }
 .right {
   width: 13%;
-  border: 1px solid red;
 }
 .book {
   width: 100%;
@@ -115,5 +123,21 @@ export default {
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
+}
+.right .others {
+  width: 100%;
+  height: 30px;
+  padding: 10px 5px;
+  margin-bottom: 10px;
+  line-height: 30px;
+  border-radius: 10px;
+  background-color: #fff;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.right .others:hover {
+  background-color: #e6e6e6;
 }
 </style>

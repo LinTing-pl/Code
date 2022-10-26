@@ -14,6 +14,7 @@ export default {};
   width: 100%;
   min-width: 1000px;
   height: 60px;
+  line-height: 60px;
 }
 pre {
   font-size: 18px;

@@ -1,0 +1,93 @@
+<template>
+  <div class="con2">
+    <div class="left">
+      <div class="title">{{ data.title }}</div>
+      <div class="date">{{ data.date }}</div>
+      <div class="blog-content">
+        {{ data.content }}
+      </div>
+    </div>
+    <SideContent></SideContent>
+  </div>
+</template>
+<script>
+import SideContent from "../components/SideContent.vue";
+export default {
+  components: {
+    SideContent,
+  },
+  data() {
+    return {
+      data: [],
+      id: "",
+    };
+  },
+  watch: {
+    //监听route
+    $route: {
+      handler() {
+        this.id = this.$route.params.id;
+        if (this.id) {
+          //不为空
+          this.getOneBlog();
+        } else {
+        }
+      },
+      immediate: true,
+    },
+  },
+
+  mounted() {
+    this.getOneBlog();
+  },
+  methods: {
+    getOneBlog() {
+      let id = this.$route.params.id;
+      this.$axios.default.get(`/dev-api/blog/get/${id}`).then((res) => {
+        this.data = res.data;
+      });
+    },
+  },
+};
+</script>
+<style lang='scss' scoped>
+.con2 {
+  width: 960px;
+  display: flex;
+  margin-top: 10px;
+}
+.left {
+  width: 70%;
+  background-color: #fff;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+}
+.left div {
+  text-align: left;
+  padding: 5px;
+}
+.title {
+  font-size: 20px;
+  font-weight: bold;
+}
+.date {
+  color: #ccc;
+}
+.blog-content {
+  width: 100%;
+  height: 80vh;
+  overflow: auto;
+  word-wrap: break-word;
+}
+.blog-content::-webkit-scrollbar {
+  width: 10px;
+}
+.blog-content:hover::-webkit-scrollbar-thumb {
+  background: rgba(195, 230, 236, 0.712);
+  border-radius: 5px;
+}
+</style>

@@ -10,6 +10,16 @@
         <button class="info-btn" @click="read(item.id)">阅读</button>
       </div>
     </div>
+    <div class="block">
+      <el-pagination
+        @current-change="handleCurrentChange"
+        :current-page.sync="currentPage"
+        :page-size="5"
+        layout="total, prev, pager, next"
+        :total="studyLength"
+      >
+      </el-pagination>
+    </div>
   </div>
 </template>
 <script>
@@ -17,22 +27,25 @@ export default {
   data() {
     return {
       srcList: [],
+      currentPage: 1,
+      studyLength: JSON.parse(sessionStorage.getItem("study")).length,
     };
   },
   mounted() {
-    this.getData();
+    this.handleCurrentChange();
   },
   methods: {
-    getData() {
-      this.$axios.default.get("/dev-api/study/get").then((res) => {
-        this.srcList = res.data;
-      });
-    },
     read(id) {
       this.$router.push({
         name: "studycontent",
         params: { id: id },
       });
+    },
+    handleCurrentChange() {
+      this.srcList = JSON.parse(sessionStorage.getItem("study")).slice(
+        (this.currentPage - 1) * 5,
+        this.currentPage * 5
+      );
     },
   },
 };
@@ -82,8 +95,14 @@ export default {
   font-size: 20px;
 }
 .info .info-info {
-  font-size: 20px;
+  width: 100%;
+  margin: 5px 0;
+  font-size: 16px;
+  text-align: left;
   color: #aaa;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .info .info-btn {
   width: 80px;

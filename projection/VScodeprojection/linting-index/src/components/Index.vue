@@ -3,12 +3,8 @@
     <!-- 遍历三个卡片 -->
     <div class="card" v-for="(item, index) in srcList" :key="index">
       <div class="title">
-        <span>{{ item[0].cls }}</span
-        ><router-link class="more" :to="item[0].index"
-          ><span @click="pushIndex(item[0].index)"
-            >查看更多 ></span
-          ></router-link
-        >
+        <span>精选{{ item[0].cls }}</span
+        ><span class="more" @click="pushIndex(index)">查看更多 ></span>
       </div>
       <!-- 每个卡片两个内容 -->
       <div class="content" v-for="(item2, i) in item" :key="i">
@@ -17,10 +13,9 @@
         </div>
         <div class="info">
           <span class="info-title">{{ item2.title }}</span>
-          <span class="info-date">{{ item2.date }}</span>
-          <span class="info-info" v-if="item2.info">{{ item2.info }}</span>
-          <button v-else class="info-btn">
-            {{ item2.cls === "精选手册" ? "阅读" : "观看" }}
+          <span class="info-info">{{ item2.info }}</span>
+          <button class="info-btn" @click="toSrc(index, item2.id)">
+            {{ item2.cls === "视频" ? "观看" : "阅读" }}
           </button>
         </div>
       </div>
@@ -31,20 +26,46 @@
 export default {
   data() {
     return {
+      indexes: ["study", "blog", "video"],
       srcList: [],
     };
   },
   mounted() {
-    this.getData();
+    if (sessionStorage.getItem("study") === null) {
+      this.getData();
+    } else {
+      this.srcList = [
+        JSON.parse(sessionStorage.getItem("study")).slice(0, 2),
+        JSON.parse(sessionStorage.getItem("blog")).slice(0, 2),
+        JSON.parse(sessionStorage.getItem("video")).slice(0, 2),
+      ];
+    }
   },
   methods: {
-    getData() {
-      this.$axios.default.get("/dev-api/index/get").then((res) => {
-        this.srcList = res.data;
+    async getData() {
+      await this.$axios.default.get("/dev-api/index/get").then((res) => {
+        this.srcList = [
+          res.data[0].slice(0, 2),
+          res.data[1].slice(0, 2),
+          res.data[2].slice(0, 2),
+        ];
+        sessionStorage.setItem("study", JSON.stringify(res.data[0]));
+        sessionStorage.setItem("blog", JSON.stringify(res.data[1]));
+        sessionStorage.setItem("video", JSON.stringify(res.data[2]));
       });
     },
     pushIndex(index) {
-      this.$emit("pushIndex", index);
+      this.$router.push({
+        name: this.indexes[index],
+      });
+    },
+    toSrc(index, id) {
+      this.$router.push({
+        name: this.indexes[index] + "content",
+        params: {
+          id: id,
+        },
+      });
     },
   },
 };
@@ -79,6 +100,10 @@ export default {
 .more {
   color: #878787;
   text-decoration: none;
+  cursor: pointer;
+}
+.more:hover {
+  color: #000;
 }
 .content {
   width: calc(100% - 20px);
@@ -111,14 +136,14 @@ export default {
   font-weight: bold;
   font-size: 20px;
 }
-.info .info-date {
+.info .info-info {
   font-size: 14px;
   color: #ccc;
   margin: 10px 0;
-}
-.info .info-info {
-  font-size: 14px;
-  color: #aaa;
+  max-width: 480px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .info .info-btn {
   width: 80px;
@@ -129,5 +154,8 @@ export default {
   border: none;
   cursor: pointer;
   user-select: none;
+}
+.info .info-btn:hover {
+  box-shadow: 0 0 5px rgb(156, 209, 233);
 }
 </style>
