@@ -33,15 +33,32 @@
       ></i>
     </el-input>
     <!-- 登录按钮 -->
-    <div class="login-btn">登录</div>
+    <div class="btn-container">
+      <div
+        class="login-btn logined"
+        @mouseenter="loginedEnter"
+        @mouseleave="loginedLeave"
+        v-if="isLogin"
+      >
+        已登录
+      </div>
+      <div class="login-btn" v-else @click="toLogin">登录</div>
+      <div
+        class="btn-hover"
+        @mouseenter="btnHoverEnter"
+        @mouseleave="btnHoverLeave"
+      >
+        <li v-if="admin">管理</li>
+        <li @click="quit">退出登录</li>
+      </div>
+    </div>
   </el-menu>
 </template>
 <script>
-// 差一个搜索功能
-
 export default {
   data() {
     return {
+      isLogin: false,
       index: "/index",
       navList: [
         {
@@ -66,6 +83,8 @@ export default {
         },
       ],
       searchParams: "",
+      admin: false,
+      btnHover: null,
     };
   },
   mounted() {
@@ -74,6 +93,8 @@ export default {
       this.index = flag;
     }
     this.searchParams = sessionStorage.getItem("search");
+    this.isLogin = !!localStorage.getItem("user");
+    this.admin = this.isLogin && localStorage.getItem("admin") === "1025";
   },
   methods: {
     setIndex(index) {
@@ -88,6 +109,31 @@ export default {
           this.$router.go(0);
         }
       }
+    },
+    toLogin() {
+      this.$router.push("/login");
+    },
+    quit() {
+      localStorage.removeItem("user");
+      localStorage.removeItem("admin");
+      this.$router.go(0);
+    },
+    loginedEnter(e) {
+      clearTimeout(this.btnHover);
+      e.target.parentNode.children[1].style.display = "block";
+    },
+    loginedLeave(e) {
+      this.btnHover = setTimeout(() => {
+        e.target.parentNode.children[1].style.display = "none";
+      }, 800);
+    },
+    btnHoverEnter() {
+      clearTimeout(this.btnHover);
+    },
+    btnHoverLeave(e) {
+      this.btnHover = setTimeout(() => {
+        e.target.style.display = "none";
+      }, 800);
     },
   },
 };
@@ -115,6 +161,12 @@ ul {
   margin-right: 12px;
   position: relative;
 }
+.btn-container {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  height: auto;
+}
 .login-btn {
   background: #0084ff;
   color: #fff;
@@ -126,13 +178,52 @@ ul {
   font-size: 16px;
   cursor: pointer;
 }
+.logined {
+  background: green;
+}
+
 .login-btn:hover {
   background-color: #108cff;
+}
+.logined:hover {
+  background: red;
 }
 .el-input__icon.el-icon-search {
   cursor: pointer;
 }
 .el-input__icon.el-icon-search:hover {
   color: #108cff;
+}
+.btn-hover {
+  display: none;
+  width: 100px;
+  height: auto;
+  background: #bebebedd;
+  position: absolute;
+  top: 72px;
+  color: #444343;
+  border-radius: 10px;
+}
+.btn-hover::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-bottom: 10px solid #bebebedd;
+  position: absolute;
+  left: 40px;
+  top: -20px;
+}
+.btn-hover li {
+  margin: 6px 0;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+.btn-hover li:hover {
+  background: #bebebe;
+}
+.btn-hover:hover {
+  display: block;
 }
 </style>

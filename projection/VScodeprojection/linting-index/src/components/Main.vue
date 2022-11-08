@@ -1,11 +1,13 @@
 <template>
   <!-- 主体展示部分 -->
-  <div class="container">
+  <div class="main-container">
     <div class="main-content">
-      <router-view @putIndex="putIndex" />
+      <router-view />
       <Bottom></Bottom>
     </div>
-    <SideContent></SideContent>
+    <keep-alive>
+      <SideContent></SideContent>
+    </keep-alive>
   </div>
 </template>
 <script>
@@ -16,16 +18,10 @@ export default {
     Bottom,
     SideContent,
   },
-  methods: {
-    putIndex(index) {
-      this.index = index;
-      console.log(index);
-    },
-  },
 };
 </script>
 <style lang='scss' scoped>
-.container {
+.main-container {
   width: 960px;
   // height: calc(100vh - 93.6px);
   margin-top: 10px;

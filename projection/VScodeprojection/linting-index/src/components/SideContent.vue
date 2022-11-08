@@ -94,6 +94,7 @@ export default {
   font-size: 20px;
   font-weight: bold;
   margin: 5px 0;
+  text-indent: 5px;
 }
 .info {
   width: 100%;

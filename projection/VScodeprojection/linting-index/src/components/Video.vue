@@ -100,6 +100,9 @@ export default {
   font-size: 20px;
   color: #aaa;
   margin: 10px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .info .info-btn {
   width: 80px;

@@ -3,13 +3,23 @@
     <div class="video-title">{{ videoSrcList.section }}</div>
     <div class="video-date">{{ videoSrcList.date }}</div>
     <div class="video-content">
-      <video :src="videoSrcList.mp4" controls></video>
+      <video :src="videoSrcList.mp4" controls @click="checkLogin"></video>
     </div>
   </div>
 </template>
 <script>
 export default {
   props: ["videoSrcList"],
+  methods: {
+    checkLogin(e) {
+      if (!localStorage.getItem("user")) {
+        e.preventDefault();
+        if (confirm("观看视频，需要先登录")) {
+          this.$router.push("/login");
+        }
+      }
+    },
+  },
 };
 </script>
 <style lang='scss' scoped>

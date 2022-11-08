@@ -26,9 +26,8 @@ module.exports = (appInfo) => {
     defaultViewEngine: "nunjucks",
   };
   config.security = {
-    crsf: {
+    csrf: {
       enable: false,
-      ignoreJSON: true,
     },
     domainWhiteList: [],
   };

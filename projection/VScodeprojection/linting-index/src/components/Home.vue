@@ -1,9 +1,11 @@
 <template>
   <div class="home">
     <!-- 导航 -->
-    <Nav :pIndex="index"></Nav>
+    <keep-alive>
+      <Nav></Nav>
+    </keep-alive>
     <!-- 主体 -->
-    <Main @putIndex="putIndex"></Main>
+    <Main></Main>
   </div>
 </template>
 <script>
@@ -13,16 +15,6 @@ export default {
   components: {
     Nav,
     Main,
-  },
-  data() {
-    return {
-      index: "",
-    };
-  },
-  methods: {
-    putIndex(index) {
-      this.index = index;
-    },
   },
 };
 </script>

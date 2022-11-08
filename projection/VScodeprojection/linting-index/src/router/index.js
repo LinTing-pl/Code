@@ -1,78 +1,72 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../components/Home";
-import Index from "../components/Index";
-import Study from "../components/Study";
-import Blog from "../components/Blog";
-import Video from "../components/Video";
-import Load from "../components/Load";
-import Details from "../components/Details.vue";
-import StudyContent from "../components/StudyContent.vue";
-import BlogContent from "../components/BlogContent.vue";
-import VideoContent from "../components/VideoContent.vue";
-import Search from "../components/Search.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   { path: "/", redirect: "/home" },
   {
+    path: "/login",
+    name: "login",
+    component: () => import("../components/Login.vue"),
+  },
+  {
     path: "/home",
     name: "home",
-    component: Home,
+    component: () => import("../components/Home"),
     redirect: "/index",
     children: [
       {
         path: "/index",
         name: "index",
-        component: Index,
+        component: () => import("../components/Index"),
       },
       {
         path: "/study",
         name: "study",
-        component: Study,
+        component: () => import("../components/Study"),
       },
       {
         path: "/blog",
         name: "blog",
-        component: Blog,
+        component: () => import("../components/Blog"),
       },
       {
         path: "/video",
         name: "video",
-        component: Video,
+        component: () => import("../components/Video"),
       },
       {
         path: "/load",
         name: "load",
-        component: Load,
+        component: () => import("../components/Load"),
       },
       {
         path: "/search",
         name: "search",
-        component: Search,
+        component: () => import("../components/Search.vue"),
       },
     ],
   },
   {
     path: "/details",
     name: "details",
-    component: Details,
+    component: () => import("../components/Details.vue"),
     children: [
       {
         path: "/studycontent/:id",
         name: "studycontent",
-        component: StudyContent,
+        component: () => import("../components/StudyContent.vue"),
       },
       {
         path: "/blogcontent/:id",
         name: "blogcontent",
-        component: BlogContent,
+        component: () => import("../components/BlogContent.vue"),
       },
       {
         path: "/videocontent/:id",
         name: "videocontent",
-        component: VideoContent,
+        component: () => import("../components/VideoContent.vue"),
       },
     ],
   },

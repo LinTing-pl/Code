@@ -5,36 +5,108 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <style>
-      table {
-        border-collapse: collapse;
-        border: none;
-        border-spacing: 0;
-      }
-      td {
-        position: relative;
-        width: 50px;
-        height: 50px;
-        border: 5px solid blue;
-        background: #fff;
-        color: green;
-        text-align: center;
-        line-height: 50px;
-        display: inline-block;
-      }
-      tr:not(:first-child) td {
-        margin-top: -5px;
-      }
-      tr td:not(:last-child) {
-        margin-right: -5px;
-      }
-      td:hover {
-        border-color: red;
-        cursor: pointer;
-        z-index: 2;
-      }
-    </style>
+    <style></style>
   </head>
   <body></body>
-  <script></script>
+  <script>
+    // while((line = read_line()) != ''){}
+    // let n = 10;
+    // let arr = [5, 1, 2, 1, 5, 9, 3, 5, 1, 1];
+    // let res = 0;
+    // for (let i = 0; i < arr.length; i++) {
+    //   let count = 1;
+    //   for (let j = i; j > 0; j--) {
+    //     if (arr[j] < arr[j - 1]) {
+    //       break;
+    //     }
+    //     count++;
+    //   }
+    //   for (let j = i; j < n - 1; j++) {
+    //     if (arr[j] < arr[j + 1]) {
+    //       break;
+    //     }
+    //     count++;
+    //   }
+    //   if (count > res) {
+    //     res = count;
+    //   }
+    // }
+    // console.log(res);
+  </script>
+  <script>
+    // while((line = read_line()) != ''){}
+    // let n = 100;
+    // let q = 2;
+    // let L = 1,
+    //   R = 30;
+    // let arr = [];
+    // for (let i = 0; i < n; i++) {
+    //   arr.push(true);
+    // }
+    // arr.forEach((v, i) => {
+    //   if (i >= L - 1 && i <= R - 1) {
+    //     arr[i] = !arr[i];
+    //   }
+    // });
+    // let count = 0;
+    // for (let i = 0; i < n; i++) {
+    //   if (arr[i]) {
+    //     count++;
+    //   }
+    // }
+    // console.log(count);
+    //  L = 21,
+    //   R = 40;
+    // arr = [];
+    // for (let i = 0; i < n; i++) {
+    //   arr.push(true);
+    // }
+    // arr.forEach((v, i) => {
+    //   if (i >= L - 1 && i <= R - 1) {
+    //     arr[i] = !arr[i];
+    //   }
+    // });
+    // let count = 0;
+    // for (let i = 0; i < n; i++) {
+    //   if (arr[i]) {
+    //     count++;
+    //   }
+    // }
+    // console.log(count);
+  </script>
+  <script>
+    // let list = [
+    //   [1, 2, 3],
+    //   [4, 5, 6],
+    // ];
+    // let res = [];
+    // let n = list.length;
+    // let m = list[0].length;
+    // for (let i = 0; i < m; i++) {
+    //   let l = [];
+    //   for (let j = 0; j < n; j++) {
+    //     l.push(list[j][i]);
+    //   }
+    //   res.push(l);
+    // }
+    // console.log(res);
+  </script>
+  <script>
+    function deepClone(arr = {}) {
+      if (typeof arr !== "object" || arr === null) return arr;
+      let result;
+      arr instanceof Array ? (result = []) : (result = {});
+      for (const key in arr) {
+        result[key] = deepClone(arr[key]);
+      }
+      return result;
+    }
+    let arr = {
+      a: 2,
+      b: [33, 22],
+      c: null,
+      d: { 1: 2 },
+    };
+    console.log(deepClone(arr));
+  </script>
 </html>
