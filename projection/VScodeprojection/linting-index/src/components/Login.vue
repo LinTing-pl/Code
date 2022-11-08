@@ -54,6 +54,9 @@ export default {
   mounted() {
     this.clickBtn();
   },
+  destroyed() {
+    document.removeEventListener("keyup", this.addEnterEvent);
+  },
   methods: {
     toggleFlag() {
       this.flag = !this.flag;
@@ -73,23 +76,29 @@ export default {
       }, 500);
     },
     login() {
-      this.$axios.default
-        .post("/dev-api/login/login", {
-          account: this.login_account,
-          password: this.login_password,
-        })
-        .then((res) => {
-          if (res.data.status == 200) {
-            this.login_err = "";
-            localStorage.setItem("user", this.login_account);
-            if (res.data.admin) {
-              localStorage.setItem("admin", res.data.admin);
+      if (!this.login_account) {
+        this.login_err = "请输入用户名!";
+      } else if (!this.login_password) {
+        this.login_err = "请输入密码!";
+      } else {
+        this.$axios.default
+          .post("/dev-api/login/login", {
+            account: this.login_account,
+            password: this.login_password,
+          })
+          .then((res) => {
+            if (res.data.status == 200) {
+              this.login_err = "";
+              localStorage.setItem("user", this.login_account);
+              if (res.data.admin) {
+                localStorage.setItem("admin", res.data.admin);
+              }
+              this.$router.go(-1);
+            } else {
+              this.login_err = res.data.status;
             }
-            this.$router.go(-1);
-          } else {
-            this.login_err = res.data.status;
-          }
-        });
+          });
+      }
     },
     register() {
       if (!this.register_account) {
@@ -116,12 +125,13 @@ export default {
           });
       }
     },
+    addEnterEvent(e) {
+      if (e.keyCode === 13) {
+        this.$refs.login.click();
+      }
+    },
     clickBtn() {
-      document.addEventListener("keyup", (e) => {
-        if (e.keyCode === 13) {
-          this.$refs.login.click();
-        }
-      });
+      document.addEventListener("keyup", this.addEnterEvent);
     },
   },
 };

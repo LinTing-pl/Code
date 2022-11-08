@@ -48,7 +48,7 @@
         @mouseenter="btnHoverEnter"
         @mouseleave="btnHoverLeave"
       >
-        <li v-if="admin">管理</li>
+        <li @click="toAdmin" v-if="admin">管理</li>
         <li @click="quit">退出登录</li>
       </div>
     </div>
@@ -112,6 +112,9 @@ export default {
     },
     toLogin() {
       this.$router.push("/login");
+    },
+    toAdmin() {
+      this.$router.push({ name: "admin" });
     },
     quit() {
       localStorage.removeItem("user");

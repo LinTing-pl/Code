@@ -9,6 +9,9 @@ const routes = [
     path: "/login",
     name: "login",
     component: () => import("../components/Login.vue"),
+    meta: {
+      logined: true,
+    },
   },
   {
     path: "/home",
@@ -69,6 +72,14 @@ const routes = [
         component: () => import("../components/VideoContent.vue"),
       },
     ],
+  },
+  {
+    path: "/admin",
+    name: "admin",
+    component: () => import("../components/admin.vue"),
+    meta: {
+      required: true,
+    },
   },
 ];
 
