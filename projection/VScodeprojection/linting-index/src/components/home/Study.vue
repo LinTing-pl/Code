@@ -1,30 +1,23 @@
 <template>
   <div class="container">
-    <div
-      class="card"
-      v-for="(item, index) in srcList"
-      :key="index"
-      @click="read(item.id)"
-    >
+    <div class="card" v-for="(item, index) in srcList" :key="index">
       <div class="img">
         <img :src="item.img" alt="" />
       </div>
       <div class="info">
         <span class="info-title">{{ item.title }}</span>
-        <span class="info-date">{{ item.date }}</span>
         <span class="info-info">{{ item.info }}</span>
+        <button class="info-btn" @click="read(item.id)">阅读</button>
       </div>
     </div>
-    <div class="block">
-      <el-pagination
-        @current-change="handleCurrentChange"
-        :current-page.sync="currentPage"
-        :page-size="5"
-        layout="total, prev, pager, next"
-        :total="blogLength"
-      >
-      </el-pagination>
-    </div>
+    <el-pagination
+      @current-change="handleCurrentChange"
+      :current-page.sync="currentPage"
+      :page-size="5"
+      layout="total, prev, pager, next"
+      :total="studyLength"
+    >
+    </el-pagination>
   </div>
 </template>
 <script>
@@ -33,21 +26,23 @@ export default {
     return {
       srcList: [],
       currentPage: 1,
-      blogLength: JSON.parse(sessionStorage.getItem("blog")).length,
+      studyLength: JSON.parse(sessionStorage.getItem("study")).length,
     };
   },
   mounted() {
+    this.currentPage = JSON.parse(sessionStorage.getItem("currStudyPage")) || 1;
     this.handleCurrentChange();
   },
   methods: {
     read(id) {
       this.$router.push({
-        name: "blogcontent",
+        name: "studycontent",
         params: { id: id },
       });
     },
     handleCurrentChange() {
-      this.srcList = JSON.parse(sessionStorage.getItem("blog")).slice(
+      sessionStorage.setItem("currStudyPage", this.currentPage.toString());
+      this.srcList = JSON.parse(sessionStorage.getItem("study")).slice(
         (this.currentPage - 1) * 5,
         this.currentPage * 5
       );
@@ -62,22 +57,21 @@ export default {
   display: flex;
   flex-direction: column;
   margin: 0;
+  background-color: #fff;
+  margin-bottom: 10px;
 }
 .card {
   width: 100%;
-  height: 110px;
+  height: 100px;
   position: relative;
   display: flex;
-  justify-content: center;
   align-items: center;
-  background-color: #fff;
-  margin-bottom: 10px;
-  cursor: pointer;
+  margin-bottom: 20px;
 }
 .img {
   display: flex;
   align-items: center;
-  height: 90px;
+  height: 100%;
   width: 120px;
 }
 .img img {
@@ -94,23 +88,30 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: start;
+  border-bottom: 1px solid #ddd;
 }
 .info .info-title {
   font-weight: bold;
   font-size: 20px;
 }
-.info .info-date {
-  font-size: 14px;
-  color: #ccc;
-  margin: 10px 0;
-}
 .info .info-info {
-  font-size: 20px;
-  color: #aaa;
-}
-.block {
   width: 100%;
-  background-color: #fff;
-  margin-bottom: 10px;
+  margin: 5px 0;
+  font-size: 16px;
+  text-align: left;
+  color: #aaa;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.info .info-btn {
+  width: 80px;
+  height: 30px;
+  background-color: #e4f0fc;
+  color: #46a5fd;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  user-select: none;
 }
 </style>

@@ -8,7 +8,7 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    component: () => import("../components/Login.vue"),
+    component: () => import("../components/login/Login.vue"),
     meta: {
       logined: true,
     },
@@ -16,67 +16,67 @@ const routes = [
   {
     path: "/home",
     name: "home",
-    component: () => import("../components/Home"),
+    component: () => import("../components/home/Home.vue"),
     redirect: "/index",
     children: [
       {
         path: "/index",
         name: "index",
-        component: () => import("../components/Index"),
+        component: () => import("../components/home/Index.vue"),
       },
       {
         path: "/study",
         name: "study",
-        component: () => import("../components/Study"),
+        component: () => import("../components/home/Study.vue"),
       },
       {
         path: "/blog",
         name: "blog",
-        component: () => import("../components/Blog"),
+        component: () => import("../components/home/Blog.vue"),
       },
       {
         path: "/video",
         name: "video",
-        component: () => import("../components/Video"),
+        component: () => import("../components/home/Video.vue"),
       },
       {
         path: "/load",
         name: "load",
-        component: () => import("../components/Load"),
+        component: () => import("../components/home/Load.vue"),
       },
       {
         path: "/search",
         name: "search",
-        component: () => import("../components/Search.vue"),
+        component: () => import("../components/home/Search.vue"),
       },
     ],
   },
   {
     path: "/details",
     name: "details",
-    component: () => import("../components/Details.vue"),
+    component: () => import("../components/details/Details.vue"),
     children: [
       {
         path: "/studycontent/:id",
         name: "studycontent",
-        component: () => import("../components/StudyContent.vue"),
+        component: () => import("../components/details/study/StudyContent.vue"),
       },
       {
         path: "/blogcontent/:id",
         name: "blogcontent",
-        component: () => import("../components/BlogContent.vue"),
+        component: () => import("../components/details/blog/BlogContent.vue"),
       },
       {
         path: "/videocontent/:id",
         name: "videocontent",
-        component: () => import("../components/VideoContent.vue"),
+        component: () => import("../components/details/video/VideoContent.vue"),
       },
     ],
   },
   {
     path: "/admin",
     name: "admin",
-    component: () => import("../components/admin.vue"),
+    component: () => import("../components/admin/admin.vue"),
     meta: {
       required: true,
     },

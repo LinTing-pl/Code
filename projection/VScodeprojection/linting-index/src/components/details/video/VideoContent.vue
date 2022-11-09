@@ -13,8 +13,8 @@
             v-for="(item, index) in srcList.sections"
             :key="index"
             @click="
-              toVideoSrc(item);
-              addActive($event, index);
+              toVideoSrc(item, index);
+              addActive($event);
             "
           >
             {{ item.section }}
@@ -42,8 +42,8 @@
   </div>
 </template>
 <script>
-import VideoSrc from "../components/VideoSrc.vue";
-import Bottom from "../components/Bottom.vue";
+import VideoSrc from "./VideoSrc.vue";
+import Bottom from "../../public/Bottom.vue";
 export default {
   components: {
     VideoSrc,
@@ -55,13 +55,24 @@ export default {
       videoSrcList: [],
       othersSrcList: [],
       bigImg: "",
-      activeIndex: null,
+      activeIndex: 0,
     };
   },
   mounted() {
-    this.getData();
-    this.activeIndex =
-      JSON.parse(sessionStorage.getItem("videoSectionIndex")) || 0;
+    let storage = sessionStorage.getItem(
+      `videocontent${this.$route.params.id}`
+    );
+    if (storage) {
+      let data = JSON.parse(storage);
+      this.srcList = data;
+      this.srcList.sections = JSON.parse(data.sections);
+    } else {
+      this.getData();
+    }
+    let indexStorage = sessionStorage.getItem(
+      `videoSectionIndex${this.$route.params.id}`
+    );
+    if (indexStorage) this.activeIndex = JSON.parse(indexStorage) || 0;
   },
   updated() {
     if (!!document.querySelector(".active3")) {
@@ -72,6 +83,7 @@ export default {
     getData() {
       let id = this.$route.params.id;
       this.$axios.default.get(`/dev-api/video/get/${id}`).then((res) => {
+        sessionStorage.setItem(`videocontent${id}`, JSON.stringify(res.data));
         this.srcList = res.data;
         this.srcList.sections = JSON.parse(res.data.sections);
       });
@@ -82,16 +94,19 @@ export default {
       );
       this.bigImg = this.othersSrcList[0].img;
     },
-    addActive(e, index) {
+    addActive(e) {
       let sections = e.target.parentNode.querySelectorAll(".section");
       sections.forEach((v) => {
         v.classList.remove("active3");
       });
       e.target.classList.add("active3");
-      sessionStorage.setItem("videoSectionIndex", index);
     },
-    toVideoSrc(item) {
+    toVideoSrc(item, index) {
       this.videoSrcList = item;
+      sessionStorage.setItem(
+        `videoSectionIndex${this.$route.params.id}`,
+        index
+      );
     },
   },
 };

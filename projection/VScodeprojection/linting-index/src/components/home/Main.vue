@@ -11,8 +11,8 @@
   </div>
 </template>
 <script>
-import Bottom from "./Bottom";
-import SideContent from "./SideContent.vue";
+import Bottom from "../public/Bottom.vue";
+import SideContent from "../public/SideContent.vue";
 export default {
   components: {
     Bottom,

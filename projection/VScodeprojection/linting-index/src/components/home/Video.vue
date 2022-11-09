@@ -10,16 +10,14 @@
         <button class="info-btn" @click="read(item.id)">观看</button>
       </div>
     </div>
-    <div class="block">
-      <el-pagination
-        @current-change="handleCurrentChange"
-        :current-page.sync="currentPage"
-        :page-size="5"
-        layout="total, prev, pager, next"
-        :total="videoLength"
-      >
-      </el-pagination>
-    </div>
+    <el-pagination
+      @current-change="handleCurrentChange"
+      :current-page.sync="currentPage"
+      :page-size="5"
+      layout="total, prev, pager, next"
+      :total="videoLength"
+    >
+    </el-pagination>
   </div>
 </template>
 <script>
@@ -32,6 +30,7 @@ export default {
     };
   },
   mounted() {
+    this.currentPage = JSON.parse(sessionStorage.getItem("currVideoPage")) || 1;
     this.handleCurrentChange();
   },
   methods: {
@@ -44,6 +43,7 @@ export default {
       });
     },
     handleCurrentChange() {
+      sessionStorage.setItem("currVideoPage", this.currentPage.toString());
       this.srcList = JSON.parse(sessionStorage.getItem("video")).slice(
         (this.currentPage - 1) * 5,
         this.currentPage * 5

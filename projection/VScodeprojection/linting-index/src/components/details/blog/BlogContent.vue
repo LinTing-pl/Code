@@ -11,7 +11,7 @@
   </div>
 </template>
 <script>
-import SideContent from "../components/SideContent.vue";
+import SideContent from "../../public/SideContent.vue";
 export default {
   components: {
     SideContent,
@@ -29,8 +29,15 @@ export default {
         this.id = this.$route.params.id;
         if (this.id) {
           //不为空
-          this.getOneBlog();
-        } else {
+          let storage = sessionStorage.getItem(
+            `blogcontent${this.$route.params.id}`
+          );
+          if (storage) {
+            let data = JSON.parse(storage);
+            this.data = data;
+          } else {
+            this.getOneBlog();
+          }
         }
       },
       immediate: true,
@@ -38,12 +45,19 @@ export default {
   },
 
   mounted() {
-    this.getOneBlog();
+    let storage = sessionStorage.getItem(`blogcontent${this.$route.params.id}`);
+    if (storage) {
+      let data = JSON.parse(storage);
+      this.data = data;
+    } else {
+      this.getOneBlog();
+    }
   },
   methods: {
     getOneBlog() {
       let id = this.$route.params.id;
       this.$axios.default.get(`/dev-api/blog/get/${id}`).then((res) => {
+        sessionStorage.setItem(`blogcontent${id}`, JSON.stringify(res.data));
         this.data = res.data;
       });
     },

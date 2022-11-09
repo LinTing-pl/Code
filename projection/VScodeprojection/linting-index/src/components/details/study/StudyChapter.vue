@@ -41,15 +41,12 @@ export default {
   },
   props: ["list"],
   mounted() {
-    if (sessionStorage.getItem("sectionIndex") !== null) {
+    let id = this.$route.params.id;
+    if (sessionStorage.getItem(`chapterIndex${id}`) !== null) {
       this.chapterIndex =
-        parseInt(
-          (this.chapterIndex = sessionStorage.getItem("chapterIndex"))
-        ) || 0;
+        parseInt(sessionStorage.getItem(`chapterIndex${id}`)) || 0;
       this.sectionIndex =
-        parseInt(
-          (this.sectionIndex = sessionStorage.getItem("sectionIndex"))
-        ) || 0;
+        parseInt(sessionStorage.getItem(`sectionIndex${id}`)) || 0;
     }
   },
   updated() {
@@ -69,8 +66,9 @@ export default {
     },
     toStudySrc(title, content, index1, index2) {
       this.$emit("putBookcontent", { title: title, content: content });
-      sessionStorage.setItem("sectionIndex", index2);
-      sessionStorage.setItem("chapterIndex", index1);
+      let id = this.$route.params.id;
+      sessionStorage.setItem(`sectionIndex${id}`, index2.toString());
+      sessionStorage.setItem(`chapterIndex${id}`, index1.toString());
     },
   },
 };

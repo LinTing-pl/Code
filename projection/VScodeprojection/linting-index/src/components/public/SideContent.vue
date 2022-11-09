@@ -39,11 +39,18 @@ export default {
     };
   },
   mounted() {
-    this.getData();
+    if (sessionStorage.getItem("sidecontent")) {
+      let data = JSON.parse(sessionStorage.getItem("sidecontent"));
+      this.sideList = data.slice(0, 4);
+      this.bigImg = this.sideList[0]["img"];
+    } else {
+      this.getData();
+    }
   },
   methods: {
     getData() {
       this.$axios.default.get("/dev-api/blog/get").then((res) => {
+        sessionStorage.setItem("sidecontent", JSON.stringify(res.data));
         this.sideList = res.data.slice(0, 4);
         this.bigImg = this.sideList[0]["img"];
       });

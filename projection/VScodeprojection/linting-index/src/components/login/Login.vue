@@ -155,7 +155,7 @@ export default {
   content: "";
   position: absolute;
   inset: 0;
-  background: url("../../public/login.jpg") no-repeat;
+  background: url("../../../public/login.jpg") no-repeat;
   background-size: cover;
   background-position: center;
   opacity: 0.8;

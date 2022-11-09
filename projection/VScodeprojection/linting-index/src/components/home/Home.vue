@@ -9,8 +9,8 @@
   </div>
 </template>
 <script>
-import Nav from "./Nav";
-import Main from "./Main";
+import Nav from "../public/Nav.vue";
+import Main from "./Main.vue";
 export default {
   components: {
     Nav,
