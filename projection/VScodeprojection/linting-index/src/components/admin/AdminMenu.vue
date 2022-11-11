@@ -13,6 +13,7 @@
         <span>内容管理</span>
       </template>
       <el-menu-item
+        :class="item[0].slice(1)"
         :index="item[0]"
         @click="setIndex(item[0])"
         v-for="(item, index) in contentMenuList"
@@ -25,7 +26,10 @@
         <i class="el-icon-menu"></i>
         <span>用户管理</span>
       </template>
-      <el-menu-item index="/adminusers" @click="setIndex('/adminusers')"
+      <el-menu-item
+        class="adminusers"
+        index="/adminusers"
+        @click="setIndex('/adminusers')"
         >用户列表</el-menu-item
       >
     </el-submenu>
@@ -46,6 +50,7 @@ export default {
   },
   mounted() {
     this.adminIndex = sessionStorage.getItem("adminIndex") || "/adminstudy";
+    document.getElementsByClassName(this.adminIndex.slice(1))[0].click();
   },
   methods: {
     to() {

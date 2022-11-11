@@ -72,7 +72,6 @@ export default {
       this.bookcontent = data;
     },
     read(id) {
-      console.log(id);
       this.$router
         .push("/studycontent/" + id)
         .then((res) => {

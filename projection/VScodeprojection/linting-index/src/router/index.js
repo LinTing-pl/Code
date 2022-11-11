@@ -91,12 +91,16 @@ const routes = [
       },
       {
         path: "/adminblog",
+        name: "adminblog",
+        component: () => import("../components/admin/BlogAdmin.vue"),
         meta: {
           required: true,
         },
       },
       {
         path: "/adminvideo",
+        name: "adminvideo",
+        component: () => import("../components/admin/VideoAdmin.vue"),
         meta: {
           required: true,
         },
