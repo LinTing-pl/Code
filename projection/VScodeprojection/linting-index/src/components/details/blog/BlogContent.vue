@@ -22,6 +22,15 @@ export default {
       id: "",
     };
   },
+  mounted() {
+    let storage = sessionStorage.getItem(`blogcontent${this.$route.params.id}`);
+    if (storage) {
+      let data = JSON.parse(storage);
+      this.data = data;
+    } else {
+      this.getOneBlog();
+    }
+  },
   watch: {
     //监听route
     $route: {
@@ -42,16 +51,6 @@ export default {
       },
       immediate: true,
     },
-  },
-
-  mounted() {
-    let storage = sessionStorage.getItem(`blogcontent${this.$route.params.id}`);
-    if (storage) {
-      let data = JSON.parse(storage);
-      this.data = data;
-    } else {
-      this.getOneBlog();
-    }
   },
   methods: {
     getOneBlog() {

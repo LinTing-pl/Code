@@ -42,10 +42,14 @@ export default {
     },
     handleCurrentChange() {
       sessionStorage.setItem("currStudyPage", this.currentPage.toString());
-      this.srcList = JSON.parse(sessionStorage.getItem("study")).slice(
-        (this.currentPage - 1) * 5,
-        this.currentPage * 5
-      );
+      try {
+        this.srcList = JSON.parse(sessionStorage.getItem("study")).slice(
+          (this.currentPage - 1) * 5,
+          this.currentPage * 5
+        );
+      } catch (e) {
+        this.$router.push("/");
+      }
     },
   },
 };

@@ -47,10 +47,14 @@ export default {
     },
     handleCurrentChange() {
       sessionStorage.setItem("currBlogPage", this.currentPage.toString());
-      this.srcList = JSON.parse(sessionStorage.getItem("blog")).slice(
-        (this.currentPage - 1) * 5,
-        this.currentPage * 5
-      );
+      try {
+        this.srcList = JSON.parse(sessionStorage.getItem("blog")).slice(
+          (this.currentPage - 1) * 5,
+          this.currentPage * 5
+        );
+      } catch (e) {
+        this.$router.push("/");
+      }
     },
   },
 };

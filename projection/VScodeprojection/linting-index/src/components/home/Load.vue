@@ -6,7 +6,8 @@
       </div>
       <div class="info">
         <span class="info-title">{{ item.title }}</span>
-        <span class="info-psd">提取码: {{ item.psd }}</span>
+        <span class="info-url">链接: {{ item.url }}</span>
+        <span class="info-psd">提取码: {{ item.code }}</span>
       </div>
       <a href="#">立即下载</a>
     </div>
@@ -78,6 +79,9 @@ export default {
   font-weight: bold;
   font-size: 20px;
   margin-bottom: 10px;
+}
+.info .info-url {
+  font-size: 18px;
 }
 .info .info-psd {
   font-size: 18px;

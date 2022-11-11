@@ -31,28 +31,32 @@ export default {
     };
   },
   mounted() {
-    if (sessionStorage.getItem("study") === null) {
-      this.getData();
-    } else {
-      this.srcList = [
-        JSON.parse(sessionStorage.getItem("study")).slice(0, 2),
-        JSON.parse(sessionStorage.getItem("blog")).slice(0, 2),
-        JSON.parse(sessionStorage.getItem("video")).slice(0, 2),
-      ];
+    if (!this.srcList.length) {
+      if (sessionStorage.getItem("study") === null) {
+        this.getData();
+      } else {
+        this.srcList = [
+          JSON.parse(sessionStorage.getItem("study")).slice(0, 2),
+          JSON.parse(sessionStorage.getItem("blog")).slice(0, 2),
+          JSON.parse(sessionStorage.getItem("video")).slice(0, 2),
+        ];
+      }
     }
   },
   methods: {
     async getData() {
-      await this.$axios.default.get("/dev-api/index/get").then((res) => {
-        this.srcList = [
-          res.data[0].slice(0, 2),
-          res.data[1].slice(0, 2),
-          res.data[2].slice(0, 2),
-        ];
-        sessionStorage.setItem("study", JSON.stringify(res.data[0]));
-        sessionStorage.setItem("blog", JSON.stringify(res.data[1]));
-        sessionStorage.setItem("video", JSON.stringify(res.data[2]));
-      });
+      await this.$axios.default
+        .post("/dev-api/index/get", { flag: "all" })
+        .then((res) => {
+          this.srcList = [
+            res.data[0].slice(0, 2),
+            res.data[1].slice(0, 2),
+            res.data[2].slice(0, 2),
+          ];
+          sessionStorage.setItem("study", JSON.stringify(res.data[0]));
+          sessionStorage.setItem("blog", JSON.stringify(res.data[1]));
+          sessionStorage.setItem("video", JSON.stringify(res.data[2]));
+        });
     },
     pushIndex(index) {
       this.$router.push({

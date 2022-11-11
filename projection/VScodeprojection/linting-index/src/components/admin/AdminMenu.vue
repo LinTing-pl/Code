@@ -23,7 +23,7 @@
     </el-submenu>
     <el-submenu index="2">
       <template slot="title">
-        <i class="el-icon-menu"></i>
+        <i class="el-icon-user-solid"></i>
         <span>用户管理</span>
       </template>
       <el-menu-item
@@ -58,14 +58,16 @@ export default {
     },
     setIndex(index) {
       sessionStorage.setItem("adminIndex", index);
+      this.$emit("searchSelect", index.slice(6));
     },
   },
 };
 </script>
 <style lang='scss' scoped>
 .el-menu {
-  width: 240px;
-  height: calc(100vh - 40px);
+  min-width: 240px;
+  height: calc(100vh - 60px);
+  user-select: none;
 }
 .el-menu-item {
   text-indent: 20px;

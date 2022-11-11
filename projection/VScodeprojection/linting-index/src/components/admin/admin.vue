@@ -1,8 +1,8 @@
 <template>
   <div class="admin-container">
-    <Nav></Nav>
+    <Nav :searchSelect="searchSelect"></Nav>
     <div class="admin-main">
-      <AdminMenu></AdminMenu>
+      <AdminMenu @searchSelect="pushSearchSelect"></AdminMenu>
       <router-view></router-view>
     </div>
   </div>
@@ -14,6 +14,16 @@ export default {
   components: {
     Nav,
     AdminMenu,
+  },
+  data() {
+    return {
+      searchSelect: "",
+    };
+  },
+  methods: {
+    pushSearchSelect(data) {
+      this.searchSelect = data;
+    },
   },
 };
 </script>
