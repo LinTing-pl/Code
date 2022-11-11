@@ -76,10 +76,44 @@ const routes = [
   {
     path: "/admin",
     name: "admin",
-    component: () => import("../components/admin/admin.vue"),
+    component: () => import("../components/admin/Admin.vue"),
     meta: {
       required: true,
     },
+    children: [
+      {
+        path: "/adminstudy",
+        name: "adminstudy",
+        component: () => import("../components/admin/StudyAdmin.vue"),
+        meta: {
+          required: true,
+        },
+      },
+      {
+        path: "/adminblog",
+        meta: {
+          required: true,
+        },
+      },
+      {
+        path: "/adminvideo",
+        meta: {
+          required: true,
+        },
+      },
+      {
+        path: "/adminload",
+        meta: {
+          required: true,
+        },
+      },
+      {
+        path: "/adminusers",
+        meta: {
+          required: true,
+        },
+      },
+    ],
   },
 ];
 

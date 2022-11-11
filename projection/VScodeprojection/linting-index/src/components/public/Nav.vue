@@ -9,7 +9,7 @@
     text-color="#313131"
   >
     <!-- logo -->
-    <span class="logo">Linting</span>
+    <span class="logo" title="麟听" @click="logoClick">Linting</span>
     <!-- 导航 -->
     <el-menu-item
       :index="item.name"
@@ -97,6 +97,15 @@ export default {
     this.admin = this.isLogin && localStorage.getItem("admin") === "1025";
   },
   methods: {
+    logoClick() {
+      this.setIndex("/index");
+      this.$router
+        .push("/")
+        .then((res) => {
+          this.$router.go(0);
+        })
+        .catch((err) => {});
+    },
     setIndex(index) {
       sessionStorage.setItem("index", index);
     },
@@ -206,6 +215,7 @@ ul {
   top: 72px;
   color: #444343;
   border-radius: 10px;
+  z-index: 100;
 }
 .btn-hover::before {
   content: "";

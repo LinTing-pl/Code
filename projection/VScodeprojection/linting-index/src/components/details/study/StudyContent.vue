@@ -17,7 +17,12 @@
       <StudySrc :bookcontent="bookcontent"></StudySrc>
     </div>
     <div class="right">
-      <div class="others" v-for="(item, index) in othersList" :key="index">
+      <div
+        class="others"
+        @click="read(item.id)"
+        v-for="(item, index) in othersList"
+        :key="index"
+      >
         {{ item.title }}
       </div>
     </div>
@@ -45,6 +50,7 @@ export default {
     if (storage) {
       let data = JSON.parse(storage);
       this.studyContentList = data;
+      this.othersList = JSON.parse(sessionStorage.getItem("study")).slice(0, 4);
     } else {
       this.getData();
     }
@@ -64,6 +70,15 @@ export default {
 
     putBookcontent(data) {
       this.bookcontent = data;
+    },
+    read(id) {
+      console.log(id);
+      this.$router
+        .push("/studycontent/" + id)
+        .then((res) => {
+          this.$router.go(0);
+        })
+        .catch((err) => {});
     },
   },
 };

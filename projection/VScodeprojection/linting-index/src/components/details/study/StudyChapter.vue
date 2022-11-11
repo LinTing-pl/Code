@@ -2,7 +2,7 @@
   <div class="con">
     <div
       class="chapter"
-      @click="toggleActive($event)"
+      @click="toggleActive($event, index)"
       v-for="(item, index) in list"
       :key="index"
       :title="item.chapter"
@@ -11,7 +11,7 @@
         :class="{ 'chapter-title': true, active: index === chapterIndex }"
         >{{ item.chapter }}</span
       >
-      <div class="sections">
+      <div class="sections" ref="sections">
         <div
           :class="{
             section: true,
@@ -54,8 +54,14 @@ export default {
   },
 
   methods: {
-    toggleActive(e) {
+    toggleActive(e, index) {
       e.target.classList.toggle("active");
+      let sections = this.$refs.sections[index];
+      if (e.target.classList.contains("active")) {
+        sections.style.height = 33 * sections.children.length + "px";
+      } else {
+        sections.style.height = 0;
+      }
     },
     sectionActive(e) {
       let sections = e.path[3].querySelectorAll(".section");
@@ -75,11 +81,12 @@ export default {
 </script>
 <style lang='scss' scoped>
 .con {
-  width: 100%;
+  width: 212px;
   display: flex;
   flex-direction: column;
   background-color: #fff;
   user-select: none;
+  margin-bottom: 10px;
 }
 .chapter {
   position: relative;
@@ -100,23 +107,24 @@ export default {
   content: ">";
   margin-right: 10px;
   display: inline-block;
-  transition: all 0.3s;
+  transition: transform 0.3s;
 }
 .chapter-title.active::before {
   transform: rotate(90deg);
 }
 .sections {
-  display: none;
+  height: 0;
+  overflow: hidden;
+  transition: all 0.5s ease;
 }
 .section {
-  padding: 5px 10px 5px 40px;
+  height: 33px;
+  line-height: 33px;
+  padding: 0px 10px 0px 40px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
   color: #9b9b9b;
-}
-.chapter-title.active ~ .sections {
-  display: block;
 }
 .section.active2 {
   color: #58a6ff;

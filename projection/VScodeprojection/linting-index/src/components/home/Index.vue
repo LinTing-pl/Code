@@ -98,12 +98,13 @@ export default {
   padding: 5px 20px;
 }
 .more {
-  color: #878787;
+  color: #ccc;
   text-decoration: none;
   cursor: pointer;
+  font-size: 16px;
 }
 .more:hover {
-  color: #000;
+  color: #878787;
 }
 .content {
   width: calc(100% - 20px);
