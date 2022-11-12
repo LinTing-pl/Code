@@ -86,7 +86,7 @@ export default {
 }
 .info {
   height: 100%;
-  width: calc(100% - 180px);
+  width: 472.8px;
   display: flex;
   position: relative;
   margin-left: 20px;

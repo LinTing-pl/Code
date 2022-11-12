@@ -9,8 +9,16 @@
         <span class="info-url">链接: {{ item.url }}</span>
         <span class="info-psd">提取码: {{ item.code }}</span>
       </div>
-      <a href="#">立即下载</a>
+      <a :href="item.url" target="_blank">立即下载</a>
     </div>
+    <el-pagination
+      @current-change="handleCurrentChange"
+      :current-page.sync="currentPage"
+      :page-size="5"
+      layout="total, prev, pager, next"
+      :total="loadLength"
+    >
+    </el-pagination>
   </div>
 </template>
 <script>
@@ -18,16 +26,25 @@ export default {
   data() {
     return {
       srcList: [],
+      currentPage: 1,
+      loadLength: JSON.parse(sessionStorage.getItem("load")).length,
     };
   },
   mounted() {
-    this.getData();
+    this.currentPage = JSON.parse(sessionStorage.getItem("currLoadPage")) || 1;
+    this.handleCurrentChange();
   },
   methods: {
-    getData() {
-      this.$axios.default.get("/dev-api/load/get").then((res) => {
-        this.srcList = res.data;
-      });
+    handleCurrentChange() {
+      sessionStorage.setItem("currLoadPage", this.currentPage.toString());
+      try {
+        this.srcList = JSON.parse(sessionStorage.getItem("load")).slice(
+          (this.currentPage - 1) * 5,
+          this.currentPage * 5
+        );
+      } catch (e) {
+        this.$router.push("/");
+      }
     },
   },
 };
@@ -66,7 +83,7 @@ export default {
 }
 .info {
   height: 100%;
-  width: calc(100% - 250px);
+  width: 472.8px;
   display: flex;
   position: relative;
   margin-left: 20px;

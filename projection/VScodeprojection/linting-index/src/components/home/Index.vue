@@ -30,7 +30,7 @@ export default {
       srcList: [],
     };
   },
-  mounted() {
+  created() {
     if (!this.srcList.length) {
       if (sessionStorage.getItem("study") === null) {
         this.getData();
@@ -56,6 +56,7 @@ export default {
           sessionStorage.setItem("study", JSON.stringify(res.data[0]));
           sessionStorage.setItem("blog", JSON.stringify(res.data[1]));
           sessionStorage.setItem("video", JSON.stringify(res.data[2]));
+          sessionStorage.setItem("load", JSON.stringify(res.data[3]));
         });
     },
     pushIndex(index) {
@@ -131,6 +132,7 @@ export default {
   width: 100%;
 }
 .info {
+  width: 472.8px;
   display: flex;
   flex-direction: column;
   justify-content: center;

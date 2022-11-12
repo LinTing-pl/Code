@@ -77,7 +77,7 @@ export default {
 </script>
 <style lang='scss' scoped>
 .side {
-  width: 30%;
+  min-width: 288px;
   height: 100%;
   margin-left: 2%;
 }
