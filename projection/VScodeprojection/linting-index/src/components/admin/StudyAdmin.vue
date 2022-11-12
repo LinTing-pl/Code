@@ -1,5 +1,7 @@
 <template>
-  <div class="studycontent-container"></div>
+  <div class="studycontent-container">
+    <div class="studycard"></div>
+  </div>
 </template>
 <script>
 export default {};
