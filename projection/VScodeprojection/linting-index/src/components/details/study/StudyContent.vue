@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="studycontent-container">
     <div class="left">
       <div class="book">
         <div class="img"><img :src="studyContentList.img" alt="" /></div>
@@ -83,14 +83,13 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-.container {
+.studycontent-container {
   background-color: #f6f6f6;
   width: 960px;
   display: flex;
   flex-direction: row;
   align-items: start;
   margin-top: 10px;
-  height: auto;
 }
 .left {
   width: 22%;
@@ -98,9 +97,9 @@ export default {
 }
 .middle {
   width: 65%;
-  height: 80vh;
+  height: 590px;
   background-color: #fff;
-  margin: 0 10px 50px;
+  margin: 0 10px 10px;
 }
 .right {
   width: 13%;

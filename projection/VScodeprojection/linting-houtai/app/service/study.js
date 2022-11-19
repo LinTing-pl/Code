@@ -26,5 +26,19 @@ class StudyService extends Service {
     res.chapters = JSON.parse(res.chapters);
     return res;
   }
+  async setBookPriority(requestBody) {
+    const data = await this.app.mysql.update(
+      "books",
+      { orderby: requestBody.orderby },
+      {
+        where: { id: requestBody.id },
+      }
+    );
+    return data;
+  }
+  async deleteOneBook(id) {
+    const data = await this.app.mysql.delete("books", { id: id });
+    return data;
+  }
 }
 module.exports = StudyService;

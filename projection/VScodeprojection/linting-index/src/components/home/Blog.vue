@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="blog-container">
     <div
       class="card"
       v-for="(item, index) in srcList"
@@ -60,7 +60,7 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-.container {
+.blog-container {
   width: 100%;
   height: auto;
   display: flex;
@@ -87,6 +87,7 @@ export default {
 .img img {
   height: 100%;
   width: 100%;
+  object-fit: cover;
 }
 .info {
   height: 100%;
@@ -112,9 +113,7 @@ export default {
   font-size: 20px;
   color: #aaa;
 }
-.block {
-  width: 100%;
+.el-pagination {
   background-color: #fff;
-  margin-bottom: 10px;
 }
 </style>

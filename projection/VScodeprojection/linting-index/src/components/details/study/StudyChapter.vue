@@ -1,5 +1,5 @@
 <template>
-  <div class="con">
+  <div class="studychapter-container">
     <div
       class="chapter"
       @click="toggleActive($event, index)"
@@ -80,7 +80,7 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-.con {
+.studychapter-container {
   width: 212px;
   display: flex;
   flex-direction: column;

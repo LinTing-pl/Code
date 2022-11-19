@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="details-container">
     <Nav></Nav>
     <router-view></router-view>
     <Footer></Footer>
@@ -16,9 +16,10 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-.container {
+.details-container {
   width: 100%;
   height: 100vh;
+  min-height: 712px;
   display: flex;
   flex-direction: column;
   align-items: center;

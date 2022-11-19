@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="footer">
     <pre>Linting  |  移动端  |  团队介绍  |  Linting官方网站</pre>
   </div>
 </template>
@@ -7,17 +7,19 @@
 export default {};
 </script>
 <style lang='scss' scoped>
-.container {
-  position: absolute;
-  bottom: 0;
-  background: #fff !important;
+.footer {
+  background: #fff;
   width: 100%;
   min-width: 1000px;
-  height: 60px;
-  line-height: 60px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
 }
 pre {
-  font-size: 18px;
+  font-size: 16px;
   color: #c6c6c6;
 }
 </style>

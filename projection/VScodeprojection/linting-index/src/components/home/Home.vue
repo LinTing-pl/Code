@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home-container">
     <!-- 导航 -->
     <keep-alive>
       <Nav></Nav>
@@ -19,7 +19,7 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-.home {
+.home-container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;

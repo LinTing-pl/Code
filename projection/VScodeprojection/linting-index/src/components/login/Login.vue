@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="login-container">
     <div :class="{ 'register-box': true, 'slide-up': !flag }">
       <h2 class="register-title" @click="toggleFlag">
         <span>没有账号，去</span>注册
@@ -141,7 +141,7 @@ export default {
   margin: 0;
   padding: 0;
 }
-.container {
+.login-container {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -151,7 +151,7 @@ export default {
   overflow: hidden;
   position: absolute;
 }
-.container::after {
+.login-container::after {
   content: "";
   position: absolute;
   inset: 0;

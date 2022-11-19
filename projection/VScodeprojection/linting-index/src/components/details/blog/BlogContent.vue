@@ -1,5 +1,5 @@
 <template>
-  <div class="con2">
+  <div class="blogcontent-container">
     <div class="left">
       <div class="title">{{ data.title }}</div>
       <div class="date">{{ data.date }}</div>
@@ -49,7 +49,7 @@ export default {
           }
         }
       },
-      immediate: true,
+      // immediate: true, //在watch中首次绑定的时候，是否执行handler
     },
   },
   methods: {
@@ -64,13 +64,15 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-.con2 {
+.blogcontent-container {
   width: 960px;
   display: flex;
   margin-top: 10px;
 }
 .left {
+  box-sizing: border-box;
   width: 70%;
+  min-height: 590px;
   background-color: #fff;
   padding: 10px;
   margin-bottom: 10px;
@@ -92,7 +94,7 @@ export default {
 }
 .blog-content {
   width: 100%;
-  height: 80vh;
+  height: 470px;
   overflow: auto;
   word-wrap: break-word;
 }

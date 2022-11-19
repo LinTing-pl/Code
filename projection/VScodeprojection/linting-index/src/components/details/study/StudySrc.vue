@@ -1,5 +1,5 @@
 <template>
-  <div class="middle-Container">
+  <div class="studysrc-container">
     <div class="top">
       {{ bookcontent.title }}
     </div>
@@ -14,7 +14,7 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-.middle-Container {
+.studysrc-container {
   height: 100%;
   width: 100%;
 }

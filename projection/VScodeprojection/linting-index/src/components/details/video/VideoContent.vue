@@ -1,5 +1,5 @@
 <template>
-  <div class="con3">
+  <div class="videocontent-container">
     <div class="left">
       <VideoSrc :videoSrcList="videoSrcList"></VideoSrc>
       <Bottom></Bottom>
@@ -22,7 +22,6 @@
         </div>
       </div>
       <div class="others">
-        <div class="big-img"><img :src="bigImg" alt="" /></div>
         <div class="nav">推荐视频</div>
         <div class="card" v-for="(item, index) in othersSrcList" :key="index">
           <div class="img">
@@ -32,11 +31,6 @@
             <span class="info-title">{{ item.title }}</span>
           </div>
         </div>
-      </div>
-      <div class="side-footer">
-        Linting | 移动端 <br />
-        团队介绍 <br />
-        Linting官方网站
       </div>
     </div>
   </div>
@@ -66,6 +60,10 @@ export default {
       let data = JSON.parse(storage);
       this.srcList = data;
       this.srcList.sections = JSON.parse(data.sections);
+      this.othersSrcList = JSON.parse(sessionStorage.getItem("video")).slice(
+        0,
+        3
+      );
     } else {
       this.getData();
     }
@@ -92,7 +90,6 @@ export default {
         0,
         3
       );
-      this.bigImg = this.othersSrcList[0].img;
     },
     addActive(e) {
       let sections = e.target.parentNode.querySelectorAll(".section");
@@ -112,17 +109,19 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-.con3 {
+.videocontent-container {
   width: 960px;
+  height: 590px;
   display: flex;
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 .left {
   width: 70%;
 }
 .right {
-  width: 28%;
-  margin-left: 2%;
+  width: 30%;
+  margin-left: 15px;
 }
 .right .nav {
   text-align: left;
@@ -172,10 +171,7 @@ export default {
 .right .others {
   background-color: #fff;
   margin: 10px 0;
-}
-.right .others .big-img {
-  width: 100%;
-  height: 160px;
+  padding-left: 5px;
 }
 img {
   height: 100%;
@@ -183,14 +179,14 @@ img {
   object-fit: cover;
 }
 
-.card {
+.others .card {
   position: relative;
   width: 100%;
   height: 60px;
-  margin-bottom: 10px;
+  padding-bottom: 10px;
   display: flex;
 }
-.card .img {
+.others .card .img {
   height: 100%;
   width: 100px;
   left: 10px;

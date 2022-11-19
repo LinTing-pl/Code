@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="video-container">
     <div class="card" v-for="(item, index) in srcList" :key="index">
       <div class="img">
         <img :src="item.img" alt="" />
@@ -57,7 +57,7 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-.container {
+.video-container {
   width: 100%;
   height: auto;
   display: flex;
@@ -79,10 +79,12 @@ export default {
   align-items: center;
   height: 100%;
   width: 120px;
+  padding-left: 10px;
 }
 .img img {
   height: 100%;
   width: 100%;
+  object-fit: cover;
 }
 .info {
   height: 100%;
@@ -101,9 +103,11 @@ export default {
   font-size: 20px;
 }
 .info .info-info {
-  font-size: 20px;
+  width: 100%;
+  margin: 5px 0;
+  font-size: 16px;
+  text-align: left;
   color: #aaa;
-  margin: 10px 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

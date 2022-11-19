@@ -2,7 +2,9 @@
 const Service = require("egg").Service;
 class BlogService extends Service {
   async get() {
-    const data = await this.app.mysql.select("blogs");
+    const data = await this.app.mysql.select("blogs", {
+      orders: [["orderby", "desc"]],
+    });
     const res = data.map((v) => {
       return {
         id: v.id,

@@ -1,25 +1,31 @@
 <template>
-  <div class="container">
+  <div class="search-container">
     <div class="card" v-for="(item, index) in curList" :key="index">
       <div class="img">
         <img :src="item.img" alt="" />
       </div>
-      <div class="info">
+      <div class="info" v-if="item.cls !== '下载'">
         <span class="info-title">{{ item.title }}</span>
         <span class="info-info">{{ item.info }}</span>
         <button class="info-btn" @click="read(item.cls, item.id)">阅读</button>
       </div>
-    </div>
-    <div class="block">
-      <el-pagination
-        @current-change="handleCurrentChange"
-        :current-page.sync="currentPage"
-        :page-size="5"
-        layout="total, prev, pager, next"
-        :total="searchLength"
+      <div class="info" v-else>
+        <span class="info-title">{{ item.title }}</span>
+        <span class="info-url">链接: {{ item.url }}</span>
+        <span class="info-psd">提取码: {{ item.code }}</span>
+      </div>
+      <a :href="item.url" v-if="item.cls === '下载'" target="_blank"
+        >立即下载</a
       >
-      </el-pagination>
     </div>
+    <el-pagination
+      @current-change="handleCurrentChange"
+      :current-page.sync="currentPage"
+      :page-size="5"
+      layout="total, prev, pager, next"
+      :total="searchLength"
+    >
+    </el-pagination>
   </div>
 </template>
 <script>
@@ -56,23 +62,33 @@ export default {
       );
     },
     search() {
-      let searchParams = sessionStorage.getItem("search");
+      let searchParams = sessionStorage.getItem("search").toLowerCase();
       const data1 = JSON.parse(sessionStorage.getItem("study"));
       const data2 = JSON.parse(sessionStorage.getItem("blog"));
       const data3 = JSON.parse(sessionStorage.getItem("video"));
+      const data4 = JSON.parse(sessionStorage.getItem("load"));
       let res = [];
       data1.forEach((v) => {
-        if (v.title.indexOf(searchParams) !== -1) {
+        let src = v.title.toLowerCase();
+        if (src.indexOf(searchParams) !== -1) {
           res.push(v);
         }
       });
       data2.forEach((v) => {
-        if (v.title.indexOf(searchParams) !== -1) {
+        let src = v.title.toLowerCase();
+        if (src.indexOf(searchParams) !== -1) {
           res.push(v);
         }
       });
       data3.forEach((v) => {
-        if (v.title.indexOf(searchParams) !== -1) {
+        let src = v.title.toLowerCase();
+        if (src.indexOf(searchParams) !== -1) {
+          res.push(v);
+        }
+      });
+      data4.forEach((v) => {
+        let src = v.title.toLowerCase();
+        if (src.indexOf(searchParams) !== -1) {
           res.push(v);
         }
       });
@@ -82,7 +98,7 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-.container {
+.search-container {
   width: 100%;
   height: auto;
   display: flex;
@@ -144,5 +160,26 @@ export default {
   border: none;
   cursor: pointer;
   user-select: none;
+}
+.info .info-title {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.info .info-url {
+  font-size: 18px;
+}
+.info .info-psd {
+  font-size: 18px;
+  color: #aaa;
+}
+.card a {
+  text-decoration: none;
+  color: #319bff;
+  position: absolute;
+  right: 40px;
+}
+.card a:hover {
+  color: green;
 }
 </style>

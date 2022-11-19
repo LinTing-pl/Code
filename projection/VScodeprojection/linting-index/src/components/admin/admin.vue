@@ -1,14 +1,14 @@
 <template>
   <div class="admin-container">
-    <Nav :searchSelect="searchSelect"></Nav>
+    <Nav :searchSelect="searchSelect" @nativeSearch="pushNativeSearch"></Nav>
     <div class="admin-main">
       <AdminMenu @searchSelect="pushSearchSelect"></AdminMenu>
-      <router-view></router-view>
+      <router-view :nativeSearch="nativeSearch"></router-view>
     </div>
   </div>
 </template>
 <script>
-import Nav from "./Nav.vue";
+import Nav from "./AdminNav.vue";
 import AdminMenu from "./AdminMenu.vue";
 export default {
   components: {
@@ -18,11 +18,15 @@ export default {
   data() {
     return {
       searchSelect: "",
+      nativeSearch: false,
     };
   },
   methods: {
     pushSearchSelect(data) {
       this.searchSelect = data;
+    },
+    pushNativeSearch(data) {
+      this.nativeSearch = data;
     },
   },
 };

@@ -3,7 +3,9 @@
 const Service = require("egg").Service;
 class VideoService extends Service {
   async get() {
-    const data = await this.app.mysql.select("videos");
+    const data = await this.app.mysql.select("videos", {
+      orders: [["orderby", "desc"]],
+    });
     const res = data.map((v) => {
       return {
         id: v.id,

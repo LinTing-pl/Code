@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="videosrc-container">
     <div class="video-title">{{ videoSrcList.section }}</div>
     <div class="video-date">{{ videoSrcList.date }}</div>
     <div class="video-content">
@@ -23,7 +23,7 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-.container {
+.videosrc-container {
   background-color: #fff;
   display: flex;
   flex-direction: column;

@@ -123,7 +123,7 @@ export default {
       this.$router.push("/login");
     },
     toAdmin() {
-      this.$router.push({ name: "admin" });
+      this.$router.push({ name: "adminstudy" });
     },
     quit() {
       localStorage.removeItem("user");

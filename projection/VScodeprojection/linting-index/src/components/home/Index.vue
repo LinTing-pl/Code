@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="index-container">
     <!-- 遍历三个卡片 -->
     <div class="card" v-for="(item, index) in srcList" :key="index">
       <div class="title">
@@ -44,8 +44,8 @@ export default {
     }
   },
   methods: {
-    async getData() {
-      await this.$axios.default
+    getData() {
+      this.$axios.default
         .post("/dev-api/index/get", { flag: "all" })
         .then((res) => {
           this.srcList = [
@@ -76,7 +76,7 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-.container {
+.index-container {
   width: 100%;
   height: auto;
   display: flex;
@@ -130,6 +130,7 @@ export default {
 .img img {
   height: 100%;
   width: 100%;
+  object-fit: cover;
 }
 .info {
   width: 472.8px;

@@ -50,12 +50,19 @@ export default {
   },
   mounted() {
     this.adminIndex = sessionStorage.getItem("adminIndex") || "/adminstudy";
-    document.getElementsByClassName(this.adminIndex.slice(1))[0].click();
+    if (
+      [
+        "/adminstudy",
+        "/adminblog",
+        "/adminvideo",
+        "/adminload",
+        "/adminusers",
+      ].includes(this.adminIndex)
+    ) {
+      document.getElementsByClassName(this.adminIndex.slice(1))[0].click();
+    }
   },
   methods: {
-    to() {
-      this.$router.push("/adminstudy");
-    },
     setIndex(index) {
       sessionStorage.setItem("adminIndex", index);
       this.$emit("searchSelect", index.slice(6));
@@ -67,6 +74,7 @@ export default {
 .el-menu {
   min-width: 240px;
   height: calc(100vh - 60px);
+  min-height: 660px;
   user-select: none;
 }
 .el-menu-item {

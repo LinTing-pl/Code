@@ -14,5 +14,18 @@ class StudyController extends Controller {
 
     ctx.body = data;
   }
+  async setBookPriority() {
+    const { ctx } = this;
+    const requestBody = ctx.request.body;
+    const data = await ctx.service.study.setBookPriority(requestBody);
+
+    ctx.body = data;
+  }
+  async deleteOneBook() {
+    const { ctx } = this;
+    const data = await ctx.service.study.deleteOneBook(ctx.params.id);
+
+    ctx.body = data;
+  }
 }
 module.exports = StudyController;

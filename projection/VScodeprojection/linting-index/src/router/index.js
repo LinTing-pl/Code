@@ -82,9 +82,25 @@ const routes = [
     },
     children: [
       {
+        path: "/adminsearch",
+        name: "adminsearch",
+        component: () => import("../components/admin/AdminSearch.vue"),
+        meta: {
+          required: true,
+        },
+      },
+      {
+        path: "/adminstudyadd",
+        name: "adminstudyadd",
+        component: () => import("../components/admin/AdminStudyAdd.vue"),
+        meta: {
+          required: true,
+        },
+      },
+      {
         path: "/adminstudy",
         name: "adminstudy",
-        component: () => import("../components/admin/StudyAdmin.vue"),
+        component: () => import("../components/admin/AdminStudy.vue"),
         meta: {
           required: true,
         },
@@ -92,7 +108,7 @@ const routes = [
       {
         path: "/adminblog",
         name: "adminblog",
-        component: () => import("../components/admin/BlogAdmin.vue"),
+        component: () => import("../components/admin/AdminBlog.vue"),
         meta: {
           required: true,
         },
@@ -100,7 +116,7 @@ const routes = [
       {
         path: "/adminvideo",
         name: "adminvideo",
-        component: () => import("../components/admin/VideoAdmin.vue"),
+        component: () => import("../components/admin/AdminVideo.vue"),
         meta: {
           required: true,
         },
