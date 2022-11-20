@@ -11,7 +11,7 @@
         <button class="confirm" @click="confirmName">确认</button>
       </div>
       <div class="middle">
-        <div class="img" @click="addImg">
+        <label class="img" for="bookImg">
           <svg
             t="1668884460269"
             class="icon"
@@ -28,7 +28,52 @@
               fill="#aaa"
             ></path>
           </svg>
+          <img ref="img" :src="bookImg" alt="" />
+        </label>
+        <input
+          type="file"
+          class="bookImg"
+          name=""
+          id="bookImg"
+          @change="addImg"
+        />
+      </div>
+      <div class="bottom" ref="bottom">
+        <div class="chapter" v-for="(item, index) in chaptersList" :key="index">
+          <div
+            :class="{ title: true, active: addActiveIndex === index }"
+            @dblclick="modifyDom"
+            @blur="finishModify($event, index)"
+            @click="isClick && toggleActive($event)"
+          >
+            {{ item.chapter }}
+          </div>
+          <div :class="{ sections: true, active: addActiveIndex === index }">
+            <button class="delChapter" @click="delChapter(item.chapter, index)">
+              删除章节
+            </button>
+            <div
+              class="section"
+              v-for="(item1, index1) in item.sections"
+              :key="index1"
+              @dblclick="modifyDom"
+              @click="setIndex(index, index1)"
+              @blur="finishModify($event, index, index1)"
+            >
+              {{ item1.section
+              }}<button
+                class="delSection"
+                @click="delSection(item1.section, index, index1)"
+              >
+                删除
+              </button>
+            </div>
+            <button class="addSection" @click="addSection(index)">
+              添加小节
+            </button>
+          </div>
         </div>
+        <button class="addChapter" @click="addChapter">添加章节</button>
       </div>
     </div>
   </div>
@@ -47,7 +92,25 @@ export default {
   data() {
     return {
       bookname: "书名",
+      bookImg: "",
+      chaptersList: [],
+      chapterId: null,
+      isClick: true,
+      addActiveIndex: 0,
+      addActiveIndex1: 0,
     };
+  },
+  mounted() {
+    this.bookImg = localStorage.getItem(`${this.bookname}1025`) || "";
+    if (this.bookImg) {
+      this.$refs.img.style.visibility = "visible";
+    }
+    this.addActiveIndex =
+      JSON.parse(sessionStorage.getItem("adminstudyAddIndex")) || 0;
+    this.addActiveIndex1 =
+      JSON.parse(sessionStorage.getItem("adminstudyAddIndex1")) || 0;
+    this.chaptersList =
+      JSON.parse(sessionStorage.getItem("adminstudydraft")) || [];
   },
   methods: {
     modifyName() {
@@ -60,7 +123,125 @@ export default {
       name.removeAttribute("contenteditable");
       this.bookname = name.innerText;
     },
-    addImg() {},
+    addImg(e) {
+      let file = e.target.files[0];
+      let reader;
+      if (file) {
+        // 创建流对象
+        reader = new FileReader();
+        reader.readAsDataURL(file);
+      }
+      // 捕获 转换完毕
+      let _this = this;
+      reader.onload = function (e) {
+        // 转换后的base64就在e.target.result里面,直接放到img标签的src属性即可
+        _this.bookImg = e.target.result;
+        _this.$refs.img.style.visibility = "visible";
+        localStorage.setItem(`${_this.bookname}1025`, _this.bookImg);
+      };
+    },
+    addChapter() {
+      this.chaptersList.push({ chapter: "第 章 章节名", sections: [] });
+      sessionStorage.setItem(
+        "adminstudydraft",
+        JSON.stringify(this.chaptersList)
+      );
+    },
+    delChapter(chapter, index) {
+      this.$confirm(`是否删除《${chapter}》章节, 是否继续?`, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          this.chaptersList.splice(index, 1);
+          this.$refs.bottom
+            .querySelectorAll(".sections")
+            .forEach((v) => v.classList.remove("active"));
+          sessionStorage.setItem(
+            "adminstudydraft",
+            JSON.stringify(this.chaptersList)
+          );
+          this.$message({
+            type: "success",
+            message: "删除成功!",
+            showClose: true,
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+            showClose: true,
+          });
+        });
+    },
+    modifyDom(e) {
+      clearTimeout(this.chapterId);
+      this.isClick = false;
+      e.target.setAttribute("contenteditable", true);
+      e.target.style.cursor = "initial";
+      e.target.focus();
+    },
+    finishModify(e, index, index1) {
+      this.isClick = true;
+      if (index1 === undefined) {
+        this.chaptersList[index].chapter = e.target.innerText;
+      } else {
+        this.chaptersList[index].sections[index1].section = e.target.innerText;
+      }
+      e.target.removeAttribute("contenteditable");
+      e.target.style.cursor = "pointer";
+      sessionStorage.setItem(
+        "adminstudydraft",
+        JSON.stringify(this.chaptersList)
+      );
+    },
+    toggleActive(e) {
+      clearTimeout(this.chapterId);
+      this.chapterId = setTimeout(() => {
+        e.target.classList.toggle("active");
+        e.target.nextSibling.classList.toggle("active");
+      }, 250);
+    },
+    addSection(index) {
+      console.log(index);
+      this.chaptersList[index].sections.push({ section: "第 节 小节名" });
+      sessionStorage.setItem(
+        "adminstudydraft",
+        JSON.stringify(this.chaptersList)
+      );
+    },
+    delSection(section, index, index1) {
+      this.$confirm(`是否删除《${section}》小节, 是否继续?`, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          this.chaptersList[index].sections.splice(index1, 1);
+          sessionStorage.setItem(
+            "adminstudydraft",
+            JSON.stringify(this.chaptersList)
+          );
+          this.$message({
+            type: "success",
+            message: "删除成功!",
+            showClose: true,
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+            showClose: true,
+          });
+        });
+    },
+    setIndex(index, index1) {
+      sessionStorage.setItem("adminstudyAddIndex", index);
+      sessionStorage.setItem("adminstudyAddIndex1", index1);
+    },
   },
 };
 </script>
@@ -80,7 +261,6 @@ export default {
 }
 .adminstudyadd-container .right {
   flex: 0.3;
-  border: 1px solid #ccc;
   height: 606px;
   padding: 5px;
 }
@@ -130,11 +310,106 @@ export default {
   background: #66b1ff;
 }
 .right .middle .img {
+  display: block;
   border: 1px solid #ddd;
-  margin-top: 3px;
+  margin: 3px 0;
   cursor: pointer;
+  position: relative;
 }
 .right .middle .img:hover {
   background: #eee;
+  box-shadow: 0 0 5px rgb(46, 46, 46);
+}
+.right .middle .bookImg {
+  display: none;
+}
+.right .middle .img img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  position: absolute;
+  left: 0;
+  top: 0;
+  object-fit: cover;
+  visibility: hidden;
+}
+.right .bottom {
+  height: 456px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+.right .bottom::-webkit-scrollbar {
+  width: 6px;
+}
+.right .bottom::-webkit-scrollbar-thumb {
+  background-color: #0687ff;
+  border-radius: 10px;
+}
+.right .bottom .addChapter {
+  background-color: #409eff;
+  border: none;
+  border-radius: 4px;
+  letter-spacing: 4px;
+  padding: 2px 0;
+  cursor: pointer;
+  box-shadow: 0 0 5px #66b1ff;
+  color: #fff;
+}
+.right .bottom .addChapter:hover {
+  background: #66b1ff;
+}
+.right .bottom .chapter .title {
+  background-color: #ebb56377;
+  margin: 0 2px 2px 2px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.right .bottom .chapter .title.active,
+.right .bottom .chapter .title:hover {
+  background-color: #ebb563dd;
+  box-shadow: 0 0 5px #ebb56388;
+}
+.right .bottom .chapter .sections {
+  display: none;
+}
+.right .bottom .chapter .sections.active {
+  display: block;
+}
+.right .bottom .chapter .sections .delChapter {
+  width: 90%;
+  background-color: #f56c6c;
+  color: #fff;
+  margin-bottom: 2px;
+  border: none;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.right .bottom .chapter .sections .delChapter:hover {
+  background-color: #f78989;
+}
+.right .bottom .chapter .sections .addSection {
+  width: 90%;
+  background-color: #409eff;
+  color: #fff;
+  margin-bottom: 2px;
+  border: none;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.right .bottom .chapter .sections .addSection:hover {
+  background-color: #66b1ff;
+}
+.right .bottom .chapter .sections .section {
+  margin: 0 5%;
+  background-color: #b3d8ff;
+  margin-bottom: 2px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
 }
 </style>
