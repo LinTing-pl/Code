@@ -123,39 +123,67 @@
 #         date_list.append(begin_date)
 #         begin_date = begin_date + day
 #     return date_list
-import math
+# import math
+# import numpy as np
+# import cv2  # cv2为opencv-contrib-python库，包含了主模块和contrib模块
+# import imutils  # imutils是在OPenCV基础上的一个封装，达到更为简结的调用OPenCV接口的目的，它可以轻松的实现图像的平移，旋转，缩放，骨架化等一系列的操作。
+#
+# # #幂律变换 γ>1
+# image = cv2.imread(r'C:\Users\Linting\Desktop\img1.png')  # 读取图片
+# gamma_img1 = np.zeros((image.shape[0], image.shape[1], 3), dtype=np.float64)# 返回一个 image.shape[0]*3*image.shape[1]的64位浮点数类型的三维矩阵X（即图片的宽*3*图片的高 单位为px）
+# # 遍历矩阵X,进行幂律变换，伽马值γ=5
+# for i in range(image.shape[0]):
+#     for j in range(image.shape[1]):
+#         gamma_img1[i, j, 0] = math.pow(image[i, j, 0], 5)
+#         gamma_img1[i, j, 1] = math.pow(image[i, j, 1], 5)
+#         gamma_img1[i, j, 2] = math.pow(image[i, j, 2], 5)
+# cv2.normalize(gamma_img1, gamma_img1, 0, 255, cv2.NORM_MINMAX)  # 将图片的值放缩到 0-255 之间,采用min_max的方式
+# gamma_img1 = cv2.convertScaleAbs(gamma_img1)  # 通过线性变换将数据转回原来的uint8形式（该操作可实现图像增强等相关线性操作的快速运算）,否则将无法显示图像，而只是一副灰色的窗口
+# cv2.imshow('image', imutils.resize(image, 400))  # 展示原图
+# cv2.imshow('gamma Y>1 transform', imutils.resize(gamma_img1, 400))  # 展示伽马矫正后的图片
+# if cv2.waitKey(0) == 27:
+#     cv2.destroyAllWindows()
+#
+# # # 幂律变换，γ<1
+# image = cv2.imread(r'C:\Users\Linting\Desktop\city.png')  # 读取图片
+# gamma_img2 = np.zeros((image.shape[0], image.shape[1], 3), dtype=np.float64)# 返回一个 image.shape[0]*3*image.shape[1]的64位浮点数类型的三维矩阵X（即图片的宽*3*图片的高 单位为px）
+# # 遍历矩阵X,进行幂律变换，伽马值γ=0.4
+# for i in range(image.shape[0]):
+#     for j in range(image.shape[1]):
+#         gamma_img2[i, j, 0] = math.pow(image[i, j, 0], 0.4)
+#         gamma_img2[i, j, 1] = math.pow(image[i, j, 1], 0.4)
+#         gamma_img2[i, j, 2] = math.pow(image[i, j, 2], 0.4)
+# cv2.normalize(gamma_img2, gamma_img2, 0, 255, cv2.NORM_MINMAX)  # 将图片的值放缩到 0-255 之间,采用min_max的方式
+# gamma_img2 = cv2.convertScaleAbs(gamma_img2)  # 通过线性变换将数据转回原来的uint8形式（该操作可实现图像增强等相关线性操作的快速运算）,否则将无法显示图像，而只是一副灰色的窗口
+# cv2.imshow('image', imutils.resize(image, 400))  # 展示原图
+# cv2.imshow('gamma Y<1 transform', imutils.resize(gamma_img2, 400))  # 展示伽马矫正后的图片
+# if cv2.waitKey(0) == 27:
+#     cv2.destroyAllWindows()
+import cv2
 import numpy as np
-import cv2  # cv2为opencv-contrib-python库，包含了主模块和contrib模块
-import imutils  # imutils是在OPenCV基础上的一个封装，达到更为简结的调用OPenCV接口的目的，它可以轻松的实现图像的平移，旋转，缩放，骨架化等一系列的操作。
+a=[[0,0,1,0,0,0,0],[0,1,1,1,1,1,0],[0,1,1,1,1,1,1],[1,1,1,1,1,1,0],[0,1,1,1,1,1,0],[0,0,0,1,0,0,0]]
+b=[]
+for i in range(len(a)):
+    b.append(np.array(a[i]))
+img=np.array(b)
+img=img.astype('uint8')
+# img=cv2.imread(r'C:\Users\Linting\Desktop\default.jpeg')
+print(img,'\n')
+#创建矩形结构单元
+g=np.array([[1,1,1],[1,1,1],[1,1,1]])
+#形态学处理,开运算
+img_open=cv2.erode(img,g)
+print(img_open,'\n')
+img_open=cv2.dilate(img_open,g)
+print(img_open)
 
-# #幂律变换 γ>1
-image = cv2.imread(r'C:\Users\Linting\Desktop\img1.png')  # 读取图片
-gamma_img1 = np.zeros((image.shape[0], image.shape[1], 3), dtype=np.float64)# 返回一个 image.shape[0]*3*image.shape[1]的64位浮点数类型的三维矩阵X（即图片的宽*3*图片的高 单位为px）
-# 遍历矩阵X,进行幂律变换，伽马值γ=5
-for i in range(image.shape[0]):
-    for j in range(image.shape[1]):
-        gamma_img1[i, j, 0] = math.pow(image[i, j, 0], 5)
-        gamma_img1[i, j, 1] = math.pow(image[i, j, 1], 5)
-        gamma_img1[i, j, 2] = math.pow(image[i, j, 2], 5)
-cv2.normalize(gamma_img1, gamma_img1, 0, 255, cv2.NORM_MINMAX)  # 将图片的值放缩到 0-255 之间,采用min_max的方式
-gamma_img1 = cv2.convertScaleAbs(gamma_img1)  # 通过线性变换将数据转回原来的uint8形式（该操作可实现图像增强等相关线性操作的快速运算）,否则将无法显示图像，而只是一副灰色的窗口
-cv2.imshow('image', imutils.resize(image, 400))  # 展示原图
-cv2.imshow('gamma Y>1 transform', imutils.resize(gamma_img1, 400))  # 展示伽马矫正后的图片
-if cv2.waitKey(0) == 27:
-    cv2.destroyAllWindows()
+#
+# img_hat=img-img_open
+# cv2.imshow('img',img)
+# #cv2.imshow('erode',edge_dilate)
+# cv2.imshow('img_open',img_open)
+# cv2.imshow('img_open_',img_hat)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+#img_open=cv2.morphologyEx(img,cv2.MORPH_OPEN,g)
 
-# # 幂律变换，γ<1
-image = cv2.imread(r'C:\Users\Linting\Desktop\city.png')  # 读取图片
-gamma_img2 = np.zeros((image.shape[0], image.shape[1], 3), dtype=np.float64)# 返回一个 image.shape[0]*3*image.shape[1]的64位浮点数类型的三维矩阵X（即图片的宽*3*图片的高 单位为px）
-# 遍历矩阵X,进行幂律变换，伽马值γ=0.4
-for i in range(image.shape[0]):
-    for j in range(image.shape[1]):
-        gamma_img2[i, j, 0] = math.pow(image[i, j, 0], 0.4)
-        gamma_img2[i, j, 1] = math.pow(image[i, j, 1], 0.4)
-        gamma_img2[i, j, 2] = math.pow(image[i, j, 2], 0.4)
-cv2.normalize(gamma_img2, gamma_img2, 0, 255, cv2.NORM_MINMAX)  # 将图片的值放缩到 0-255 之间,采用min_max的方式
-gamma_img2 = cv2.convertScaleAbs(gamma_img2)  # 通过线性变换将数据转回原来的uint8形式（该操作可实现图像增强等相关线性操作的快速运算）,否则将无法显示图像，而只是一副灰色的窗口
-cv2.imshow('image', imutils.resize(image, 400))  # 展示原图
-cv2.imshow('gamma Y<1 transform', imutils.resize(gamma_img2, 400))  # 展示伽马矫正后的图片
-if cv2.waitKey(0) == 27:
-    cv2.destroyAllWindows()

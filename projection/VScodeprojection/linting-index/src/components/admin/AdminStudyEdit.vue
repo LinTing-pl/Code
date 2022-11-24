@@ -1,5 +1,5 @@
 <template>
-  <div class="adminstudyadd-container">
+  <div class="adminstudyedit-container">
     <div class="left">
       <div class="display">
         <div class="display-content" v-html="sectionContent"></div>
@@ -12,15 +12,14 @@
             center
           >
             <span
-              ><strong>请为《{{ bookname }}》添加一段介绍:</strong></span
+              ><strong>请为《{{ data["title"] }}》添加一段介绍:</strong></span
             >
             <div
               class="bookInfo"
               style="border: 1px solid; border-radius: 4px"
               contenteditable="true"
-              ref="bookinfo"
             >
-              这是一本值得阅读的手册
+              {{ data.info }}
             </div>
             <span slot="footer" class="dialog-footer">
               <el-button @click="dialogVisible = false">取 消</el-button>
@@ -36,7 +35,7 @@
     </div>
     <div class="right">
       <div class="top">
-        <div class="name" ref="name">{{ bookname }}</div>
+        <div class="name" ref="name">{{ data.title }}</div>
         <button class="modify" @click="modifyName">修改</button>
         <button class="confirm" ref="confirmBtn" @click="confirmName" disabled>
           确认
@@ -60,7 +59,7 @@
               fill="#aaa"
             ></path>
           </svg>
-          <img ref="img" :src="bookImg" alt="封面" />
+          <img ref="img" :src="data.img" alt="封面" />
         </label>
         <input
           type="file"
@@ -71,7 +70,11 @@
         />
       </div>
       <div class="bottom" ref="bottom">
-        <div class="chapter" v-for="(item, index) in chaptersList" :key="index">
+        <div
+          class="chapter"
+          v-for="(item, index) in data.chapters"
+          :key="index"
+        >
           <div
             :class="{ title: true, active: activeIndex === index }"
             ref="chapter"
@@ -122,33 +125,31 @@ export default {
   },
   data() {
     return {
-      bookname: "书名",
-      bookImg: "",
-      chaptersList: [],
+      id: null,
+      data: null,
       chapterId: null,
       sectionId: null,
       isClick: true,
       activeIndex: 0,
       activeIndex1: 0,
-      sectionContent: "",
+      sectionContent: null,
       dialogVisible: false,
-      back: true,
+      back: false,
     };
   },
-  mounted() {
-    this.bookname = localStorage.getItem("adminstudyaddname") || "书名";
-    this.bookImg = localStorage.getItem(`${this.bookname}1025`) || "";
-    if (this.bookImg) {
-      this.$refs.img.style.visibility = "visible";
-    }
+  created() {
+    this.id = this.$route.params.id;
+    this.data = JSON.parse(localStorage.getItem("adminstudyedit" + this.id));
     this.activeIndex =
-      JSON.parse(sessionStorage.getItem("adminstudyAddIndex")) || 0;
+      JSON.parse(
+        sessionStorage.getItem("adminstudyEdit" + this.id + "Index")
+      ) || 0;
     this.activeIndex1 =
-      JSON.parse(sessionStorage.getItem("adminstudyAddIndex1")) || 0;
-    this.chaptersList =
-      JSON.parse(localStorage.getItem("adminstudydraft")) || [];
+      JSON.parse(
+        sessionStorage.getItem("adminstudyEdit" + this.id + "Index1")
+      ) || 0;
     this.sectionContent =
-      this.chaptersList[this.activeIndex]?.sections[this.activeIndex1]
+      this.data.chapters[this.activeIndex]?.sections[this.activeIndex1]
         ?.content || "";
     window.addEventListener("beforeunload", this.beforeUnload);
   },
@@ -157,11 +158,7 @@ export default {
   },
   methods: {
     beforeUnload(e) {
-      if (
-        this.back &&
-        JSON.stringify(this.chaptersList) !==
-          localStorage.getItem("adminstudydraft")
-      ) {
+      if (this.back) {
         e = e || window.event;
         if (e) {
           e.returnValue = "关闭提示";
@@ -170,30 +167,25 @@ export default {
       }
     },
     submitBook() {
+      localStorage.setItem(
+        `adminstudyedit${this.id}`,
+        JSON.stringify(this.data)
+      );
       this.dialogVisible = false;
       let nowTime = new Date();
-      let book = {};
-      book.cls = "手册";
-      book.title = this.bookname;
-      book.img =
-        this.bookImg ||
-        "http://localhost:7001/public/img/defaultImg/default.jpeg";
-      book.orderby = 0;
+      let book = JSON.parse(localStorage.getItem(`adminstudyedit${this.id}`));
+      book.chapters = JSON.stringify(book.chapters);
       book.date =
         nowTime.toLocaleDateString() + " " + nowTime.toLocaleTimeString();
-      book.info = document.querySelector(".bookInfo").innerText;
-      book.chapters = JSON.stringify(this.chaptersList);
       this.$axios.default
-        .post("/dev-api/study/add", { book: book })
+        .post("/dev-api/study/update", { book: book })
         .then((res) => {
           this.$message({
             type: "success",
             message: "提交成功!",
           });
-          localStorage.removeItem(`${this.bookname}1025`);
-          localStorage.removeItem("adminstudydraft");
-          localStorage.removeItem("adminstudyaddname");
-          this.back = false;
+          this.back = true;
+          localStorage.removeItem(`adminstudyedit${this.id}`);
           this.$router.push(sessionStorage.getItem("adminIndex"));
         });
     },
@@ -205,7 +197,6 @@ export default {
         .catch((_) => {});
     },
     modifyName() {
-      localStorage.removeItem(`${this.bookname}1025`);
       let name = this.$refs.name;
       name.setAttribute("contenteditable", true);
       name.focus();
@@ -218,8 +209,10 @@ export default {
       this.bookname = name.innerText;
       this.$refs.confirmBtn.setAttribute("disabled", true);
       this.$refs.confirmBtn.style.cursor = "not-allowed";
-      localStorage.setItem("adminstudyaddname", this.bookname);
-      localStorage.setItem(`${this.bookname}1025`, this.bookImg);
+      localStorage.setItem(
+        `adminstudyedit${this.id}`,
+        JSON.stringify(this.data)
+      );
     },
     addImg(e) {
       let file = e.target.files[0];
@@ -233,16 +226,18 @@ export default {
       let _this = this;
       reader.onload = function (e) {
         // 转换后的base64就在e.target.result里面,直接放到img标签的src属性即可
-        _this.bookImg = e.target.result;
-        _this.$refs.img.style.visibility = "visible";
-        localStorage.setItem(`${_this.bookname}1025`, _this.bookImg);
+        _this.data.img = e.target.result;
+        localStorage.setItem(
+          `adminstudyedit${this.id}`,
+          JSON.stringify(this.data)
+        );
       };
     },
     addChapter() {
-      this.chaptersList.push({ chapter: "第 章 章节名", sections: [] });
+      this.data.chapters.push({ chapter: "第 章 章节名", sections: [] });
       localStorage.setItem(
-        "adminstudydraft",
-        JSON.stringify(this.chaptersList)
+        `adminstudyedit${this.id}`,
+        JSON.stringify(this.data)
       );
     },
     delChapter(chapter, index) {
@@ -252,14 +247,10 @@ export default {
         type: "warning",
       })
         .then(() => {
-          this.chaptersList.splice(index, 1);
+          this.data.chapters.splice(index, 1);
           this.$refs.bottom
             .querySelectorAll(".sections")
             .forEach((v) => v.classList.remove("active"));
-          localStorage.setItem(
-            "adminstudydraft",
-            JSON.stringify(this.chaptersList)
-          );
           this.$message({
             type: "success",
             message: "删除成功!",
@@ -268,6 +259,10 @@ export default {
           this.$refs.chapter.forEach((v) => {
             v.classList.remove("active");
           });
+          localStorage.setItem(
+            `adminstudyedit${this.id}`,
+            JSON.stringify(this.data)
+          );
         })
         .catch(() => {
           this.$message({
@@ -288,15 +283,15 @@ export default {
     finishModify(e, index, index1) {
       this.isClick = true;
       if (index1 === undefined) {
-        this.chaptersList[index].chapter = e.target.innerText;
+        this.data.chapters[index].chapter = e.target.innerText;
       } else {
-        this.chaptersList[index].sections[index1].section = e.target.innerText;
+        this.data.chapters[index].sections[index1].section = e.target.innerText;
       }
       e.target.removeAttribute("contenteditable");
       e.target.style.cursor = "pointer";
       localStorage.setItem(
-        "adminstudydraft",
-        JSON.stringify(this.chaptersList)
+        `adminstudyedit${this.id}`,
+        JSON.stringify(this.data)
       );
     },
     toggleActive(e) {
@@ -307,17 +302,23 @@ export default {
       }, 250);
     },
     addSection(index) {
-      this.chaptersList[index].sections.push({ section: "第 节 小节名" });
+      this.data.chapters[index].sections.push({ section: "第 节 小节名" });
       localStorage.setItem(
-        "adminstudydraft",
-        JSON.stringify(this.chaptersList)
+        `adminstudyedit${this.id}`,
+        JSON.stringify(this.data)
       );
     },
     delSection() {
-      let i = JSON.parse(sessionStorage.getItem("adminstudyAddIndex")) || 0;
-      let i1 = JSON.parse(sessionStorage.getItem("adminstudyAddIndex1")) || 0;
+      let i =
+        JSON.parse(
+          sessionStorage.getItem("adminstudyEdit" + this.id + "Index")
+        ) || 0;
+      let i1 =
+        JSON.parse(
+          sessionStorage.getItem("adminstudyEdit" + this.id + "Index1")
+        ) || 0;
       this.$confirm(
-        `是否删除《${this.chaptersList[i].sections[i1].section}》小节, 是否继续?`,
+        `是否删除《${this.data.chapters[i].sections[i1].section}》小节, 是否继续?`,
         "提示",
         {
           confirmButtonText: "确定",
@@ -326,11 +327,7 @@ export default {
         }
       )
         .then(() => {
-          this.chaptersList[i].sections.splice(i1, 1);
-          localStorage.setItem(
-            "adminstudydraft",
-            JSON.stringify(this.chaptersList)
-          );
+          this.data.chapters[i].sections.splice(i1, 1);
           this.$message({
             type: "success",
             message: "删除成功!",
@@ -339,6 +336,10 @@ export default {
           this.$refs.section.forEach((v) => {
             v.classList.remove("active");
           });
+          localStorage.setItem(
+            `adminstudyedit${this.id}`,
+            JSON.stringify(this.data)
+          );
         })
         .catch(() => {
           this.$message({
@@ -349,50 +350,52 @@ export default {
         });
     },
     saveSection() {
-      if (
-        sessionStorage.getItem("adminstudyAddIndex") === null ||
-        sessionStorage.getItem("adminstudyAddIndex1") === null
-      ) {
-        this.$message({
-          type: "warning",
-          message: "请添加章节与小节!",
-          showClose: true,
-        });
-      } else {
-        let i = JSON.parse(sessionStorage.getItem("adminstudyAddIndex")) || 0;
-        let i1 = JSON.parse(sessionStorage.getItem("adminstudyAddIndex1")) || 0;
-        this.chaptersList[i].sections[i1].content = this.sectionContent;
-        localStorage.setItem(
-          "adminstudydraft",
-          JSON.stringify(this.chaptersList)
-        );
-        this.$message({
-          type: "success",
-          message: "保存成功!",
-          showClose: true,
-        });
-      }
+      let i =
+        JSON.parse(
+          sessionStorage.getItem("adminstudyEdit" + this.id + "Index")
+        ) || 0;
+      let i1 =
+        JSON.parse(
+          sessionStorage.getItem("adminstudyEdit" + this.id + "Index1")
+        ) || 0;
+      this.data.chapters[i].sections[i1].content = this.sectionContent;
+      this.$message({
+        type: "success",
+        message: "保存成功!",
+        showClose: true,
+      });
+      localStorage.setItem(
+        `adminstudyedit${this.id}`,
+        JSON.stringify(this.data)
+      );
     },
     setIndex(e, index, index1) {
       clearTimeout(this.sectionId);
       this.sectionId = setTimeout(() => {
-        let i = JSON.parse(sessionStorage.getItem("adminstudyAddIndex")) || 0;
-        let i1 = JSON.parse(sessionStorage.getItem("adminstudyAddIndex1")) || 0;
-        this.chaptersList[i].sections[i1].content = this.sectionContent;
+        let i =
+          JSON.parse(
+            sessionStorage.getItem("adminstudyEdit" + this.id + "Index")
+          ) || 0;
+        let i1 =
+          JSON.parse(
+            sessionStorage.getItem("adminstudyEdit" + this.id + "Index1")
+          ) || 0;
+        this.data.chapters[i].sections[i1].content = this.sectionContent;
         this.$refs.section.forEach((v) => {
           v.classList.remove("active");
         });
         e.target.classList.add("active");
-        this.sectionContent = this.chaptersList[index].sections[index1].content;
-        sessionStorage.setItem("adminstudyAddIndex", index);
-        sessionStorage.setItem("adminstudyAddIndex1", index1);
+        this.sectionContent =
+          this.data.chapters[index].sections[index1].content;
+        sessionStorage.setItem("adminstudyEdit" + this.id + "Index", index);
+        sessionStorage.setItem("adminstudyEdit" + this.id + "Index1", index1);
       }, 250);
     },
   },
 };
 </script>
 <style lang='scss' scoped>
-.adminstudyadd-container {
+.adminstudyedit-container {
   display: flex;
   flex-direction: row;
   width: calc(100vw - 284px);
@@ -400,12 +403,12 @@ export default {
   min-height: 606px;
   margin: 4px 1px;
 }
-.adminstudyadd-container .left {
+.adminstudyedit-container .left {
   width: 77%;
   display: flex;
   flex-direction: column;
 }
-.adminstudyadd-container .right {
+.adminstudyedit-container .right {
   width: 23%;
   height: 606px;
   padding: 5px;
@@ -530,7 +533,6 @@ export default {
   left: 0;
   top: 0;
   object-fit: cover;
-  visibility: hidden;
 }
 .right .bottom {
   height: 456px;

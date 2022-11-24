@@ -22,7 +22,7 @@ export default {
       id: "",
     };
   },
-  mounted() {
+  created() {
     let storage = sessionStorage.getItem(`blogcontent${this.$route.params.id}`);
     if (storage) {
       let data = JSON.parse(storage);

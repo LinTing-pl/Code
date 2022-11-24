@@ -43,7 +43,7 @@ export default {
       bookcontent: "",
     };
   },
-  mounted() {
+  created() {
     let storage = sessionStorage.getItem(
       `studycontent${this.$route.params.id}`
     );

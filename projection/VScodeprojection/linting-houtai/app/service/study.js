@@ -26,15 +26,46 @@ class StudyService extends Service {
     res.chapters = JSON.parse(res.chapters);
     return res;
   }
-  async setBookPriority(requestBody) {
-    const data = await this.app.mysql.update(
-      "books",
-      { orderby: requestBody.orderby },
-      {
-        where: { id: requestBody.id },
-      }
-    );
-    return data;
+  async addOneBook(requestBody) {
+    const book = requestBody.book;
+    const data = await this.app.mysql.insert("books", {
+      cls: book.cls,
+      title: book.title,
+      img: book.img,
+      date: book.date,
+      info: book.info,
+      orderby: book.orderby,
+      chapters: book.chapters,
+    });
+    return "200";
+  }
+  async updateBook(requestBody) {
+    if (requestBody.orderby) {
+      const data = await this.app.mysql.update(
+        "books",
+        { orderby: requestBody.orderby },
+        {
+          where: { id: requestBody.id },
+        }
+      );
+      return data;
+    } else {
+      const book = requestBody.book;
+      const data = await this.app.mysql.update(
+        "books",
+        {
+          title: book.title,
+          img: book.img,
+          date: book.date,
+          info: book.info,
+          chapters: book.chapters,
+        },
+        {
+          where: { id: book.id },
+        }
+      );
+      return data;
+    }
   }
   async deleteOneBook(id) {
     const data = await this.app.mysql.delete("books", { id: id });

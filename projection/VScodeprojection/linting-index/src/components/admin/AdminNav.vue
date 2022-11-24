@@ -48,6 +48,7 @@ export default {
   methods: {
     toHome() {
       this.$router.push("/");
+      sessionStorage.removeItem("adminIndex");
     },
     searchSrc() {
       if (!this.search) return;

@@ -3,9 +3,7 @@
     <div class="top">
       {{ bookcontent.title }}
     </div>
-    <div class="bookcontent">
-      {{ bookcontent.content }}
-    </div>
+    <div class="bookcontent" v-html="bookcontent.content"></div>
   </div>
 </template>
 <script>

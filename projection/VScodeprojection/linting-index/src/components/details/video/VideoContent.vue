@@ -52,7 +52,7 @@ export default {
       activeIndex: 0,
     };
   },
-  mounted() {
+  created() {
     let storage = sessionStorage.getItem(
       `videocontent${this.$route.params.id}`
     );

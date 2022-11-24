@@ -98,6 +98,14 @@ const routes = [
         },
       },
       {
+        path: "/adminstudyedit/:id",
+        name: "adminstudyedit",
+        component: () => import("../components/admin/AdminStudyEdit.vue"),
+        meta: {
+          required: true,
+        },
+      },
+      {
         path: "/adminstudy",
         name: "adminstudy",
         component: () => import("../components/admin/AdminStudy.vue"),

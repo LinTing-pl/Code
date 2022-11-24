@@ -50,17 +50,6 @@ export default {
   },
   mounted() {
     this.adminIndex = sessionStorage.getItem("adminIndex") || "/adminstudy";
-    if (
-      [
-        "/adminstudy",
-        "/adminblog",
-        "/adminvideo",
-        "/adminload",
-        "/adminusers",
-      ].includes(this.adminIndex)
-    ) {
-      document.getElementsByClassName(this.adminIndex.slice(1))[0].click();
-    }
   },
   methods: {
     setIndex(index) {

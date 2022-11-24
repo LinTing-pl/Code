@@ -11,7 +11,8 @@ module.exports = (app) => {
   router.post("/index/get", controller.index.get);
   router.get("/study/get", controller.study.get);
   router.get(`/study/get/:id`, controller.study.getOneBook);
-  router.post(`/study/update`, controller.study.setBookPriority);
+  router.post(`/study/add`, controller.study.addOneBook);
+  router.post(`/study/update`, controller.study.updateBook);
   router.delete(`/study/delete/:id`, controller.study.deleteOneBook);
   router.get("/blog/get", controller.blog.get);
   router.get("/blog/get/:id", controller.blog.getOneBlog);

@@ -66,7 +66,7 @@
           </div>
         </div>
         <div class="diary-btns">
-          <button class="edit-btn" @click="read(item.id)">编辑</button>
+          <button class="edit-btn" @click="edit(item.id)">编辑</button>
           <button class="del-btn" @click="del(item.id)">删除</button>
         </div>
       </div>
@@ -136,6 +136,14 @@ export default {
     },
     toAdd() {
       this.$router.push({ name: "adminstudyadd" });
+    },
+    edit(id) {
+      if (!localStorage.getItem(`adminstudyedit${id}`)) {
+        this.$axios.default(`/dev-api/study/get/${id}`).then((res) => {
+          localStorage.setItem(`adminstudyedit${id}`, JSON.stringify(res.data));
+          this.$router.push({ name: "adminstudyedit", params: { id: id } });
+        });
+      }
     },
     del(id) {
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {

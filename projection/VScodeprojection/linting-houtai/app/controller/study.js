@@ -14,10 +14,15 @@ class StudyController extends Controller {
 
     ctx.body = data;
   }
-  async setBookPriority() {
+  async addOneBook() {
     const { ctx } = this;
-    const requestBody = ctx.request.body;
-    const data = await ctx.service.study.setBookPriority(requestBody);
+    const data = await ctx.service.study.addOneBook(ctx.request.body);
+
+    ctx.body = data;
+  }
+  async updateBook() {
+    const { ctx } = this;
+    const data = await ctx.service.study.updateBook(ctx.request.body);
 
     ctx.body = data;
   }
