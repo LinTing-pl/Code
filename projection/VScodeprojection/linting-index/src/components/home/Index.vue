@@ -65,12 +65,29 @@ export default {
       });
     },
     toSrc(index, id) {
-      this.$router.push({
-        name: this.indexes[index] + "content",
-        params: {
-          id: id,
-        },
-      });
+      if (sessionStorage.getItem(`${this.indexes[index]}content${id}`)) {
+        this.$router.push({
+          name: this.indexes[index] + "content",
+          params: {
+            id: id,
+          },
+        });
+      } else {
+        this.$axios.default
+          .get(`/dev-api/${this.indexes[index]}/get/${id}`)
+          .then((res) => {
+            sessionStorage.setItem(
+              `${this.indexes[index]}content${id}`,
+              JSON.stringify(res.data)
+            );
+            this.$router.push({
+              name: this.indexes[index] + "content",
+              params: {
+                id: id,
+              },
+            });
+          });
+      }
     },
   },
 };

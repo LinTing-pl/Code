@@ -3,9 +3,7 @@
     <div class="left">
       <div class="title">{{ data.title }}</div>
       <div class="date">{{ data.date }}</div>
-      <div class="blog-content">
-        {{ data.content }}
-      </div>
+      <div class="blog-content" v-html="data.content"></div>
     </div>
     <SideContent></SideContent>
   </div>
@@ -23,13 +21,9 @@ export default {
     };
   },
   created() {
-    let storage = sessionStorage.getItem(`blogcontent${this.$route.params.id}`);
-    if (storage) {
-      let data = JSON.parse(storage);
-      this.data = data;
-    } else {
-      this.getOneBlog();
-    }
+    this.data = JSON.parse(
+      sessionStorage.getItem(`blogcontent${this.$route.params.id}`)
+    );
   },
   watch: {
     //监听route
@@ -37,28 +31,12 @@ export default {
       handler() {
         this.id = this.$route.params.id;
         if (this.id) {
-          //不为空
-          let storage = sessionStorage.getItem(
-            `blogcontent${this.$route.params.id}`
+          this.data = JSON.parse(
+            sessionStorage.getItem(`blogcontent${this.$route.params.id}`)
           );
-          if (storage) {
-            let data = JSON.parse(storage);
-            this.data = data;
-          } else {
-            this.getOneBlog();
-          }
         }
       },
       // immediate: true, //在watch中首次绑定的时候，是否执行handler
-    },
-  },
-  methods: {
-    getOneBlog() {
-      let id = this.$route.params.id;
-      this.$axios.default.get(`/dev-api/blog/get/${id}`).then((res) => {
-        sessionStorage.setItem(`blogcontent${id}`, JSON.stringify(res.data));
-        this.data = res.data;
-      });
     },
   },
 };
@@ -96,7 +74,7 @@ export default {
   width: 100%;
   height: 470px;
   overflow: auto;
-  word-wrap: break-word;
+  word-break: break-all;
 }
 .blog-content::-webkit-scrollbar {
   width: 10px;

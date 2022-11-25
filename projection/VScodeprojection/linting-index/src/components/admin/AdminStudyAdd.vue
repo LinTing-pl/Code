@@ -184,11 +184,7 @@ export default {
         });
         localStorage.removeItem("adminstudydraft");
         this.back = false;
-        if (sessionStorage.getItem("adminIndex")) {
-          this.$router.push(sessionStorage.getItem("adminIndex"));
-        } else {
-          this.$router.push("/adminstudy");
-        }
+        this.$router.push("/adminstudy");
       } else {
         this.$message({
           type: "warning",
@@ -219,7 +215,7 @@ export default {
           });
           localStorage.removeItem("adminstudydraft");
           this.back = false;
-          this.$router.push(sessionStorage.getItem("adminIndex"));
+          this.$router.push("/adminstudy");
         });
     },
     handleClose(done) {
@@ -442,7 +438,7 @@ export default {
 .left .display .display-content {
   height: 240px;
   text-align: left;
-  word-wrap: break-word;
+  word-break: break-all;
   overflow: auto;
 }
 .left .display .display-btns {
@@ -503,6 +499,7 @@ export default {
 }
 .left .quillEditor {
   height: 270px;
+  word-break: break-all;
 }
 .right .top {
   position: relative;

@@ -436,7 +436,7 @@ export default {
 .left .display .display-content {
   height: 240px;
   text-align: left;
-  word-wrap: break-word;
+  word-break: break-all;
   overflow: auto;
 }
 .left .display .display-btns {
@@ -484,6 +484,7 @@ export default {
 }
 .left .quillEditor {
   height: 270px;
+  word-break: break-all;
 }
 .right .top {
   position: relative;

@@ -122,6 +122,22 @@ const routes = [
         },
       },
       {
+        path: "/adminblogadd",
+        name: "adminblogadd",
+        component: () => import("../components/admin/AdminBlogAdd.vue"),
+        meta: {
+          required: true,
+        },
+      },
+      {
+        path: "/adminblogedit/:id",
+        name: "adminblogedit",
+        component: () => import("../components/admin/AdminBlogEdit.vue"),
+        meta: {
+          required: true,
+        },
+      },
+      {
         path: "/adminvideo",
         name: "adminvideo",
         component: () => import("../components/admin/AdminVideo.vue"),

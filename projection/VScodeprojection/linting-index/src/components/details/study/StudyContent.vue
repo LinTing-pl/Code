@@ -44,40 +44,35 @@ export default {
     };
   },
   created() {
-    let storage = sessionStorage.getItem(
-      `studycontent${this.$route.params.id}`
+    let data = JSON.parse(
+      sessionStorage.getItem(`studycontent${this.$route.params.id}`)
     );
-    if (storage) {
-      let data = JSON.parse(storage);
-      this.studyContentList = data;
-      this.othersList = JSON.parse(sessionStorage.getItem("study")).slice(0, 4);
-    } else {
-      this.getData();
-    }
+    this.studyContentList = data;
+    this.othersList = JSON.parse(sessionStorage.getItem("study")).slice(0, 4);
   },
   methods: {
-    getData() {
-      let index = this.$route.params.id;
-      this.$axios.default.get(`/dev-api/study/get/${index}`).then((res) => {
-        sessionStorage.setItem(
-          `studycontent${index}`,
-          JSON.stringify(res.data)
-        );
-        this.studyContentList = res.data;
-      });
-      this.othersList = JSON.parse(sessionStorage.getItem("study")).slice(0, 4);
-    },
-
     putBookcontent(data) {
       this.bookcontent = data;
     },
     read(id) {
-      this.$router
-        .push("/studycontent/" + id)
-        .then((res) => {
-          this.$router.go(0);
-        })
-        .catch((err) => {});
+      if (sessionStorage.getItem(`studycontent${id}`)) {
+        this.$router
+          .push("/studycontent/" + id)
+          .then((res) => {
+            this.$router.go(0);
+          })
+          .catch((err) => {});
+      } else {
+        this.$axios.default.get(`/dev-api/study/get/${id}`).then((res) => {
+          sessionStorage.setItem(`studycontent${id}`, JSON.stringify(res.data));
+          this.$router
+            .push("/studycontent/" + id)
+            .then((res) => {
+              this.$router.go(0);
+            })
+            .catch((err) => {});
+        });
+      }
     },
   },
 };

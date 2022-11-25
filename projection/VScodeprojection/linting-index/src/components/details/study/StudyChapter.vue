@@ -2,20 +2,22 @@
   <div class="studychapter-container">
     <div
       class="chapter"
-      @click="toggleActive($event, index)"
       v-for="(item, index) in list"
       :key="index"
       :title="item.chapter"
     >
       <span
+        ref="chapter"
+        @click="toggleActive(index)"
         :class="{ 'chapter-title': true, active: index === chapterIndex }"
         >{{ item.chapter }}</span
       >
       <div class="sections" ref="sections">
         <div
+          ref="section"
           :class="{
             section: true,
-            active2: index === chapterIndex && index2 === sectionIndex,
+            active: index === chapterIndex && index2 === sectionIndex,
           }"
           v-for="(item2, index2) in item.sections"
           :key="index2"
@@ -40,35 +42,34 @@ export default {
     };
   },
   props: ["list"],
-  mounted() {
+  created() {
     let id = this.$route.params.id;
-    if (sessionStorage.getItem(`chapterIndex${id}`) !== null) {
-      this.chapterIndex =
-        parseInt(sessionStorage.getItem(`chapterIndex${id}`)) || 0;
-      this.sectionIndex =
-        parseInt(sessionStorage.getItem(`sectionIndex${id}`)) || 0;
+    if (sessionStorage.getItem(`chapterIndex${id}`)) {
+      this.chapterIndex = parseInt(sessionStorage.getItem(`chapterIndex${id}`));
+      this.sectionIndex = parseInt(sessionStorage.getItem(`sectionIndex${id}`));
     }
   },
-  updated() {
-    document.getElementsByClassName("active2")[0].click();
+  mounted() {
+    this.$refs.sections[this.chapterIndex].children[this.sectionIndex].click();
+    this.$refs.sections[this.chapterIndex].style.height =
+      33 * this.$refs.sections[this.chapterIndex].children.length + "px";
   },
-
   methods: {
-    toggleActive(e, index) {
-      e.target.classList.toggle("active");
-      let sections = this.$refs.sections[index];
-      if (e.target.classList.contains("active")) {
-        sections.style.height = 33 * sections.children.length + "px";
+    toggleActive(index) {
+      this.$refs.chapter[index].classList.toggle("active");
+      if (this.$refs.chapter[index].classList.contains("active")) {
+        this.$refs.sections[index].style.height =
+          33 * this.$refs.sections[index].children.length + "px";
       } else {
-        sections.style.height = 0;
+        this.$refs.sections[index].style.height = 0;
       }
     },
     sectionActive(e) {
-      let sections = e.path[3].querySelectorAll(".section");
-      sections.forEach((section) => {
-        section.classList.remove("active2");
+      e.stopPropagation();
+      this.$refs.section.forEach((section) => {
+        section.classList.remove("active");
       });
-      e.target.className = "section active2";
+      e.target.className = "section active";
     },
     toStudySrc(title, content, index1, index2) {
       this.$emit("putBookcontent", { title: title, content: content });
@@ -126,7 +127,7 @@ export default {
   overflow: hidden;
   color: #9b9b9b;
 }
-.section.active2 {
+.section.active {
   color: #58a6ff;
 }
 </style>

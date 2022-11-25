@@ -31,7 +31,7 @@ export default {
   height: 100%;
   padding: 10px 28px;
   white-space: normal;
-  word-wrap: break-word;
+  word-break: break-all;
   text-align: left;
   line-height: 1.5;
   font-size: 17px;

@@ -35,10 +35,20 @@ export default {
   },
   methods: {
     read(id) {
-      this.$router.push({
-        name: "studycontent",
-        params: { id: id },
-      });
+      if (sessionStorage.getItem(`studycontent${id}`)) {
+        this.$router.push({
+          name: "studycontent",
+          params: { id: id },
+        });
+      } else {
+        this.$axios.default.get(`/dev-api/study/get/${id}`).then((res) => {
+          sessionStorage.setItem(`studycontent${id}`, JSON.stringify(res.data));
+          this.$router.push({
+            name: "studycontent",
+            params: { id: id },
+          });
+        });
+      }
     },
     handleCurrentChange() {
       sessionStorage.setItem("currStudyPage", this.currentPage.toString());

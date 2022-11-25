@@ -40,10 +40,20 @@ export default {
   },
   methods: {
     read(id) {
-      this.$router.push({
-        name: "blogcontent",
-        params: { id: id },
-      });
+      if (sessionStorage.getItem(`blogcontent${id}`)) {
+        this.$router.push({
+          name: "blogcontent",
+          params: { id: id },
+        });
+      } else {
+        this.$axios.default.get(`/dev-api/blog/get/${id}`).then((res) => {
+          sessionStorage.setItem(`blogcontent${id}`, JSON.stringify(res.data));
+          this.$router.push({
+            name: "blogcontent",
+            params: { id: id },
+          });
+        });
+      }
     },
     handleCurrentChange() {
       sessionStorage.setItem("currBlogPage", this.currentPage.toString());

@@ -1,7 +1,13 @@
 <template>
   <div class="videocontent-container">
     <div class="left">
-      <VideoSrc :videoSrcList="videoSrcList"></VideoSrc>
+      <div class="videosrc">
+        <div class="video-title">{{ videoContent.section }}</div>
+        <div class="video-date">{{ videoContent.date }}</div>
+        <div class="video-content">
+          <video :src="videoContent.mp4" controls @click="checkLogin"></video>
+        </div>
+      </div>
       <Bottom></Bottom>
     </div>
     <div class="right">
@@ -10,10 +16,10 @@
         <div class="sections">
           <div
             :class="{ section: true, active3: index === activeIndex }"
-            v-for="(item, index) in srcList.sections"
+            v-for="(item, index) in data.sections"
             :key="index"
             @click="
-              toVideoSrc(item, index);
+              setIndex(index);
               addActive($event);
             "
           >
@@ -36,61 +42,36 @@
   </div>
 </template>
 <script>
-import VideoSrc from "./VideoSrc.vue";
 import Bottom from "../../public/Bottom.vue";
 export default {
   components: {
-    VideoSrc,
     Bottom,
   },
   data() {
     return {
-      srcList: [],
-      videoSrcList: [],
+      data: [],
+      videoContentist: [],
       othersSrcList: [],
       bigImg: "",
       activeIndex: 0,
     };
   },
   created() {
-    let storage = sessionStorage.getItem(
-      `videocontent${this.$route.params.id}`
+    this.data = JSON.parse(
+      sessionStorage.getItem(`videocontent${this.$route.params.id}`)
     );
-    if (storage) {
-      let data = JSON.parse(storage);
-      this.srcList = data;
-      this.srcList.sections = JSON.parse(data.sections);
-      this.othersSrcList = JSON.parse(sessionStorage.getItem("video")).slice(
-        0,
-        3
-      );
-    } else {
-      this.getData();
-    }
-    let indexStorage = sessionStorage.getItem(
-      `videoSectionIndex${this.$route.params.id}`
+    this.data.sections = JSON.parse(this.data.sections);
+    this.othersSrcList = JSON.parse(sessionStorage.getItem("video")).slice(
+      0,
+      3
     );
-    if (indexStorage) this.activeIndex = JSON.parse(indexStorage) || 0;
-  },
-  updated() {
-    if (!!document.querySelector(".active3")) {
-      document.querySelector(".active3").click();
-    }
+    this.activeIndex =
+      JSON.parse(
+        sessionStorage.getItem(`videoSectionIndex${this.$route.params.id}`)
+      ) || 0;
+    this.videoContent = this.data.sections[this.activeIndex];
   },
   methods: {
-    getData() {
-      let id = this.$route.params.id;
-      this.$axios.default.get(`/dev-api/video/get/${id}`).then((res) => {
-        sessionStorage.setItem(`videocontent${id}`, JSON.stringify(res.data));
-        this.srcList = res.data;
-        this.srcList.sections = JSON.parse(res.data.sections);
-      });
-
-      this.othersSrcList = JSON.parse(sessionStorage.getItem("video")).slice(
-        0,
-        3
-      );
-    },
     addActive(e) {
       let sections = e.target.parentNode.querySelectorAll(".section");
       sections.forEach((v) => {
@@ -98,12 +79,20 @@ export default {
       });
       e.target.classList.add("active3");
     },
-    toVideoSrc(item, index) {
-      this.videoSrcList = item;
+    setIndex(index) {
+      this.videoContent = this.data.sections[index];
       sessionStorage.setItem(
         `videoSectionIndex${this.$route.params.id}`,
         index
       );
+    },
+    checkLogin(e) {
+      if (!localStorage.getItem("user")) {
+        e.preventDefault();
+        if (confirm("观看视频，需要先登录")) {
+          this.$router.push("/login");
+        }
+      }
     },
   },
 };
@@ -122,6 +111,33 @@ export default {
 .right {
   width: 30%;
   margin-left: 15px;
+}
+.left .videosrc {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+.left .videosrc .video-title {
+  font-weight: bold;
+  font-size: 20px;
+  letter-spacing: 3px;
+}
+.left .videosrc .video-date {
+  color: #aaa;
+  margin: 12px 0 12px;
+}
+.left .videosrc .video-content {
+  width: 100%;
+  height: 400px;
+  padding-bottom: 20px;
+}
+.left .videosrc .video-content video {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
 }
 .right .nav {
   text-align: left;

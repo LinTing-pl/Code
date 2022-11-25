@@ -50,10 +50,25 @@ export default {
   },
   methods: {
     read(cls, id) {
-      this.$router.push({
-        name: this.cls[cls],
-        params: { id: id },
-      });
+      if (sessionStorage.getItem(`${this.cls[cls]}${id}`)) {
+        this.$router.push({
+          name: this.cls[cls],
+          params: { id: id },
+        });
+      } else {
+        this.$axios.default
+          .get(`/dev-api/${this.cls[cls].slice(0, -7)}/get/${id}`)
+          .then((res) => {
+            sessionStorage.setItem(
+              `${this.cls[cls]}${id}`,
+              JSON.stringify(res.data)
+            );
+            this.$router.push({
+              name: this.cls[cls],
+              params: { id: id },
+            });
+          });
+      }
     },
     handleCurrentChange() {
       this.curList = this.srcList.slice(

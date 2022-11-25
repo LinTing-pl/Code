@@ -35,12 +35,24 @@ export default {
   },
   methods: {
     read(id) {
-      this.$router.push({
-        name: "videocontent",
-        params: {
-          id: id,
-        },
-      });
+      if (sessionStorage.getItem(`videocontent${id}`)) {
+        this.$router.push({
+          name: "videocontent",
+          params: {
+            id: id,
+          },
+        });
+      } else {
+        this.$axios.default.get(`/dev-api/video/get/${id}`).then((res) => {
+          sessionStorage.setItem(`videocontent${id}`, JSON.stringify(res.data));
+          this.$router.push({
+            name: "videocontent",
+            params: {
+              id: id,
+            },
+          });
+        });
+      }
     },
     handleCurrentChange() {
       sessionStorage.setItem("currVideoPage", this.currentPage.toString());
