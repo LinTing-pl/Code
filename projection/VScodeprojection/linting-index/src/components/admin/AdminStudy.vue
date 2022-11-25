@@ -143,6 +143,8 @@ export default {
           localStorage.setItem(`adminstudyedit${id}`, JSON.stringify(res.data));
           this.$router.push({ name: "adminstudyedit", params: { id: id } });
         });
+      } else {
+        this.$router.push({ name: "adminstudyedit", params: { id: id } });
       }
     },
     del(id) {

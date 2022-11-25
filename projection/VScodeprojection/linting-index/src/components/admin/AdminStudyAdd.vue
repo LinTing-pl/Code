@@ -12,7 +12,7 @@
             center
           >
             <span
-              ><strong>请为《{{ bookname }}》添加一段介绍:</strong></span
+              ><strong>请为《{{ data.title }}》添加一段介绍:</strong></span
             >
             <div
               class="bookInfo"
@@ -27,16 +27,17 @@
               <el-button type="primary" @click="submitBook">确 定</el-button>
             </span>
           </el-dialog>
+          <button class="delDraft" @click="delDraft">删除草稿</button>
           <button class="submitBook" @click="dialogVisible = true">提交</button>
           <button class="saveSection" @click="saveSection">保存</button>
-          <button class="delSection" @click="delSection">删除</button>
+          <button class="delSection" @click="delSection">删除小节</button>
         </div>
       </div>
       <quillEditor class="quillEditor" v-model="sectionContent"></quillEditor>
     </div>
     <div class="right">
       <div class="top">
-        <div class="name" ref="name">{{ bookname }}</div>
+        <div class="name" ref="name">{{ data.title }}</div>
         <button class="modify" @click="modifyName">修改</button>
         <button class="confirm" ref="confirmBtn" @click="confirmName" disabled>
           确认
@@ -60,7 +61,7 @@
               fill="#aaa"
             ></path>
           </svg>
-          <img ref="img" :src="bookImg" alt="封面" />
+          <img ref="img" :src="data.img" alt="封面" />
         </label>
         <input
           type="file"
@@ -71,7 +72,11 @@
         />
       </div>
       <div class="bottom" ref="bottom">
-        <div class="chapter" v-for="(item, index) in chaptersList" :key="index">
+        <div
+          class="chapter"
+          v-for="(item, index) in data.chapters"
+          :key="index"
+        >
           <div
             :class="{ title: true, active: activeIndex === index }"
             ref="chapter"
@@ -122,9 +127,11 @@ export default {
   },
   data() {
     return {
-      bookname: "书名",
-      bookImg: "",
-      chaptersList: [],
+      data: {
+        title: "书名",
+        img: "",
+        chapters: [],
+      },
       chapterId: null,
       sectionId: null,
       isClick: true,
@@ -132,23 +139,23 @@ export default {
       activeIndex1: 0,
       sectionContent: "",
       dialogVisible: false,
+      save: true,
       back: true,
     };
   },
   mounted() {
-    this.bookname = localStorage.getItem("adminstudyaddname") || "书名";
-    this.bookImg = localStorage.getItem(`${this.bookname}1025`) || "";
-    if (this.bookImg) {
+    if (localStorage.getItem("adminstudydraft")) {
+      this.data = JSON.parse(localStorage.getItem("adminstudydraft"));
+    }
+    if (this.data.img) {
       this.$refs.img.style.visibility = "visible";
     }
     this.activeIndex =
       JSON.parse(sessionStorage.getItem("adminstudyAddIndex")) || 0;
     this.activeIndex1 =
       JSON.parse(sessionStorage.getItem("adminstudyAddIndex1")) || 0;
-    this.chaptersList =
-      JSON.parse(localStorage.getItem("adminstudydraft")) || [];
     this.sectionContent =
-      this.chaptersList[this.activeIndex]?.sections[this.activeIndex1]
+      this.data.chapters[this.activeIndex]?.sections[this.activeIndex1]
         ?.content || "";
     window.addEventListener("beforeunload", this.beforeUnload);
   },
@@ -159,8 +166,7 @@ export default {
     beforeUnload(e) {
       if (
         this.back &&
-        JSON.stringify(this.chaptersList) !==
-          localStorage.getItem("adminstudydraft")
+        JSON.stringify(this.data) !== localStorage.getItem("adminstudydraft")
       ) {
         e = e || window.event;
         if (e) {
@@ -169,30 +175,49 @@ export default {
         return "关闭提示";
       }
     },
+    delDraft() {
+      if (localStorage.getItem("adminstudydraft")) {
+        this.$message({
+          type: "success",
+          message: "删除成功!",
+          showClose: true,
+        });
+        localStorage.removeItem("adminstudydraft");
+        this.back = false;
+        if (sessionStorage.getItem("adminIndex")) {
+          this.$router.push(sessionStorage.getItem("adminIndex"));
+        } else {
+          this.$router.push("/adminstudy");
+        }
+      } else {
+        this.$message({
+          type: "warning",
+          message: "还没有草稿!",
+          showClose: true,
+        });
+      }
+    },
     submitBook() {
+      localStorage.setItem("adminstudydraft", JSON.stringify(this.data));
       this.dialogVisible = false;
       let nowTime = new Date();
-      let book = {};
-      book.cls = "手册";
-      book.title = this.bookname;
-      book.img =
-        this.bookImg ||
+      this.data.cls = "手册";
+      this.data.img =
+        this.data.img ||
         "http://localhost:7001/public/img/defaultImg/default.jpeg";
-      book.orderby = 0;
-      book.date =
+      this.data.orderby = 0;
+      this.data.date =
         nowTime.toLocaleDateString() + " " + nowTime.toLocaleTimeString();
-      book.info = document.querySelector(".bookInfo").innerText;
-      book.chapters = JSON.stringify(this.chaptersList);
+      this.data.info = this.$refs.bookinfo.innerText;
+      this.data.chapters = JSON.stringify(this.data.chapters);
       this.$axios.default
-        .post("/dev-api/study/add", { book: book })
+        .post("/dev-api/study/add", { book: this.data })
         .then((res) => {
           this.$message({
             type: "success",
             message: "提交成功!",
           });
-          localStorage.removeItem(`${this.bookname}1025`);
           localStorage.removeItem("adminstudydraft");
-          localStorage.removeItem("adminstudyaddname");
           this.back = false;
           this.$router.push(sessionStorage.getItem("adminIndex"));
         });
@@ -205,7 +230,6 @@ export default {
         .catch((_) => {});
     },
     modifyName() {
-      localStorage.removeItem(`${this.bookname}1025`);
       let name = this.$refs.name;
       name.setAttribute("contenteditable", true);
       name.focus();
@@ -215,11 +239,10 @@ export default {
     confirmName() {
       let name = this.$refs.name;
       name.removeAttribute("contenteditable");
-      this.bookname = name.innerText;
+      this.data.title = name.innerText;
       this.$refs.confirmBtn.setAttribute("disabled", true);
       this.$refs.confirmBtn.style.cursor = "not-allowed";
-      localStorage.setItem("adminstudyaddname", this.bookname);
-      localStorage.setItem(`${this.bookname}1025`, this.bookImg);
+      localStorage.setItem("adminstudydraft", JSON.stringify(this.data));
     },
     addImg(e) {
       let file = e.target.files[0];
@@ -233,17 +256,14 @@ export default {
       let _this = this;
       reader.onload = function (e) {
         // 转换后的base64就在e.target.result里面,直接放到img标签的src属性即可
-        _this.bookImg = e.target.result;
+        _this.data.img = e.target.result;
         _this.$refs.img.style.visibility = "visible";
-        localStorage.setItem(`${_this.bookname}1025`, _this.bookImg);
+        localStorage.setItem("adminstudydraft", JSON.stringify(_this.data));
       };
     },
     addChapter() {
-      this.chaptersList.push({ chapter: "第 章 章节名", sections: [] });
-      localStorage.setItem(
-        "adminstudydraft",
-        JSON.stringify(this.chaptersList)
-      );
+      this.data.chapters.push({ chapter: "第 章 章节名", sections: [] });
+      localStorage.setItem("adminstudydraft", JSON.stringify(this.data));
     },
     delChapter(chapter, index) {
       this.$confirm(`是否删除《${chapter}》章节, 是否继续?`, "提示", {
@@ -252,14 +272,15 @@ export default {
         type: "warning",
       })
         .then(() => {
-          this.chaptersList.splice(index, 1);
+          this.data.chapters.splice(index, 1);
+          sessionStorage.removeItem("adminstudyAddIndex");
+          sessionStorage.removeItem("adminstudyAddIndex1");
+          this.activeIndex = null;
+          this.activeIndex1 = null;
           this.$refs.bottom
             .querySelectorAll(".sections")
             .forEach((v) => v.classList.remove("active"));
-          localStorage.setItem(
-            "adminstudydraft",
-            JSON.stringify(this.chaptersList)
-          );
+          localStorage.setItem("adminstudydraft", JSON.stringify(this.data));
           this.$message({
             type: "success",
             message: "删除成功!",
@@ -288,16 +309,13 @@ export default {
     finishModify(e, index, index1) {
       this.isClick = true;
       if (index1 === undefined) {
-        this.chaptersList[index].chapter = e.target.innerText;
+        this.data.chapters[index].chapter = e.target.innerText;
       } else {
-        this.chaptersList[index].sections[index1].section = e.target.innerText;
+        this.data.chapters[index].sections[index1].section = e.target.innerText;
       }
       e.target.removeAttribute("contenteditable");
       e.target.style.cursor = "pointer";
-      localStorage.setItem(
-        "adminstudydraft",
-        JSON.stringify(this.chaptersList)
-      );
+      localStorage.setItem("adminstudydraft", JSON.stringify(this.data));
     },
     toggleActive(e) {
       clearTimeout(this.chapterId);
@@ -307,17 +325,14 @@ export default {
       }, 250);
     },
     addSection(index) {
-      this.chaptersList[index].sections.push({ section: "第 节 小节名" });
-      localStorage.setItem(
-        "adminstudydraft",
-        JSON.stringify(this.chaptersList)
-      );
+      this.data.chapters[index].sections.push({ section: "第 节 小节名" });
+      localStorage.setItem("adminstudydraft", JSON.stringify(this.data));
     },
     delSection() {
       let i = JSON.parse(sessionStorage.getItem("adminstudyAddIndex")) || 0;
       let i1 = JSON.parse(sessionStorage.getItem("adminstudyAddIndex1")) || 0;
       this.$confirm(
-        `是否删除《${this.chaptersList[i].sections[i1].section}》小节, 是否继续?`,
+        `是否删除《${this.data.chapters[i].sections[i1].section}》小节, 是否继续?`,
         "提示",
         {
           confirmButtonText: "确定",
@@ -326,11 +341,12 @@ export default {
         }
       )
         .then(() => {
-          this.chaptersList[i].sections.splice(i1, 1);
-          localStorage.setItem(
-            "adminstudydraft",
-            JSON.stringify(this.chaptersList)
-          );
+          this.data.chapters[i].sections.splice(i1, 1);
+          this.sectionContent = "";
+          this.save = false;
+          localStorage.setItem("adminstudydraft", JSON.stringify(this.data));
+          sessionStorage.removeItem("adminstudyAddIndex1");
+          this.activeIndex1 = null;
           this.$message({
             type: "success",
             message: "删除成功!",
@@ -349,23 +365,23 @@ export default {
         });
     },
     saveSection() {
-      if (
-        sessionStorage.getItem("adminstudyAddIndex") === null ||
-        sessionStorage.getItem("adminstudyAddIndex1") === null
-      ) {
+      if (!this.$refs.chapter) {
         this.$message({
           type: "warning",
-          message: "请添加章节与小节!",
+          message: "请添加章节!",
+          showClose: true,
+        });
+      } else if (!this.$refs.section) {
+        this.$message({
+          type: "warning",
+          message: "请添加小节!",
           showClose: true,
         });
       } else {
         let i = JSON.parse(sessionStorage.getItem("adminstudyAddIndex")) || 0;
         let i1 = JSON.parse(sessionStorage.getItem("adminstudyAddIndex1")) || 0;
-        this.chaptersList[i].sections[i1].content = this.sectionContent;
-        localStorage.setItem(
-          "adminstudydraft",
-          JSON.stringify(this.chaptersList)
-        );
+        this.data.chapters[i].sections[i1].content = this.sectionContent;
+        localStorage.setItem("adminstudydraft", JSON.stringify(this.data));
         this.$message({
           type: "success",
           message: "保存成功!",
@@ -376,14 +392,21 @@ export default {
     setIndex(e, index, index1) {
       clearTimeout(this.sectionId);
       this.sectionId = setTimeout(() => {
-        let i = JSON.parse(sessionStorage.getItem("adminstudyAddIndex")) || 0;
-        let i1 = JSON.parse(sessionStorage.getItem("adminstudyAddIndex1")) || 0;
-        this.chaptersList[i].sections[i1].content = this.sectionContent;
+        if (this.save) {
+          let i = JSON.parse(sessionStorage.getItem("adminstudyAddIndex")) || 0;
+          let i1 =
+            JSON.parse(sessionStorage.getItem("adminstudyAddIndex1")) || 0;
+          this.data.chapters[i].sections[i1].content = this.sectionContent;
+        } else {
+          this.save = true;
+        }
+
         this.$refs.section.forEach((v) => {
           v.classList.remove("active");
         });
         e.target.classList.add("active");
-        this.sectionContent = this.chaptersList[index].sections[index1].content;
+        this.sectionContent =
+          this.data.chapters[index].sections[index1].content;
         sessionStorage.setItem("adminstudyAddIndex", index);
         sessionStorage.setItem("adminstudyAddIndex1", index1);
       }, 250);
@@ -464,6 +487,19 @@ export default {
 }
 .left .display .display-btns .submitBook:hover {
   background-color: #85ce61;
+}
+.left .display .display-btns .delDraft {
+  height: 28px;
+  margin-right: 10px;
+  background-color: #f56c6c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+}
+.left .display .display-btns .delDraft:hover {
+  background-color: #f78989;
 }
 .left .quillEditor {
   height: 270px;

@@ -28,7 +28,7 @@
           </el-dialog>
           <button class="submitBook" @click="dialogVisible = true">提交</button>
           <button class="saveSection" @click="saveSection">保存</button>
-          <button class="delSection" @click="delSection">删除</button>
+          <button class="delSection" @click="delSection">删除小节</button>
         </div>
       </div>
       <quillEditor class="quillEditor" v-model="sectionContent"></quillEditor>
@@ -134,6 +134,7 @@ export default {
       activeIndex1: 0,
       sectionContent: null,
       dialogVisible: false,
+      save: true,
       back: false,
     };
   },
@@ -166,6 +167,7 @@ export default {
         return "关闭提示";
       }
     },
+
     submitBook() {
       localStorage.setItem(
         `adminstudyedit${this.id}`,
@@ -248,6 +250,10 @@ export default {
       })
         .then(() => {
           this.data.chapters.splice(index, 1);
+          sessionStorage.removeItem("adminstudyEdit" + this.id + "Index");
+          sessionStorage.removeItem("adminstudyEdit" + this.id + "Index1");
+          this.activeIndex = null;
+          this.activeIndex1 = null;
           this.$refs.bottom
             .querySelectorAll(".sections")
             .forEach((v) => v.classList.remove("active"));
@@ -328,6 +334,9 @@ export default {
       )
         .then(() => {
           this.data.chapters[i].sections.splice(i1, 1);
+          this.save = false;
+          sessionStorage.removeItem("adminstudyEdit" + this.id + "Index1");
+          this.activeIndex1 = null;
           this.$message({
             type: "success",
             message: "删除成功!",
@@ -372,15 +381,20 @@ export default {
     setIndex(e, index, index1) {
       clearTimeout(this.sectionId);
       this.sectionId = setTimeout(() => {
-        let i =
-          JSON.parse(
-            sessionStorage.getItem("adminstudyEdit" + this.id + "Index")
-          ) || 0;
-        let i1 =
-          JSON.parse(
-            sessionStorage.getItem("adminstudyEdit" + this.id + "Index1")
-          ) || 0;
-        this.data.chapters[i].sections[i1].content = this.sectionContent;
+        if (this.save) {
+          let i =
+            JSON.parse(
+              sessionStorage.getItem("adminstudyEdit" + this.id + "Index")
+            ) || 0;
+          let i1 =
+            JSON.parse(
+              sessionStorage.getItem("adminstudyEdit" + this.id + "Index1")
+            ) || 0;
+          this.data.chapters[i].sections[i1].content = this.sectionContent;
+        } else {
+          this.save = true;
+        }
+
         this.$refs.section.forEach((v) => {
           v.classList.remove("active");
         });
