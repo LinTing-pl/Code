@@ -29,7 +29,12 @@
       </div>
       <div class="others">
         <div class="nav">推荐视频</div>
-        <div class="card" v-for="(item, index) in othersSrcList" :key="index">
+        <div
+          class="card"
+          @click="read(item.id)"
+          v-for="(item, index) in othersSrcList"
+          :key="index"
+        >
           <div class="img">
             <img :src="item.img" alt="" />
           </div>
@@ -54,6 +59,7 @@ export default {
       othersSrcList: [],
       bigImg: "",
       activeIndex: 0,
+      readId: null,
     };
   },
   created() {
@@ -71,7 +77,59 @@ export default {
       ) || 0;
     this.videoContent = this.data.sections[this.activeIndex];
   },
+  watch: {
+    $route: {
+      handler() {
+        this.id = this.$route.params.id;
+        if (this.id) {
+          this.data = JSON.parse(
+            sessionStorage.getItem(`videocontent${this.$route.params.id}`)
+          );
+          this.data.sections = JSON.parse(this.data.sections);
+          this.activeIndex =
+            JSON.parse(
+              sessionStorage.getItem(
+                `videoSectionIndex${this.$route.params.id}`
+              )
+            ) || 0;
+          this.videoContent = this.data.sections[this.activeIndex];
+          this.$forceUpdate();
+        }
+      },
+      // immediate: true, //在watch中首次绑定的时候，是否执行handler
+    },
+  },
   methods: {
+    read(id) {
+      clearTimeout(this.readId);
+      this.readId = setTimeout(() => {
+        if (sessionStorage.getItem(`videocontent${id}`)) {
+          this.$router
+            .push({
+              name: "videocontent",
+              params: {
+                id: id,
+              },
+            })
+            .catch((e) => {});
+        } else {
+          this.$axios.default.get(`/dev-api/video/get/${id}`).then((res) => {
+            sessionStorage.setItem(
+              `videocontent${id}`,
+              JSON.stringify(res.data)
+            );
+            this.$router
+              .push({
+                name: "videocontent",
+                params: {
+                  id: id,
+                },
+              })
+              .catch((e) => {});
+          });
+        }
+      }, 250);
+    },
     addActive(e) {
       let sections = e.target.parentNode.querySelectorAll(".section");
       sections.forEach((v) => {
@@ -81,6 +139,7 @@ export default {
     },
     setIndex(index) {
       this.videoContent = this.data.sections[index];
+      this.$forceUpdate();
       sessionStorage.setItem(
         `videoSectionIndex${this.$route.params.id}`,
         index
@@ -131,12 +190,12 @@ export default {
 }
 .left .videosrc .video-content {
   width: 100%;
-  height: 400px;
+  height: auto;
   padding-bottom: 20px;
 }
 .left .videosrc .video-content video {
   width: 100%;
-  height: 100%;
+  height: auto;
   cursor: pointer;
 }
 .right .nav {
@@ -164,6 +223,7 @@ export default {
   text-align: left;
   cursor: pointer;
   position: relative;
+  user-select: none;
 }
 .sections .section:hover {
   background-color: #ddd;
@@ -199,8 +259,13 @@ img {
   position: relative;
   width: 100%;
   height: 60px;
-  padding-bottom: 10px;
+  padding: 5px 0;
+  margin-bottom: 5px;
   display: flex;
+  cursor: pointer;
+}
+.others .card:hover {
+  box-shadow: 0 0 5px #000;
 }
 .others .card .img {
   height: 100%;

@@ -92,16 +92,13 @@ export default {
         img: "",
         content: "",
       },
-      activeIndex: 0,
-      activeIndex1: 0,
       blogContent: "",
       dialogVisible: false,
-      save: true,
       back: true,
     };
   },
   created() {
-    this.id = this.$route.params.id;
+    this.id = JSON.parse(sessionStorage.getItem("target"));
     this.data = JSON.parse(localStorage.getItem("adminblogedit" + this.id));
     this.blogContent = this.data.content;
     window.addEventListener("beforeunload", this.beforeUnload);
@@ -119,8 +116,8 @@ export default {
         return "关闭提示";
       }
     },
-    submitBlog() {
-      this.id = this.$route.params.id;
+    async submitBlog() {
+      this.id = this.id;
       this.data.content = this.blogContent;
       localStorage.setItem(
         "adminblogedit" + this.id,
@@ -129,23 +126,28 @@ export default {
       this.dialogVisible = false;
       let nowTime = new Date();
       this.data.cls = "博客";
-      this.data.img =
-        this.data.img ||
-        "http://localhost:7001/public/img/defaultImg/default.jpeg";
-      this.data.orderby = 0;
       this.data.date =
         nowTime.toLocaleDateString() + " " + nowTime.toLocaleTimeString();
       this.data.info = this.$refs.bloginfo.innerText;
-      this.$axios.default
-        .post("/dev-api/blog/add", { blog: this.data })
+      await this.$axios.default
+        .post("/dev-api/blog/update", { blog: this.data })
         .then((res) => {
-          this.$message({
-            type: "success",
-            message: "提交成功!",
-          });
-          localStorage.removeItem("adminblogedit" + this.id);
-          this.back = false;
-          this.$router.push(sessionStorage.getItem("adminIndex"));
+          this.$axios.default
+            .post("/dev-api/draftoredit/blog/update", {
+              user: localStorage.getItem("user"),
+              img: "",
+              cls: "edit",
+              idx: this.id,
+            })
+            .then((res) => {
+              this.$message({
+                type: "success",
+                message: "提交成功!",
+              });
+              this.back = true;
+              localStorage.removeItem(`adminblogedit${this.id}`);
+              this.$router.push("/adminblog");
+            });
         });
     },
     handleClose(done) {
@@ -174,24 +176,43 @@ export default {
       );
     },
     addImg(e) {
-      let file = e.target.files[0];
-      let reader;
-      if (file) {
-        // 创建流对象
-        reader = new FileReader();
-        reader.readAsDataURL(file);
+      try {
+        let file = e.target.files[0];
+        let reader;
+        if (file) {
+          // 创建流对象
+          reader = new FileReader();
+          reader.readAsDataURL(file);
+        }
+        // 捕获 转换完毕
+        let _this = this;
+        reader.onload = async function (e) {
+          // 转换后的base64就在e.target.result里面,直接放到img标签的src属性即可
+          let time = new Date().getTime();
+          await _this.$axios.default
+            .post("/dev-api/draftoredit/blog/update", {
+              user: localStorage.getItem("user"),
+              time: time,
+              img: e.target.result,
+              cls: "edit",
+              idx: _this.id,
+            })
+            .then((res) => {
+              _this.data.img = res.data;
+              _this.$refs.img.style.visibility = "visible";
+              localStorage.setItem(
+                `adminblogedit${_this.id}`,
+                JSON.stringify(_this.data)
+              );
+            });
+        };
+      } catch (e) {
+        this.$message({
+          type: "warning",
+          message: "需要jpeg格式的图片!",
+          showClose: true,
+        });
       }
-      // 捕获 转换完毕
-      let _this = this;
-      reader.onload = function (e) {
-        // 转换后的base64就在e.target.result里面,直接放到img标签的src属性即可
-        _this.data.img = e.target.result;
-        _this.$refs.img.style.visibility = "visible";
-        localStorage.setItem(
-          "adminblogedit" + this.id,
-          JSON.stringify(_this.data)
-        );
-      };
     },
     saveBlog() {
       this.data.content = this.blogContent;

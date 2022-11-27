@@ -43,7 +43,7 @@ export default {
       },
     };
   },
-  mounted() {
+  created() {
     this.srcList = this.search();
     this.searchLength = this.srcList.length;
     this.handleCurrentChange();

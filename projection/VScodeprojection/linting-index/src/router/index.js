@@ -146,6 +146,22 @@ const routes = [
         },
       },
       {
+        path: "/adminvideoadd",
+        name: "adminvideoadd",
+        component: () => import("../components/admin/AdminVideoAdd.vue"),
+        meta: {
+          required: true,
+        },
+      },
+      {
+        path: "/adminvideoedit/:id",
+        name: "adminvideoedit",
+        component: () => import("../components/admin/AdminVideoEdit.vue"),
+        meta: {
+          required: true,
+        },
+      },
+      {
         path: "/adminload",
         meta: {
           required: true,

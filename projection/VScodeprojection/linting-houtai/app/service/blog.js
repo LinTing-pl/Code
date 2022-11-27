@@ -55,7 +55,7 @@ class BlogService extends Service {
           img: blog.img,
           date: blog.date,
           info: blog.info,
-          chapters: blog.chapters,
+          content: blog.content,
         },
         {
           where: { id: blog.id },

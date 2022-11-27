@@ -29,7 +29,7 @@ export default {
       studyLength: JSON.parse(sessionStorage.getItem("study")).length,
     };
   },
-  mounted() {
+  created() {
     this.currentPage = JSON.parse(sessionStorage.getItem("currStudyPage")) || 1;
     this.handleCurrentChange();
   },

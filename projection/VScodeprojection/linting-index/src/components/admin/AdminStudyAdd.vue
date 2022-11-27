@@ -135,8 +135,8 @@ export default {
       chapterId: null,
       sectionId: null,
       isClick: true,
-      activeIndex: 0,
-      activeIndex1: 0,
+      activeIndex: null,
+      activeIndex1: null,
       sectionContent: "",
       dialogVisible: false,
       save: true,
@@ -150,13 +150,15 @@ export default {
     if (this.data.img) {
       this.$refs.img.style.visibility = "visible";
     }
-    this.activeIndex =
-      JSON.parse(sessionStorage.getItem("adminstudyAddIndex")) || 0;
-    this.activeIndex1 =
-      JSON.parse(sessionStorage.getItem("adminstudyAddIndex1")) || 0;
-    this.sectionContent =
-      this.data.chapters[this.activeIndex]?.sections[this.activeIndex1]
-        ?.content || "";
+    this.activeIndex = JSON.parse(sessionStorage.getItem("adminstudyAddIndex"));
+    this.activeIndex1 = JSON.parse(
+      sessionStorage.getItem("adminstudyAddIndex1")
+    );
+    if (this.activeIndex1) {
+      this.sectionContent =
+        this.data.chapters[this.activeIndex]?.sections[this.activeIndex1]
+          ?.content || "";
+    }
     window.addEventListener("beforeunload", this.beforeUnload);
   },
   destroyed() {
@@ -177,14 +179,35 @@ export default {
     },
     delDraft() {
       if (localStorage.getItem("adminstudydraft")) {
-        this.$message({
-          type: "success",
-          message: "删除成功!",
-          showClose: true,
-        });
-        localStorage.removeItem("adminstudydraft");
-        this.back = false;
-        this.$router.push("/adminstudy");
+        this.$confirm(`是否删除草稿, 是否继续?`, "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        })
+          .then(() => {
+            this.$axios.default
+              .post("/dev-api/draftoredit/study/update", {
+                cls: "draft",
+                img: "",
+              })
+              .then((res) => {
+                this.$message({
+                  type: "success",
+                  message: "删除成功!",
+                  showClose: true,
+                });
+                localStorage.removeItem("adminstudydraft");
+                this.back = false;
+                this.$router.push("/adminstudy");
+              });
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消删除",
+              showClose: true,
+            });
+          });
       } else {
         this.$message({
           type: "warning",
@@ -193,7 +216,7 @@ export default {
         });
       }
     },
-    submitBook() {
+    async submitBook() {
       localStorage.setItem("adminstudydraft", JSON.stringify(this.data));
       this.dialogVisible = false;
       let nowTime = new Date();
@@ -206,16 +229,23 @@ export default {
         nowTime.toLocaleDateString() + " " + nowTime.toLocaleTimeString();
       this.data.info = this.$refs.bookinfo.innerText;
       this.data.chapters = JSON.stringify(this.data.chapters);
-      this.$axios.default
+      await this.$axios.default
         .post("/dev-api/study/add", { book: this.data })
         .then((res) => {
           this.$message({
             type: "success",
             message: "提交成功!",
           });
-          localStorage.removeItem("adminstudydraft");
-          this.back = false;
-          this.$router.push("/adminstudy");
+          this.$axios.default
+            .post("/dev-api/draftoredit/study/update", {
+              cls: "draft",
+              img: "",
+            })
+            .then((res) => {
+              localStorage.removeItem("adminstudydraft");
+              this.back = false;
+              this.$router.push("/adminstudy");
+            });
         });
     },
     handleClose(done) {
@@ -241,21 +271,42 @@ export default {
       localStorage.setItem("adminstudydraft", JSON.stringify(this.data));
     },
     addImg(e) {
-      let file = e.target.files[0];
-      let reader;
-      if (file) {
-        // 创建流对象
-        reader = new FileReader();
-        reader.readAsDataURL(file);
+      try {
+        let file = e.target.files[0];
+        let reader;
+        if (file) {
+          // 创建流对象
+          reader = new FileReader();
+          reader.readAsDataURL(file);
+        }
+        // 捕获 转换完毕
+        let _this = this;
+        reader.onload = async function (e) {
+          // 转换后的base64就在e.target.result里面,直接放到img标签的src属性即可
+          let time = new Date().getTime();
+          await _this.$axios.default
+            .post("/dev-api/draftoredit/study/update", {
+              user: localStorage.getItem("user"),
+              time: time,
+              img: e.target.result,
+              cls: "draft",
+            })
+            .then((res) => {
+              _this.data.img = res.data;
+              _this.$refs.img.style.visibility = "visible";
+              localStorage.setItem(
+                "adminstudydraft",
+                JSON.stringify(_this.data)
+              );
+            });
+        };
+      } catch (e) {
+        this.$message({
+          type: "warning",
+          message: "需要jpeg格式的图片!",
+          showClose: true,
+        });
       }
-      // 捕获 转换完毕
-      let _this = this;
-      reader.onload = function (e) {
-        // 转换后的base64就在e.target.result里面,直接放到img标签的src属性即可
-        _this.data.img = e.target.result;
-        _this.$refs.img.style.visibility = "visible";
-        localStorage.setItem("adminstudydraft", JSON.stringify(_this.data));
-      };
     },
     addChapter() {
       this.data.chapters.push({ chapter: "第 章 章节名", sections: [] });
@@ -325,40 +376,48 @@ export default {
       localStorage.setItem("adminstudydraft", JSON.stringify(this.data));
     },
     delSection() {
-      let i = JSON.parse(sessionStorage.getItem("adminstudyAddIndex")) || 0;
-      let i1 = JSON.parse(sessionStorage.getItem("adminstudyAddIndex1")) || 0;
-      this.$confirm(
-        `是否删除《${this.data.chapters[i].sections[i1].section}》小节, 是否继续?`,
-        "提示",
-        {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning",
-        }
-      )
-        .then(() => {
-          this.data.chapters[i].sections.splice(i1, 1);
-          this.sectionContent = "";
-          this.save = false;
-          localStorage.setItem("adminstudydraft", JSON.stringify(this.data));
-          sessionStorage.removeItem("adminstudyAddIndex1");
-          this.activeIndex1 = null;
-          this.$message({
-            type: "success",
-            message: "删除成功!",
-            showClose: true,
+      let i = JSON.parse(sessionStorage.getItem("adminstudyAddIndex"));
+      let i1 = JSON.parse(sessionStorage.getItem("adminstudyAddIndex1"));
+      if (i1 !== null) {
+        this.$confirm(
+          `是否删除《${this.data.chapters[i].sections[i1].section}》小节, 是否继续?`,
+          "提示",
+          {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning",
+          }
+        )
+          .then(() => {
+            this.data.chapters[i].sections.splice(i1, 1);
+            this.sectionContent = "";
+            this.save = false;
+            localStorage.setItem("adminstudydraft", JSON.stringify(this.data));
+            sessionStorage.removeItem("adminstudyAddIndex1");
+            this.activeIndex1 = null;
+            this.$message({
+              type: "success",
+              message: "删除成功!",
+              showClose: true,
+            });
+            this.$refs.section.forEach((v) => {
+              v.classList.remove("active");
+            });
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消删除",
+              showClose: true,
+            });
           });
-          this.$refs.section.forEach((v) => {
-            v.classList.remove("active");
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除",
-            showClose: true,
-          });
+      } else {
+        this.$message({
+          type: "info",
+          message: "还没有选中小节!",
+          showClose: true,
         });
+      }
     },
     saveSection() {
       if (!this.$refs.chapter) {
@@ -374,15 +433,23 @@ export default {
           showClose: true,
         });
       } else {
-        let i = JSON.parse(sessionStorage.getItem("adminstudyAddIndex")) || 0;
-        let i1 = JSON.parse(sessionStorage.getItem("adminstudyAddIndex1")) || 0;
-        this.data.chapters[i].sections[i1].content = this.sectionContent;
-        localStorage.setItem("adminstudydraft", JSON.stringify(this.data));
-        this.$message({
-          type: "success",
-          message: "保存成功!",
-          showClose: true,
-        });
+        let i = JSON.parse(sessionStorage.getItem("adminstudyAddIndex"));
+        let i1 = JSON.parse(sessionStorage.getItem("adminstudyAddIndex1"));
+        if (i1 !== null) {
+          this.data.chapters[i].sections[i1].content = this.sectionContent;
+          localStorage.setItem("adminstudydraft", JSON.stringify(this.data));
+          this.$message({
+            type: "success",
+            message: "保存成功!",
+            showClose: true,
+          });
+        } else {
+          this.$message({
+            type: "info",
+            message: "还没有选中小节!",
+            showClose: true,
+          });
+        }
       }
     },
     setIndex(e, index, index1) {

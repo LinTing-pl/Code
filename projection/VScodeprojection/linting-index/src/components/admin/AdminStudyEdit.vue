@@ -15,6 +15,7 @@
               ><strong>请为《{{ data["title"] }}》添加一段介绍:</strong></span
             >
             <div
+              ref="bookInfo"
               class="bookInfo"
               style="border: 1px solid; border-radius: 4px"
               contenteditable="true"
@@ -130,28 +131,30 @@ export default {
       chapterId: null,
       sectionId: null,
       isClick: true,
-      activeIndex: 0,
-      activeIndex1: 0,
-      sectionContent: null,
+      activeIndex: null,
+      activeIndex1: null,
+      sectionContent: "",
       dialogVisible: false,
-      save: true,
+      save: false,
       back: false,
     };
   },
   created() {
-    this.id = this.$route.params.id;
+    this.id = JSON.parse(sessionStorage.getItem("target"));
     this.data = JSON.parse(localStorage.getItem("adminstudyedit" + this.id));
-    this.activeIndex =
-      JSON.parse(
-        sessionStorage.getItem("adminstudyEdit" + this.id + "Index")
-      ) || 0;
-    this.activeIndex1 =
-      JSON.parse(
-        sessionStorage.getItem("adminstudyEdit" + this.id + "Index1")
-      ) || 0;
-    this.sectionContent =
-      this.data.chapters[this.activeIndex]?.sections[this.activeIndex1]
-        ?.content || "";
+    this.activeIndex = JSON.parse(
+      sessionStorage.getItem("adminstudyEdit" + this.id + "Index")
+    );
+    this.activeIndex1 = JSON.parse(
+      sessionStorage.getItem("adminstudyEdit" + this.id + "Index1")
+    );
+    if (this.activeIndex1) {
+      this.sectionContent =
+        this.data.chapters[this.activeIndex]?.sections[
+          this.activeIndex1
+        ]?.content;
+    }
+
     window.addEventListener("beforeunload", this.beforeUnload);
   },
   destroyed() {
@@ -168,7 +171,7 @@ export default {
       }
     },
 
-    submitBook() {
+    async submitBook() {
       localStorage.setItem(
         `adminstudyedit${this.id}`,
         JSON.stringify(this.data)
@@ -179,16 +182,26 @@ export default {
       book.chapters = JSON.stringify(book.chapters);
       book.date =
         nowTime.toLocaleDateString() + " " + nowTime.toLocaleTimeString();
-      this.$axios.default
+      book.info = this.$refs.bookInfo.innerText;
+      await this.$axios.default
         .post("/dev-api/study/update", { book: book })
         .then((res) => {
-          this.$message({
-            type: "success",
-            message: "提交成功!",
-          });
-          this.back = true;
-          localStorage.removeItem(`adminstudyedit${this.id}`);
-          this.$router.push(sessionStorage.getItem("adminIndex"));
+          this.$axios.default
+            .post("/dev-api/draftoredit/study/update", {
+              user: localStorage.getItem("user"),
+              img: "",
+              cls: "edit",
+              idx: this.id,
+            })
+            .then((res) => {
+              this.$message({
+                type: "success",
+                message: "提交成功!",
+              });
+              this.back = true;
+              localStorage.removeItem(`adminstudyedit${this.id}`);
+              this.$router.push("/adminstudy");
+            });
         });
     },
     handleClose(done) {
@@ -217,23 +230,43 @@ export default {
       );
     },
     addImg(e) {
-      let file = e.target.files[0];
-      let reader;
-      if (file) {
-        // 创建流对象
-        reader = new FileReader();
-        reader.readAsDataURL(file);
+      try {
+        let file = e.target.files[0];
+        let reader;
+        if (file) {
+          // 创建流对象
+          reader = new FileReader();
+          reader.readAsDataURL(file);
+        }
+        // 捕获 转换完毕
+        let _this = this;
+        reader.onload = async function (e) {
+          // 转换后的base64就在e.target.result里面,直接放到img标签的src属性即可
+          let time = new Date().getTime();
+          await _this.$axios.default
+            .post("/dev-api/draftoredit/study/update", {
+              user: localStorage.getItem("user"),
+              time: time,
+              img: e.target.result,
+              cls: "edit",
+              idx: _this.id,
+            })
+            .then((res) => {
+              _this.data.img = res.data;
+              _this.$refs.img.style.visibility = "visible";
+              localStorage.setItem(
+                `adminstudyedit${_this.id}`,
+                JSON.stringify(_this.data)
+              );
+            });
+        };
+      } catch (e) {
+        this.$message({
+          type: "warning",
+          message: "需要jpeg格式的图片!",
+          showClose: true,
+        });
       }
-      // 捕获 转换完毕
-      let _this = this;
-      reader.onload = function (e) {
-        // 转换后的base64就在e.target.result里面,直接放到img标签的src属性即可
-        _this.data.img = e.target.result;
-        localStorage.setItem(
-          `adminstudyedit${this.id}`,
-          JSON.stringify(this.data)
-        );
-      };
     },
     addChapter() {
       this.data.chapters.push({ chapter: "第 章 章节名", sections: [] });
@@ -315,81 +348,105 @@ export default {
       );
     },
     delSection() {
-      let i =
-        JSON.parse(
-          sessionStorage.getItem("adminstudyEdit" + this.id + "Index")
-        ) || 0;
-      let i1 =
-        JSON.parse(
-          sessionStorage.getItem("adminstudyEdit" + this.id + "Index1")
-        ) || 0;
-      this.$confirm(
-        `是否删除《${this.data.chapters[i].sections[i1].section}》小节, 是否继续?`,
-        "提示",
-        {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
+      let i = JSON.parse(
+        sessionStorage.getItem("adminstudyEdit" + this.id + "Index")
+      );
+      let i1 = JSON.parse(
+        sessionStorage.getItem("adminstudyEdit" + this.id + "Index1")
+      );
+      if (i1 !== null) {
+        this.$confirm(
+          `是否删除《${this.data.chapters[i].sections[i1].section}》小节, 是否继续?`,
+          "提示",
+          {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning",
+          }
+        )
+          .then(() => {
+            this.data.chapters[i].sections.splice(i1, 1);
+            this.save = false;
+            sessionStorage.removeItem("adminstudyEdit" + this.id + "Index1");
+            this.activeIndex1 = null;
+            this.$message({
+              type: "success",
+              message: "删除成功!",
+              showClose: true,
+            });
+            this.$refs.section.forEach((v) => {
+              v.classList.remove("active");
+            });
+            localStorage.setItem(
+              `adminstudyedit${this.id}`,
+              JSON.stringify(this.data)
+            );
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消删除",
+              showClose: true,
+            });
+          });
+      } else {
+        this.$message({
+          type: "info",
+          message: "还没有选中小节!",
+          showClose: true,
+        });
+      }
+    },
+    saveSection() {
+      if (!this.$refs.chapter) {
+        this.$message({
           type: "warning",
-        }
-      )
-        .then(() => {
-          this.data.chapters[i].sections.splice(i1, 1);
-          this.save = false;
-          sessionStorage.removeItem("adminstudyEdit" + this.id + "Index1");
-          this.activeIndex1 = null;
-          this.$message({
-            type: "success",
-            message: "删除成功!",
-            showClose: true,
-          });
-          this.$refs.section.forEach((v) => {
-            v.classList.remove("active");
-          });
+          message: "请添加章节!",
+          showClose: true,
+        });
+      } else if (!this.$refs.section) {
+        this.$message({
+          type: "warning",
+          message: "请添加小节!",
+          showClose: true,
+        });
+      } else {
+        let i = JSON.parse(
+          sessionStorage.getItem("adminstudyEdit" + this.id + "Index")
+        );
+        let i1 = JSON.parse(
+          sessionStorage.getItem("adminstudyEdit" + this.id + "Index1")
+        );
+        if (i1 !== null) {
+          this.data.chapters[i].sections[i1].content = this.sectionContent;
           localStorage.setItem(
             `adminstudyedit${this.id}`,
             JSON.stringify(this.data)
           );
-        })
-        .catch(() => {
           this.$message({
-            type: "info",
-            message: "已取消删除",
+            type: "success",
+            message: "保存成功!",
             showClose: true,
           });
-        });
-    },
-    saveSection() {
-      let i =
-        JSON.parse(
-          sessionStorage.getItem("adminstudyEdit" + this.id + "Index")
-        ) || 0;
-      let i1 =
-        JSON.parse(
-          sessionStorage.getItem("adminstudyEdit" + this.id + "Index1")
-        ) || 0;
-      this.data.chapters[i].sections[i1].content = this.sectionContent;
-      this.$message({
-        type: "success",
-        message: "保存成功!",
-        showClose: true,
-      });
-      localStorage.setItem(
-        `adminstudyedit${this.id}`,
-        JSON.stringify(this.data)
-      );
+        } else {
+          this.$message({
+            type: "info",
+            message: "还没有选中小节!",
+            showClose: true,
+          });
+        }
+      }
     },
     setIndex(e, index, index1) {
       clearTimeout(this.sectionId);
       this.sectionId = setTimeout(() => {
         if (this.save) {
-          let i =
-            JSON.parse(
-              sessionStorage.getItem("adminstudyEdit" + this.id + "Index")
-            ) || 0;
-          let i1 =
-            JSON.parse(
-              sessionStorage.getItem("adminstudyEdit" + this.id + "Index1")
-            ) || 0;
+          let i = JSON.parse(
+            sessionStorage.getItem("adminstudyEdit" + this.id + "Index")
+          );
+          let i1 = JSON.parse(
+            sessionStorage.getItem("adminstudyEdit" + this.id + "Index1")
+          );
           this.data.chapters[i].sections[i1].content = this.sectionContent;
         } else {
           this.save = true;

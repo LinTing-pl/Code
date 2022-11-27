@@ -29,7 +29,7 @@ export default {
       videoLength: JSON.parse(sessionStorage.getItem("video")).length,
     };
   },
-  mounted() {
+  created() {
     this.currentPage = JSON.parse(sessionStorage.getItem("currVideoPage")) || 1;
     this.handleCurrentChange();
   },

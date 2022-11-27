@@ -30,7 +30,7 @@ export default {
       loadLength: JSON.parse(sessionStorage.getItem("load")).length,
     };
   },
-  mounted() {
+  created() {
     this.currentPage = JSON.parse(sessionStorage.getItem("currLoadPage")) || 1;
     this.handleCurrentChange();
   },

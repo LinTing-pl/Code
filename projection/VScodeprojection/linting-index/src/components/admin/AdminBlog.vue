@@ -137,6 +137,7 @@ export default {
       this.$router.push({ name: "adminblogadd" });
     },
     edit(id) {
+      sessionStorage.setItem("target", id.toString());
       if (!localStorage.getItem(`adminblogedit${id}`)) {
         this.$axios.default(`/dev-api/blog/get/${id}`).then((res) => {
           localStorage.setItem(`adminblogedit${id}`, JSON.stringify(res.data));

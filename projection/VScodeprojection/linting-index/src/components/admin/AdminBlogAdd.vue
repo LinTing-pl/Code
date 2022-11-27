@@ -125,14 +125,35 @@ export default {
     },
     delDraft() {
       if (localStorage.getItem("adminblogdraft")) {
-        this.$message({
-          type: "success",
-          message: "删除成功!",
-          showClose: true,
-        });
-        localStorage.removeItem("adminblogdraft");
-        this.back = false;
-        this.$router.push("/adminblog");
+        this.$confirm(`是否删除草稿, 是否继续?`, "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        })
+          .then(() => {
+            this.$axios.default
+              .post("/dev-api/draftoredit/blog/update", {
+                cls: "draft",
+                img: "",
+              })
+              .then((res) => {
+                this.$message({
+                  type: "success",
+                  message: "删除成功!",
+                  showClose: true,
+                });
+                localStorage.removeItem("adminblogdraft");
+                this.back = false;
+                this.$router.push("/adminblog");
+              });
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消删除",
+              showClose: true,
+            });
+          });
       } else {
         this.$message({
           type: "warning",
@@ -141,7 +162,7 @@ export default {
         });
       }
     },
-    submitBlog() {
+    async submitBlog() {
       this.data.content = this.blogContent;
       localStorage.setItem("adminblogdraft", JSON.stringify(this.data));
       this.dialogVisible = false;
@@ -154,16 +175,23 @@ export default {
       this.data.date =
         nowTime.toLocaleDateString() + " " + nowTime.toLocaleTimeString();
       this.data.info = this.$refs.bloginfo.innerText;
-      this.$axios.default
+      await this.$axios.default
         .post("/dev-api/blog/add", { blog: this.data })
         .then((res) => {
           this.$message({
             type: "success",
             message: "提交成功!",
           });
-          localStorage.removeItem("adminblogdraft");
-          this.back = false;
-          this.$router.push(sessionStorage.getItem("adminIndex"));
+          this.$axios.default
+            .post("/dev-api/draftoredit/blog/update", {
+              cls: "draft",
+              img: "",
+            })
+            .then((res) => {
+              localStorage.removeItem("adminblogdraft");
+              this.back = false;
+              this.$router.push("/adminblog");
+            });
         });
     },
     handleClose(done) {
@@ -189,21 +217,42 @@ export default {
       localStorage.setItem("adminblogdraft", JSON.stringify(this.data));
     },
     addImg(e) {
-      let file = e.target.files[0];
-      let reader;
-      if (file) {
-        // 创建流对象
-        reader = new FileReader();
-        reader.readAsDataURL(file);
+      try {
+        let file = e.target.files[0];
+        let reader;
+        if (file) {
+          // 创建流对象
+          reader = new FileReader();
+          reader.readAsDataURL(file);
+        }
+        // 捕获 转换完毕
+        let _this = this;
+        reader.onload = async function (e) {
+          // 转换后的base64就在e.target.result里面,直接放到img标签的src属性即可
+          let time = new Date().getTime();
+          await _this.$axios.default
+            .post("/dev-api/draftoredit/blog/update", {
+              user: localStorage.getItem("user"),
+              time: time,
+              img: e.target.result,
+              cls: "draft",
+            })
+            .then((res) => {
+              _this.data.img = res.data;
+              _this.$refs.img.style.visibility = "visible";
+              localStorage.setItem(
+                "adminblogdraft",
+                JSON.stringify(_this.data)
+              );
+            });
+        };
+      } catch (e) {
+        this.$message({
+          type: "warning",
+          message: "需要jpeg格式的图片!",
+          showClose: true,
+        });
       }
-      // 捕获 转换完毕
-      let _this = this;
-      reader.onload = function (e) {
-        // 转换后的base64就在e.target.result里面,直接放到img标签的src属性即可
-        _this.data.img = e.target.result;
-        _this.$refs.img.style.visibility = "visible";
-        localStorage.setItem("adminblogdraft", JSON.stringify(_this.data));
-      };
     },
     saveBlog() {
       this.data.content = this.blogContent;

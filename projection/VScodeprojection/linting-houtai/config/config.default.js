@@ -25,6 +25,11 @@ module.exports = (appInfo) => {
   config.view = {
     defaultViewEngine: "nunjucks",
   };
+  config.bodyParser = {
+    formLimit: "50mb",
+    jsonLimit: "50mb",
+    textLimit: "50mb",
+  };
   config.security = {
     csrf: {
       enable: false,

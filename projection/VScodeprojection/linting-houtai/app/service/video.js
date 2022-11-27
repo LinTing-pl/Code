@@ -14,6 +14,7 @@ class VideoService extends Service {
         img: v.img,
         date: v.date,
         info: v.info,
+        orderby: v.orderby,
       };
     });
     return res;
@@ -21,6 +22,51 @@ class VideoService extends Service {
   async getOneVideo(id) {
     const data = this.app.mysql.get("videos", { id: id });
 
+    return data;
+  }
+  async addOneVideo(requestBody) {
+    const video = requestBody.video;
+    const data = await this.app.mysql.insert("videos", {
+      cls: video.cls,
+      title: video.title,
+      img: video.img,
+      date: video.date,
+      info: video.info,
+      orderby: video.orderby,
+      sections: video.sections,
+    });
+    return "200";
+  }
+  async updateVideo(requestBody) {
+    if (requestBody.orderby) {
+      const data = await this.app.mysql.update(
+        "videos",
+        { orderby: requestBody.orderby },
+        {
+          where: { id: requestBody.id },
+        }
+      );
+      return data;
+    } else {
+      const video = requestBody.video;
+      console.log(video, 11111111111111111111);
+      const data = await this.app.mysql.update(
+        "videos",
+        {
+          title: video.title,
+          img: video.img,
+          date: video.date,
+          info: video.info,
+        },
+        {
+          where: { id: video.id },
+        }
+      );
+      return data;
+    }
+  }
+  async deleteOneVideo(id) {
+    const data = await this.app.mysql.delete("videos", { id: id });
     return data;
   }
 }
