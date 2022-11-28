@@ -1,9 +1,16 @@
 <template>
   <div class="admin-container">
-    <Nav :searchSelect="searchSelect" @nativeSearch="pushNativeSearch"></Nav>
+    <Nav
+      :searchSelect="searchSelect"
+      @nativeSearch="pushNativeSearch"
+      :optscount="optscount"
+    ></Nav>
     <div class="admin-main">
       <AdminMenu @searchSelect="pushSearchSelect"></AdminMenu>
-      <router-view :nativeSearch="nativeSearch"></router-view>
+      <router-view
+        :nativeSearch="nativeSearch"
+        @successOpts="successOpts"
+      ></router-view>
     </div>
   </div>
 </template>
@@ -19,6 +26,7 @@ export default {
     return {
       searchSelect: "",
       nativeSearch: false,
+      optscount: null,
     };
   },
   methods: {
@@ -27,6 +35,9 @@ export default {
     },
     pushNativeSearch(data) {
       this.nativeSearch = data;
+    },
+    successOpts(count) {
+      this.optscount = count;
     },
   },
 };

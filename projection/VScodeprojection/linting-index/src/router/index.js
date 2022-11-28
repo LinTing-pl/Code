@@ -84,7 +84,8 @@ const routes = [
       {
         path: "/adminsearch",
         name: "adminsearch",
-        component: () => import("../components/admin/AdminSearch.vue"),
+        component: () =>
+          import("../components/admin/adminsearch/AdminSearch.vue"),
         meta: {
           required: true,
         },
@@ -92,7 +93,8 @@ const routes = [
       {
         path: "/adminstudyadd",
         name: "adminstudyadd",
-        component: () => import("../components/admin/AdminStudyAdd.vue"),
+        component: () =>
+          import("../components/admin/adminstudy/AdminStudyAdd.vue"),
         meta: {
           required: true,
         },
@@ -100,7 +102,8 @@ const routes = [
       {
         path: "/adminstudyedit/:id",
         name: "adminstudyedit",
-        component: () => import("../components/admin/AdminStudyEdit.vue"),
+        component: () =>
+          import("../components/admin/adminstudy/AdminStudyEdit.vue"),
         meta: {
           required: true,
         },
@@ -108,7 +111,8 @@ const routes = [
       {
         path: "/adminstudy",
         name: "adminstudy",
-        component: () => import("../components/admin/AdminStudy.vue"),
+        component: () =>
+          import("../components/admin/adminstudy/AdminStudy.vue"),
         meta: {
           required: true,
         },
@@ -116,7 +120,7 @@ const routes = [
       {
         path: "/adminblog",
         name: "adminblog",
-        component: () => import("../components/admin/AdminBlog.vue"),
+        component: () => import("../components/admin/adminblog/AdminBlog.vue"),
         meta: {
           required: true,
         },
@@ -124,7 +128,8 @@ const routes = [
       {
         path: "/adminblogadd",
         name: "adminblogadd",
-        component: () => import("../components/admin/AdminBlogAdd.vue"),
+        component: () =>
+          import("../components/admin/adminblog/AdminBlogAdd.vue"),
         meta: {
           required: true,
         },
@@ -132,7 +137,8 @@ const routes = [
       {
         path: "/adminblogedit/:id",
         name: "adminblogedit",
-        component: () => import("../components/admin/AdminBlogEdit.vue"),
+        component: () =>
+          import("../components/admin/adminblog/AdminBlogEdit.vue"),
         meta: {
           required: true,
         },
@@ -140,7 +146,8 @@ const routes = [
       {
         path: "/adminvideo",
         name: "adminvideo",
-        component: () => import("../components/admin/AdminVideo.vue"),
+        component: () =>
+          import("../components/admin/adminvideo/AdminVideo.vue"),
         meta: {
           required: true,
         },
@@ -148,7 +155,8 @@ const routes = [
       {
         path: "/adminvideoadd",
         name: "adminvideoadd",
-        component: () => import("../components/admin/AdminVideoAdd.vue"),
+        component: () =>
+          import("../components/admin/adminvideo/AdminVideoAdd.vue"),
         meta: {
           required: true,
         },
@@ -156,19 +164,24 @@ const routes = [
       {
         path: "/adminvideoedit/:id",
         name: "adminvideoedit",
-        component: () => import("../components/admin/AdminVideoEdit.vue"),
+        component: () =>
+          import("../components/admin/adminvideo/AdminVideoEdit.vue"),
         meta: {
           required: true,
         },
       },
       {
         path: "/adminload",
+        name: "adminload",
+        component: () => import("../components/admin/adminload/AdminLoad.vue"),
         meta: {
           required: true,
         },
       },
       {
         path: "/adminusers",
+        name: "adminusers",
+        component: () => import("../components/admin/adminuser/AdminUser.vue"),
         meta: {
           required: true,
         },

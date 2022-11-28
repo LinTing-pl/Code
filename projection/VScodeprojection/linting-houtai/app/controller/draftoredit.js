@@ -28,5 +28,11 @@ class DraftOrEditController extends Controller {
 
     ctx.body = data;
   }
+  async loadUpdate() {
+    const { ctx } = this;
+    const data = await ctx.service.draftoredit.loadUpdate(ctx.request.body);
+
+    ctx.body = data;
+  }
 }
 module.exports = DraftOrEditController;

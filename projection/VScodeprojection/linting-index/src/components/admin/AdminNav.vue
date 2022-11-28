@@ -26,7 +26,7 @@
 </template>
 <script>
 export default {
-  props: ["searchSelect"],
+  props: ["searchSelect", "optscount"],
   data() {
     return {
       select: "学习手册",
@@ -38,11 +38,24 @@ export default {
         load: "资源下载",
         users: "用户",
       },
+      searchcount: 0,
     };
+  },
+  created() {
+    if (sessionStorage.getItem("adminsearchselect")) {
+      this.select = sessionStorage.getItem("adminsearchselect");
+    }
+    this.search = sessionStorage.getItem("adminsearchword");
+  },
+  updated() {
+    sessionStorage.setItem("adminsearchselect", this.select);
   },
   watch: {
     searchSelect: function () {
       this.select = this.compare[this.searchSelect];
+    },
+    optscount: function () {
+      this.searchSrc();
     },
   },
   methods: {
@@ -52,6 +65,7 @@ export default {
     },
     searchSrc() {
       if (!this.search) return;
+      sessionStorage.setItem("adminsearchword", this.search);
       let flag;
       switch (this.select) {
         case "全局搜索":
@@ -105,14 +119,22 @@ export default {
             });
           }
           if (this.$router.history.current.name !== "adminsearch") {
+            sessionStorage.setItem(
+              "adminsearchcontent",
+              JSON.stringify(storage)
+            );
             this.$router
               .push({ name: "adminsearch" })
               .then((res) => {
-                this.$emit("nativeSearch", storage);
+                this.$emit("nativeSearch", this.searchcount++);
               })
               .catch((err) => {});
           } else {
-            this.$emit("nativeSearch", storage);
+            sessionStorage.setItem(
+              "adminsearchcontent",
+              JSON.stringify(storage)
+            );
+            this.$emit("nativeSearch", this.searchcount++);
           }
         });
     },

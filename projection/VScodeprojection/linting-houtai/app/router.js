@@ -25,6 +25,10 @@ module.exports = (app) => {
   router.post(`/video/update`, controller.video.updateVideo);
   router.delete(`/video/delete/:id`, controller.video.deleteOneVideo);
   router.get("/load/get", controller.load.get);
+  router.post(`/load/add`, controller.load.addOneLoad);
+  router.post(`/load/update`, controller.load.updateLoad);
+  router.delete("/load/delete/:id", controller.load.delete);
+  router.get("/user/get", controller.user.get);
   router.post("/draftoredit/study/update", controller.draftoredit.studyUpdate);
   router.post("/draftoredit/blog/update", controller.draftoredit.blogUpdate);
   router.post(
@@ -35,4 +39,5 @@ module.exports = (app) => {
     "/draftoredit/video/updatevideo",
     controller.draftoredit.videoUpdateVideo
   );
+  router.post("/draftoredit/load/update", controller.draftoredit.loadUpdate);
 };
