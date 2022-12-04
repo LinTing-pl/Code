@@ -77,7 +77,9 @@ export default {
             localStorage.setItem("superusername", this.loginForm.username);
           }
         })
-        .catch((failResponse) => {});
+        .catch((failResponse) => {
+          console.log(failResponse);
+        });
     },
     submitForm() {
       this.$refs.loginForm.validate((valid) => {

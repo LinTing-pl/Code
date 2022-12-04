@@ -16,13 +16,13 @@ public class LoginController {
     UserService userService;
 
 
-    @PostMapping(value = "dev-api/login")
+    @PostMapping(value = "/dev-api/login")
     @ResponseBody
     @CrossOrigin
     public Result login(@RequestBody User requestUser, HttpSession session) {
         String username = requestUser.getUsername();
         username = HtmlUtils.htmlEscape(username);
-
+        System.out.println(username);
         User user = userService.get(username, requestUser.getPassword());
         if (null == user) {
             return new Result(400);

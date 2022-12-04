@@ -45,6 +45,7 @@ export default {
     if (sessionStorage.getItem("adminsearchselect")) {
       this.select = sessionStorage.getItem("adminsearchselect");
     }
+
     this.search = sessionStorage.getItem("adminsearchword");
   },
   updated() {
