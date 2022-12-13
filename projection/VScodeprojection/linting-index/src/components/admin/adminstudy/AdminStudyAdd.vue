@@ -229,9 +229,15 @@ export default {
         nowTime.toLocaleDateString() + " " + nowTime.toLocaleTimeString();
       this.data.info = this.$refs.bookinfo.innerText;
       this.data.chapters = JSON.stringify(this.data.chapters);
+      let loading = this.$loading({
+        lock: true,
+        text: "资源上传中。。。",
+        background: "rgba(0, 0, 0, 0.5)",
+      });
       await this.$axios.default
         .post("/dev-api/study/add", { book: this.data })
         .then((res) => {
+          loading.close();
           this.$message({
             type: "success",
             message: "提交成功!",

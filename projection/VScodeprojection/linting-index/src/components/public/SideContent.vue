@@ -73,6 +73,11 @@ export default {
           })
           .catch((err) => {});
       } else {
+        let loading = this.$loading({
+          lock: true,
+          text: "资源获取中。。。",
+          background: "rgba(0, 0, 0, 0.5)",
+        });
         this.$axios.default.get(`/dev-api/blog/get/${id}`).then((res) => {
           sessionStorage.setItem(`blogcontent${id}`, JSON.stringify(res.data));
           this.$router
@@ -81,6 +86,9 @@ export default {
               params: {
                 id: id,
               },
+            })
+            .then((res) => {
+              loading.close();
             })
             .catch((err) => {});
         });

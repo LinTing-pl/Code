@@ -128,9 +128,15 @@ export default {
       this.data.date =
         nowTime.toLocaleDateString() + " " + nowTime.toLocaleTimeString();
       this.data.info = this.$refs.bloginfo.innerText;
+      let loading = this.$loading({
+        lock: true,
+        text: "资源上传中。。。",
+        background: "rgba(0, 0, 0, 0.5)",
+      });
       await this.$axios.default
         .post("/dev-api/blog/update", { blog: this.data })
         .then((res) => {
+          loading.close();
           this.$axios.default
             .post("/dev-api/draftoredit/blog/update", {
               user: localStorage.getItem("user"),

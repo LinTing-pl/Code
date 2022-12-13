@@ -88,11 +88,17 @@ export default {
           flag = "users";
           break;
       }
+      let loading = this.$loading({
+        lock: true,
+        text: "资源获取中。。。",
+        background: "rgba(0, 0, 0, 0.5)",
+      });
       this.$axios.default
         .post("dev-api/index/get", {
           flag: flag,
         })
         .then((res) => {
+          loading.close();
           let storage = [];
           if (this.select === "全局搜索") {
             let data = [

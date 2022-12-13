@@ -197,9 +197,15 @@ export default {
         nowTime.toLocaleDateString() + " " + nowTime.toLocaleTimeString();
       video.info = this.$refs.videoinfo.innerText;
       video.sections = JSON.stringify(video.sections);
+      let loading = this.$loading({
+        lock: true,
+        text: "资源上传中。。。",
+        background: "rgba(0, 0, 0, 0.5)",
+      });
       this.$axios.default
         .post("/dev-api/video/add", { video: video })
         .then((res) => {
+          loading.close();
           this.$message({
             type: "success",
             message: "提交成功!",

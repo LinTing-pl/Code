@@ -56,6 +56,11 @@ export default {
           params: { id: id },
         });
       } else {
+        let loading = this.$loading({
+          lock: true,
+          text: "资源获取中。。。",
+          background: "rgba(0, 0, 0, 0.5)",
+        });
         this.$axios.default
           .get(`/dev-api/${this.cls[cls].slice(0, -7)}/get/${id}`)
           .then((res) => {
@@ -63,10 +68,14 @@ export default {
               `${this.cls[cls]}${id}`,
               JSON.stringify(res.data)
             );
-            this.$router.push({
-              name: this.cls[cls],
-              params: { id: id },
-            });
+            this.$router
+              .push({
+                name: this.cls[cls],
+                params: { id: id },
+              })
+              .then((res) => {
+                loading.close();
+              });
           });
       }
     },

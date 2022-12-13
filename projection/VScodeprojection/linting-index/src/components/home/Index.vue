@@ -45,6 +45,11 @@ export default {
   },
   methods: {
     getData() {
+      let loading = this.$loading({
+        lock: true,
+        text: "资源获取中。。。",
+        background: "rgba(0, 0, 0, 0.5)",
+      });
       this.$axios.default
         .post("/dev-api/index/get", { flag: "all" })
         .then((res) => {
@@ -53,6 +58,7 @@ export default {
             res.data[1].slice(0, 2),
             res.data[2].slice(0, 2),
           ];
+          loading.close();
           sessionStorage.setItem("study", JSON.stringify(res.data[0]));
           sessionStorage.setItem("blog", JSON.stringify(res.data[1]));
           sessionStorage.setItem("video", JSON.stringify(res.data[2]));
@@ -73,6 +79,11 @@ export default {
           },
         });
       } else {
+        let loading = this.$loading({
+          lock: true,
+          text: "资源获取中。。。",
+          background: "rgba(0, 0, 0, 0.5)",
+        });
         this.$axios.default
           .get(`/dev-api/${this.indexes[index]}/get/${id}`)
           .then((res) => {
@@ -80,12 +91,16 @@ export default {
               `${this.indexes[index]}content${id}`,
               JSON.stringify(res.data)
             );
-            this.$router.push({
-              name: this.indexes[index] + "content",
-              params: {
-                id: id,
-              },
-            });
+            this.$router
+              .push({
+                name: this.indexes[index] + "content",
+                params: {
+                  id: id,
+                },
+              })
+              .then((res) => {
+                loading.close();
+              });
           });
       }
     },

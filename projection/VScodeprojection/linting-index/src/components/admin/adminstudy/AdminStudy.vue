@@ -112,7 +112,13 @@ export default {
   },
   methods: {
     async getData(flag) {
+      let loading = this.$loading({
+        lock: true,
+        text: "资源获取中。。。",
+        background: "rgba(0, 0, 0, 0.5)",
+      });
       await this.$axios.default.get("/dev-api/study/get").then((res) => {
+        loading.close();
         this.allList = res.data;
         this.length = this.allList.length;
         flag ? null : (this.currentPage = 1);
@@ -140,9 +146,18 @@ export default {
     edit(id) {
       sessionStorage.setItem("target", id.toString());
       if (!localStorage.getItem(`adminstudyedit${id}`)) {
+        let loading = this.$loading({
+          lock: true,
+          text: "资源获取中。。。",
+          background: "rgba(0, 0, 0, 0.5)",
+        });
         this.$axios.default(`/dev-api/study/get/${id}`).then((res) => {
           localStorage.setItem(`adminstudyedit${id}`, JSON.stringify(res.data));
-          this.$router.push({ name: "adminstudyedit", params: { id: id } });
+          this.$router
+            .push({ name: "adminstudyedit", params: { id: id } })
+            .then((res) => {
+              loading.close();
+            });
         });
       } else {
         this.$router.push({ name: "adminstudyedit", params: { id: id } });

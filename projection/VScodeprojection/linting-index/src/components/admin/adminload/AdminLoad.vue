@@ -317,7 +317,13 @@ export default {
   },
   methods: {
     async getData(flag) {
+      let loading = this.$loading({
+        lock: true,
+        text: "资源获取中。。。",
+        background: "rgba(0, 0, 0, 0.5)",
+      });
       await this.$axios.default.get("/dev-api/load/get").then((res) => {
+        loading.close();
         this.allList = res.data;
         this.length = this.allList.length;
         flag ? null : (this.currentPage = 1);

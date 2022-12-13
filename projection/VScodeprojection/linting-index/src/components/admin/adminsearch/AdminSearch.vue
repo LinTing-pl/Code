@@ -273,7 +273,13 @@ export default {
           break;
       }
       if (!localStorage.getItem(`admin${CLS}edit${id}`)) {
+        let loading = this.$loading({
+          lock: true,
+          text: "资源获取中。。。",
+          background: "rgba(0, 0, 0, 0.5)",
+        });
         this.$axios.default(`/dev-api/${CLS}/get/${id}`).then((res) => {
+          loading.close();
           localStorage.setItem(
             `admin${CLS}edit${id}`,
             JSON.stringify(res.data)

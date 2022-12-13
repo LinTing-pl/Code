@@ -183,9 +183,15 @@ export default {
       book.date =
         nowTime.toLocaleDateString() + " " + nowTime.toLocaleTimeString();
       book.info = this.$refs.bookInfo.innerText;
+      let loading = this.$loading({
+        lock: true,
+        text: "资源上传中。。。",
+        background: "rgba(0, 0, 0, 0.5)",
+      });
       await this.$axios.default
         .post("/dev-api/study/update", { book: book })
         .then((res) => {
+          loading.close();
           this.$axios.default
             .post("/dev-api/draftoredit/study/update", {
               user: localStorage.getItem("user"),
