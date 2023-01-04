@@ -1,100 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>粘性小球loading效果</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+      }
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-image: linear-gradient(0deg, #537895, #09203f);
-        }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-image: linear-gradient(0deg, #537895, #09203f);
+      }
 
-        .effect {
-            position: relative;
-            width: 320px;
-            height: 320px;
-            background-color: #fff;
-            border-radius: 50%;
-            filter: contrast(10);
-        }
+      .effect {
+        position: relative;
+        width: 320px;
+        height: 320px;
+        background-color: #fff;
+        border-radius: 50%;
+        filter: contrast(10);
+      }
 
-        .effect .bigball,
-        .effect .smallball {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: auto;
-            border-radius: 50%;
-            filter: blur(5px);
-        }
+      .effect .bigball,
+      .effect .smallball {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: auto;
+        border-radius: 50%;
+        filter: blur(5px);
+      }
 
-        .effect .bigball {
-            width: 100px;
-            height: 100px;
-            background: #000;
-        }
+      .effect .bigball {
+        width: 100px;
+        height: 100px;
+        background: #000;
+      }
 
-        .effect .smallball {
-            width: 60px;
-            height: 60px;
-            background-color: red;
-            animation: ball 3s infinite;
-        }
+      .effect .smallball {
+        width: 60px;
+        height: 60px;
+        background-color: red;
+        animation: ball 3s infinite;
+      }
 
-        @keyframes ball {
-            0%,
-            100% {
-                left: 50px;
-                width: 60px;
-                height: 60px;
-            }
-            4%,
-            54% {
-                width: 60px;
-                height: 60px;
-            }
-            10%,
-            60% {
-                width: 50px;
-                height: 70px;
-            }
-            20%,
-            70% {
-                width: 60px;
-                height: 60px;
-            }
-            34%,
-            90% {
-                width: 70px;
-                height: 50px;
-            }
-            41% {
-                width: 60px;
-                height: 60px;
-            }
-            50% {
-                left: 270px;
-                width: 60px;
-                height: 60px;
-            }
+      @keyframes ball {
+        0%,
+        100% {
+          left: 50px;
+          width: 60px;
+          height: 60px;
         }
+        4%,
+        54% {
+          width: 60px;
+          height: 60px;
+        }
+        10%,
+        60% {
+          width: 50px;
+          height: 70px;
+        }
+        20%,
+        70% {
+          width: 60px;
+          height: 60px;
+        }
+        34%,
+        90% {
+          width: 70px;
+          height: 50px;
+        }
+        41% {
+          width: 60px;
+          height: 60px;
+        }
+        50% {
+          left: 270px;
+          width: 60px;
+          height: 60px;
+        }
+      }
     </style>
-</head>
-<body>
-<div class="effect">
-    <div class="bigball"></div>
-    <div class="smallball"></div>
-</div>
-</body>
+  </head>
+  <body>
+    <div class="effect">
+      <div class="bigball"></div>
+      <div class="smallball"></div>
+    </div>
+  </body>
 </html>

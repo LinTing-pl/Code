@@ -1,0 +1,180 @@
+.container {
+  display: flex;
+  width: 800px;
+}
+.container .friend-wrapper {
+  width: 250px;
+  background: #e6e6e6;
+}
+.container .friend-wrapper .wrapper {
+  padding: 22px 12px 12px 12px;
+}
+.container .friend-wrapper .wrapper .search-wrapper {
+  position: relative;
+  display: flex;
+  box-sizing: border-box;
+  height: 26px;
+  width: 100%;
+  background-color: #e5e3e2;
+  border: 1px solid #d9d7d6;
+  border-radius: 2px;
+}
+.container .friend-wrapper .wrapper .search-wrapper .searchInput {
+  flex: 1;
+  font-size: 12px;
+  padding: 6px;
+  background-color: #e5e3e2;
+  outline: none;
+}
+.container .friend-wrapper .wrapper .search-wrapper .searchInput:focus {
+  background-color: #f2efee;
+}
+.container .friend-wrapper .wrapper .search-wrapper .icon-search {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: center;
+}
+.container .friend-wrapper .wrapper .search-wrapper .searchInput-delete {
+  display: block;
+  position: absolute;
+  outline: none;
+  top: 0;
+  right: 0;
+  width: 24px;
+  height: 100%;
+  background-image: url(../images/delete.png);
+  background-size: 26px;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+.container .friend-wrapper .friend-list {
+  height: 540px;
+  overflow-y: auto;
+}
+.container .friend-wrapper .friend-list .friend-item {
+  border-top: 1px solid #dadada;
+}
+.container .friend-wrapper .friend-list .friend-item:first-child,
+.container .friend-wrapper .friend-list .friend-item.no-border {
+  border-top: none;
+}
+.container .friend-wrapper .friend-list .friend-item .list-title {
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 12px;
+  padding: 15px 0 3px 12px;
+  color: #999;
+}
+.container .friend-wrapper .friend-list .friend-item .friend-info {
+  display: flex;
+  padding: 12px;
+  transition: background-color 0.1s;
+  font-size: 0;
+}
+.container .friend-wrapper .friend-list .friend-item .friend-info:hover {
+  background-color: #dcdcdc;
+}
+.container .friend-wrapper .friend-list .friend-item .friend-info.active {
+  background-color: #c4c4c4;
+}
+.container .friend-wrapper .friend-list .friend-item .friend-info .avatar {
+  border-radius: 2px;
+  margin-right: 12px;
+}
+.container .friend-wrapper .friend-list .friend-item .friend-info .remark {
+  font-size: 14px;
+  line-height: 36px;
+}
+.container .friend-info {
+  flex: 1;
+}
+.container .friend-info .new-friend {
+  height: 60px;
+  padding: 28px 0 0 30px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #e7e7e7;
+}
+.container .friend-info .new-friend .nickname {
+  font-size: 18px;
+}
+.container .friend-info .friend-info {
+  padding: 0 90px;
+}
+.container .friend-info .friend-info .es-info {
+  display: flex;
+  align-items: center;
+  padding: 100px 0 45px 0;
+}
+.container .friend-info .friend-info .es-info .left {
+  flex: 1;
+}
+.container .friend-info .friend-info .es-info .left .people .nickname {
+  display: inline-block;
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+.container .friend-info .friend-info .es-info .left .people .gender-male,
+.container .friend-info .friend-info .es-info .left .people .gender-female {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  vertical-align: top;
+  margin-top: 2px;
+}
+.container .friend-info .friend-info .es-info .left .people .gender-male {
+  background-image: url(../images/man.png);
+  background-size: cover;
+}
+.container .friend-info .friend-info .es-info .left .people .gender-female {
+  background-image: url(../images/woman.png);
+  background-size: cover;
+}
+.container .friend-info .friend-info .es-info .left .signature {
+  font-size: 14px;
+  color: rgba(153, 153, 153, 0.8);
+}
+.container .friend-info .friend-info .es-info .right .avatar {
+  border-radius: 3px;
+}
+.container .friend-info .friend-info .detInfo {
+  padding: 40px 0;
+  border-top: 1px solid #e7e7e7;
+  border-bottom: 1px solid #e7e7e7;
+}
+.container .friend-info .friend-info .detInfo .remark,
+.container .friend-info .friend-info .detInfo .area,
+.container .friend-info .friend-info .detInfo .wxid {
+  font-size: 14px;
+  margin-top: 20px;
+}
+.container .friend-info .friend-info .detInfo .remark span,
+.container .friend-info .friend-info .detInfo .area span,
+.container .friend-info .friend-info .detInfo .wxid span {
+  font-size: 14px;
+  color: rgba(153, 153, 153, 0.8);
+  margin-right: 40px;
+}
+.container .friend-info .friend-info .detInfo .remark {
+  margin-top: 0;
+}
+.container .friend-info .friend-info .send {
+  position: relative;
+  text-align: center;
+  width: 140px;
+  height: 36px;
+  left: 115px;
+  top: 50px;
+  line-height: 36px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #1aad19;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.container .friend-info .friend-info .send:hover {
+  background: #129611;
+}

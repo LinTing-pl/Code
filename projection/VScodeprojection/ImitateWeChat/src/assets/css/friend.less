@@ -1,0 +1,187 @@
+.container {
+  display: flex;
+  width: 800px;
+
+  .friend-wrapper {
+    width: 250px;
+    background: rgb(230, 230, 230);
+
+    // 搜索框
+    .wrapper {
+      padding: 22px 12px 12px 12px;
+      .search-wrapper {
+        position: relative;
+        display: flex;
+        box-sizing: border-box;
+        height: 26px;
+        width: 100%;
+        background-color: #e5e3e2;
+        border: 1px solid #d9d7d6;
+        border-radius: 2px;
+        .searchInput {
+          flex: 1;
+          font-size: 12px;
+          padding: 6px;
+          background-color: #e5e3e2;
+          outline: none;
+          &:focus {
+            background-color: #f2efee;
+          }
+        }
+        .icon-search {
+          display: inline-block;
+          width: 24px;
+          height: 24px;
+          font-size: 14px;
+          line-height: 24px;
+          text-align: center;
+        }
+        .searchInput-delete {
+          display: block;
+          position: absolute;
+          outline: none;
+          top: 0;
+          right: 0;
+          width: 24px;
+          height: 100%;
+          background-image: url(../images/delete.png);
+          background-size: 26px;
+          background-position: center;
+          background-repeat: no-repeat;
+          cursor: pointer;
+        }
+      }
+    }
+    // 好友列表
+    .friend-list {
+      height: 540px;
+      overflow-y: auto;
+      .friend-item {
+        border-top: 1px solid #dadada;
+        &:first-child,
+        &.no-border {
+          border-top: none;
+        }
+        .list-title {
+          box-sizing: border-box;
+          width: 100%;
+          font-size: 12px;
+          padding: 15px 0 3px 12px;
+          color: #999;
+        }
+        .friend-info {
+          display: flex;
+          padding: 12px;
+          transition: background-color 0.1s;
+          font-size: 0;
+          &:hover {
+            background-color: rgb(220, 220, 220);
+          }
+          &.active {
+            background-color: #c4c4c4;
+          }
+          .avatar {
+            border-radius: 2px;
+            margin-right: 12px;
+          }
+          .remark {
+            font-size: 14px;
+            line-height: 36px;
+          }
+        }
+      }
+    }
+  }
+
+  .friend-info {
+    flex: 1;
+    .new-friend {
+      height: 60px;
+      padding: 28px 0 0 30px;
+      box-sizing: border-box;
+      border-bottom: 1px solid #e7e7e7;
+      .nickname {
+        font-size: 18px;
+      }
+    }
+    .friend-info {
+      padding: 0 90px;
+      .es-info {
+        display: flex;
+        align-items: center;
+        padding: 100px 0 45px 0;
+        .left {
+          flex: 1;
+          .people {
+            .nickname {
+              display: inline-block;
+              font-size: 20px;
+              margin-bottom: 16px;
+            }
+            .gender-male,
+            .gender-female {
+              display: inline-block;
+              width: 18px;
+              height: 18px;
+              vertical-align: top;
+              margin-top: 2px;
+            }
+            .gender-male {
+              background-image: url(../images/man.png);
+              background-size: cover;
+            }
+            .gender-female {
+              background-image: url(../images/woman.png);
+              background-size: cover;
+            }
+          }
+          .signature {
+            font-size: 14px;
+            color: rgba(153, 153, 153, 0.8);
+          }
+        }
+        .right {
+          .avatar {
+            border-radius: 3px;
+          }
+        }
+      }
+      .detInfo {
+        padding: 40px 0;
+        border-top: 1px solid #e7e7e7;
+        border-bottom: 1px solid #e7e7e7;
+        .remark,
+        .area,
+        .wxid {
+          font-size: 14px;
+          margin-top: 20px;
+          span {
+            font-size: 14px;
+            color: rgba(153, 153, 153, 0.8);
+            margin-right: 40px;
+          }
+        }
+        .remark {
+          margin-top: 0;
+        }
+      }
+      .send {
+        position: relative;
+        text-align: center;
+        width: 140px;
+        height: 36px;
+        left: 115px;
+        top: 50px;
+        line-height: 36px;
+        font-size: 14px;
+        color: #fff;
+        background-color: #1aad19;
+        cursor: pointer;
+        border-radius: 2px;
+        &:hover {
+          background: rgb(18, 150, 17);
+        }
+      }
+    }
+  }
+}
