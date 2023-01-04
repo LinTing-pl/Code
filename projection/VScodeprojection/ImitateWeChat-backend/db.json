@@ -1,0 +1,151 @@
+{
+  "users": [
+    {
+      "id": 0,
+      "letter": "J",
+      "nickname": "教瘦",
+      "icon": "face0.jpeg",
+      "sex": "male",
+      "summary": "没有留下内容",
+      "remark": "教瘦",
+      "area": "河北 邯郸",
+      "wxid": "goddlts",
+      "password": "123456"
+    },
+    {
+      "id": 1,
+      "letter": "A",
+      "nickname": "阿玛尼",
+      "icon": "face2.webp",
+      "sex": "male",
+      "summary": "没有留下内容",
+      "remark": "阿玛尼",
+      "area": "上海 浦东",
+      "wxid": "aaa123",
+      "password": "123456"
+    },
+    {
+      "id": 2,
+      "letter": "B",
+      "nickname": "巴拉拉",
+      "icon": "face3.webp",
+      "sex": "male",
+      "summary": "两只小蜜蜂啊，飞到花丛中啊",
+      "remark": "巴拉拉",
+      "area": "北京 昌平",
+      "wxid": "balala123",
+      "password": "123456"
+    },
+    {
+      "id": 3,
+      "letter": "D",
+      "nickname": "大佬",
+      "icon": "face10.webp",
+      "sex": "male",
+      "summary": "无",
+      "remark": "大佬",
+      "area": "北京 朝阳",
+      "wxid": "dalao",
+      "password": "123456"
+    },
+    {
+      "id": 4,
+      "letter": "F",
+      "nickname": "法大大",
+      "icon": "face4.webp",
+      "sex": "male",
+      "summary": "无",
+      "remark": "法大大",
+      "area": "北京 朝阳",
+      "wxid": "fadadaxyz",
+      "password": "123456"
+    },
+    {
+      "id": 5,
+      "letter": "J",
+      "nickname": "佳佳",
+      "icon": "face5.webp",
+      "sex": "female",
+      "summary": "美女老师佳佳",
+      "remark": "佳佳",
+      "area": "北京 朝阳",
+      "wxid": "jiajia1998",
+      "password": "123456"
+    },
+    {
+      "id": 6,
+      "letter": "J",
+      "nickname": "叽叽叽叽",
+      "icon": "face6.webp",
+      "sex": "male",
+      "summary": "无",
+      "remark": "叽叽叽叽",
+      "area": "北京 北京",
+      "wxid": "jijijiij",
+      "password": "123456"
+    },
+    {
+      "id": 7,
+      "letter": "M",
+      "nickname": "美女",
+      "icon": "face1.webp",
+      "sex": "female",
+      "summary": "美女无才便是德",
+      "remark": "美女",
+      "area": "北京 北京",
+      "wxid": "meinv1990",
+      "password": "123456"
+    },
+    {
+      "id": 8,
+      "letter": "M",
+      "nickname": "萌萌",
+      "icon": "face8.webp",
+      "sex": "male",
+      "summary": "无",
+      "remark": "萌萌",
+      "area": "北京 北京",
+      "wxid": "mengmeng123",
+      "password": "123456"
+    },
+    {
+      "id": 9,
+      "letter": "M",
+      "nickname": "喵喵喵",
+      "icon": "face7.webp",
+      "sex": "male",
+      "summary": "无",
+      "remark": "喵喵喵",
+      "area": "北京 北京",
+      "wxid": "miaomiaomiao",
+      "password": "123456"
+    },
+    {
+      "id": 10,
+      "letter": "D",
+      "nickname": "大白机器人",
+      "icon": "robot.webp",
+      "sex": "robot",
+      "summary": "我是一个聊天机器人",
+      "remark": "大白机器人",
+      "area": "中国 China",
+      "wxid": "dabai",
+      "robot": true,
+      "password": "123456"
+    }
+  ],
+  "friends": [
+    {
+      "userId": 0,
+      "friends": [1, 2, 3, 4, 5, 10]
+    },
+    {
+      "userId": 2,
+      "friends": [0, 1, 5, 3, 6, 8, 9, 10]
+    },
+    {
+      "userId": 1,
+      "friends": [0, 2, 10]
+    }
+  ]
+}
