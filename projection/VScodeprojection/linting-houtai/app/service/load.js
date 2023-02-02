@@ -30,6 +30,17 @@ class LoadService extends Service {
         }
       );
       return data;
+    } else if (requestBody.remark) {
+      const remark = requestBody.remark;
+      const data = await this.app.mysql.update(
+        "loads",
+        {
+          remark: remark,
+        },
+        {
+          where: { id: requestBody.id },
+        }
+      );
     } else {
       const load = requestBody.load;
       const data = await this.app.mysql.update(

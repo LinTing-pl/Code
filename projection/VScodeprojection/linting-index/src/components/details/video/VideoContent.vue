@@ -8,7 +8,7 @@
           <video :src="videoContent.mp4" controls @click="checkLogin"></video>
         </div>
       </div>
-      <Bottom></Bottom>
+      <remark cls="video" :id="data.id"></remark>
     </div>
     <div class="right">
       <div class="side">
@@ -47,10 +47,10 @@
   </div>
 </template>
 <script>
-import Bottom from "../../public/Bottom.vue";
+import Remark from "../../public/Remark";
 export default {
   components: {
-    Bottom,
+    Remark,
   },
   data() {
     return {
@@ -77,55 +77,43 @@ export default {
       ) || 0;
     this.videoContent = this.data.sections[this.activeIndex];
   },
-  watch: {
-    $route: {
-      handler() {
-        this.id = this.$route.params.id;
-        if (this.id) {
-          this.data = JSON.parse(
-            sessionStorage.getItem(`videocontent${this.$route.params.id}`)
-          );
-          this.data.sections = JSON.parse(this.data.sections);
-          this.activeIndex =
-            JSON.parse(
-              sessionStorage.getItem(
-                `videoSectionIndex${this.$route.params.id}`
-              )
-            ) || 0;
-          this.videoContent = this.data.sections[this.activeIndex];
-          this.$forceUpdate();
-        }
-      },
-      // immediate: true, //在watch中首次绑定的时候，是否执行handler
-    },
-  },
+  // watch: {
+  //   $route: {
+  //     handler() {
+  //       this.id = this.$route.params.id;
+  //       if (this.id) {
+  //         this.data = JSON.parse(
+  //           sessionStorage.getItem(`videocontent${this.$route.params.id}`)
+  //         );
+  //         this.data.sections = JSON.parse(this.data.sections);
+  //         this.activeIndex =
+  //           JSON.parse(
+  //             sessionStorage.getItem(
+  //               `videoSectionIndex${this.$route.params.id}`
+  //             )
+  //           ) || 0;
+  //         this.videoContent = this.data.sections[this.activeIndex];
+  //         this.$forceUpdate();
+  //       }
+  //     },
+  //     immediate: true, //在watch中首次绑定的时候，是否执行handler
+  //   },
+  // },
   methods: {
     read(id) {
       clearTimeout(this.readId);
       this.readId = setTimeout(() => {
         if (sessionStorage.getItem(`videocontent${id}`)) {
-          this.$router
-            .push({
-              name: "videocontent",
-              params: {
-                id: id,
-              },
-            })
-            .catch((e) => {});
+          this.$router.push("/videocontent/" + id).catch((e) => {});
+          this.$router.go(0);
         } else {
           this.$axios.default.get(`/dev-api/video/get/${id}`).then((res) => {
             sessionStorage.setItem(
               `videocontent${id}`,
               JSON.stringify(res.data)
             );
-            this.$router
-              .push({
-                name: "videocontent",
-                params: {
-                  id: id,
-                },
-              })
-              .catch((e) => {});
+            this.$router.push("/videocontent/" + id).catch((e) => {});
+            this.$router.go(0);
           });
         }
       }, 250);
@@ -159,7 +147,7 @@ export default {
 <style lang='scss' scoped>
 .videocontent-container {
   width: 960px;
-  height: 590px;
+  min-height: 590px;
   display: flex;
   margin-top: 10px;
   margin-bottom: 10px;

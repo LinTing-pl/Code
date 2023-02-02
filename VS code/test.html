@@ -24,25 +24,5 @@
     }
     console.log(count);
   </script> -->
-  <script>
-    let P = "2 3 4 5".split(" ").map((v) => Number(v));
-    let W = "2 5 2 4".split(" ").map((v) => Number(v));
-    let L = new Array(Math.max(...P));
-    L.fill(0);
-    console.log(P.length);
-    for (let i = 0; i < P.length; i++) {
-      L[P[i] - 1] = L[P[i] - 1] + W[i];
-    }
-    let count = [L[0], L[1]];
-    for (let i = 2; i < L.length; i++) {
-      count.push(
-        Math.max(
-          count[parseInt((i - 1) / 2)] + L[i],
-          count[parseInt((i - 2) / 2)] + L[i]
-        )
-      );
-    } //[0,2,5,2,4]
-    //[0, 2, 7, 9, 11]
-    console.log(count[-1]);
-  </script>
+  <script src="./MyPromise.js"></script>
 </html>

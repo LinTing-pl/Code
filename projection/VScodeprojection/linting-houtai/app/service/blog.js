@@ -46,6 +46,17 @@ class BlogService extends Service {
         }
       );
       return data;
+    } else if (requestBody.remark) {
+      const remark = requestBody.remark;
+      const data = await this.app.mysql.update(
+        "blogs",
+        {
+          remark: remark,
+        },
+        {
+          where: { id: requestBody.id },
+        }
+      );
     } else {
       const blog = requestBody.blog;
       const data = await this.app.mysql.update(

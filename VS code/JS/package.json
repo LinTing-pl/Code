@@ -1,6 +1,10 @@
 {
   "dependencies": {
     "axios": "^0.27.2",
+    "element-ui": "^2.15.12",
+    "express": "^4.17.2",
+    "multiparty": "^4.2.2",
+    "spark-md5": "^3.0.2",
     "vue-router": "^3.5.4"
   }
 }

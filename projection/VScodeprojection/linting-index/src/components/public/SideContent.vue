@@ -64,14 +64,8 @@ export default {
     },
     read(id) {
       if (sessionStorage.getItem(`blogcontent${id}`)) {
-        this.$router
-          .push({
-            name: "blogcontent",
-            params: {
-              id: id,
-            },
-          })
-          .catch((err) => {});
+        this.$router.push("/blogcontent/" + id).catch((err) => {});
+        this.$router.go(0);
       } else {
         let loading = this.$loading({
           lock: true,
@@ -81,17 +75,13 @@ export default {
         this.$axios.default.get(`/dev-api/blog/get/${id}`).then((res) => {
           sessionStorage.setItem(`blogcontent${id}`, JSON.stringify(res.data));
           this.$router
-            .push({
-              name: "blogcontent",
-              params: {
-                id: id,
-              },
-            })
+            .push("/blogcontent/" + id)
             .then((res) => {
               loading.close();
             })
             .catch((err) => {});
         });
+        this.$router.go(0);
       }
     },
   },

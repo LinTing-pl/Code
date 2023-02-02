@@ -187,8 +187,11 @@ export default {
           .then(() => {
             this.$axios.default
               .post("/dev-api/draftoredit/study/update", {
-                cls: "draft",
+                opts: "draft",
                 img: "",
+                cls: "study",
+                idx: "draft",
+                oldimg: this.data.img,
               })
               .then((res) => {
                 this.$message({
@@ -244,7 +247,9 @@ export default {
           });
           this.$axios.default
             .post("/dev-api/draftoredit/study/update", {
-              cls: "draft",
+              opts: "draft",
+              idx: "draft",
+              cls: "study",
               img: "",
             })
             .then((res) => {
@@ -295,7 +300,10 @@ export default {
               user: localStorage.getItem("user"),
               time: time,
               img: e.target.result,
-              cls: "draft",
+              opts: "draft",
+              idx: "draft",
+              cls: "study",
+              oldimg: _this.data.img,
             })
             .then((res) => {
               _this.data.img = res.data;

@@ -155,8 +155,11 @@ export default {
           .then(() => {
             this.$axios.default
               .post("/dev-api/draftoredit/video/updateimg", {
-                cls: "draft",
+                opts: "draft",
+                cls: "video",
                 img: "",
+                idx: "draft",
+                oldimg: this.data.img,
               })
               .then((res) => {
                 this.$message({
@@ -212,7 +215,9 @@ export default {
           });
           this.$axios.default
             .post("/dev-api/draftoredit/video/updateimg", {
-              cls: "draft",
+              opts: "draft",
+              cls: "video",
+              idx: "draft",
               img: "",
             })
             .then((res) => {
@@ -263,7 +268,10 @@ export default {
               user: localStorage.getItem("user"),
               time: time,
               img: e.target.result,
-              cls: "draft",
+              opts: "draft",
+              idx: "draft",
+              cls: "video",
+              oldimg: _this.data.img,
             })
             .then((res) => {
               _this.data.img = res.data;
@@ -327,22 +335,89 @@ export default {
         }
         let _this = this;
         reader.onload = async function (e) {
-          let time = new Date().getTime();
-          await _this.$axios.default
-            .post("/dev-api/draftoredit/video/updatevideo", {
-              user: localStorage.getItem("user"),
-              time: time,
-              video: e.target.result,
-              cls: "draft",
-            })
-            .then((res) => {
-              _this.data.sections[i].mp4 = res.data;
-              _this.sectionContent = res.data;
-              localStorage.setItem(
-                "adminvideodraft",
-                JSON.stringify(_this.data)
-              );
+          let size = 1024 * 1024 * 1; //切片大小
+          let videoChunk = [];
+          let index = 0;
+          for (let i = 0; i < file.size; i += size) {
+            videoChunk.push({
+              hash: index++,
+              chunk: file.slice(i, i + size),
             });
+          }
+          let uploadChunks = async function (list) {
+            if (list.length === 0) {
+              _this.$axios
+                .default({
+                  method: "get",
+                  url: "http://localhost:3000/merge",
+                  params: {
+                    filename: file.name,
+                  },
+                })
+                .then((resp) => {
+                  _this.data.sections[i].mp4 = resp.data;
+                  _this.sectionContent = resp.data;
+                  localStorage.setItem(
+                    "adminvideodraft",
+                    JSON.stringify(_this.data)
+                  );
+                });
+              return;
+            }
+            let pool = []; //并发池
+            let max = 3;
+            let finish = 0;
+            let failList = [];
+            for (let i = 0; i < list.length; i++) {
+              let item = list[i];
+              let formData = new FormData();
+              formData.append("filename", file.name);
+              formData.append("hash", item.hash);
+              formData.append("chunk", item.chunk);
+              let task = _this.$axios.default({
+                method: "post",
+                url: "http://localhost:3000/upload",
+                data: formData,
+              });
+              task
+                .then((resp) => {
+                  let index = pool.findIndex((v) => v === task);
+                  pool.splice(index);
+                })
+                .catch((e) => {
+                  failList.push(item);
+                })
+                .finally(() => {
+                  finish++;
+                  if (finish === list.length) {
+                    uploadChunks(failList);
+                  }
+                });
+              pool.push(task);
+              if (pool.length === max) {
+                await Promise.race(pool);
+              }
+            }
+          };
+          uploadChunks(videoChunk);
+
+          // await _this.$axios.default
+          //   .post("/dev-api/draftoredit/video/updatevideo", {
+          //     user: localStorage.getItem("user"),
+          //     time: time,
+          //     video: e.target.result,
+          //     opts: "draft",
+          //     idx: "draft",
+          //     cls: "video",
+          //   })
+          //   .then((res) => {
+          //     _this.data.sections[i].mp4 = res.data;
+          //     _this.sectionContent = res.data;
+          //     localStorage.setItem(
+          //       "adminvideodraft",
+          //       JSON.stringify(_this.data)
+          //     );
+          //   });
         };
       } else {
         this.$message({

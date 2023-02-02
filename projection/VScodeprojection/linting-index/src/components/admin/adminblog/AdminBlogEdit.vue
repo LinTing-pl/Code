@@ -27,7 +27,9 @@
               <el-button type="primary" @click="submitBlog">确 定</el-button>
             </span>
           </el-dialog>
-
+          <button class="delSection" style="margin-right: 10px" @click="reback">
+            取消编辑并返回
+          </button>
           <button class="submitBlog" @click="dialogVisible = true">提交</button>
           <button class="saveBlog" @click="saveBlog">保存</button>
         </div>
@@ -116,6 +118,48 @@ export default {
         return "关闭提示";
       }
     },
+    async reback() {
+      this.$confirm(`是否取消编辑并返回, 是否继续?`, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          let oldimg = "";
+          this.$axios.default
+            .get(`/dev-api/blog/get/${this.id}`)
+            .then((resp) => {
+              oldimg = resp.data.img === this.data.img ? "" : this.data.img;
+            })
+            .then(() => {
+              this.$axios.default
+                .post("/dev-api/draftoredit/blog/update", {
+                  opts: "draft",
+                  cls: "blog",
+                  img: "",
+                  idx: this.id,
+                  oldimg: oldimg,
+                })
+                .then((res) => {
+                  this.$message({
+                    type: "success",
+                    message: "删除成功!",
+                    showClose: true,
+                  });
+                  localStorage.removeItem(`adminblogedit${this.id}`);
+                  this.back = false;
+                  this.$router.push("/adminblog");
+                });
+            });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+            showClose: true,
+          });
+        });
+    },
     async submitBlog() {
       this.data.content = this.blogContent;
       localStorage.setItem(
@@ -141,7 +185,8 @@ export default {
             .post("/dev-api/draftoredit/blog/update", {
               user: localStorage.getItem("user"),
               img: "",
-              cls: "edit",
+              opts: "edit",
+              cls: "blog",
               idx: this.id,
             })
             .then((res) => {
@@ -199,8 +244,10 @@ export default {
               user: localStorage.getItem("user"),
               time: time,
               img: e.target.result,
-              cls: "edit",
+              opts: "edit",
+              cls: "blog",
               idx: _this.id,
+              oldimg: _this.data.img,
             })
             .then((res) => {
               _this.data.img = res.data;
@@ -269,6 +316,18 @@ export default {
   height: 30px;
   text-align: right;
   padding: 0 20px;
+}
+.left .display .display-btns .delSection {
+  height: 28px;
+  background-color: #f56c6c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+}
+.left .display .display-btns .delSection:hover {
+  background-color: #f78989;
 }
 .left .display .display-btns .saveBlog {
   height: 28px;

@@ -5,7 +5,84 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      ul {
+        list-style: none;
+        overflow: hidden;
+        width: 100px;
+        height: 100px;
+        position: relative;
+        font-size: 0;
+        padding: 0;
+      }
+      li {
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        animation: move 6s infinite linear;
+      }
+      li:nth-child(1) {
+        left: 0;
+        background: rgb(190, 85, 85);
+      }
+      li:nth-child(2) {
+        left: 100px;
+        background: rgb(50, 177, 147);
+      }
+      li:nth-child(3) {
+        left: 200px;
+        background: rgb(206, 53, 147);
+      }
+      li:nth-child(4) {
+        left: 300px;
+        background: rgb(190, 85, 85);
+      }
+      @keyframes move {
+        0% {
+          margin-left: 0px;
+        }
+
+        20% {
+          margin-left: -100px;
+        }
+
+        40% {
+          margin-left: -100px;
+        }
+
+        60% {
+          margin-left: -200px;
+        }
+        80% {
+          margin-left: -200px;
+        }
+        100% {
+          margin-left: -300px;
+        }
+      }
+    </style>
   </head>
-  <body></body>
-  <script></script>
+  <body>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+    <a href="">aa</a>
+  </body>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    a = Vue.ref(0);
+    a_res = Vue.computed({
+      get() {
+        return a.value;
+      },
+      set(val) {
+        a.value = val;
+      },
+    });
+    console.log(++a.value);
+    console.log(a_res);
+  </script>
 </html>

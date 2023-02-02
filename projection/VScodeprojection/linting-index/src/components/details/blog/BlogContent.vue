@@ -1,18 +1,25 @@
 <template>
   <div class="blogcontent-container">
     <div class="left">
-      <div class="title">{{ data.title }}</div>
-      <div class="date">{{ data.date }}</div>
-      <div class="blog-content" v-html="data.content"></div>
+      <div class="left-up">
+        <div class="title">{{ data.title }}</div>
+        <div class="date">{{ data.date }}</div>
+        <div class="blog-content" v-html="data.content"></div>
+      </div>
+      <div class="left-down">
+        <Remark cls="blog" :id="data.id"></Remark>
+      </div>
     </div>
     <SideContent></SideContent>
   </div>
 </template>
 <script>
 import SideContent from "../../public/SideContent.vue";
+import Remark from "../../public/Remark";
 export default {
   components: {
     SideContent,
+    Remark,
   },
   data() {
     return {
@@ -25,20 +32,20 @@ export default {
       sessionStorage.getItem(`blogcontent${this.$route.params.id}`)
     );
   },
-  watch: {
-    //监听route
-    $route: {
-      handler() {
-        this.id = this.$route.params.id;
-        if (this.id) {
-          this.data = JSON.parse(
-            sessionStorage.getItem(`blogcontent${this.$route.params.id}`)
-          );
-        }
-      },
-      // immediate: true, //在watch中首次绑定的时候，是否执行handler
-    },
-  },
+  // watch: {
+  //   //监听route
+  //   $route: {
+  //     handler() {
+  //       this.id = this.$route.params.id;
+  //       if (this.id) {
+  //         this.data = JSON.parse(
+  //           sessionStorage.getItem(`blogcontent${this.$route.params.id}`)
+  //         );
+  //       }
+  //     },
+  //     immediate: true, //在watch中首次绑定的时候，是否执行handler
+  //   },
+  // },
 };
 </script>
 <style lang='scss' scoped>
@@ -50,19 +57,25 @@ export default {
 .left {
   box-sizing: border-box;
   width: 70%;
-  min-height: 590px;
-  background-color: #fff;
-  padding: 10px;
-  margin-bottom: 10px;
-  font-size: 18px;
-  padding: 10px 20px;
-  display: flex;
-  flex-direction: column;
+
+  .left-up {
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    div {
+      text-align: left;
+      padding: 5px;
+    }
+  }
+  .left-down {
+    background-color: #fff;
+  }
 }
-.left div {
-  text-align: left;
-  padding: 5px;
-}
+
 .title {
   font-size: 20px;
   font-weight: bold;

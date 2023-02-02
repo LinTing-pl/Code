@@ -14,7 +14,12 @@
       ></Chapter>
     </div>
     <div class="middle">
-      <StudySrc :bookcontent="bookcontent"></StudySrc>
+      <div class="middle-up">
+        <StudySrc :bookcontent="bookcontent"></StudySrc>
+      </div>
+      <div class="middle-down">
+        <Remark cls="study" :id="studyContentList.id"></Remark>
+      </div>
     </div>
     <div class="right">
       <div
@@ -29,18 +34,21 @@
   </div>
 </template>
 <script>
+import Remark from "@/components/public/Remark";
 import Chapter from "./StudyChapter.vue";
 import StudySrc from "./StudySrc.vue";
 export default {
   components: {
     Chapter,
     StudySrc,
+    Remark,
   },
   data() {
     return {
       studyContentList: [],
       othersList: [],
       bookcontent: "",
+      remarkData: [],
     };
   },
   created() {
@@ -92,9 +100,17 @@ export default {
 }
 .middle {
   width: 65%;
-  height: 590px;
-  background-color: #fff;
   margin: 0 10px 10px;
+}
+.middle .middle-up {
+  width: 100%;
+  height: 500px;
+  background-color: #fff;
+  margin-bottom: 10px;
+}
+.middle .middle-down {
+  width: 100%;
+  background: #fff;
 }
 .right {
   width: 13%;

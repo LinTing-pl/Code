@@ -49,6 +49,17 @@ class StudyService extends Service {
         }
       );
       return data;
+    } else if (requestBody.remark) {
+      const remark = requestBody.remark;
+      const data = await this.app.mysql.update(
+        "books",
+        {
+          remark: remark,
+        },
+        {
+          where: { id: requestBody.id },
+        }
+      );
     } else {
       const book = requestBody.book;
       const data = await this.app.mysql.update(

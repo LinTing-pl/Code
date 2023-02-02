@@ -10,7 +10,9 @@
     "egg": "^3",
     "egg-mysql": "^3.1.1",
     "egg-scripts": "^2",
-    "egg-view-nunjucks": "^2.3.0"
+    "egg-view-nunjucks": "^2.3.0",
+    "express": "^4.17.2",
+    "multiparty": "^4.2.2"
   },
   "devDependencies": {
     "egg-bin": "^5",

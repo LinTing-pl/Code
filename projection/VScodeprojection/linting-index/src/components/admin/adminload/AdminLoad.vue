@@ -288,10 +288,12 @@ export default {
       },
       editDialogVisible: false,
       editData: {
+        idx: null,
         img: "",
         title: "资源",
         url: "",
         code: "",
+        oldimg: "",
       },
     };
   },
@@ -350,10 +352,12 @@ export default {
     },
     edit(id, title, url, code, img) {
       sessionStorage.setItem("target", id.toString());
+      this.editData.idx = id;
       this.editData.title = title;
       this.editData.url = url;
       this.editData.code = code;
       this.editData.img = img;
+      this.editData.oldimg = img;
       this.editDialogVisible = true;
     },
     handleClose(done) {
@@ -380,7 +384,8 @@ export default {
           });
           this.$axios.default
             .post("/dev-api/draftoredit/load/update", {
-              cls: "draft",
+              opts: "draft",
+              cls: "load",
               img: "",
             })
             .then((res) => {
@@ -390,6 +395,15 @@ export default {
                 url: "",
                 code: "",
               };
+              this.editData = {
+                idx: null,
+                img: "",
+                title: "资源",
+                url: "",
+                code: "",
+                oldimg: "",
+              };
+
               this.$refs.loadaddtitle.innerText = "资源";
               this.$refs.loadaddurl.innerText = "";
               this.$refs.loadaddcode.innerText = "";
@@ -406,7 +420,10 @@ export default {
             user: localStorage.getItem("user"),
             time: time,
             img: this.editData.img,
-            cls: "edit",
+            opts: "edit",
+            idx: this.editData.idx,
+            oldimg: this.editData.oldimg,
+            cls: "load",
           })
           .then((res) => {
             this.editData.img = res.data;
@@ -426,11 +443,14 @@ export default {
             type: "success",
             message: "提交成功!",
           });
+          this.getData();
           this.editData = {
+            idx: null,
             img: "",
             title: "资源",
             url: "",
             code: "",
+            oldimg: "",
           };
         });
     },
@@ -461,7 +481,10 @@ export default {
                 user: localStorage.getItem("user"),
                 time: time,
                 img: e.target.result,
-                cls: "draft",
+                opts: "draft",
+                cls: "load",
+                idx: "draft",
+                oldimg: _this.pushData.img,
               })
               .then((res) => {
                 _this.pushData.img = res.data;

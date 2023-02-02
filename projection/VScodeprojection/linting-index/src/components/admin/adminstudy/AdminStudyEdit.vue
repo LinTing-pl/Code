@@ -27,6 +27,9 @@
               <el-button type="primary" @click="submitBook">确 定</el-button>
             </span>
           </el-dialog>
+          <button class="delSection" style="margin-right: 10px" @click="reback">
+            取消编辑并返回
+          </button>
           <button class="submitBook" @click="dialogVisible = true">提交</button>
           <button class="saveSection" @click="saveSection">保存</button>
           <button class="delSection" @click="delSection">删除小节</button>
@@ -170,7 +173,6 @@ export default {
         return "关闭提示";
       }
     },
-
     async submitBook() {
       localStorage.setItem(
         `adminstudyedit${this.id}`,
@@ -196,7 +198,8 @@ export default {
             .post("/dev-api/draftoredit/study/update", {
               user: localStorage.getItem("user"),
               img: "",
-              cls: "edit",
+              opts: "edit",
+              cls: "study",
               idx: this.id,
             })
             .then((res) => {
@@ -208,6 +211,48 @@ export default {
               localStorage.removeItem(`adminstudyedit${this.id}`);
               this.$router.push("/adminstudy");
             });
+        });
+    },
+    async reback() {
+      this.$confirm(`是否取消编辑并返回, 是否继续?`, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          let oldimg = "";
+          this.$axios.default
+            .get(`/dev-api/study/get/${this.id}`)
+            .then((resp) => {
+              oldimg = resp.data.img === this.data.img ? "" : this.data.img;
+            })
+            .then(() => {
+              this.$axios.default
+                .post("/dev-api/draftoredit/study/update", {
+                  opts: "draft",
+                  img: "",
+                  cls: "study",
+                  idx: this.id,
+                  oldimg: oldimg,
+                })
+                .then((res) => {
+                  this.$message({
+                    type: "success",
+                    message: "删除成功!",
+                    showClose: true,
+                  });
+                  localStorage.removeItem(`adminstudyedit${this.id}`);
+                  this.back = false;
+                  this.$router.push("/adminstudy");
+                });
+            });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+            showClose: true,
+          });
         });
     },
     handleClose(done) {
@@ -254,8 +299,10 @@ export default {
               user: localStorage.getItem("user"),
               time: time,
               img: e.target.result,
-              cls: "edit",
+              opts: "edit",
+              cls: "study",
               idx: _this.id,
+              oldimg: _this.data.img,
             })
             .then((res) => {
               _this.data.img = res.data;

@@ -29,6 +29,9 @@
               <el-button type="primary" @click="submitVideo">确 定</el-button>
             </span>
           </el-dialog>
+          <button class="delVideo" style="margin-right: 10px" @click="reback">
+            取消编辑并返回
+          </button>
           <button class="submitVideo" @click="dialogVisible = true">
             提交
           </button>
@@ -117,9 +120,11 @@ export default {
     };
   },
   created() {
-    this.id = JSON.parse(sessionStorage.getItem("target"));
+    this.id = sessionStorage.getItem("target");
     this.data = JSON.parse(localStorage.getItem("adminvideoedit" + this.id));
-    this.data.sections = JSON.parse(this.data.sections);
+    if (typeof this.data.sections === "string") {
+      this.data.sections = JSON.parse(this.data.sections);
+    }
     this.activeIndex = JSON.parse(
       sessionStorage.getItem("adminvideoEdit" + this.id + "Index")
     );
@@ -145,6 +150,48 @@ export default {
         return "关闭提示";
       }
     },
+    async reback() {
+      this.$confirm(`是否取消编辑并返回, 是否继续?`, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          let oldimg = "";
+          this.$axios.default
+            .get(`/dev-api/video/get/${this.id}`)
+            .then((resp) => {
+              oldimg = resp.data.img === this.data.img ? "" : this.data.img;
+            })
+            .then(() => {
+              this.$axios.default
+                .post("/dev-api/draftoredit/video/updateimg", {
+                  opts: "draft",
+                  cls: "video",
+                  img: "",
+                  idx: this.id,
+                  oldimg: oldimg,
+                })
+                .then((res) => {
+                  this.$message({
+                    type: "success",
+                    message: "删除成功!",
+                    showClose: true,
+                  });
+                  localStorage.removeItem(`adminvideoedit${this.id}`);
+                  this.back = false;
+                  this.$router.push("/adminvideo");
+                });
+            });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+            showClose: true,
+          });
+        });
+    },
     async submitVideo() {
       localStorage.setItem(
         "adminvideoedit" + this.id,
@@ -163,6 +210,7 @@ export default {
         text: "资源上传中。。。",
         background: "rgba(0, 0, 0, 0.5)",
       });
+      console.log(video);
       this.$axios.default
         .post("/dev-api/video/update", { video: video })
         .then((res) => {
@@ -173,7 +221,9 @@ export default {
           });
           this.$axios.default
             .post("/dev-api/draftoredit/video/updateimg", {
-              cls: "edit",
+              opts: "edit",
+              cls: "video",
+              idx: this.id,
               img: "",
             })
             .then((res) => {
@@ -227,8 +277,10 @@ export default {
               user: localStorage.getItem("user"),
               time: time,
               img: e.target.result,
-              cls: "edit",
+              opts: "edit",
+              cls: "video",
               idx: _this.id,
+              oldimg: _this.data.img,
             })
             .then((res) => {
               _this.data.img = res.data;
@@ -307,13 +359,15 @@ export default {
               user: localStorage.getItem("user"),
               time: time,
               video: e.target.result,
-              cls: "draft",
+              opts: "draft",
+              idx: _this.id,
+              cls: "video",
             })
             .then((res) => {
               _this.data.sections[i].mp4 = res.data;
               _this.sectionContent = res.data;
               localStorage.setItem(
-                "adminvideoedit" + this.id,
+                "adminvideoedit" + _this.id,
                 JSON.stringify(_this.data)
               );
             });

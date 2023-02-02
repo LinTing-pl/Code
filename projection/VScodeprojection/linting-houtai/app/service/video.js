@@ -47,9 +47,19 @@ class VideoService extends Service {
         }
       );
       return data;
+    } else if (requestBody.remark) {
+      const remark = requestBody.remark;
+      const data = await this.app.mysql.update(
+        "videos",
+        {
+          remark: remark,
+        },
+        {
+          where: { id: requestBody.id },
+        }
+      );
     } else {
       const video = requestBody.video;
-      console.log(video, 11111111111111111111);
       const data = await this.app.mysql.update(
         "videos",
         {
@@ -57,6 +67,7 @@ class VideoService extends Service {
           img: video.img,
           date: video.date,
           info: video.info,
+          sections: video.sections,
         },
         {
           where: { id: video.id },

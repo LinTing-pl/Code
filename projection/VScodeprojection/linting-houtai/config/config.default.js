@@ -48,6 +48,13 @@ module.exports = (appInfo) => {
     app: true,
     agent: false,
   };
+  config.multipart = {
+    // mode: "file",
+    fileSize: "100mb",
+    mode: "stream",
+    // fileExtensions: [".mp3"], // 扩展几种上传的文件格式
+  };
+
   return {
     ...config,
     ...userConfig,
