@@ -5,24 +5,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-  </head>
-  <body></body>
-  <!-- <script>
-    let test = "abcbd";
-    let stack = [];
-    count = 0;
-    for (let j = 0; j < test.length; j++) {
-      if (stack.includes(test[j])) {
-        count = count + 2;
-        stack.splice(stack.indexOf(test[j]), 1);
-      } else {
-        stack.push(test[j]);
+    <style>
+      ul {
+        list-style: none;
+        display: flex;
+        width: 88px;
+        border: 1px solid #000;
+        padding: 0;
       }
-    }
-    if (stack.length) {
-      count += 1;
-    }
-    console.log(count);
-  </script> -->
-  <script src="./MyPromise.js"></script>
+      li:nth-child(odd) {
+        background-color: pink;
+        width: 40px;
+        flex-shrink: 0;
+      }
+      li:nth-child(even) {
+        background-color: yellow;
+        flex: 1;
+      }
+    </style>
+        <style>
+          .main{
+              color:blue
+          }
+          span{
+              color:green
+          }
+      </style>
+  </head>
+  <body>
+    <ul>
+      <li>li1</li>
+      <li>li2</li>
+      <li>li3</li>
+    </ul>
+
+  <div style="color:red !important" class=""main"">
+      <span>123</span>
+  </div>
+  </body>
 </html>

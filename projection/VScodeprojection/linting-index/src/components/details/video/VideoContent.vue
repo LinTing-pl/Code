@@ -5,9 +5,11 @@
         <div class="video-title">{{ videoContent.section }}</div>
         <div class="video-date">{{ videoContent.date }}</div>
         <div class="video-content">
-          <video :src="videoContent.mp4" controls @click="checkLogin"></video>
+          <video ref="videoEle" :src="videoContent.mp4" controls @click="checkLogin" @play="init" crossorigin="anonymous"></video>
         </div>
       </div>
+      <button class="opt-showVideo" @click="open">{{ isShow?'关闭音频可视化':'打开音频可视化' }}</button>
+      <canvas ref="cvs" v-show="isShow"></canvas>
       <remark cls="video" :id="data.id"></remark>
     </div>
     <div class="right">
@@ -60,6 +62,12 @@ export default {
       bigImg: "",
       activeIndex: 0,
       readId: null,
+      isShow:false,
+      isInit:false,
+      dataArray:null,
+      analyser:null,
+      ctx:null,
+      flag:false,
     };
   },
   created() {
@@ -141,6 +149,55 @@ export default {
         }
       }
     },
+    init(){
+        if(this.isInit){
+          return
+        }
+        this.ctx=this.$refs.cvs.getContext('2d')
+        const audCtx=new AudioContext()
+        const source=audCtx.createMediaElementSource(this.$refs.videoEle)
+        this.analyser=audCtx.createAnalyser()
+        this.analyser.fftSize=512
+        this.dataArray=new Uint8Array(this.analyser.frequencyBinCount)
+        source.connect(this.analyser)
+        this.analyser.connect(audCtx.destination)
+        this.isInit=true
+        if(this.isShow){
+          this.draw()
+        }
+    },
+    draw(){
+      if(this.isShow){
+        if(!this.isInit)return
+        this.flag=true
+        requestAnimationFrame(this.draw)
+        const {width,height}=this.$refs.cvs
+        this.ctx.clearRect(0,0,width,height)
+        this.analyser.getByteFrequencyData(this.dataArray)
+        const len=this.dataArray.length/2.5
+        const barWidth=width/len/2
+        this.ctx.fillStyle='#78C5F7'
+        for(let i=0;i<len;i++){
+          const data=this.dataArray[i]
+          const barHeight=data/255*height
+          const x1=i*barWidth +width/2
+          const x2=width/2 - (i+1)*barWidth
+          const y=height-barHeight
+          this.ctx.fillRect(x1,y,barWidth-1,barHeight)
+          this.ctx.fillRect(x2,y,barWidth-1,barHeight)
+        }
+      }
+    },
+    open(){
+      this.isShow=!this.isShow
+      if(!this.flag){
+        this.draw()
+      }
+      if(!this.isShow){
+        this.flag=false
+      }
+    }
+
   },
 };
 </script>
@@ -154,6 +211,26 @@ export default {
 }
 .left {
   width: 70%;
+  position: relative;
+  .opt-showVideo{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    background: rgb(119, 159, 228);
+    border-radius: 6px;
+  }
+  .opt-showVideo:hover{
+    box-shadow: 0 0 4px rgb(119, 159, 228);
+    color: #fff;
+  }
+  canvas{
+    background: #000;
+    width: 100%;
+    height: 100px;
+  }
 }
 .right {
   width: 30%;

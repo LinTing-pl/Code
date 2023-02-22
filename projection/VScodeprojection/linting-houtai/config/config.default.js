@@ -34,7 +34,13 @@ module.exports = (appInfo) => {
     csrf: {
       enable: false,
     },
-    domainWhiteList: [],
+    domainWhiteList: ["http://localhost:8081"],
+  };
+  config.cors = {
+    //解决跨域访问
+    allowMethods: "GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS",
+    credentials: true,
+    origin: () => "http://localhost:8081", //这边不能为*号，需要指定明确的、与请求网页一致的域名
   };
   config.mysql = {
     client: {
