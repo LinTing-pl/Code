@@ -1,86 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>圆形加载动画效果</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
+	<head>
+		<meta charset="UTF-8" />
+		<meta content="IE=edge" http-equiv="X-UA-Compatible" />
+		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+		<title>圆形加载动画效果</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
 
-        body {
-            height: 100vh;
-            background-image: linear-gradient(180deg, #2b5876, #09203f);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+			body {
+				height: 100vh;
+				background-image: linear-gradient(180deg, #2b5876, #09203f);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
 
-        .loading {
-            width: 200px;
-            height: 200px;
-            box-sizing: border-box;
-            border-radius: 50%;
-            border-top: 10px solid #63a69f;
-            filter: drop-shadow(0 0 5px #63a69f6c);
-            position: relative;
-            animation: a1 2s linear infinite;
-        }
+			.loading {
+				width: 200px;
+				height: 200px;
+				box-sizing: border-box;
+				border-radius: 50%;
+				border-top: 10px solid #63a69f;
+				filter: drop-shadow(0 0 5px #63a69f6c);
+				position: relative;
+				animation: a1 2s linear infinite;
+			}
 
-        .loading::before,
-        .loading::after {
-            content: "";
-            width: 200px;
-            height: 200px;
-            position: absolute;
-            left: 0;
-            top: -10px;
-            box-sizing: border-box;
-            border-radius: 50%;
-        }
+			.loading::before,
+			.loading::after {
+				content: "";
+				width: 200px;
+				height: 200px;
+				position: absolute;
+				left: 0;
+				top: -10px;
+				box-sizing: border-box;
+				border-radius: 50%;
+			}
 
-        .loading::before {
-            border-top: 10px solid #f2e1ac;
-            transform: rotate(120deg);
-            filter: drop-shadow(0 0 5px #f2e1ac6c);
-        }
+			.loading::before {
+				border-top: 10px solid #f2e1ac;
+				transform: rotate(120deg);
+				filter: drop-shadow(0 0 5px #f2e1ac6c);
+			}
 
-        .loading::after {
-            border-top: 10px solid #f2836b;
-            transform: rotate(240deg);
-            filter: drop-shadow(0 0 5px #f2836b6c);
-        }
+			.loading::after {
+				border-top: 10px solid #f2836b;
+				transform: rotate(240deg);
+				filter: drop-shadow(0 0 5px #f2836b6c);
+			}
 
-        .loading span {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            line-height: 200px;
-            text-align: center;
-            color: #fff;
-            animation: a2 2s linear infinite;
-            filter: blur(0px);
-        }
+			.loading span {
+				position: absolute;
+				width: 200px;
+				height: 200px;
+				line-height: 200px;
+				text-align: center;
+				color: #fff;
+				animation: a2 2s linear infinite;
+				filter: blur(0px);
+			}
 
-        @keyframes a1 {
-            to {
-                transform: rotate(360deg);
-            }
-        }
+			@keyframes a1 {
+				to {
+					transform: rotate(360deg);
+				}
+			}
 
-        @keyframes a2 {
-            to {
-                transform: rotate(-360deg);
-            }
-        }
-    </style>
-</head>
-<body>
-<div class="loading">
-    <span>拼命加载中</span>
-</div>
-</body>
+			@keyframes a2 {
+				to {
+					transform: rotate(-360deg);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="loading">
+			<span>拼命加载中</span>
+		</div>
+	</body>
 </html>

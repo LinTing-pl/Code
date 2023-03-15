@@ -1,60 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>数据碎片故障风科技背景动画特效</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-      }
-      canvas {
-        background-color: #000;
-      }
-    </style>
-  </head>
-  <body>
-    <canvas id="canvas"></canvas>
-  </body>
-  <script>
-    function init(t) {
-      t /= 4000;
-      let c = document.getElementById("canvas"),
-        cc = c.getContext("2d"),
-        w = (c.width = window.innerWidth),
-        h = (c.height = window.innerHeight),
-        increment = 20;
-      cc.globalCompositeOperation = "lightr";
-      for (let n = 0; n < 3; n++) {
-        if (n == 0) {
-          cc.fillStyle = "#f00";
-        }
-        if (n == 1) {
-          cc.fillStyle = "#0f0";
-        }
-        if (n == 2) {
-          cc.fillStyle = "#00f";
-        }
-        for (let i = 0; i < h; i += increment) {
-          for (let j = 0; j < w / 2; j += increment) {
-            let index = i * w + j;
-            cc.globalAlpha = Math.tan(index * index - t);
-            cc.fillRect(
-              Math.tan(i * j - Math.sin(index + n / 100) + t) * j +
-                w / 2 -
-                increment / 2,
-              i,
-              ((Math.tan(index + i / j + t + n / 100) / 2) * increment) / 2,
-              (Math.tan(index * index - t) * increment) / 2
-            );
-          }
-        }
-      }
-      requestAnimationFrame(init);
-    }
-    init();
-  </script>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>数据碎片故障风科技背景动画特效</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+			}
+			canvas {
+				background-color: #000;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas"></canvas>
+	</body>
+	<script>
+		function init(t) {
+			t /= 4000;
+			let c = document.getElementById("canvas"),
+				cc = c.getContext("2d"),
+				w = (c.width = window.innerWidth),
+				h = (c.height = window.innerHeight),
+				increment = 20;
+			cc.globalCompositeOperation = "lightr";
+			for (let n = 0; n < 3; n++) {
+				if (n == 0) {
+					cc.fillStyle = "#f00";
+				}
+				if (n == 1) {
+					cc.fillStyle = "#0f0";
+				}
+				if (n == 2) {
+					cc.fillStyle = "#00f";
+				}
+				for (let i = 0; i < h; i += increment) {
+					for (let j = 0; j < w / 2; j += increment) {
+						let index = i * w + j;
+						cc.globalAlpha = Math.tan(index * index - t);
+						cc.fillRect(
+							Math.tan(i * j - Math.sin(index + n / 100) + t) *
+								j +
+								w / 2 -
+								increment / 2,
+							i,
+							((Math.tan(index + i / j + t + n / 100) / 2) *
+								increment) /
+								2,
+							(Math.tan(index * index - t) * increment) / 2
+						);
+					}
+				}
+			}
+			requestAnimationFrame(init);
+		}
+		init(250);
+	</script>
 </html>

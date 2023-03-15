@@ -1,6 +1,6 @@
 @font-face {
   font-family: "iconfont"; /* Project id  */
-  src: url('iconfont.ttf?t=1676043798967') format('truetype');
+  src: url('iconfont.ttf?t=1677501883666') format('truetype');
 }
 
 .iconfont {
@@ -9,6 +9,22 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-jia:before {
+  content: "\f0154";
+}
+
+.icon-home2:before {
+  content: "\f0175";
+}
+
+.icon-gear:before {
+  content: "\e623";
+}
+
+.icon-bell:before {
+  content: "\e6ce";
 }
 
 .icon-jianqu:before {
@@ -23,12 +39,44 @@
   content: "\e6b1";
 }
 
+.icon-credit_card:before {
+  content: "\e64b";
+}
+
+.icon-shopping-bag:before {
+  content: "\e70e";
+}
+
 .icon-weihuzhong:before {
   content: "\e6af";
 }
 
+.icon-user-fill:before {
+  content: "\e7d5";
+}
+
+.icon-user-circle:before {
+  content: "\e860";
+}
+
+.icon-step-backward:before {
+  content: "\e8ef";
+}
+
+.icon-step-forward:before {
+  content: "\e8f0";
+}
+
 .icon-search:before {
   content: "\e741";
+}
+
+.icon-pause:before {
+  content: "\e622";
+}
+
+.icon-user:before {
+  content: "\e609";
 }
 
 .icon-confirm-circle:before {
@@ -39,7 +87,43 @@
   content: "\e718";
 }
 
+.icon-CreateUser:before {
+  content: "\e755";
+}
+
 .icon-add:before {
   content: "\e742";
+}
+
+.icon-heart-fill:before {
+  content: "\e67b";
+}
+
+.icon-envelope:before {
+  content: "\eb9c";
+}
+
+.icon-Home:before {
+  content: "\e771";
+}
+
+.icon-Comment:before {
+  content: "\e6a7";
+}
+
+.icon-Heart:before {
+  content: "\e6a8";
+}
+
+.icon-xiaoxi-fill:before {
+  content: "\e619";
+}
+
+.icon-playfill:before {
+  content: "\e669";
+}
+
+.icon-product-hunt:before {
+  content: "\ec18";
 }
 

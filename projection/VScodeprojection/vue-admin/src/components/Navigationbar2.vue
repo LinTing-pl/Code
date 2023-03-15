@@ -1,0 +1,149 @@
+<script setup lang="ts">
+import "../assets/iconfont/iconfont.js";
+</script>
+
+<template>
+	<div class="wrapper">
+		<nav>
+			<input checked id="home" name="tab" type="radio" />
+			<input id="comment" name="tab" type="radio" />
+			<input id="envelope" name="tab" type="radio" />
+			<input id="heart" name="tab" type="radio" />
+			<input id="user" name="tab" type="radio" />
+			<label class="home" for="home"
+				><a href="">
+					<svg aria-hidden="true" class="icon">
+						<use xlink:href="#icon-Home"></use>
+					</svg>
+					Home</a
+				></label
+			>
+			<label class="comment" for="comment"
+				><a href="">
+					<svg aria-hidden="true" class="icon">
+						<use xlink:href="#icon-Comment"></use>
+					</svg>
+					Com</a
+				></label
+			>
+			<label class="envelope" for="envelope"
+				><a href="">
+					<svg aria-hidden="true" class="icon">
+						<use xlink:href="#icon-Comment"></use>
+					</svg>
+					Env</a
+				></label
+			>
+			<label class="heart" for="heart"
+				><a href="">
+					<svg aria-hidden="true" class="icon">
+						<use xlink:href="#icon-Heart"></use>
+					</svg>
+					Heart</a
+				></label
+			>
+			<label class="user" for="user"
+				><a href="">
+					<svg aria-hidden="true" class="icon">
+						<use xlink:href="#icon-CreateUser"></use>
+					</svg>
+					User</a
+				></label
+			>
+			<div class="tab"></div>
+		</nav>
+	</div>
+</template>
+
+<style scoped>
+.icon {
+	width: 1em;
+	height: 1em;
+	vertical-align: -0.15em;
+	fill: currentColor;
+	overflow: hidden;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.wrapper {
+	width: 444px;
+	height: 60px;
+	line-height: 60px;
+	background-color: #fff;
+	box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
+	border-radius: 50px;
+}
+
+.wrapper nav {
+	display: flex;
+	position: relative;
+}
+
+.wrapper nav label {
+	flex: 1;
+	width: 100%;
+	position: relative;
+	z-index: 1;
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+.wrapper nav label a {
+	position: relative;
+	z-index: -1;
+	color: #333;
+	font-size: 15px;
+	font-weight: 500;
+	text-decoration: none;
+}
+
+.wrapper nav label a svg {
+	font-size: 25px;
+	margin: 0px 7px;
+}
+
+.wrapper nav input {
+	display: none;
+}
+
+.wrapper nav .tab {
+	position: absolute;
+	height: 100%;
+	width: 20%;
+	left: 0;
+	bottom: 0px;
+	background: linear-gradient(90deg, #f09819, #ff5858);
+	border-radius: 50px;
+	transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper nav #home:checked ~ label.home a,
+.wrapper nav #comment:checked ~ label.comment a,
+.wrapper nav #envelope:checked ~ label.envelope a,
+.wrapper nav #heart:checked ~ label.heart a,
+.wrapper nav #user:checked ~ label.user a {
+	color: #fff;
+	transition: all 0.6s;
+}
+
+.wrapper nav #comment:checked ~ .tab {
+	left: 20%;
+}
+
+.wrapper nav #envelope:checked ~ .tab {
+	left: 40%;
+}
+
+.wrapper nav #heart:checked ~ .tab {
+	left: 60%;
+}
+
+.wrapper nav #user:checked ~ .tab {
+	left: 80%;
+}
+</style>

@@ -1,23 +1,23 @@
-let ls = ["30 2"];
-let [n, m] = ls[0].split(" ").map((v) => +v);
-let res = [];
-dfs([]);
-console.log(res.length);
-function dfs(arr) {
-  if (arr.length === n) {
-    res.push(arr);
-    return;
-  }
-  for (let i = 1; i <= m; i++) {
-    if (i !== sum(arr)) {
-      dfs(arr.concat(i));
+const execute = async () => {
+  pool = [];
+  for (let i = 0; i < 10; i++) {
+    let pro = new Promise((resolve) => {
+      console.log("in");
+      setTimeout(() => {
+        resolve(1);
+      }, 3000);
+    });
+    pro.then((resp) => {
+      let index = pool.findIndex((v) => v === pro);
+      pool.splice(index);
+      console.log("then");
+    });
+    pool.push(pro);
+    if (pool.length === 2) {
+      console.log(pool.length, "before");
+      await Promise.race(pool);
+      console.log(pool.length, "after");
     }
   }
-}
-function sum(arr) {
-  let total = 0;
-  arr.map((v) => {
-    total += v;
-  });
-  return total;
-}
+};
+execute();

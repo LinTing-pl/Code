@@ -1,18 +1,29 @@
 <script setup lang="ts">
-import BMap from '../components/BMap.vue'
+import { defineAsyncComponent } from "vue";
+import Loading1 from "../components/loading/Loading1.vue";
+const Locationexample = defineAsyncComponent(
+	() => import("../components/viewscom/Locationexample.vue")
+);
 </script>
 
 <template>
-    <div class="content-container">
-        <BMap class="bm-view" ak="Ndu4iww5PUNFuDfy8RPoIG4EbWdGCPHI" center="大同">
-  </BMap>
-    </div>
+	<div class="content-container">
+		<Suspense>
+			<template #default><Locationexample></Locationexample></template>
+			<template #fallback><Loading1></Loading1></template>
+		</Suspense>
+	</div>
 </template>
 
 <style scoped lang="scss">
-.content-container{
-  height: 80vh;
-  margin: 20px 40px;
-  min-height: 350px;
+.content-container {
+	height: 80vh;
+	margin: 24px 40px;
+	min-height: 600px;
+	min-width: 900px;
+	background: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 </style>
