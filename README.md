@@ -1,7 +1,4 @@
 # projection 
-### MiniProgramprojection （小程序项目系列）
-- ptmini 兼职小程序（uniapp）
-### Pythonprojection （python项目系列）
 ### VScodeprojection （前端项目系列）
 - vue-admin （vue3全家桶开发的后台管理系统，线上演示地址：https://linting-pl.github.io/vue-admin/ ）
 - linting-index （vue2全家桶开发的内容管理系统）
@@ -12,6 +9,11 @@
 - ptadmin-nextjs （兼职小程序后台管理系统（React））
 - nextjs-blog （个人博客开发）
 - react-game （井字棋nextjs框架）
+### MiniProgramprojection （小程序项目系列）
+- ptmini （兼职小程序（uniapp））
+### Pythonprojection （python项目系列）
+- COVIDanalyse （2019年新冠病毒数据分析项目，数学建模项目）
+- SpyderTranslation （自制爬虫翻译软件）
 # Pycharm code
 - python的一些小代码
 # VS code
