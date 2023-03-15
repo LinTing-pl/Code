@@ -1,7 +1,7 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 const router = createRouter({
   // 指定路由模式
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   // 路由地址
   routes: [
     {
